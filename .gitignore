@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/
+*.pyc
+TheHive4py/*.pyc
+TheHive4py/get_case.py
+TheHive4py/th2misp.py
+TheHive4py/thehive_config.py
