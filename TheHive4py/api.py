@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 import json
 import os
 import re
+import warnings
+
+try:
+    import requests
+except Exception as excp:
+    warnings.warn("requests library is non installed")
 
 
-
-class theHive():
-
+class TheHiveApi():
 
     """
         Python API for TheHive
@@ -17,7 +20,6 @@ class theHive():
         :param url: thehive URL
         :param username: username
         :param password: password
-
     """
 
     def __init__(self, url, username, password):
@@ -25,37 +27,42 @@ class theHive():
         self.url = url
         self.username = username
         self.password = password
-        try:
-            import requests
-            self.session = requests.Session()
-            self.auth = requests.auth.HTTPBasicAuth(username=self.username,
-                                                    password=self.password)
-        except Exception as excp:
-            return "requests library is non installed"
+        self.session = requests.Session()
+        self.auth = requests.auth.HTTPBasicAuth(username=self.username,
+                                                password=self.password)
 
+    def create_case(self, case):
+        req = self.url + "/api/case"
+        data = case.__dict__
+        return self.session.post(req, headers={'Content-Type': 'application/json'}, json=data, auth=self.auth)
 
+    def get_case(self, id):
+        req = self.url + "/api/case/{}".format(id)
 
-    def get_case(self, caseId):
-        path = "/api/case/"+caseId
-        req = self.url+path
         return self.session.get(req, auth=self.auth)
 
-    def get_case_observables(self, caseId):
-        path = "/api/case/artifact/_search"
-        req = self.url+ path
+    def get_case_observables(self, id):
+        req = self.url + "/api/case/artifact/_search"
         data = {
-                "query": {
-                    "_and": [{
-                        "_parent": {
-                            "_type": "case",
-                            "_query": {
-                                "_id": caseId
-                            }
+            "query": {
+                "_and": [{
+                    "_parent": {
+                        "_type": "case",
+                        "_query": {
+                            "_id": id
                         }
-                    }, {
-                        "status": "Ok"
-                    }]
-                }
+                    }
+                }, {
+                    "status": "Ok"
+                }]
             }
+        }
 
         return self.session.post(req, json=data, auth=self.auth)
+
+
+# - createCase()
+# - createTask()
+# - addLog()
+# - addObservable(file)
+# - addObservable(data)
