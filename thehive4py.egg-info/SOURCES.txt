@@ -1,9 +1,0 @@
-setup.py
-thehive4py/__init__.py
-thehive4py/api.py
-thehive4py/models.py
-thehive4py.egg-info/PKG-INFO
-thehive4py.egg-info/SOURCES.txt
-thehive4py.egg-info/dependency_links.txt
-thehive4py.egg-info/requires.txt
-thehive4py.egg-info/top_level.txt
