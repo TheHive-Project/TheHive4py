@@ -6,3 +6,6 @@ thehive4py/*.pyc
 thehive4py/get_case.py
 thehive4py/th2misp.py
 thehive4py/thehive_config.py
+dist/
+build/
+*.egg-info
