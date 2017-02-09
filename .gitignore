@@ -2,7 +2,7 @@
 .gitignore
 .idea/
 *.pyc
-TheHive4py/*.pyc
-TheHive4py/get_case.py
-TheHive4py/th2misp.py
-TheHive4py/thehive_config.py
+thehive4py/*.pyc
+thehive4py/get_case.py
+thehive4py/th2misp.py
+thehive4py/thehive_config.py

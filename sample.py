@@ -1,40 +1,62 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import requests
-import json
-from TheHive4py.api import TheHiveApi
-from TheHive4py.models import Case, CaseTask
+from __future__ import print_function
+from __future__ import unicode_literals
 
-api = TheHiveApi('http://localhost:9000', 'user', 'password')
+import requests
+import sys
+import json
+import time
+from thehive4py.api import TheHiveApi
+from thehive4py.models import Case, CaseTask
+
+api = TheHiveApi('http://localhost:9000', 'nabil', 'password')
 
 
 # Prepare the sample case
 tasks = [
     CaseTask(title='Tracking'),
-    CaseTask(title='Communication')
+    CaseTask(title='Communication'),
+    CaseTask(title='Investigation', status='InProgress', flag=True, owner='nabil', startDate=int(time.time())*1000)
 ]
-tasks = []
-case = Case(title='From TheHive4Py', tlp=3, flag=True, tags=['thehive4py', 'sample'], description='N/A', tasks=tasks)
+# tasks = []
+case = Case(title='From TheHive4Py', tlp=3, flag=True, tags=['TheHive4Py', 'sample'], description='N/A', tasks=tasks)
 
 # Create the case
 print('Create Case')
 print('-----------------------------')
 id = None
 response = api.create_case(case)
-if(response.status_code == 200 or response.status_code == 201):
-    print json.dumps(response.json(), indent=4, sort_keys=True)
+if(response.status_code == 201):
+    print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
     id = response.json()['id']
 else:
     print('ko: {}/{}'.format(response.status_code, response.text))
+    sys.exit(0)
 
 # Get all the details of the created case
 print('Get created case {}'.format(id))
 print('-----------------------------')
 response = api.get_case(id)
 if(response.status_code == requests.codes.ok):
-    print json.dumps(response.json(), indent=4, sort_keys=True)
+    print(json.dumps(response.json(), indent=4, sort_keys=True))
+    print('')
+else:
+    print('ko: {}/{}'.format(response.status_code, response.text))
+
+# Add a new task to the created case
+print('Add a task {}'.format(id))
+print('-----------------------------')
+response = api.create_case_task(id, CaseTask(
+    title='Yet Another Task',
+    status='InProgress',
+    owner='nabil',
+    flag=True,
+    startDate=int(time.time())*1000))
+if(response.status_code == 201):
+    print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
 else:
     print('ko: {}/{}'.format(response.status_code, response.text))
