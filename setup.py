@@ -6,7 +6,7 @@ setup(
     name='thehive4py',
     version='1.0.0',
     description='Python API for TheHive.',
-    long_description=open('README.MD').read(),
+    long_description=open('README.md').read(),
     author='TheHive-Project',
     author_email='support@thehive-project.org',
     maintainer='TheHive-Project',
