@@ -46,3 +46,7 @@ class CaseTask(JSONSerializable):
         self.description = attributes['description'] if attributes.get('description') else None
         self.owner = attributes['owner'] if attributes.get('owner') else None
         self.startDate = attributes['startDate'] if attributes.get('startDate') else None
+
+class CaseTaskLog(JSONSerializable):
+    def __init__(self, **attributes):
+        self.message = attributes['message'] if            attributes.get('message') else None
