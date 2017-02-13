@@ -41,6 +41,11 @@ class TheHiveApi():
         data = caseTask.jsonify()
         return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, auth=self.auth)
 
+    def create_task_log(self, taskId, caseTaskLog):
+        req = self.url + "/api/case/task/{}/log".format(taskId)
+        data = caseTaskLog.jsonify()
+        return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, auth=self.auth)
+
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
 
