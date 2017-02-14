@@ -34,7 +34,7 @@ class Case(JSONSerializable):
 
         self.tasks = attributes['tasks'] if attributes.get('tasks') else []
         self.metrics = attributes['metrics'] if attributes.get('metrics') else {}
-        self.startDate = attributes['startDate'] if attributes.get('startDate') else int(time.time())
+        self.startDate = attributes['startDate'] if attributes.get('startDate') else int(time.time())*1000
 
 
 class CaseTask(JSONSerializable):
