@@ -35,23 +35,40 @@ class TheHiveApi():
     def create_case(self, case):
         req = self.url + "/api/case"
         data = case.jsonify()
-        return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+        try:
+            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
 
     def create_case_task(self, id, caseTask):
         req = self.url + "/api/case/{}/task".format(id)
         data = caseTask.jsonify()
-        return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+
+        try:
+            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
 
     def create_task_log(self, taskId, caseTaskLog):
         req = self.url + "/api/case/task/{}/log".format(taskId)
         data = caseTaskLog.jsonify()
-        return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+
+        try:
+            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
 
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
 
-        return self.session.get(req, proxies=self.proxies, auth=self.auth)
-
+        try:
+            return self.session.get(req, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+            
     def get_case_observables(self, id):
         req = self.url + "/api/case/artifact/_search"
         data = {
@@ -69,8 +86,11 @@ class TheHiveApi():
             }
         }
 
-        return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
-
+        try:
+            return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+            
 
 # - createCase()
 # - createTask()
