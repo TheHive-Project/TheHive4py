@@ -44,7 +44,7 @@ class Case(JSONSerializable):
                 'flag': template.flag,
                 'tags': template.tags,
                 'startDate': int(time.time()) * 1000,
-                #'metric': template.metric,
+                'metrics': dict((el, None) for el in template.metricNames),
                 'tasks': template.tasks
             }
 
@@ -62,7 +62,7 @@ class Case(JSONSerializable):
         self.flag = attributes.get('flag', defaults['flag'])
         self.tags = attributes.get('tags', defaults['tags'])
         self.startDate = attributes.get('startDate', defaults['startDate'])
-        self.metrics = attributes.get('metrics', {})
+        self.metrics = attributes.get('metrics', defaults['metrics'])
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []

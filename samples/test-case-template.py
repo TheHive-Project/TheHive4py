@@ -23,7 +23,7 @@ print('')
 
 print('Create case from template')
 print('-----------------------------')
-case = Case(title='From TheHive4Py based on Phishing template', description='N/A', tlp=3, template=caseTemplate)
+case = Case(title='From TheHive4Py based on Phishing template', description='N/A', tlp=2, template=caseTemplate)
 print(case.jsonify())
 
 print('Create Case')
