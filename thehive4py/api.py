@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
-import os
-import re
+import sys
 import warnings
 
 try:
@@ -40,7 +38,6 @@ class TheHiveApi():
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
-
     def create_case_task(self, id, caseTask):
         req = self.url + "/api/case/{}/task".format(id)
         data = caseTask.jsonify()
@@ -50,7 +47,6 @@ class TheHiveApi():
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
-
     def create_task_log(self, taskId, caseTaskLog):
         req = self.url + "/api/case/task/{}/log".format(taskId)
         data = caseTaskLog.jsonify()
@@ -59,7 +55,6 @@ class TheHiveApi():
             return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
-
 
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
@@ -88,6 +83,30 @@ class TheHiveApi():
 
         try:
             return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def get_case_template(self, name):
+        req = self.url + "/api/case/template/_search"
+        data = {
+            "query": {
+                "_and": [{
+                    "_field": "name",
+                    "_value": name
+                }, {
+                    "status": "Ok"
+                }]
+            }
+        }
+
+        try:
+            response = self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            jsonResponse = response.json()
+
+            if response.status_code == 200 and len(jsonResponse) > 0:
+                return response.json()[0]
+            else:
+                sys.exit("Error: {}".format("Unable to find case templates"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
             

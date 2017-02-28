@@ -11,14 +11,14 @@ import time
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTask
 
-api = TheHiveApi('http://localhost:9000', 'nabil', 'password')
+api = TheHiveApi('http://localhost:9000', 'nabil', 'password', {'http': '', 'https': ''})
 
 
 # Prepare the sample case
 tasks = [
     CaseTask(title='Tracking'),
     CaseTask(title='Communication'),
-    CaseTask(title='Investigation', status='InProgress', flag=True, owner='nabil', startDate=int(time.time())*1000)
+    CaseTask(title='Investigation', status='Waiting', flag=True)
 ]
 # tasks = []
 case = Case(title='From TheHive4Py', tlp=3, flag=True, tags=['TheHive4Py', 'sample'], description='N/A', tasks=tasks)
