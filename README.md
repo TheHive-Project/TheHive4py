@@ -5,4 +5,5 @@ Python library for TheHive
 
 ```
 python setup.py install
+pip install -e .
 ```
