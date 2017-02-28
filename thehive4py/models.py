@@ -51,7 +51,10 @@ class Case(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
 
-        self.title = '[{}] {}'.format(template.titlePrefix, attributes.get('title', None)) if is_from_template else attributes.get('title', None)
+        if is_from_template:
+            self.title = '[{}] {}'.format(template.titlePrefix, attributes.get('title', None)) if template.titlePrefix else attributes.get('title', None)
+        else:
+            self.title = attributes.get('title', None)
 
         self.description = attributes.get('description', defaults['description'])
         self.tlp = attributes.get('tlp', defaults['tlp'])
