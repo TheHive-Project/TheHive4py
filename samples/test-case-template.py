@@ -9,7 +9,7 @@ import json
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTemplate
 
-api = TheHiveApi('http://localhost:9000', 'nabil', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://<thehive_url>:9000', 'username', 'password', {'http': '', 'https': ''})
 
 # Get the template by it's name
 print('Fetch case template')
@@ -23,7 +23,7 @@ print('')
 
 print('Create case from template')
 print('-----------------------------')
-case = Case(title='From TheHive4Py based on Phishing template', description='N/A', tlp=2, template=caseTemplate)
+case = Case(title='From TheHive4Py based on the Phishing template', description='N/A', tlp=2, template=caseTemplate)
 print(case.jsonify())
 
 print('Create Case')
