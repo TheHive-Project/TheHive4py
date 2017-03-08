@@ -9,3 +9,4 @@ thehive4py/thehive_config.py
 dist/
 build/
 *.egg-info
+build.sh
