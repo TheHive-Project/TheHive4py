@@ -13,10 +13,13 @@ Please note that a new version of TheHive will be released by the end of April /
 When the connector framework is published, TheHive authors may not maintain TheHive4py on the long run but since it is a FOSS, the community can fork it and enhance it the way they see fit. Pull requests will be reviewed by TheHive core team and accepted if they are OK.
 
 # Use It
+On macOS and Linux, type:
+```
+sudo pip install thehive4py
+```
 
-```
-pip install thehive4py
-```
+If you are using Python on a Windows operating system, please forgo the `sudo` command.
+
 # License
 TheHive4py is an open source and free software released under the [AGPL](https://github.com/CERT-BDF/TheHive/blob/master/LICENSE) (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.
 
