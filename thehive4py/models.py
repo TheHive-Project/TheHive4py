@@ -29,7 +29,7 @@ class Case(JSONSerializable):
             'flag': False,
             'tags': [],
             'startDate': int(time.time()) * 1000,
-            'metric': {},
+            'metrics': {},
             'tasks': []
         }
 
