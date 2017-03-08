@@ -15,8 +15,7 @@ When the connector framework is published, TheHive authors may not maintain TheH
 # Use It
 
 ```
-python setup.py install
-pip install -e .
+pip install thehive4py
 ```
 # License
 TheHive4py is an open source and free software released under the [AGPL](https://github.com/CERT-BDF/TheHive/blob/master/LICENSE) (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.
