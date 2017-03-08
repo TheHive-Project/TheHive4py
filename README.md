@@ -1,16 +1,12 @@
 
-![](images/thehive-logo.png)
+![](https://thehive-project.org/img/logo.png)
 # TheHive4py
 TheHive4py is a Python API client for [TheHive](https://thehive-project.org/), a scalable 3-in-1 open source and free security incident response platform designed to make life easier for SOCs, CSIRTs, CERTs and any information security practitioner dealing with security incidents that need to be investigated and acted upon swiftly.
 
-TheHive4py allows analysts to create cases out of different sources such as email. For example, the SOC may ask its constituency to send suspicious email reports to a specific mailbox that a script may poll at regular intervals. When a new email is received, the script will parse it then call TheHive4py to create the case in TheHive. Analysts will be informed that a new case has been created through TheHive's Flow and start their investigation right away.
+TheHive4py allows analysts to create cases out of different sources such as email. For example, a SOC may ask its constituency to send suspicious email reports to a specific mailbox that a script polls at regular intervals. When a new email is received, the script parses it then calls TheHive4py to create a corresponding case in TheHive. Once the case has been created, SOC analysts will get a notification thanks to TheHive's Flow so they can start investigating the new case.
 
 # Caution - WIP
-TheHive4py is a work-in-progress. TheHive authors use it on a regular basis and features will be added as the need arise.
-
-Please note that a new version of TheHive will be released by the end of April / beginning of May 2017 and it will feature a Scala connector framework to handle alerts, which translate to cases if analysts deem them worth investigating, in a more generic and resilient fashion. The connector framework will allow SOCs and CERTs to interface TheHive with SIEMs, email and other services.
-
-When the connector framework is published, TheHive authors may not maintain TheHive4py on the long run but since it is a FOSS, the community can fork it and enhance it the way they see fit. Pull requests will be reviewed by TheHive core team and accepted if they are OK.
+TheHive4py is a work in progress. It is considered *beta* software though we are using it on a regular basis for the use case outlined above. The client doesn't leverage yet the richness of TheHive's REST API (which is [partially documented](https://github.com/CERT-BDF/TheHive/wiki/API%20documentation)) but it should be sufficient in most situations. If not, please feel free to contribute and submit pull requests or [request missing features](https://github.com/CERT-BDF/TheHive4py/issues/new) if you are not comfortable with Python.
 
 # Use It
 On macOS and Linux, type:
