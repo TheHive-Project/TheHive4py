@@ -89,7 +89,11 @@ class CaseTask(JSONSerializable):
 
 class CaseTaskLog(JSONSerializable):
     def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
         self.message = attributes.get('message', None)
+        self.file = attributes.get('file', None)
 
 
 class CaseTemplate(JSONSerializable):

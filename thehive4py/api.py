@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import warnings
+import json
+import magic
 
 try:
     import requests
@@ -48,13 +51,25 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
     def create_task_log(self, taskId, caseTaskLog):
+        self.proxies = {
+            'http':'http://localhost:8080'
+        }
         req = self.url + "/api/case/task/{}/log".format(taskId)
-        data = caseTaskLog.jsonify()
+        data = {'_json': json.dumps({"message":caseTaskLog.message})}
 
-        try:
-            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
-        except requests.exceptions.RequestException as e:
-            sys.exit("Error: {}".format(e))
+        if caseTaskLog.file:
+            f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
+            try:
+                return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
+                print response.status_code
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
+
+        else:
+            try:
+                return self.session.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth)
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
 
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
@@ -63,7 +78,7 @@ class TheHiveApi():
             return self.session.get(req, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
-            
+
     def get_case_observables(self, id):
         req = self.url + "/api/case/artifact/_search"
         data = {
@@ -109,7 +124,7 @@ class TheHiveApi():
                 sys.exit("Error: {}".format("Unable to find case templates"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
-            
+
 
 # - createCase()
 # - createTask()
