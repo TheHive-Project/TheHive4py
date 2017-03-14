@@ -61,7 +61,6 @@ class TheHiveApi():
             f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
             try:
                 return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
-                print response.status_code
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
