@@ -70,6 +70,11 @@ class TheHiveApi():
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
+
+    def create_case_observable(self, taskId, CaseObservable):
+        
+
+
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
 
@@ -125,8 +130,7 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
 
-# - createCase()
-# - createTask()
-# - addLog()
+
+
 # - addObservable(file)
 # - addObservable(data)
