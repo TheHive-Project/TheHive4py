@@ -117,3 +117,17 @@ class CaseTemplate(JSONSerializable):
                 self.tasks.append(task)
             else:
                 self.tasks.append(CaseTask(json=task))
+
+class CaseObservable(JSONSerializable):
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+        if self.file:
+            self.file = attributes.get('file', None)
+            self.dataType = "file"
+        else:
+            self.data = attributes.get('data', [])
+            self.dataType = attributes.get('dataType', None)
+        self.message = attributes.get('message', None)
+        self.tlp = attributes.get('tlp', 2)
+        self.tags = attributes.get('tags', [])
