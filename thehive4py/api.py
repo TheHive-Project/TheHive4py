@@ -78,7 +78,7 @@ class TheHiveApi():
             "dataType": caseObservable.dataType}
         print(obs)
         if caseObservable.file:
-            f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseObservable.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
+            f = {'attachment': ( os.path.basename(caseObservable.file), open(caseObservable.file, 'rb'), magic.Magic(mime=True).from_file(caseObservable.file))}
             try:
                 data = json.dumps(obs)
                 return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
