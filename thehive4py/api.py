@@ -51,9 +51,6 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
     def create_task_log(self, taskId, caseTaskLog):
-        self.proxies = {
-            'http':'http://localhost:8080'
-        }
         req = self.url + "/api/case/task/{}/log".format(taskId)
         data = {'_json': json.dumps({"message":caseTaskLog.message})}
 
@@ -69,6 +66,36 @@ class TheHiveApi():
                 return self.session.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
+
+
+    def create_case_observable(self, caseId, caseObservable):
+
+
+        req = self.url + "/api/case/{}/artifact".format(caseId)
+        obs = {"message":caseObservable.message,        "ioc":caseObservable.ioc,
+            "tlp":caseObservable.tlp,
+            "tags":caseObservable.tags,
+            "dataType": caseObservable.dataType}
+        print(obs)
+        if caseObservable.file:
+            f = {'attachment': ( os.path.basename(caseObservable.file), open(caseObservable.file, 'rb'), magic.Magic(mime=True).from_file(caseObservable.file))}
+            try:
+                data = json.dumps(obs)
+                return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
+            except requests.exceptions.RequestException as e:
+                    sys.exit("Error: {}".format(e))
+        else:
+            try:
+                obs['data'] = []
+                obs['data'].append(caseObservable.data)
+                data = json.dumps(obs)
+                return self.session.post(req,headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            except requests.exceptions.RequestException as e:
+                    sys.exit("Error: {}".format(e))
+
+
+
+
 
     def get_case(self, id):
         req = self.url + "/api/case/{}".format(id)
@@ -125,8 +152,7 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
 
-# - createCase()
-# - createTask()
-# - addLog()
+
+
 # - addObservable(file)
 # - addObservable(data)
