@@ -123,7 +123,6 @@ class CaseObservable(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
         self.file = attributes.get('file', None)
-        self.dataType = "file"
         self.data = attributes.get('data', [])
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
