@@ -34,6 +34,14 @@ class TheHiveApi():
                                                 password=self.password)
 
     def create_case(self, case):
+
+        """
+        :param case: TheHive case
+        :type case: Case defined in models.py
+        :return: TheHive case
+        :rtype: json
+        """
+
         req = self.url + "/api/case"
         data = case.jsonify()
         try:
@@ -41,8 +49,18 @@ class TheHiveApi():
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
-    def create_case_task(self, id, caseTask):
-        req = self.url + "/api/case/{}/task".format(id)
+    def create_case_task(self, caseId, caseTask):
+
+        """
+        :param caseId: Case identifier
+        :param caseTask: TheHive task
+        :type caseTask: CaseTask defined in models.py
+        :return: TheHive task
+        :rtype: json
+
+        """
+
+        req = self.url + "/api/case/{}/task".format(caseId)
         data = caseTask.jsonify()
 
         try:
@@ -51,6 +69,15 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
     def create_task_log(self, taskId, caseTaskLog):
+
+        """
+        :param taskId: Task identifier
+        :param caseTaskLog: TheHive log
+        :type caseTaskLog: CaseTaskLog defined in models.py
+        :return: TheHive log
+        :rtype: json
+        """
+
         req = self.url + "/api/case/task/{}/log".format(taskId)
         data = {'_json': json.dumps({"message":caseTaskLog.message})}
 
@@ -69,6 +96,14 @@ class TheHiveApi():
 
 
     def create_case_observable(self, caseId, caseObservable):
+
+        """
+        :param caseId: Case identifier
+        :param caseObservable: TheHive observable
+        :type caseObservable: CaseObservable defined in models.py
+        :return: TheHive observable
+        :rtype: json
+        """
 
         req = self.url + "/api/case/{}/artifact".format(caseId)
 
@@ -89,15 +124,28 @@ class TheHiveApi():
 
 
 
-    def get_case(self, id):
-        req = self.url + "/api/case/{}".format(id)
+    def get_case(self, caseId):
+
+        """
+        :param caseId: Case identifier
+        :return: TheHive case
+        :rtype: json
+        """
+        req = self.url + "/api/case/{}".format(caseId)
 
         try:
             return self.session.get(req, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
-    def get_case_observables(self, id):
+    def get_case_observables(self, caseId):
+
+        """
+        :param caseId: Case identifier
+        :return: list of observables
+        ;rtype: json
+        """
+
         req = self.url + "/api/case/artifact/_search"
         data = {
             "query": {
@@ -105,7 +153,7 @@ class TheHiveApi():
                     "_parent": {
                         "_type": "case",
                         "_query": {
-                            "_id": id
+                            "_id": caseId
                         }
                     }
                 }, {
@@ -120,6 +168,14 @@ class TheHiveApi():
             sys.exit("Error: {}".format(e))
 
     def get_case_template(self, name):
+
+        """
+        :param name: Case template name
+        :return: TheHive case template
+        :rtype: json
+
+        """
+
         req = self.url + "/api/case/template/_search"
         data = {
             "query": {
