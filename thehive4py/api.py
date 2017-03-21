@@ -70,26 +70,18 @@ class TheHiveApi():
 
     def create_case_observable(self, caseId, caseObservable):
 
-
         req = self.url + "/api/case/{}/artifact".format(caseId)
-        obs = {"message":caseObservable.message,        "ioc":caseObservable.ioc,
-            "tlp":caseObservable.tlp,
-            "tags":caseObservable.tags,
-            "dataType": caseObservable.dataType}
-        print(obs)
-        if caseObservable.file:
-            f = {'attachment': ( os.path.basename(caseObservable.file), open(caseObservable.file, 'rb'), magic.Magic(mime=True).from_file(caseObservable.file))}
+
+        if caseObservable.dataType == 'file':
+            f = {'attachment': ( os.path.basename(caseObservable.data[0]), open(caseObservable.data[0], 'rb'), magic.Magic(mime=True).from_file(caseObservable.data[0]))}
             try:
-                data = json.dumps(obs)
+                data = {"_json": caseObservable.jsonify()}
                 return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
         else:
             try:
-                obs['data'] = []
-                obs['data'].append(caseObservable.data)
-                data = json.dumps(obs)
-                return self.session.post(req,headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+                return self.session.post(req,headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
 
@@ -150,9 +142,3 @@ class TheHiveApi():
                 sys.exit("Error: {}".format("Unable to find case templates"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
-
-
-
-
-# - addObservable(file)
-# - addObservable(data)
