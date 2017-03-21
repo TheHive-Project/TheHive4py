@@ -122,10 +122,18 @@ class CaseObservable(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
-        self.file = attributes.get('file', None)
         self.data = attributes.get('data', [])
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
+
+    def jsonify(self):
+        if self.dataType == 'file':
+            tobs = json.dumps(self,sort_keys=True, indent=4, cls=CustomJsonEncoder)
+            j = json.loads(tobs)
+            j.pop('data')
+            return json.dumps(j,sort_keys=True, indent=4, cls=CustomJsonEncoder)
+        else:
+            return json.dumps(self,sort_keys=True, indent=4, cls=CustomJsonEncoder)
