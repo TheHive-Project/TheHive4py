@@ -3,6 +3,8 @@
 
 import json
 import time
+import os
+import magic
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -122,18 +124,15 @@ class CaseObservable(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
-        self.data = attributes.get('data', [])
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
 
-    def jsonify(self):
+        data = attributes.get('data', [])
         if self.dataType == 'file':
-            tobs = json.dumps(self,sort_keys=True, indent=4, cls=CustomJsonEncoder)
-            j = json.loads(tobs)
-            j.pop('data')
-            return json.dumps(j,sort_keys=True, indent=4, cls=CustomJsonEncoder)
+
+            self.data = [{'attachment': ( os.path.basename(data[0]), open(data[0], 'rb'), magic.Magic(mime=True).from_file(data[0]))}]
         else:
-            return json.dumps(self,sort_keys=True, indent=4, cls=CustomJsonEncoder)
+            self.data = data
