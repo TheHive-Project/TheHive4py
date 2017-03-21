@@ -108,10 +108,15 @@ class TheHiveApi():
         req = self.url + "/api/case/{}/artifact".format(caseId)
 
         if caseObservable.dataType == 'file':
-            f = {'attachment': ( os.path.basename(caseObservable.data[0]), open(caseObservable.data[0], 'rb'), magic.Magic(mime=True).from_file(caseObservable.data[0]))}
             try:
-                data = {"_json": caseObservable.jsonify()}
-                return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
+                mesg = json.dumps({ "dataType": caseObservable.dataType,
+                    "message": caseObservable.message,
+                    "tlp": caseObservable.tlp,
+                    "tags": caseObservable.tags,
+                    "ioc": caseObservable.ioc
+                    })
+                data = {"_json": mesg}
+                return self.session.post(req, data=data,files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
         else:
