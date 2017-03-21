@@ -94,7 +94,6 @@ class TheHiveApi():
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
-
     def create_case_observable(self, caseId, caseObservable):
 
         """
@@ -125,21 +124,43 @@ class TheHiveApi():
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
 
-
-
-
-
     def get_case(self, caseId):
-
         """
-        :param caseId: Case identifier
-        :return: TheHive case
-        :rtype: json
+            :param caseId: Case identifier
+            :return: TheHive case
+            :rtype: json
         """
         req = self.url + "/api/case/{}".format(caseId)
 
         try:
             return self.session.get(req, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def find_cases(self, **attributes):
+
+        """
+            :param caseId: Case identifier
+            :return: list of observables
+            ;rtype: json
+        """
+        req = self.url + "/api/case/_search"
+
+        # Add range and sort parameters
+        params = {
+            "range": attributes.get("range", "all"),
+            "sort": attributes.get("sort", [])
+        }
+
+        # Add body
+        data = {
+            "query": attributes.get("query", "any")
+        }
+
+        print(data)
+
+        try:
+            return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -203,3 +224,7 @@ class TheHiveApi():
                 sys.exit("Error: {}".format("Unable to find case templates"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
+
+
+# - addObservable(file)
+# - addObservable(data)
