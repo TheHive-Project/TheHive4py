@@ -3,6 +3,8 @@
 
 import json
 import time
+import os
+import magic
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -89,7 +91,11 @@ class CaseTask(JSONSerializable):
 
 class CaseTaskLog(JSONSerializable):
     def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
         self.message = attributes.get('message', None)
+        self.file = attributes.get('file', None)
 
 
 class CaseTemplate(JSONSerializable):
@@ -113,3 +119,20 @@ class CaseTemplate(JSONSerializable):
                 self.tasks.append(task)
             else:
                 self.tasks.append(CaseTask(json=task))
+
+class CaseObservable(JSONSerializable):
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+        self.dataType = attributes.get('dataType', None)
+        self.message = attributes.get('message', None)
+        self.tlp = attributes.get('tlp', 2)
+        self.tags = attributes.get('tags', [])
+        self.ioc = attributes.get('ioc', False)
+
+        data = attributes.get('data', [])
+        if self.dataType == 'file':
+
+            self.data = [{'attachment': ( os.path.basename(data[0]), open(data[0], 'rb'), magic.Magic(mime=True).from_file(data[0]))}]
+        else:
+            self.data = data

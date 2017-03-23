@@ -11,7 +11,7 @@ import time
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTask
 
-api = TheHiveApi('http://<thehive_url>:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
 
 
 # Prepare the sample case
@@ -28,7 +28,7 @@ print('Create Case')
 print('-----------------------------')
 id = None
 response = api.create_case(case)
-if(response.status_code == 201):
+if response.status_code == 201:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
     id = response.json()['id']
@@ -40,7 +40,7 @@ else:
 print('Get created case {}'.format(id))
 print('-----------------------------')
 response = api.get_case(id)
-if(response.status_code == requests.codes.ok):
+if response.status_code == requests.codes.ok:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
 else:
@@ -55,7 +55,7 @@ response = api.create_case_task(id, CaseTask(
     owner='nabil',
     flag=True,
     startDate=int(time.time())*1000))
-if(response.status_code == 201):
+if response.status_code == 201:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
 else:

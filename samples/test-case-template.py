@@ -9,7 +9,7 @@ import json
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTemplate
 
-api = TheHiveApi('http://<thehive_url>:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
 
 # Get the template by it's name
 print('Fetch case template')
