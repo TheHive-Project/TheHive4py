@@ -27,12 +27,12 @@ def search(title, query, range, sort):
 search("List Amber cases", {"_field": "tlp", "_value": 2}, 'all', [])
 search("List White cases",
        {
-            "_in": {
-                "_field": "tlp",
-                "_values": ["1", "3"]
-            }
-        },
+           "_in": {
+               "_field": "tlp",
+               "_values": ["1", "3"]
+           }
+       },
        'all',
        ['+tlp']
-)
+       )
 search("Case of title containing 'TheHive4Py'", {"_string": "title:'TheHive4Py'"}, 'all', [])

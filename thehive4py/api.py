@@ -13,7 +13,7 @@ except Exception as excp:
     warnings.warn("requests library is non installed")
 
 
-class TheHiveApi():
+class TheHiveApi:
 
     """
         Python API for TheHive
@@ -115,12 +115,12 @@ class TheHiveApi():
                     "ioc": caseObservable.ioc
                     })
                 data = {"_json": mesg}
-                return self.session.post(req, data=data,files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
+                return self.session.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
         else:
             try:
-                return self.session.post(req,headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
+                return self.session.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
 
@@ -140,7 +140,6 @@ class TheHiveApi():
     def find_cases(self, **attributes):
 
         """
-            :param caseId: Case identifier
             :return: list of observables
             ;rtype: json
         """
