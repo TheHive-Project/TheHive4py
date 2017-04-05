@@ -238,7 +238,7 @@ class TheHiveApi:
         try:
             response = self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
             if response.status_code == 200 and len(response.json()) > 0:
-                return response.json()[0]
+                return response.json()
             else:
                 sys.exit("Error: {}".format("Unable to find tasks"))
         except requests.exceptions.RequestException as e:
