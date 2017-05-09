@@ -120,6 +120,7 @@ class CaseTemplate(JSONSerializable):
             else:
                 self.tasks.append(CaseTask(json=task))
 
+
 class CaseObservable(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
@@ -132,7 +133,49 @@ class CaseObservable(JSONSerializable):
 
         data = attributes.get('data', [])
         if self.dataType == 'file':
-
-            self.data = [{'attachment': ( os.path.basename(data[0]), open(data[0], 'rb'), magic.Magic(mime=True).from_file(data[0]))}]
+            self.data = [{'attachment': (os.path.basename(data[0]), open(data[0], 'rb'), magic.Magic(mime=True).from_file(data[0]))}]
         else:
             self.data = data
+
+
+class Alert(JSONSerializable):
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
+        self.tlp = attributes.get('tlp', 2)
+        self.severity = attributes.get('severity', 2)
+        self.type = attributes.get('type', None)
+        self.source = attributes.get('source', None)
+        self.sourceRef = attributes.get('sourceRef', None)
+        self.title = attributes.get('title', None)
+        self.description = attributes.get('description', None)
+        self.follow = attributes.get('follow', True)
+        self.tags = attributes.get('tags', [])
+        self.caseTemplate = attributes.get('caseTemplate', [])
+        self.date = attributes.get('date', int(time.time()) * 1000)
+        self.lastSyncDate = attributes.get('lastSyncDate', self.date)
+
+        artifacts = attributes.get('artifacts', [])
+        self.artifacts = []
+        for artifact in artifacts:
+            if type(artifact) == AlertArtifact:
+                self.artifacts.append(artifact)
+            else:
+                self.artifacts.append(AlertArtifact(json=artifact))
+
+
+class AlertArtifact(JSONSerializable):
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
+        self.dataType = attributes.get('dataType', None)
+        self.message = attributes.get('message', None)
+        self.tlp = attributes.get('tlp', 2)
+        self.tags = attributes.get('tags', [])
+
+        if self.dataType == 'file':
+            sys.exit(0)
+        else:
+            self.data = attributes.get('data', [])
