@@ -152,9 +152,10 @@ class Alert(JSONSerializable):
         self.description = attributes.get('description', None)
         self.follow = attributes.get('follow', True)
         self.tags = attributes.get('tags', [])
-        self.caseTemplate = attributes.get('caseTemplate', [])
+        self.caseTemplate = attributes.get('caseTemplate', None)
         self.date = attributes.get('date', int(time.time()) * 1000)
         self.lastSyncDate = attributes.get('lastSyncDate', self.date)
+        self.status = "New"
 
         artifacts = attributes.get('artifacts', [])
         self.artifacts = []
