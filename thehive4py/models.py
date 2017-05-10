@@ -145,17 +145,17 @@ class Alert(JSONSerializable):
 
         self.tlp = attributes.get('tlp', 2)
         self.severity = attributes.get('severity', 2)
+        self.date = attributes.get('date', int(time.time()) * 1000)
+        self.follow = attributes.get('follow', True)
+        self.tags = attributes.get('tags', [])
+        self.description = attributes.get('description', None)
+        self.caseTemplate = attributes.get('caseTemplate', None)
+
+        # TODO validate required fields
+        self.title = attributes.get('title', None)
         self.type = attributes.get('type', None)
         self.source = attributes.get('source', None)
         self.sourceRef = attributes.get('sourceRef', None)
-        self.title = attributes.get('title', None)
-        self.description = attributes.get('description', None)
-        self.follow = attributes.get('follow', True)
-        self.tags = attributes.get('tags', [])
-        self.caseTemplate = attributes.get('caseTemplate', None)
-        self.date = attributes.get('date', int(time.time()) * 1000)
-        self.lastSyncDate = attributes.get('lastSyncDate', self.date)
-        self.status = "New"
 
         artifacts = attributes.get('artifacts', [])
         self.artifacts = []
