@@ -5,6 +5,7 @@ import json
 import time
 import os
 import magic
+import base64
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -144,11 +145,9 @@ class Alert(JSONSerializable):
             attributes = attributes['json']
 
         self.tlp = attributes.get('tlp', 2)
-        self.severity = attributes.get('severity', 2)
+        self.severity = attributes.get('severity', 3)
         self.date = attributes.get('date', int(time.time()) * 1000)
-        self.follow = attributes.get('follow', True)
         self.tags = attributes.get('tags', [])
-        self.description = attributes.get('description', None)
         self.caseTemplate = attributes.get('caseTemplate', None)
 
         # TODO validate required fields
@@ -156,6 +155,7 @@ class Alert(JSONSerializable):
         self.type = attributes.get('type', None)
         self.source = attributes.get('source', None)
         self.sourceRef = attributes.get('sourceRef', None)
+        self.description = attributes.get('description', None)
 
         artifacts = attributes.get('artifacts', [])
         self.artifacts = []
@@ -177,6 +177,14 @@ class AlertArtifact(JSONSerializable):
         self.tags = attributes.get('tags', [])
 
         if self.dataType == 'file':
-            sys.exit(0)
+            self.data = self._prepare_file_data(attributes.get('data', None))
         else:
-            self.data = attributes.get('data', [])
+            self.data = attributes.get('data', None)
+
+    def _prepare_file_data(self, file_path):
+        with open(file_path, "rb") as file_artifact:
+            filename = os.path.basename(file_path)
+            mime = magic.Magic(mime=True).from_file(file_path)
+            encoded_string = base64.b64encode(file_artifact.read())
+
+        return filename + ';' + mime + ';' + encoded_string;

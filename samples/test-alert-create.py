@@ -16,13 +16,15 @@ api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', '
 
 artifacts = [
     AlertArtifact(dataType='ip', data='8.8.8.8'),
-    AlertArtifact(dataType='domain', data='google.com')
+    AlertArtifact(dataType='domain', data='google.com'),
+    AlertArtifact(dataType='file', data='pic.png'),
+    AlertArtifact(dataType='file', data='sample.txt')
 ]
 
 
 # Prepare the sample Alert
 sourceRef = str(uuid.uuid4())[0:6]
-alert = Alert(title='New Alert', tlp=3, follow=True, tags=['TheHive4Py', 'sample'], description='N/A', type='external',
+alert = Alert(title='New Alert', tlp=3, tags=['TheHive4Py', 'sample'], description='N/A', type='external',
               source='instance1', sourceRef=sourceRef, artifacts=artifacts)
 
 # Create the Alert
