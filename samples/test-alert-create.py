@@ -24,8 +24,14 @@ artifacts = [
 
 # Prepare the sample Alert
 sourceRef = str(uuid.uuid4())[0:6]
-alert = Alert(title='New Alert', tlp=3, tags=['TheHive4Py', 'sample'], description='N/A', type='external',
-              source='instance1', sourceRef=sourceRef, artifacts=artifacts)
+alert = Alert(title='New Alert',
+              tlp=3,
+              tags=['TheHive4Py', 'sample'],
+              description='N/A',
+              type='external',
+              source='instance1',
+              sourceRef=sourceRef,
+              artifacts=artifacts)
 
 # Create the Alert
 print('Create Alert')

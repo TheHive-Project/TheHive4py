@@ -7,6 +7,8 @@ import os
 import magic
 import base64
 
+from future.utils import raise_with_traceback
+
 
 class CustomJsonEncoder(json.JSONEncoder):
     def default(self, o):
@@ -19,6 +21,14 @@ class CustomJsonEncoder(json.JSONEncoder):
 class JSONSerializable(object):
     def jsonify(self):
         return json.dumps(self, sort_keys=True, indent=4, cls=CustomJsonEncoder)
+
+    def attr(self, attributes, name, default, error=None):
+        is_required = error is not None
+
+        if is_required and name not in attributes:
+            raise_with_traceback(ValueError(error))
+        else:
+            return attributes.get(name, default)
 
 
 class Case(JSONSerializable):
@@ -150,12 +160,11 @@ class Alert(JSONSerializable):
         self.tags = attributes.get('tags', [])
         self.caseTemplate = attributes.get('caseTemplate', None)
 
-        # TODO validate required fields
-        self.title = attributes.get('title', None)
-        self.type = attributes.get('type', None)
-        self.source = attributes.get('source', None)
-        self.sourceRef = attributes.get('sourceRef', None)
-        self.description = attributes.get('description', None)
+        self.title = self.attr(attributes, 'title', None, 'Missing alert title')
+        self.type = self.attr(attributes, 'type', None, 'Missing alert type')
+        self.source = self.attr(attributes, 'source', None, 'Missing alert source')
+        self.sourceRef = self.attr(attributes, 'sourceRef', None, 'Missing alert reference')
+        self.description = self.attr(attributes, 'description', None, 'Missing alert description')
 
         artifacts = attributes.get('artifacts', [])
         self.artifacts = []
