@@ -12,6 +12,7 @@ try:
 except Exception as excp:
     warnings.warn("requests library is non installed")
 
+
 class TheHiveApi:
 
     """
@@ -28,7 +29,6 @@ class TheHiveApi:
         self.username = username
         self.password = password
         self.proxies = proxies
-        self.session = requests.Session()
         self.auth = requests.auth.HTTPBasicAuth(username=self.username,
                                                 password=self.password)
 
@@ -44,7 +44,7 @@ class TheHiveApi:
         req = self.url + "/api/case"
         data = case.jsonify()
         try:
-            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -63,7 +63,7 @@ class TheHiveApi:
         data = caseTask.jsonify()
 
         try:
-            return self.session.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -83,13 +83,13 @@ class TheHiveApi:
         if caseTaskLog.file:
             f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
             try:
-                return self.session.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
+                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
         else:
             try:
-                return self.session.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth)
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
@@ -114,12 +114,12 @@ class TheHiveApi:
                     "ioc": caseObservable.ioc
                     })
                 data = {"_json": mesg}
-                return self.session.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
+                return requests.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
         else:
             try:
-                return self.session.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
 
@@ -132,7 +132,7 @@ class TheHiveApi:
         req = self.url + "/api/case/{}".format(caseId)
 
         try:
-            return self.session.get(req, proxies=self.proxies, auth=self.auth)
+            return requests.get(req, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -158,7 +158,7 @@ class TheHiveApi:
         print(data)
 
         try:
-            return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
+            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -187,7 +187,7 @@ class TheHiveApi:
         }
 
         try:
-            return self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -213,7 +213,7 @@ class TheHiveApi:
         }
 
         try:
-            response = self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
             jsonResponse = response.json()
 
             if response.status_code == 200 and len(jsonResponse) > 0:
@@ -226,7 +226,7 @@ class TheHiveApi:
     def get_all_tasks(self):
         req = self.url + "/api/case/task/_search?range=all"
         try:
-            response = self.session.post(req, proxies=self.proxies, auth=self.auth)
+            response = requests.post(req, proxies=self.proxies, auth=self.auth)
             if response.status_code == 200 and len(response.json()) > 0:
                 return response
             else:
@@ -246,11 +246,40 @@ class TheHiveApi:
                 }
             }}
         try:
-            response = self.session.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
             if response.status_code == 200 and len(response.json()) > 0:
                 return response
             else:
                 sys.exit("Error: {}".format("Unable to find tasks"))
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def create_alert(self, alert):
+
+        """
+        :param alert: TheHive alert
+        :type alert: Alert defined in models.py
+        :return: TheHive alert
+        :rtype: json
+        """
+
+        req = self.url + "/api/alert"
+        data = alert.jsonify()
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def get_alert(self, alert_id):
+        """
+            :param alert_id: Alert identifier
+            :return: TheHive Alert
+            :rtype: json
+        """
+        req = self.url + "/api/alert/{}".format(alert_id)
+
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
