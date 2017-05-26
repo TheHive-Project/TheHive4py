@@ -223,6 +223,16 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
+    def get_all_tasks(self):
+        req = self.url + "/api/case/task/_search?range=all"
+        try:
+            response = self.session.post(req, proxies=self.proxies, auth=self.auth)
+            if response.status_code == 200 and len(response.json()) > 0:
+                return response
+            else:
+                sys.exit("Error: {}".format("Unable to find tasks"))
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
 
     def get_case_tasks(self, caseId):
         req = self.url + "/api/case/task/_search?range=all"
