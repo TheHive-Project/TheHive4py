@@ -270,6 +270,17 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
+    def add_case_tag(self, caseId, tag):
+        req = self.url + "/api/case/{}".format(caseId)
+        tags = self.get_case(caseId).json()['tags']
+        tags.append(tag)
+        payload = {'tags': tags}
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, data=json.dumps(payload), proxies=self.proxies, auth=self.auth )
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+
     def get_alert(self, alert_id):
         """
             :param alert_id: Alert identifier
