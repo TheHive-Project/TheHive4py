@@ -30,7 +30,9 @@ TheHive4py is an open source and free software released under the [AGPL](https:/
 Information, news and updates are regularly posted on [TheHive Project Twitter account](https://twitter.com/thehive_project) and on [the blog](https://blog.thehive-project.org/).
 
 # Contributing
-We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests.
+We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests using [issues](https://github.com/CERT-BDF/TheHive4py/issues).
+
+We do have a [Code of conduct](code_of_conduct.md). Make sure to check it out before contributing.
 
 # Support
 Please [open an issue on GitHub](https://github.com/CERT-BDF/TheHive4py/issues/new) if you'd like to report a bug or request a feature. We are also available on [Gitter](https://gitter.im/TheHive-Project/TheHive) to help you out.
