@@ -33,5 +33,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     include_package_data=True,
-    install_requires=['requests', 'python-magic']
+    install_requires=['future', 'requests', 'python-magic']
 )
