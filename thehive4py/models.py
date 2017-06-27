@@ -196,4 +196,4 @@ class AlertArtifact(JSONSerializable):
             mime = magic.Magic(mime=True).from_file(file_path)
             encoded_string = base64.b64encode(file_artifact.read())
 
-        return filename + ';' + mime + ';' + encoded_string;
+        return "{};{};{}".format(filename, mime, encoded_string.decode())
