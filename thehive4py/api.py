@@ -155,8 +155,6 @@ class TheHiveApi:
             "query": attributes.get("query", "any")
         }
 
-        print(data)
-
         try:
             return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
         except requests.exceptions.RequestException as e:
