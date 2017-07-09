@@ -140,7 +140,7 @@ class TheHiveApi:
 
         """
             :return: list of observables
-            ;rtype: json
+            :rtype: json
         """
         req = self.url + "/api/case/_search"
 
@@ -155,12 +155,17 @@ class TheHiveApi:
             "query": attributes.get("query", "any")
         }
 
-        print(data)
-
         try:
             return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
+
+    def find_first(self, **attributes):
+        """
+            :return: first case of result set given by query
+            :rtype: dict
+        """
+        return self.find_cases(**attributes).json()[0]
 
     def get_case_observables(self, caseId):
 
