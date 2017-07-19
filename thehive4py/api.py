@@ -23,7 +23,7 @@ class TheHiveApi:
         :param password: password
     """
 
-    def __init__(self, url, username, password, proxies):
+    def __init__(self, url, username, password, proxies, cert=True):
 
         self.url = url
         self.username = username
@@ -31,6 +31,7 @@ class TheHiveApi:
         self.proxies = proxies
         self.auth = requests.auth.HTTPBasicAuth(username=self.username,
                                                 password=self.password)
+        self.cert = cert
 
     def create_case(self, case):
 
@@ -44,7 +45,7 @@ class TheHiveApi:
         req = self.url + "/api/case"
         data = case.jsonify()
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -63,7 +64,7 @@ class TheHiveApi:
         data = caseTask.jsonify()
 
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=True,)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -83,13 +84,13 @@ class TheHiveApi:
         if caseTaskLog.file:
             f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
             try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth)
+                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=True)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
         else:
             try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth)
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
@@ -114,12 +115,12 @@ class TheHiveApi:
                     "ioc": caseObservable.ioc
                     })
                 data = {"_json": mesg}
-                return requests.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth)
+                return requests.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth,verify=self.cert)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
         else:
             try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth)
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                     sys.exit("Error: {}".format(e))
 
@@ -132,7 +133,7 @@ class TheHiveApi:
         req = self.url + "/api/case/{}".format(caseId)
 
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth)
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -156,7 +157,7 @@ class TheHiveApi:
         }
 
         try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params)
+            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -192,7 +193,7 @@ class TheHiveApi:
         }
 
         try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth,verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -218,7 +219,7 @@ class TheHiveApi:
         }
 
         try:
-            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
             jsonResponse = response.json()
 
             if response.status_code == 200 and len(jsonResponse) > 0:
@@ -260,7 +261,7 @@ class TheHiveApi:
         req = self.url + "/api/alert"
         data = alert.jsonify()
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -273,7 +274,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth)
+            return requests.get(req, proxies=self.proxies, auth=self.auth,verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
