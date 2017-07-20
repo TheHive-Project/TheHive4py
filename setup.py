@@ -11,7 +11,7 @@ except ImportError:
 
 setup(
     name='thehive4py',
-    version='1.2.2',
+    version='1.2.3',
     description='Python API client for TheHive.',
     long_description=read_md('README.md'),
     author='TheHive-Project',
