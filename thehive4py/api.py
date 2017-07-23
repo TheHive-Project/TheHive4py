@@ -117,12 +117,12 @@ class TheHiveApi:
                 data = {"_json": mesg}
                 return requests.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth,verify=self.cert)
             except requests.exceptions.RequestException as e:
-                    sys.exit("Error: {}".format(e))
+                sys.exit("Error: {}".format(e))
         else:
             try:
                 return requests.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
-                    sys.exit("Error: {}".format(e))
+                sys.exit("Error: {}".format(e))
 
     def get_case(self, caseId):
         """
