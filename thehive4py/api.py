@@ -64,7 +64,7 @@ class TheHiveApi:
         data = caseTask.jsonify()
 
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=True,)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -84,7 +84,7 @@ class TheHiveApi:
         if caseTaskLog.file:
             f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
             try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=True)
+                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 sys.exit("Error: {}".format(e))
 
@@ -241,7 +241,7 @@ class TheHiveApi:
                 }
             }}
         try:
-            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth)
+            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
             if response.status_code == 200 and len(response.json()) > 0:
                 return response.json()
             else:
