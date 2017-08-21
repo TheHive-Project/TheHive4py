@@ -223,9 +223,20 @@ class TheHiveApi:
             jsonResponse = response.json()
 
             if response.status_code == 200 and len(jsonResponse) > 0:
-                return response.json()[0]
+                return response
             else:
                 sys.exit("Error: {}".format("Unable to find case templates"))
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def get_all_tasks(self):
+        req = self.url + "/api/case/task/_search?range=all"
+        try:
+            response = requests.post(req, proxies=self.proxies, auth=self.auth)
+            if response.status_code == 200 and len(response.json()) > 0:
+                return response
+            else:
+                sys.exit("Error: {}".format("Unable to find tasks"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -243,7 +254,7 @@ class TheHiveApi:
         try:
             response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
             if response.status_code == 200 and len(response.json()) > 0:
-                return response.json()
+                return response
             else:
                 sys.exit("Error: {}".format("Unable to find tasks"))
         except requests.exceptions.RequestException as e:
@@ -264,6 +275,17 @@ class TheHiveApi:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
+
+    def add_case_tag(self, caseId, tag):
+        req = self.url + "/api/case/{}".format(caseId)
+        tags = self.get_case(caseId).json()['tags']
+        tags.append(tag)
+        payload = {'tags': tags}
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, data=json.dumps(payload), proxies=self.proxies, auth=self.auth )
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
 
     def get_alert(self, alert_id):
         """
