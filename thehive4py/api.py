@@ -153,11 +153,11 @@ class TheHiveApi:
 
         # Add body
         data = {
-            "query": attributes.get("query", "any")
+            "query": attributes.get("query", {})
         }
 
         try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, params=params, verify=self.cert)
+            return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -168,32 +168,85 @@ class TheHiveApi:
         """
         return self.find_cases(**attributes).json()[0]
 
-    def get_case_observables(self, caseId):
+    def get_case_observables(self, case_id, **attributes):
 
         """
-        :param caseId: Case identifier
+        :param case_id: Case identifier
         :return: list of observables
         ;rtype: json
         """
 
         req = self.url + "/api/case/artifact/_search"
+
+        # Add range and sort parameters
+        params = {
+            "range": attributes.get("range", "all"),
+            "sort": attributes.get("sort", [])
+        }
+
+        # Add body
+        criteria = [{
+            "_parent": {
+                "_type": "case",
+                "_query": {
+                    "_id": case_id
+                }
+            }
+        }, {
+            "status": "Ok"
+        }]
+
+        # Append the custom query if specified
+        if "query" in attributes:
+            criteria.append(attributes["query"])
+
         data = {
             "query": {
-                "_and": [{
-                    "_parent": {
-                        "_type": "case",
-                        "_query": {
-                            "_id": caseId
-                        }
-                    }
-                }, {
-                    "status": "Ok"
-                }]
+                "_and": criteria
             }
         }
 
         try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth,verify=self.cert)
+            return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def get_case_tasks(self, case_id, **attributes):
+        req = self.url + "/api/case/task/_search"
+
+        # Add range and sort parameters
+        params = {
+            "range": attributes.get("range", "all"),
+            "sort": attributes.get("sort", [])
+        }
+
+        # Add body
+        parent_criteria = {
+            '_parent': {
+                '_type': 'case',
+                '_query': {
+                    '_id': case_id
+                }
+            }
+        }
+
+        # Append the custom query if specified
+        if "query" in attributes:
+            criteria = {
+                "_and": [
+                    parent_criteria,
+                    attributes["query"]
+                ]
+            }
+        else:
+            criteria = parent_criteria
+
+        data = {
+            "query": criteria
+        }
+
+        try:
+            return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -220,32 +273,12 @@ class TheHiveApi:
 
         try:
             response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-            jsonResponse = response.json()
+            json_response = response.json()
 
-            if response.status_code == 200 and len(jsonResponse) > 0:
+            if response.status_code == 200 and len(json_response) > 0:
                 return response.json()[0]
             else:
                 sys.exit("Error: {}".format("Unable to find case templates"))
-        except requests.exceptions.RequestException as e:
-            sys.exit("Error: {}".format(e))
-
-    def get_case_tasks(self, caseId):
-        req = self.url + "/api/case/task/_search?range=all"
-        data = {
-            'query': {
-                '_parent': {
-                    '_type': 'case',
-                    '_query': {
-                        '_id': caseId
-                    }
-                }
-            }}
-        try:
-            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-            if response.status_code == 200 and len(response.json()) > 0:
-                return response.json()
-            else:
-                sys.exit("Error: {}".format("Unable to find tasks"))
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
@@ -280,3 +313,5 @@ class TheHiveApi:
 
 # - addObservable(file)
 # - addObservable(data)
+# - find_observables(query, range, sort)
+# - find_alerts(query, range, sort)
