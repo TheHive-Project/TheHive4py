@@ -33,117 +33,14 @@ class TheHiveApi:
                                                 password=self.password)
         self.cert = cert
 
-    def create_case(self, case):
-
+    def __find_rows(self, find_url, **attributes):
         """
-        :param case: TheHive case
-        :type case: Case defined in models.py
-        :return: TheHive case
-        :rtype: json
+            :param find_url: URL of the find api
+            :type find_url: string
+            :return: The Response returned by requests including the list of documents based on find_url
+            :rtype: Response object
         """
-
-        req = self.url + "/api/case"
-        data = case.jsonify()
-        try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            sys.exit("Error: {}".format(e))
-
-    def create_case_task(self, caseId, caseTask):
-
-        """
-        :param caseId: Case identifier
-        :param caseTask: TheHive task
-        :type caseTask: CaseTask defined in models.py
-        :return: TheHive task
-        :rtype: json
-
-        """
-
-        req = self.url + "/api/case/{}/task".format(caseId)
-        data = caseTask.jsonify()
-
-        try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            sys.exit("Error: {}".format(e))
-
-    def create_task_log(self, taskId, caseTaskLog):
-
-        """
-        :param taskId: Task identifier
-        :param caseTaskLog: TheHive log
-        :type caseTaskLog: CaseTaskLog defined in models.py
-        :return: TheHive log
-        :rtype: json
-        """
-
-        req = self.url + "/api/case/task/{}/log".format(taskId)
-        data = {'_json': json.dumps({"message":caseTaskLog.message})}
-
-        if caseTaskLog.file:
-            f = {'attachment': ( os.path.basename(caseTaskLog.file), open(caseTaskLog.file, 'rb'), magic.Magic(mime=True).from_file(caseTaskLog.file))}
-            try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
-            except requests.exceptions.RequestException as e:
-                sys.exit("Error: {}".format(e))
-
-        else:
-            try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':caseTaskLog.message}), proxies=self.proxies, auth=self.auth, verify=self.cert)
-            except requests.exceptions.RequestException as e:
-                sys.exit("Error: {}".format(e))
-
-    def create_case_observable(self, caseId, caseObservable):
-
-        """
-        :param caseId: Case identifier
-        :param caseObservable: TheHive observable
-        :type caseObservable: CaseObservable defined in models.py
-        :return: TheHive observable
-        :rtype: json
-        """
-
-        req = self.url + "/api/case/{}/artifact".format(caseId)
-
-        if caseObservable.dataType == 'file':
-            try:
-                mesg = json.dumps({ "dataType": caseObservable.dataType,
-                    "message": caseObservable.message,
-                    "tlp": caseObservable.tlp,
-                    "tags": caseObservable.tags,
-                    "ioc": caseObservable.ioc
-                    })
-                data = {"_json": mesg}
-                return requests.post(req, data=data, files=caseObservable.data[0], proxies=self.proxies, auth=self.auth,verify=self.cert)
-            except requests.exceptions.RequestException as e:
-                sys.exit("Error: {}".format(e))
-        else:
-            try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=caseObservable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
-            except requests.exceptions.RequestException as e:
-                sys.exit("Error: {}".format(e))
-
-    def get_case(self, caseId):
-        """
-            :param caseId: Case identifier
-            :return: TheHive case
-            :rtype: json
-        """
-        req = self.url + "/api/case/{}".format(caseId)
-
-        try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            sys.exit("Error: {}".format(e))
-
-    def find_cases(self, **attributes):
-
-        """
-            :return: list of observables
-            :rtype: json
-        """
-        req = self.url + "/api/case/_search"
+        req = self.url + find_url
 
         # Add range and sort parameters
         params = {
@@ -160,6 +57,113 @@ class TheHiveApi:
             return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
+
+    def create_case(self, case):
+
+        """
+        :param case: TheHive case
+        :type case: Case defined in models.py
+        :return: TheHive case
+        :rtype: json
+        """
+
+        req = self.url + "/api/case"
+        data = case.jsonify()
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def create_case_task(self, case_id, case_task):
+
+        """
+        :param case_id: Case identifier
+        :param case_task: TheHive task
+        :type case_task: CaseTask defined in models.py
+        :return: TheHive task
+        :rtype: json
+
+        """
+
+        req = self.url + "/api/case/{}/task".format(case_id)
+        data = case_task.jsonify()
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def create_task_log(self, task_id, case_task_log):
+
+        """
+        :param task_id: Task identifier
+        :param case_task_log: TheHive log
+        :type case_task_log: CaseTaskLog defined in models.py
+        :return: TheHive log
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/task/{}/log".format(task_id)
+        data = {'_json': json.dumps({"message":case_task_log.message})}
+
+        if case_task_log.file:
+            f = {'attachment': (os.path.basename(case_task_log.file), open(case_task_log.file, 'rb'), magic.Magic(mime=True).from_file(case_task_log.file))}
+            try:
+                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
+
+        else:
+            try:
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':case_task_log.message}), proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
+
+    def create_case_observable(self, case_id, case_observable):
+
+        """
+        :param case_id: Case identifier
+        :param case_observable: TheHive observable
+        :type case_observable: CaseObservable defined in models.py
+        :return: TheHive observable
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/{}/artifact".format(case_id)
+
+        if case_observable.dataType == 'file':
+            try:
+                mesg = json.dumps({ "dataType": case_observable.dataType,
+                    "message": case_observable.message,
+                    "tlp": case_observable.tlp,
+                    "tags": case_observable.tags,
+                    "ioc": case_observable.ioc
+                    })
+                data = {"_json": mesg}
+                return requests.post(req, data=data, files=case_observable.data[0], proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
+        else:
+            try:
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=case_observable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                sys.exit("Error: {}".format(e))
+
+    def get_case(self, case_id):
+        """
+            :param case_id: Case identifier
+            :return: TheHive case
+            :rtype: json
+        """
+        req = self.url + "/api/case/{}".format(case_id)
+
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+
+    def find_cases(self, **attributes):
+        return self.__find_rows("/api/case/_search", **attributes)
 
     def find_first(self, **attributes):
         """
@@ -311,7 +315,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
+    def find_alerts(self, **attributes):
+        """
+            :return: list of Alerts
+            :rtype: json
+        """
+
+        return self.__find_rows("/api/alert/_search", **attributes)
+
 # - addObservable(file)
 # - addObservable(data)
-# - find_observables(query, range, sort)
-# - find_alerts(query, range, sort)
