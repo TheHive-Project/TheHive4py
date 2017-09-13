@@ -6,11 +6,22 @@ import os
 import warnings
 import json
 import magic
+import requests
+from requests.auth import AuthBase
 
-try:
-    import requests
-except Exception as excp:
-    warnings.warn("requests library is non installed")
+
+class BearerAuth(AuthBase):
+    """
+        A custom authentication class for requests
+
+        :param api_key: The API Key to use for the authentication
+    """
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def __call__(self, req):
+        req.headers['Authorization'] = 'Bearer {}'.format(self.api_key)
+        return req
 
 
 class TheHiveApi:
@@ -23,14 +34,19 @@ class TheHiveApi:
         :param password: password
     """
 
-    def __init__(self, url, username, password, proxies, cert=True):
+    def __init__(self, url, username, password=None, proxies={}, cert=True):
 
         self.url = url
         self.username = username
         self.password = password
         self.proxies = proxies
-        self.auth = requests.auth.HTTPBasicAuth(username=self.username,
-                                                password=self.password)
+
+        if self.password is not None:
+            self.auth = requests.auth.HTTPBasicAuth(username=self.username,
+                                                    password=self.password)
+        else:
+            self.auth = BearerAuth(self.username)
+
         self.cert = cert
 
     def __find_rows(self, find_url, **attributes):
