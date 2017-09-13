@@ -30,22 +30,22 @@ class TheHiveApi:
         Python API for TheHive
 
         :param url: thehive URL
-        :param username: username
-        :param password: password
+        :param principal: The username or the API key
+        :param password: The password for basic authentication or None. Defaults to None
     """
 
-    def __init__(self, url, username, password=None, proxies={}, cert=True):
+    def __init__(self, url, principal, password=None, proxies={}, cert=True):
 
         self.url = url
-        self.username = username
+        self.principal = principal
         self.password = password
         self.proxies = proxies
 
         if self.password is not None:
-            self.auth = requests.auth.HTTPBasicAuth(username=self.username,
+            self.auth = requests.auth.HTTPBasicAuth(principal=self.principal,
                                                     password=self.password)
         else:
-            self.auth = BearerAuth(self.username)
+            self.auth = BearerAuth(self.principal)
 
         self.cert = cert
 
@@ -77,7 +77,7 @@ class TheHiveApi:
     def create_case(self, case):
 
         """
-        :param case: TheHive case
+        :param case: The case details
         :type case: Case defined in models.py
         :return: TheHive case
         :rtype: json
