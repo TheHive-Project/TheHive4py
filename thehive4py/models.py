@@ -87,13 +87,26 @@ class Case(JSONSerializable):
 
 
 class CaseHelper:
+    """
+    Provides helper methods for interacting with instances of the Case class.
+    """
     def __init__(self, thehive):
+        """
+        Initialize a CaseHelper instance.
+        :param thehive: A TheHiveApi instance.
+
+        """
         self._thehive = thehive
 
     def __call__(self, id):
+        """
+        Return an instance of Case with the given case ID.
+        :param id: ID of a case to retrieve.
+
+        """
         response = self._thehive.get_case(id)
 
-        if response.status_code == 200:
+        if self.status_ok(response.status_code):
             data = response.json()
             case = Case(json=data)
 
@@ -104,10 +117,25 @@ class CaseHelper:
             return case
 
     def create(self, title, description, **kwargs):
+        """
+        Create an instance of the Case class.
+        :param title: Case title.
+        :param description: Case description.
+        :param kwargs: Additional arguments.
+
+        :return: The created instance.
+
+        """
         case = Case(title=title, description=description, **kwargs)
         response = self._thehive.create_case(case)
-        if response.status_code == 201:
+        if self.status_ok(response.status_code):
             return self(response.json()['id'])
+
+    @staticmethod
+    def status_ok(status_code):
+        """Check whether a status code is OK"""
+        OK_STATUS_CODES = [200, 201]
+        return status_code in OK_STATUS_CODES
 
 
 class CaseTask(JSONSerializable):
