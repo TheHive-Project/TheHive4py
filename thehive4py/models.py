@@ -86,6 +86,18 @@ class Case(JSONSerializable):
                 self.tasks.append(CaseTask(json=task))
 
 
+class CaseHelper:
+    def __init__(self, thehive):
+        self._thehive = thehive
+
+    def __call__(self, id):
+        return self._thehive.get_case(id)
+
+    def create(self, title, description, **kwargs):
+        case = Case(title=title, description=description, **kwargs)
+        return self._thehive.create_case(case)
+
+
 class CaseTask(JSONSerializable):
 
     def __init__(self, **attributes):

@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
 import sys
+
+import magic
 import os
 import warnings
 import json
 import magic
 import requests
 from requests.auth import AuthBase
+
+from thehive4py.models import CaseHelper
 
 
 class BearerAuth(AuthBase):
@@ -47,6 +52,9 @@ class TheHiveApi:
             self.auth = BearerAuth(self.principal)
 
         self.cert = cert
+
+        # Create a CaseHelper instance
+        self.case = CaseHelper(self)
 
     def __find_rows(self, find_url, **attributes):
         """
