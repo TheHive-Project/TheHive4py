@@ -105,7 +105,9 @@ class CaseHelper:
 
     def create(self, title, description, **kwargs):
         case = Case(title=title, description=description, **kwargs)
-        return self._thehive.create_case(case)
+        response = self._thehive.create_case(case)
+        if response.status_code == 201:
+            return self(response.json()['id'])
 
 
 class CaseTask(JSONSerializable):
