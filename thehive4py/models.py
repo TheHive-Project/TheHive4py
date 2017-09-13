@@ -91,7 +91,17 @@ class CaseHelper:
         self._thehive = thehive
 
     def __call__(self, id):
-        return self._thehive.get_case(id)
+        response = self._thehive.get_case(id)
+
+        if response.status_code == 200:
+            data = response.json()
+            case = Case(json=data)
+
+            # Add attributes that are not added by the constructor
+            case.id = data['id']
+            case.owner = data['owner']
+
+            return case
 
     def create(self, title, description, **kwargs):
         case = Case(title=title, description=description, **kwargs)
