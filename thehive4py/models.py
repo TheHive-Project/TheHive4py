@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
-import time
-import os
-import magic
 import base64
+import json
+import os
+import time
 
+import magic
+import requests
 from future.utils import raise_with_traceback
+
+from thehive4py.exceptions import TheHiveException
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -105,6 +108,10 @@ class CaseHelper:
 
         """
         response = self._thehive.get_case(id)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
 
         if self.status_ok(response.status_code):
             data = response.json()
