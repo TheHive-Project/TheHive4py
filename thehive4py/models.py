@@ -10,7 +10,7 @@ import magic
 import requests
 from future.utils import raise_with_traceback
 
-from thehive4py.exceptions import TheHiveException
+from thehive4py.exceptions import TheHiveException, CaseException
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -113,6 +113,9 @@ class CaseHelper:
         if response.status_code == requests.codes.unauthorized:
             raise TheHiveException("Authentication failed")
 
+        if response.status_code == requests.codes.not_found:
+            raise CaseException("Case {} not found".format(id))
+
         if self.status_ok(response.status_code):
             data = response.json()
             case = Case(json=data)
@@ -135,8 +138,15 @@ class CaseHelper:
         """
         case = Case(title=title, description=description, **kwargs)
         response = self._thehive.create_case(case)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
         if self.status_ok(response.status_code):
             return self(response.json()['id'])
+        else:
+            raise CaseException("Server returned {}: {}".format(response.status_code, response.text))
 
     @staticmethod
     def status_ok(status_code):

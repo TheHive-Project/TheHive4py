@@ -5,9 +5,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import json
+import sys
 import time
 
 from thehive4py.api import TheHiveApi
+from thehive4py.exceptions import CaseException
 from thehive4py.models import CaseTask
 
 thehive = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
@@ -24,8 +26,13 @@ tasks = [
 # Create the case
 print('Create Case')
 print('-----------------------------')
-case = thehive.case.create(title='From TheHive4Py', description='N/A', tlp=3, flag=True,
+case = None
+try:
+    case = thehive.case.create(title='From TheHive4Py', description='N/A', tlp=3, flag=True,
                            tags=['TheHive4Py', 'sample'], tasks=tasks)
+except CaseException as e:
+    print("Error creating case. {}".format(e))
+    sys.exit(1)
 
 # Print the details of the created case
 print(case.jsonify())
