@@ -6,11 +6,22 @@ import os
 import warnings
 import json
 import magic
+import requests
+from requests.auth import AuthBase
 
-try:
-    import requests
-except Exception as excp:
-    warnings.warn("requests library is non installed")
+
+class BearerAuth(AuthBase):
+    """
+        A custom authentication class for requests
+
+        :param api_key: The API Key to use for the authentication
+    """
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def __call__(self, req):
+        req.headers['Authorization'] = 'Bearer {}'.format(self.api_key)
+        return req
 
 
 class TheHiveApi:
@@ -19,18 +30,23 @@ class TheHiveApi:
         Python API for TheHive
 
         :param url: thehive URL
-        :param username: username
-        :param password: password
+        :param principal: The username or the API key
+        :param password: The password for basic authentication or None. Defaults to None
     """
 
-    def __init__(self, url, username, password, proxies, cert=True):
+    def __init__(self, url, principal, password=None, proxies={}, cert=True):
 
         self.url = url
-        self.username = username
+        self.principal = principal
         self.password = password
         self.proxies = proxies
-        self.auth = requests.auth.HTTPBasicAuth(username=self.username,
-                                                password=self.password)
+
+        if self.password is not None:
+            self.auth = requests.auth.HTTPBasicAuth(principal=self.principal,
+                                                    password=self.password)
+        else:
+            self.auth = BearerAuth(self.principal)
+
         self.cert = cert
 
     def __find_rows(self, find_url, **attributes):
@@ -61,7 +77,7 @@ class TheHiveApi:
     def create_case(self, case):
 
         """
-        :param case: TheHive case
+        :param case: The case details
         :type case: Case defined in models.py
         :return: TheHive case
         :rtype: json
