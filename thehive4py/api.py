@@ -42,8 +42,7 @@ class TheHiveApi:
         self.proxies = proxies
 
         if self.password is not None:
-            self.auth = requests.auth.HTTPBasicAuth(principal=self.principal,
-                                                    password=self.password)
+            self.auth = requests.auth.HTTPBasicAuth(self.principal,self.password)
         else:
             self.auth = BearerAuth(self.principal)
 
