@@ -218,6 +218,19 @@ class CaseObservable(JSONSerializable):
             self.data = data
 
 
+class CaseCustomField(JSONSerializable):
+
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
+        self.name = self.attr(attributes, 'name', None, 'Missing custom field name')
+        self.reference = self.attr(attributes, 'reference', None, 'Missing custom field reference')
+        self.description = self.attr(attributes, 'description', None, 'Missing custom field description')
+        self.type = self.attr(attributes, 'type', None, 'Missing custom field type')
+        self.options = attributes.get('options', [])
+
+
 class Alert(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
