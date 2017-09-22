@@ -301,6 +301,21 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
+    def get_task_logs(self, taskId):
+
+        """
+        :param taskId: Task identifier
+        :type caseTaskLog: CaseTaskLog defined in models.py
+        :return: TheHive logs
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/task/{}/log".format(taskId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+    
     def create_alert(self, alert):
 
         """
