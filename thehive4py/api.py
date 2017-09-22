@@ -329,7 +329,6 @@ class TheHiveApi:
         """
         :param custom_field: TheHive custom field
         :type customfield: CustomField defined in models.py
-        :return: TheHive custom field
         :rtype: json
         """
 
@@ -383,8 +382,7 @@ class TheHiveApi:
 
         """
         :param fieldId: Custom field Id to delete
-        :return: response
-        :rtype: json
+        :rtype: bool
         """
 	
 	req = self.url + "/api/list/{}".format(fieldId)
