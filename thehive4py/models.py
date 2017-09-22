@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
-import time
-import os
-import magic
 import base64
+import json
+import os
+import time
 
+import magic
+import requests
 from future.utils import raise_with_traceback
+
+from thehive4py.exceptions import TheHiveException, CaseException
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -84,6 +87,72 @@ class Case(JSONSerializable):
                 self.tasks.append(task)
             else:
                 self.tasks.append(CaseTask(json=task))
+
+
+class CaseHelper:
+    """
+    Provides helper methods for interacting with instances of the Case class.
+    """
+    def __init__(self, thehive):
+        """
+        Initialize a CaseHelper instance.
+        :param thehive: A TheHiveApi instance.
+
+        """
+        self._thehive = thehive
+
+    def __call__(self, id):
+        """
+        Return an instance of Case with the given case ID.
+        :param id: ID of a case to retrieve.
+
+        """
+        response = self._thehive.get_case(id)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
+        if response.status_code == requests.codes.not_found:
+            raise CaseException("Case {} not found".format(id))
+
+        if self.status_ok(response.status_code):
+            data = response.json()
+            case = Case(json=data)
+
+            # Add attributes that are not added by the constructor
+            case.id = data['id']
+            case.owner = data['owner']
+
+            return case
+
+    def create(self, title, description, **kwargs):
+        """
+        Create an instance of the Case class.
+        :param title: Case title.
+        :param description: Case description.
+        :param kwargs: Additional arguments.
+
+        :return: The created instance.
+
+        """
+        case = Case(title=title, description=description, **kwargs)
+        response = self._thehive.create_case(case)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
+        if self.status_ok(response.status_code):
+            return self(response.json()['id'])
+        else:
+            raise CaseException("Server returned {}: {}".format(response.status_code, response.text))
+
+    @staticmethod
+    def status_ok(status_code):
+        """Check whether a status code is OK"""
+        OK_STATUS_CODES = [200, 201]
+        return status_code in OK_STATUS_CODES
 
 
 class CaseTask(JSONSerializable):
