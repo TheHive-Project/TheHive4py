@@ -338,5 +338,26 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
+    def run_analyzer(self, cortex_id, artifact_id, analyzer_id):
+
+        """
+        :param cortex_id: identifier of the Cortex server
+        :param artifact_id: identifier of the artifact as found with an artifact search
+        :param analyzer_id: name of the analyzer used by the job
+        :rtype: json
+        """
+
+        req = self.url + "/api/connector/cortex/job"
+
+        try:
+            data = json.dumps({ "cortexId": cortex_id, 
+                "artifactId": artifact_id, 
+                "analyzerId": analyzer_id
+                })
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+        
+
 # - addObservable(file)
 # - addObservable(data)
