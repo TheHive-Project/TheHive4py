@@ -59,7 +59,7 @@ class Case(JSONSerializable):
                 'tags': template.tags,
                 'startDate': int(time.time()) * 1000,
                 'metrics': dict((el, None) for el in template.metricNames),
-                'customFields': template.customFieldNames,
+                'customFields': template.customFields,
                 'tasks': template.tasks
             }
 
@@ -125,7 +125,7 @@ class CaseTemplate(JSONSerializable):
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
         self.metricNames = attributes.get('metricNames', [])
-        self.customFieldNames = attributes.get('customFields', {})
+        self.customFields = attributes.get('customFields', {})
 
         tasks = attributes.get('tasks', [])
         self.tasks = []
