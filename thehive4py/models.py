@@ -88,6 +88,13 @@ class Case(JSONSerializable):
             else:
                 self.tasks.append(CaseTask(json=task))
 
+    def has_tag(self, tagname):
+        """
+        Returns true if the case has been tagged with the given tag name.
+        :param tagname: The tag name to check for.
+        """
+        return tagname in self.tags
+
 
 class CaseHelper:
     """
