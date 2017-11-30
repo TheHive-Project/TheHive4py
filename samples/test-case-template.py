@@ -11,19 +11,9 @@ from thehive4py.models import Case, CaseTemplate
 
 api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
 
-# Get the template by it's name
-print('Fetch case template')
-print('-----------------------------')
-template = api.get_case_template('Phishing')
-
-caseTemplate = CaseTemplate(json=template)
-print(caseTemplate.jsonify())
-print('')
-
-
 print('Create case from template')
 print('-----------------------------')
-case = Case(title='From TheHive4Py based on the Phishing template', description='N/A', tlp=2, template=caseTemplate)
+case = Case(title='From TheHive4Py based on the Phishing template', description='N/A', tlp=2, template='Phishing')
 print(case.jsonify())
 
 print('Create Case')

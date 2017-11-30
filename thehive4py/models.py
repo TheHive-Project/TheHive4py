@@ -46,32 +46,18 @@ class Case(JSONSerializable):
             'tags': [],
             'startDate': int(time.time()) * 1000,
             'metrics': {},
-            'tasks': []
+            'tasks': [],
+            'template': None
         }
-
-        is_from_template = attributes.get('template', False)
-        if is_from_template:
-            template = attributes['template']
-            defaults = {
-                'title': None,
-                'description': template.description,
-                'tlp': template.tlp,
-                'severity': template.severity,
-                'flag': template.flag,
-                'tags': template.tags,
-                'startDate': int(time.time()) * 1000,
-                'metrics': dict((el, None) for el in template.metricNames),
-                'tasks': template.tasks
-            }
 
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        is_from_template = attributes.get('template', False)
         if is_from_template:
-            self.title = '[{}] {}'.format(template.titlePrefix, attributes.get('title', None)) if template.titlePrefix else attributes.get('title', None)
-        else:
-            self.title = attributes.get('title', None)
+            defaults['template'] = attributes['template']
 
+        self.title = attributes.get('title', None)
         self.description = attributes.get('description', defaults['description'])
         self.tlp = attributes.get('tlp', defaults['tlp'])
         self.severity = attributes.get('severity', defaults['severity'])
@@ -79,6 +65,7 @@ class Case(JSONSerializable):
         self.tags = attributes.get('tags', defaults['tags'])
         self.startDate = attributes.get('startDate', defaults['startDate'])
         self.metrics = attributes.get('metrics', defaults['metrics'])
+        self.template = attributes.get('template', defaults['template'])
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []
