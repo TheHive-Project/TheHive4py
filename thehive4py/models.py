@@ -34,6 +34,36 @@ class JSONSerializable(object):
             return attributes.get(name, default)
 
 
+class CustomFieldHelper(object):
+    def __init__(self):
+        self.fields = {}
+
+    def __add_field(self, type, name, value):
+        custom_field = dict()
+        custom_field['order'] = len(self.fields)
+        custom_field[type] = value
+        self.fields[name] = custom_field
+
+    def add_date(self, name, value):
+        self.__add_field('date', name, value)
+        return self
+
+    def add_string(self, name, value):
+        self.__add_field('string', name, value)
+        return self
+
+    def add_boolean(self, name, value):
+        self.__add_field('boolean', name, value)
+        return self
+
+    def add_number(self, name, value):
+        self.__add_field('number', name, value)
+        return self
+
+    def build(self):
+        return self.fields
+
+
 class Case(JSONSerializable):
 
     def __init__(self, **attributes):
@@ -46,6 +76,7 @@ class Case(JSONSerializable):
             'tags': [],
             'startDate': int(time.time()) * 1000,
             'metrics': {},
+            'customFields': {},
             'tasks': [],
             'template': None
         }
@@ -65,6 +96,7 @@ class Case(JSONSerializable):
         self.tags = attributes.get('tags', defaults['tags'])
         self.startDate = attributes.get('startDate', defaults['startDate'])
         self.metrics = attributes.get('metrics', defaults['metrics'])
+        self.customFields = attributes.get('customFields', defaults['customFields'])
         self.template = attributes.get('template', defaults['template'])
 
         tasks = attributes.get('tasks', defaults['tasks'])
@@ -177,7 +209,8 @@ class CaseTemplate(JSONSerializable):
         self.flag = attributes.get('flag', False)
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
-        self.metricNames = attributes.get('metricNames', [])
+        self.metrics = attributes.get('metrics', {})
+        self.customFields = attributes.get('customFields', {})
 
         tasks = attributes.get('tasks', [])
         self.tasks = []
