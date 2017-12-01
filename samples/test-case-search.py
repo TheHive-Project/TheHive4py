@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 import sys
 import json
 from thehive4py.api import TheHiveApi
+from thehive4py.query import *
 
 api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
 
@@ -24,15 +25,8 @@ def search(title, query, range, sort):
         sys.exit(0)
 
 
-search("List Amber cases", {"_field": "tlp", "_value": 2}, 'all', [])
-search("List White cases",
-       {
-           "_in": {
-               "_field": "tlp",
-               "_values": ["1", "3"]
-           }
-       },
-       'all',
-       ['+tlp']
-       )
-search("Case of title containing 'TheHive4Py'", {"_string": "title:'TheHive4Py'"}, 'all', [])
+search("List Amber cases", Eq('tlp', 2), 'all', [])
+search("List cases having some TLP values", In('tlp', [1, 3]), 'all', ['+tlp'])
+search("Case of title containing 'TheHive4Py'", String("title:'TheHive4Py'"), 'all', [])
+search("Closed cases, with tlp greater than or equal to Amber", And(Eq('status', 'Resolved'), Gte('tlp', 2), Gt('severity', 2)), '0-1', [])
+
