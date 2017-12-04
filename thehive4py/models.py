@@ -98,6 +98,7 @@ class Case(JSONSerializable):
         self.metrics = attributes.get('metrics', defaults['metrics'])
         self.customFields = attributes.get('customFields', defaults['customFields'])
         self.template = attributes.get('template', defaults['template'])
+        
         self.caseId = attributes.get('caseId', None)
         self.createdAt = attributes.get('createdAt', None)
         self.createdBy = attributes.get('createdBy', None)
@@ -106,7 +107,6 @@ class Case(JSONSerializable):
         self.status = attributes.get('status', None)
         self.updatedAt = attributes.get('updatedAt', None)
         self.updatedBy = attributes.get('updatedBy', None)
-        self.user = attributes.get('user', None)
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []
