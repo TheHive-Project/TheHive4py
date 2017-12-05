@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
 import sys
+
+import magic
 import os
 import warnings
 import json
 import magic
 import requests
 from requests.auth import AuthBase
+
+from thehive4py.models import CaseHelper
+from thehive4py.query import *
 
 
 class BearerAuth(AuthBase):
@@ -47,6 +53,9 @@ class TheHiveApi:
             self.auth = BearerAuth(self.principal)
 
         self.cert = cert
+
+        # Create a CaseHelper instance
+        self.case = CaseHelper(self)
 
     def __find_rows(self, find_url, **attributes):
         """
@@ -88,6 +97,26 @@ class TheHiveApi:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
+
+    def update_case(self, case):
+        """
+        Update a case.
+        :param case: The case to update. The case's `id` determines which case to update.
+        :return:
+        """
+        req = self.url + "/api/case/{}".format(case.id)
+
+        # Choose which attributes to send
+        update_keys = [
+            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
+            'impactStatus', 'summary', 'endDate', 'metrics'
+        ]
+        data = {k: v for k, v in case.__dict__.items() if k in update_keys}
+
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            sys.exit(1)
 
     def create_case_task(self, case_id, case_task):
 
@@ -204,25 +233,14 @@ class TheHiveApi:
         }
 
         # Add body
-        criteria = [{
-            "_parent": {
-                "_type": "case",
-                "_query": {
-                    "_id": case_id
-                }
-            }
-        }, {
-            "status": "Ok"
-        }]
+        criteria = [Parent('case', Id(case_id)), Eq('status', 'Ok')]
 
         # Append the custom query if specified
         if "query" in attributes:
             criteria.append(attributes["query"])
 
         data = {
-            "query": {
-                "_and": criteria
-            }
+            "query": And(criteria)
         }
 
         try:
@@ -240,23 +258,11 @@ class TheHiveApi:
         }
 
         # Add body
-        parent_criteria = {
-            '_parent': {
-                '_type': 'case',
-                '_query': {
-                    '_id': case_id
-                }
-            }
-        }
+        parent_criteria = Parent('case', Id(case_id))
 
         # Append the custom query if specified
         if "query" in attributes:
-            criteria = {
-                "_and": [
-                    parent_criteria,
-                    attributes["query"]
-                ]
-            }
+            criteria = And(parent_criteria, attributes["query"])
         else:
             criteria = parent_criteria
 
@@ -280,14 +286,7 @@ class TheHiveApi:
 
         req = self.url + "/api/case/template/_search"
         data = {
-            "query": {
-                "_and": [{
-                    "_field": "name",
-                    "_value": name
-                }, {
-                    "status": "Ok"
-                }]
-            }
+            "query": And(Eq("name", name), Eq("status", "Ok"))
         }
 
         try:
@@ -301,6 +300,21 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             sys.exit("Error: {}".format(e))
 
+    def get_task_logs(self, taskId):
+
+        """
+        :param taskId: Task identifier
+        :type caseTaskLog: CaseTaskLog defined in models.py
+        :return: TheHive logs
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/task/{}/log".format(taskId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+    
     def create_alert(self, alert):
 
         """
@@ -337,6 +351,27 @@ class TheHiveApi:
         """
 
         return self.__find_rows("/api/alert/_search", **attributes)
+
+    def run_analyzer(self, cortex_id, artifact_id, analyzer_id):
+
+        """
+        :param cortex_id: identifier of the Cortex server
+        :param artifact_id: identifier of the artifact as found with an artifact search
+        :param analyzer_id: name of the analyzer used by the job
+        :rtype: json
+        """
+
+        req = self.url + "/api/connector/cortex/job"
+
+        try:
+            data = json.dumps({ "cortexId": cortex_id, 
+                "artifactId": artifact_id, 
+                "analyzerId": analyzer_id
+                })
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            sys.exit("Error: {}".format(e))
+        
 
 # - addObservable(file)
 # - addObservable(data)

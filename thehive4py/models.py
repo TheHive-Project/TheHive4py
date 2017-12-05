@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
-import time
-import os
-import magic
 import base64
+import json
+import os
+import time
 
+import magic
+import requests
 from future.utils import raise_with_traceback
+
+from thehive4py.exceptions import TheHiveException, CaseException
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -31,6 +34,36 @@ class JSONSerializable(object):
             return attributes.get(name, default)
 
 
+class CustomFieldHelper(object):
+    def __init__(self):
+        self.fields = {}
+
+    def __add_field(self, type, name, value):
+        custom_field = dict()
+        custom_field['order'] = len(self.fields)
+        custom_field[type] = value
+        self.fields[name] = custom_field
+
+    def add_date(self, name, value):
+        self.__add_field('date', name, value)
+        return self
+
+    def add_string(self, name, value):
+        self.__add_field('string', name, value)
+        return self
+
+    def add_boolean(self, name, value):
+        self.__add_field('boolean', name, value)
+        return self
+
+    def add_number(self, name, value):
+        self.__add_field('number', name, value)
+        return self
+
+    def build(self):
+        return self.fields
+
+
 class Case(JSONSerializable):
 
     def __init__(self, **attributes):
@@ -43,32 +76,19 @@ class Case(JSONSerializable):
             'tags': [],
             'startDate': int(time.time()) * 1000,
             'metrics': {},
-            'tasks': []
+            'customFields': {},
+            'tasks': [],
+            'template': None
         }
-
-        is_from_template = attributes.get('template', False)
-        if is_from_template:
-            template = attributes['template']
-            defaults = {
-                'title': None,
-                'description': template.description,
-                'tlp': template.tlp,
-                'severity': template.severity,
-                'flag': template.flag,
-                'tags': template.tags,
-                'startDate': int(time.time()) * 1000,
-                'metrics': dict((el, None) for el in template.metricNames),
-                'tasks': template.tasks
-            }
 
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        is_from_template = attributes.get('template', False)
         if is_from_template:
-            self.title = '[{}] {}'.format(template.titlePrefix, attributes.get('title', None)) if template.titlePrefix else attributes.get('title', None)
-        else:
-            self.title = attributes.get('title', None)
+            defaults['template'] = attributes['template']
 
+        self.title = attributes.get('title', None)
         self.description = attributes.get('description', defaults['description'])
         self.tlp = attributes.get('tlp', defaults['tlp'])
         self.severity = attributes.get('severity', defaults['severity'])
@@ -76,6 +96,8 @@ class Case(JSONSerializable):
         self.tags = attributes.get('tags', defaults['tags'])
         self.startDate = attributes.get('startDate', defaults['startDate'])
         self.metrics = attributes.get('metrics', defaults['metrics'])
+        self.customFields = attributes.get('customFields', defaults['customFields'])
+        self.template = attributes.get('template', defaults['template'])
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []
@@ -84,6 +106,78 @@ class Case(JSONSerializable):
                 self.tasks.append(task)
             else:
                 self.tasks.append(CaseTask(json=task))
+
+
+class CaseHelper:
+    """
+    Provides helper methods for interacting with instances of the Case class.
+    """
+    def __init__(self, thehive):
+        """
+        Initialize a CaseHelper instance.
+        :param thehive: A TheHiveApi instance.
+
+        """
+        self._thehive = thehive
+
+    def __call__(self, id):
+        """
+        Return an instance of Case with the given case ID.
+        :param id: ID of a case to retrieve.
+
+        """
+        response = self._thehive.get_case(id)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
+        if response.status_code == requests.codes.not_found:
+            raise CaseException("Case {} not found".format(id))
+
+        if self.status_ok(response.status_code):
+            data = response.json()
+            case = Case(json=data)
+
+            # Add attributes that are not added by the constructor
+            case.id = data.get('id', None)
+            case.owner = data.get('owner', None)
+            case.caseId = data.get('caseId', None)
+            case.status = data.get('status', None)
+            case.createdAt = data.get('createdAt', None)
+            case.createdBy = data.get('createdBy', None)
+            case.updatedAt = data.get('updatedAt', None)
+            case.updatedBy = data.get('updatedBy', None)
+
+            return case
+
+    def create(self, title, description, **kwargs):
+        """
+        Create an instance of the Case class.
+        :param title: Case title.
+        :param description: Case description.
+        :param kwargs: Additional arguments.
+
+        :return: The created instance.
+
+        """
+        case = Case(title=title, description=description, **kwargs)
+        response = self._thehive.create_case(case)
+
+        # Check for failed authentication
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
+        if self.status_ok(response.status_code):
+            return self(response.json()['id'])
+        else:
+            raise CaseException("Server returned {}: {}".format(response.status_code, response.text))
+
+    @staticmethod
+    def status_ok(status_code):
+        """Check whether a status code is OK"""
+        OK_STATUS_CODES = [200, 201]
+        return status_code in OK_STATUS_CODES
 
 
 class CaseTask(JSONSerializable):
@@ -121,7 +215,8 @@ class CaseTemplate(JSONSerializable):
         self.flag = attributes.get('flag', False)
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
-        self.metricNames = attributes.get('metricNames', [])
+        self.metrics = attributes.get('metrics', {})
+        self.customFields = attributes.get('customFields', {})
 
         tasks = attributes.get('tasks', [])
         self.tasks = []

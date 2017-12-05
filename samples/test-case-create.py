@@ -9,10 +9,9 @@ import sys
 import json
 import time
 from thehive4py.api import TheHiveApi
-from thehive4py.models import Case, CaseTask
+from thehive4py.models import Case, CaseTask, CustomFieldHelper
 
 api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
-
 
 # Prepare the sample case
 tasks = [
@@ -20,8 +19,22 @@ tasks = [
     CaseTask(title='Communication'),
     CaseTask(title='Investigation', status='Waiting', flag=True)
 ]
-# tasks = []
-case = Case(title='From TheHive4Py', tlp=3, flag=True, tags=['TheHive4Py', 'sample'], description='N/A', tasks=tasks)
+
+# Prepare the custom fields
+customFields = CustomFieldHelper()\
+    .add_boolean('booleanField', True)\
+    .add_string('businessImpact', 'HIGH')\
+    .add_date('occurDate', int(time.time())*1000)\
+    .add_number('cvss', 9)\
+    .build()
+
+case = Case(title='From TheHive4Py',
+            tlp=3,
+            flag=True,
+            tags=['TheHive4Py', 'sample'],
+            description='N/A',
+            tasks=tasks,
+            customFields=customFields)
 
 # Create the case
 print('Create Case')
