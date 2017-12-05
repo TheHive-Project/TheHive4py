@@ -10,6 +10,10 @@
 - Add support of custom fields to the case model [\#39](https://github.com/CERT-BDF/TheHive4py/issues/39)
 - Case helper [\#37](https://github.com/CERT-BDF/TheHive4py/pull/37) ([npratley](https://github.com/npratley))
 
+**Fixed bugs:**
+
+- Error updating case [\#51](https://github.com/CERT-BDF/TheHive4py/issues/51)
+
 **Closed issues:**
 
 - Add a query builder capabilities [\#49](https://github.com/CERT-BDF/TheHive4py/issues/49)
