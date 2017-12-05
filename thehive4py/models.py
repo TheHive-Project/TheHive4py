@@ -98,15 +98,6 @@ class Case(JSONSerializable):
         self.metrics = attributes.get('metrics', defaults['metrics'])
         self.customFields = attributes.get('customFields', defaults['customFields'])
         self.template = attributes.get('template', defaults['template'])
-        
-        self.caseId = attributes.get('caseId', None)
-        self.createdAt = attributes.get('createdAt', None)
-        self.createdBy = attributes.get('createdBy', None)
-        self.id = attributes.get('id', None)
-        self.owner = attributes.get('owner', None)
-        self.status = attributes.get('status', None)
-        self.updatedAt = attributes.get('updatedAt', None)
-        self.updatedBy = attributes.get('updatedBy', None)
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []
@@ -147,6 +138,16 @@ class CaseHelper:
         if self.status_ok(response.status_code):
             data = response.json()
             case = Case(json=data)
+
+            # Add attributes that are not added by the constructor
+            case.id = data.get('id', None)
+            case.owner = data.get('owner', None)
+            case.caseId = data.get('caseId', None)
+            case.status = data.get('status', None)
+            case.createdAt = data.get('createdAt', None)
+            case.createdBy = data.get('createdBy', None)
+            case.updatedAt = data.get('updatedAt', None)
+            case.updatedBy = data.get('updatedBy', None)
 
             return case
 
