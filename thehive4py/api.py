@@ -233,14 +233,16 @@ class TheHiveApi:
         }
 
         # Add body
-        criteria = [Parent('case', Id(case_id)), Eq('status', 'Ok')]
+        parent_criteria = Parent('case', Id(case_id))
 
         # Append the custom query if specified
         if "query" in attributes:
-            criteria.append(attributes["query"])
+            criteria = And(parent_criteria, attributes["query"])
+        else:
+            criteria = parent_criteria
 
         data = {
-            "query": And(criteria)
+            "query": criteria
         }
 
         try:
