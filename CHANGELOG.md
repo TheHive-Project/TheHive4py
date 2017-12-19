@@ -1,8 +1,15 @@
 # Change Log
 
-## [Unreleased](https://github.com/CERT-BDF/TheHive4py/tree/HEAD)
+## [1.4.1](https://github.com/CERT-BDF/TheHive4py/tree/1.4.1)
 
-[Full Changelog](https://github.com/CERT-BDF/TheHive4py/compare/1.3.1...HEAD)
+[Full Changelog](https://github.com/CERT-BDF/TheHive4py/compare/1.4.0...1.4.1)
+
+**Merged pull requests:**
+
+- fix get\_case\_observables method [\#53](https://github.com/CERT-BDF/TheHive4py/pull/53) ([billmurrin](https://github.com/billmurrin))
+
+## [1.4.0](https://github.com/CERT-BDF/TheHive4py/tree/1.4.0) (2017-12-05)
+[Full Changelog](https://github.com/CERT-BDF/TheHive4py/compare/1.3.1...1.4.0)
 
 **Implemented enhancements:**
 
