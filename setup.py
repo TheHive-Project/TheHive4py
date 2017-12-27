@@ -17,7 +17,7 @@ setup(
     author='TheHive-Project',
     author_email='support@thehive-project.org',
     maintainer='TheHive-Project',
-    url='https://github.com/CERT-BDF/Thehive4py',
+    url='https://github.com/TheHive-Project/Thehive4py',
     license='AGPL-V3',
     packages=['thehive4py'],
     classifiers=[
