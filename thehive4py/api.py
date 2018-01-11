@@ -317,6 +317,82 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task logs search error: {}".format(e))
 
+    def create_custom_field(self, custom_field):
+
+        """
+        :param custom_field: TheHive custom field
+        :type customfield: CustomField defined in models.py
+        :rtype: json
+        """
+
+        req = self.url + "/api/list/custom_fields/_exists"
+
+        data = {
+            "key": "reference",
+            "value": custom_field['reference']
+        }
+
+        try:
+            response = requests.post(req, headers={'Content-Type': 'application/json'}, json=data,
+                                     proxies=self.proxies, auth=self.auth, verify=self.cert)
+            json_response = response.json()
+
+            if response.status_code == 200 and len(json_response) > 0:
+                exists = response.json()
+            else:
+                raise CustomFieldException("CustomField creation error: Unable to determine if custom field exists.")
+
+        except requests.exceptions.RequestException as e:
+            raise CustomFieldException("CustomField creation error: {}".format(e))
+
+        if exists['found']:
+            raise CustomFieldException("CustomField creation error: Cannot create custom field. "
+                                       "The custom field reference already exists.")
+        else:
+            req = self.url + "/api/list/custom_fields"
+
+            data = {
+                "value": {
+                    "name": custom_field['name'],
+                    "reference": custom_field['reference'],
+                    "description": custom_field['description'],
+                    "type": custom_field['type'],
+                    "options": custom_field['options']
+                }
+            }
+
+            try:
+                response = requests.post(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+                json_response = response.json()
+
+                if response.status_code == 200 and len(json_response) > 0:
+                    return response.json()
+                else:
+                    raise CustomFieldException("CustomField creation error: Unable to create custom field.")
+
+            except requests.exceptions.RequestException as e:
+                sys.exit("CustomField creation error: {}".format(e))
+
+    def delete_custom_field(self, fieldId):
+
+        """
+        :param fieldId: Custom field Id to delete
+        :rtype: bool
+        """
+
+        req = self.url + "/api/list/{}".format(fieldId)
+
+        try:
+            response = requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+
+            if response.status_code == 200 or response.status_code == 204:
+                return True
+            else:
+                raise CustomFieldException("CustomField deletion error: Error when attempting to remove custom field.")
+
+        except requests.exceptions.RequestException as e:
+            raise CustomFieldException("CustomField deletion error: {}".format(e))
+
     def create_alert(self, alert):
 
         """
