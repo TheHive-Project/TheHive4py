@@ -248,7 +248,7 @@ class TheHiveApi:
         try:
             return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
-            raise CaseObserableException("Case observables search error: {}".format(e))
+            raise CaseObservableException("Case observables search error: {}".format(e))
 
     def get_case_tasks(self, case_id, **attributes):
         req = self.url + "/api/case/task/_search"
