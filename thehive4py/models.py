@@ -247,6 +247,7 @@ class CaseObservable(JSONSerializable):
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
+        self.sighted = attributes.get('sighted', False)
 
         data = attributes.get('data', [])
         if self.dataType == 'file':

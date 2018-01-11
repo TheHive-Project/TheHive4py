@@ -11,13 +11,13 @@ except ImportError:
 
 setup(
     name='thehive4py',
-    version='1.4.0',
+    version='1.4.2',
     description='Python API client for TheHive.',
     long_description=read_md('README.md'),
     author='TheHive-Project',
     author_email='support@thehive-project.org',
     maintainer='TheHive-Project',
-    url='https://github.com/CERT-BDF/Thehive4py',
+    url='https://github.com/TheHive-Project/Thehive4py',
     license='AGPL-V3',
     packages=['thehive4py'],
     classifiers=[
