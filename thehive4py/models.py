@@ -38,6 +38,16 @@ class CustomFieldHelper(object):
     def __init__(self):
         self.fields = {}
 
+    @staticmethod
+    def create_new_field(field_type, name, value=[], reference='', description=''):
+        custom_field = dict()
+        custom_field['name'] = name
+        custom_field['type'] = field_type
+        custom_field['options'] = value
+        custom_field['reference'] = reference
+        custom_field['description'] = description
+        return custom_field
+
     def __add_field(self, type, name, value):
         custom_field = dict()
         custom_field['order'] = len(self.fields)
