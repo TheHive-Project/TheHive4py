@@ -277,6 +277,19 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case tasks search error: {}".format(e))
 
+    def get_linked_cases(self, case_id):
+        """
+        :param case_id: Case identifier
+        :return: TheHive case(s)
+        :rtype: json
+        """
+        req = self.url + "/api/case/{}/links".format(case_id)
+
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Linked cases fetch error: {}".format(e))
+
     def get_case_template(self, name):
 
         """
