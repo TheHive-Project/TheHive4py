@@ -333,6 +333,23 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
+    def update_alert(self, alert):
+        """
+        Update an alert.
+        :param alert: The alert to update. The alert's `id` determines which alert to update.
+        :return:
+        """
+        req = self.url + "/api/alert/{}".format(alert.id)
+        # update only the alert attributes that are not read-only
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+        data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
+        if hasattr(alert, 'artifacts'):
+            data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            raise AlertException("Alert update error: {}".format(e))
+
     def get_alert(self, alert_id):
         """
             :param alert_id: Alert identifier
