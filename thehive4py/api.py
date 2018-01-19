@@ -99,24 +99,18 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Case create error: {}".format(e))
 
-    def update_case(self, case):
+    def update_case(self, caseId, **attributes):
         """
         Update a case.
-        :param case: The case to update. The case's `id` determines which case to update.
+        :param caseId: The ID of the case to update
+        :param attributes: key=value pairs of case attributes to update (field=new_value)
         :return:
         """
-        req = self.url + "/api/case/{}".format(case.id)
-
-        # Choose which attributes to send
-        update_keys = [
-            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
-            'impactStatus', 'summary', 'endDate', 'metrics'
-        ]
-        data = {k: v for k, v in case.__dict__.items() if k in update_keys}
+        req = self.url + "/api/case/{}".format(caseId)
 
         try:
-            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=attributes, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
             raise CaseException("Case update error: {}".format(e))
 
     def create_case_task(self, case_id, case_task):
