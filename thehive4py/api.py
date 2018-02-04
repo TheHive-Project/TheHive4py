@@ -340,21 +340,17 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
-    def update_alert(self, alert):
+    def update_alert(self, alertId, **attributes):
         """
         Update an alert.
-        :param alert: The alert to update. The alert's `id` determines which alert to update.
+        :param alertId: The alert to update. The alert's `id` determines which alert to update.
+        :param attributes: key=value pairs of alert attributes to update (field=new_value)
         :return:
         """
-        req = self.url + "/api/alert/{}".format(alert.id)
-        # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
-        data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
-        if hasattr(alert, 'artifacts'):
-            data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+        req = self.url + "/api/alert/{}".format(alertId)
         try:
-            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=attributes, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
             raise AlertException("Alert update error: {}".format(e))
 
     def get_alert(self, alert_id):
