@@ -173,6 +173,25 @@ class CaseHelper:
         else:
             raise CaseException("Server returned {}: {}".format(response.status_code, response.text))
 
+    def update(self, case_id, **attributes):
+        """
+        Update a case.        
+        :param case_id: The ID of the case to update
+        :param attributes: key=value pairs of case attributes to update (field=new_value)
+        
+        :return: The created instance.
+        """
+
+        response = self._thehive.do_patch("/api/case/{}".format(case_id), **attributes)
+
+        if response.status_code == requests.codes.unauthorized:
+            raise TheHiveException("Authentication failed")
+
+        if self.status_ok(response.status_code):
+            return self(response.json()['id'])
+        else:
+            raise CaseException("Server returned {}: {}".format(response.status_code, response.text))
+
     @staticmethod
     def status_ok(status_code):
         """Check whether a status code is OK"""

@@ -83,6 +83,10 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Error: {}".format(e))
 
+    def do_patch(self, api_url, **attributes):
+        return requests.patch(self.url + api_url, headers={'Content-Type': 'application/json'}, json=attributes,
+                              proxies=self.proxies, auth=self.auth, verify=self.cert)
+
     def create_case(self, case):
 
         """
@@ -99,7 +103,7 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Case create error: {}".format(e))
 
-    def update_case(self, case):
+    def update_case(self, case, fields=[]):
         """
         Update a case.
         :param case: The case to update. The case's `id` determines which case to update.
@@ -110,9 +114,11 @@ class TheHiveApi:
         # Choose which attributes to send
         update_keys = [
             'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
-            'impactStatus', 'summary', 'endDate', 'metrics'
+            'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
-        data = {k: v for k, v in case.__dict__.items() if k in update_keys}
+        data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys) }
+
+        print(json.dumps(data, indent=4, sort_keys=True))
 
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
