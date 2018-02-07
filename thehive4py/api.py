@@ -107,6 +107,7 @@ class TheHiveApi:
         """
         Update a case.
         :param case: The case to update. The case's `id` determines which case to update.
+        :param fields: Optional parameter, an array of fields names, the ones we want to update
         :return:
         """
         req = self.url + "/api/case/{}".format(case.id)
@@ -116,10 +117,7 @@ class TheHiveApi:
             'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
             'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
-        data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys) }
-
-        print(json.dumps(data, indent=4, sort_keys=True))
-
+        data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
@@ -352,16 +350,18 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
-    def update_alert(self, alert):
+    def update_alert(self, alert, fields=[]):
         """
         Update an alert.
         :param alert: The alert to update. The alert's `id` determines which alert to update.
+        :param fields: Optional parameter, an array of fields names, the ones we want to update
         :return:
         """
         req = self.url + "/api/alert/{}".format(alert.id)
         # update only the alert attributes that are not read-only
         update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
-        data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
+        data = {k: v for k, v in alert.__dict__.items() if
+                (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
         if hasattr(alert, 'artifacts'):
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
         try:
