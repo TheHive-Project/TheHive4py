@@ -1,8 +1,26 @@
 # Change Log
 
-## [1.4.2](https://github.com/TheHive-Project/TheHive4py/tree/1.4.2) (2017-12-27)
+## [1.4.3](https://github.com/TheHive-Project/TheHive4py/tree/1.4.3)
 
-[1.4.2](https://github.com/TheHive-Project/TheHive4py/compare/1.4.1...1.4.2)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.2...1.4.3)
+
+**Implemented enhancements:**
+
+- add update\_alert to allow updating an alert [\#61](https://github.com/TheHive-Project/TheHive4py/pull/61) ([Rolinh](https://github.com/Rolinh))
+
+**Fixed bugs:**
+
+- How to close a case via API [\#67](https://github.com/TheHive-Project/TheHive4py/issues/67)
+- CustomFields are not updated in update\_case [\#66](https://github.com/TheHive-Project/TheHive4py/issues/66)
+- Correction in update\_case usage [\#57](https://github.com/TheHive-Project/TheHive4py/issues/57)
+
+**Merged pull requests:**
+
+- created get\_linked\_cases method in api [\#60](https://github.com/TheHive-Project/TheHive4py/pull/60) ([billmurrin](https://github.com/billmurrin))
+- fix spelling of exception [\#58](https://github.com/TheHive-Project/TheHive4py/pull/58) ([billmurrin](https://github.com/billmurrin))
+
+## [1.4.2](https://github.com/TheHive-Project/TheHive4py/tree/1.4.2) (2017-12-27)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.1...1.4.2)
 
 **Implemented enhancements:**
 

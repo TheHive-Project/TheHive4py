@@ -350,18 +350,22 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
-    def update_alert(self, alert, fields=[]):
+    def update_alert(self, alert_id, alert, fields=[]):
         """
         Update an alert.
-        :param alert: The alert to update. The alert's `id` determines which alert to update.
+        :param alert_id: The ID of the alert to update.
+        :param data: The alert to update.
         :param fields: Optional parameter, an array of fields names, the ones we want to update
         :return:
         """
-        req = self.url + "/api/alert/{}".format(alert.id)
+        req = self.url + "/api/alert/{}".format(alert_id)
+
         # update only the alert attributes that are not read-only
         update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+
         data = {k: v for k, v in alert.__dict__.items() if
                 (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
         if hasattr(alert, 'artifacts'):
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
         try:
@@ -378,7 +382,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth,verify=self.cert)
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert fetch error: {}".format(e))
 
