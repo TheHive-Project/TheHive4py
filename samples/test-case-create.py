@@ -11,7 +11,7 @@ import time
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTask, CustomFieldHelper
 
-api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 # Prepare the sample case
 tasks = [

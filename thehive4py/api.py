@@ -83,6 +83,10 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Error: {}".format(e))
 
+    def do_patch(self, api_url, **attributes):
+        return requests.patch(self.url + api_url, headers={'Content-Type': 'application/json'}, json=attributes,
+                              proxies=self.proxies, auth=self.auth, verify=self.cert)
+
     def create_case(self, case):
 
         """
@@ -99,10 +103,11 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Case create error: {}".format(e))
 
-    def update_case(self, case):
+    def update_case(self, case, fields=[]):
         """
         Update a case.
         :param case: The case to update. The case's `id` determines which case to update.
+        :param fields: Optional parameter, an array of fields names, the ones we want to update
         :return:
         """
         req = self.url + "/api/case/{}".format(case.id)
@@ -110,10 +115,9 @@ class TheHiveApi:
         # Choose which attributes to send
         update_keys = [
             'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
-            'impactStatus', 'summary', 'endDate', 'metrics'
+            'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
-        data = {k: v for k, v in case.__dict__.items() if k in update_keys}
-
+        data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
@@ -248,7 +252,7 @@ class TheHiveApi:
         try:
             return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
-            raise CaseObserableException("Case observables search error: {}".format(e))
+            raise CaseObservableException("Case observables search error: {}".format(e))
 
     def get_case_tasks(self, case_id, **attributes):
         req = self.url + "/api/case/task/_search"
@@ -276,6 +280,19 @@ class TheHiveApi:
             return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case tasks search error: {}".format(e))
+
+    def get_linked_cases(self, case_id):
+        """
+        :param case_id: Case identifier
+        :return: TheHive case(s)
+        :rtype: json
+        """
+        req = self.url + "/api/case/{}/links".format(case_id)
+
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Linked cases fetch error: {}".format(e))
 
     def get_case_template(self, name):
 
@@ -333,6 +350,29 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
+    def update_alert(self, alert_id, alert, fields=[]):
+        """
+        Update an alert.
+        :param alert_id: The ID of the alert to update.
+        :param data: The alert to update.
+        :param fields: Optional parameter, an array of fields names, the ones we want to update
+        :return:
+        """
+        req = self.url + "/api/alert/{}".format(alert_id)
+
+        # update only the alert attributes that are not read-only
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+
+        data = {k: v for k, v in alert.__dict__.items() if
+                (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
+        if hasattr(alert, 'artifacts'):
+            data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            raise AlertException("Alert update error: {}".format(e))
+
     def get_alert(self, alert_id):
         """
             :param alert_id: Alert identifier
@@ -342,7 +382,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth,verify=self.cert)
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert fetch error: {}".format(e))
 

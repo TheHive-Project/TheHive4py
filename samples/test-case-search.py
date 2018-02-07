@@ -9,7 +9,7 @@ import json
 from thehive4py.api import TheHiveApi
 from thehive4py.query import *
 
-api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 
 def search(title, query, range, sort):

@@ -4,7 +4,7 @@
 from thehive4py.api import TheHiveApi
 
 
-thehive = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 # Create a new case
 case = thehive.case.create(title='From TheHive4Py', description='N/A', tlp=3, flag=True,

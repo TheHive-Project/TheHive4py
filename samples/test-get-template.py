@@ -10,7 +10,7 @@ from thehive4py.api import TheHiveApi
 from thehive4py.models import CaseTemplate
 from thehive4py.exceptions import CaseTemplateException
 
-api = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
+api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 print('Find existing case template')
 print('-----------------------------')
