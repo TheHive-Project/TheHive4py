@@ -7,7 +7,7 @@ class TheHive4py(object):
     """This is the main class for communicating with the TheHive API. As this is a new major version, authentication is
     only possible through the api key. Basic auth with user/pass is deprecated."""
     def __init__(self, url, api_key, **kwargs):
-        if not isinstance(url, type(str)) or not isinstance(api_key, type(str)):
+        if not isinstance(url, str) or not isinstance(api_key, str):
             raise TypeError('URL and API key are required and must be of type string.')
 
         # Drop a warning for python2 because reasons
