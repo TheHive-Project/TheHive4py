@@ -55,3 +55,35 @@ class Case(object):
         return Case(
             # Todo: Add case fields from TH case object
         )
+
+    def diff(self, case):
+        """Returns a list of attributes that are different between the two cases compared. Can be used e.g. for updating
+        attributes of cases over the api."""
+        if not isinstance(case, Case):
+            raise TypeError('case should be of type Case.')
+
+        diff = []
+        if self.case_number != case.case_number:
+            diff.append('case_number')
+        if self.case_id != case.case_id:
+            diff.append('case_id')
+        if self.case_title != case.case_title:
+            diff.append('case_title')
+        if self.case_description != case.case_description:
+            diff.append('case_description')
+        if self.case_severity != case.case_severity:
+            diff.append('case_severity')
+        if self.case_owner != case.case_owner:
+            diff.append('case_owner')
+        if self.case_start_date != case.case_start_date:
+            diff.append('case_start_date')
+        if self.case_flag != case.case_flag:
+            diff.append('case_flag')
+        if self.case_tlp != case.case_tlp:
+            diff.append('case_tlp')
+        if self.case_resolution_status != case.case_resolution_status:
+            diff.append('case_resolution_status')
+        if self.case_impact_status != case.case_impact_status:
+            diff.append('case_impact_status')
+        # Todo: add missing attribute checks
+        return diff
