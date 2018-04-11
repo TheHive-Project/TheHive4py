@@ -2,8 +2,13 @@ import requests
 import sys
 import warnings
 
+from .controller.cases import CasesController
+from .controller.tasks import TasksController
+from .controller.observables import ObservablesController
+from .controller.alerts import AlertsController
 
-class TheHive4py(object):
+
+class Api(object):
     """This is the main class for communicating with the TheHive API. As this is a new major version, authentication is
     only possible through the api key. Basic auth with user/pass is deprecated."""
     def __init__(self, url, api_key, **kwargs):
@@ -11,7 +16,7 @@ class TheHive4py(object):
             raise TypeError('URL and API key are required and must be of type string.')
 
         # Drop a warning for python2 because reasons
-        if sys.version[0] < 3:
+        if int(sys.version[0]) < 3:
             warnings.warn('You are using Python 2.x. That can work, but is not supported.')
 
         # Create new session object with an Authorization header
@@ -21,6 +26,11 @@ class TheHive4py(object):
         })
         self.__url = url
         self.__endpoint = '{}/api/'.format(url)
+
+        self.cases = CasesController(self)
+        self.tasks = TasksController(self)
+        self.observables = ObservablesController(self)
+        self.alerts = AlertsController(self)
 
     # Handling cases
     def case_create(self, **kwargs):

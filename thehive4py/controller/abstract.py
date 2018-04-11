@@ -1,8 +1,9 @@
 class AbstractController(object):
-    def __init__(self):
-        pass
+    def __init__(self, api):
+        self.api = api
 
     def find_all(self, query, sort, range):
+        print('Calling AbstractController.find_all({}, {}, {})'.format(query, sort, range))
         pass
 
     def find_one_by(self, query):
