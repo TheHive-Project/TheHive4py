@@ -1,5 +1,6 @@
 import requests
 import sys
+import json
 import warnings
 
 from .controller.cases import CasesController
@@ -20,17 +21,56 @@ class Api(object):
             warnings.warn('You are using Python 2.x. That can work, but is not supported.')
 
         # Create new session object with an Authorization header
-        self.__session = requests.Session()
-        self.__session.headers.update({
-            'Authorization': 'Bearer {}'.format(api_key)
-        })
+        # self.__session = requests.Session()
+        # self.__session.headers.update({
+        #    'Authorization': 'Bearer {}'.format(api_key)
+        # })
+        self.__api_key = api_key
         self.__url = url
-        self.__endpoint = '{}/api/'.format(url)
+        self.__base_url = '{}/api/'.format(url)
+        self.__proxies = kwargs.get('proxies', {})
+        self.__verify_cert = kwargs.get('verify_cert', kwargs.get('cert', True))
 
         self.cases = CasesController(self)
         self.tasks = TasksController(self)
         self.observables = ObservablesController(self)
         self.alerts = AlertsController(self)
+
+    def do_get(self, endpoint):
+        headers = {
+            'Authorization': 'Bearer {}'.format(self.__api_key)
+        }
+
+        print("curl -H 'Authorization: Bearer {}' '{}{}' | json_pp".format(self.__api_key, self.__base_url, endpoint))
+
+        response = requests.get('{}{}'.format(self.__base_url, endpoint), headers=headers, proxies=self.__proxies,
+                                verify=self.__verify_cert)
+
+        return response.json()
+
+    def do_post(self, endpoint, data, params):
+        headers = {
+            'Authorization': 'Bearer {}'.format(self.__api_key),
+            'Content-Type': 'application/json'
+        }
+
+        print("curl -XPOST -H 'Authorization: Bearer {}' '{}{}' -d '{}'| json_pp"
+              .format(self.__api_key, self.__base_url, endpoint, json.dumps(data)))
+
+        response = requests.post('{}{}'.format(self.__base_url, endpoint),
+                                 headers=headers,
+                                 proxies=self.__proxies,
+                                 json=data,
+                                 params=params,
+                                 verify=self.__verify_cert)
+
+        return response.json()
+
+    def do_patch(self):
+        pass
+
+    def status(self):
+        return self.do_get('status')
 
     # Handling cases
     def case_create(self, **kwargs):

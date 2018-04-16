@@ -1,13 +1,27 @@
 from .abstract import AbstractController
 from ..models import Case
+from ..query import *
 
 
 class CasesController(AbstractController):
     def __init__(self, api):
-        AbstractController.__init__(self, api)
+        AbstractController.__init__(self, 'case', api)
 
-    def find_all(self, query, **kwargs) -> list:
-        return AbstractController.find_all(self, query or {}, kwargs.get('sort', None), kwargs.get('range', None))
+    def get_by_number(self, number):
+        return AbstractController.find_one_by(self, {'caseId': number}, {})
 
-    def find_one_by(self, query) -> Case:
-        pass
+    def get_tasks(self, case_id, query, **kwargs):
+        parent_expr = ParentId('case', case_id)
+
+        if query is not None and len(query) is not 0:
+            return self._api.tasks.find_all(And(parent_expr, query), **kwargs)
+        else:
+            return self._api.tasks.find_all(parent_expr, **kwargs)
+
+    def get_observables(self, case_id, query, **kwargs):
+        parent_expr = ParentId('case', case_id)
+
+        if query is not None and len(query) is not 0:
+            return self._api.observables.find_all(And(parent_expr, query), **kwargs)
+        else:
+            return self._api.observables.find_all(parent_expr, **kwargs)
