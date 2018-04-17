@@ -28,3 +28,27 @@ class CasesController(AbstractController):
             criteria = child_expr
 
         return self.find_all(criteria, **kwargs)
+
+    def create(self, case):
+        # TODO
+        pass
+
+    def update(self, case, changes):
+        # TODO
+        pass
+
+    def add_task(self, task):
+        # TODO
+        pass
+
+    def add_observable(self, observable):
+        # TODO
+        pass
+
+    def close_case(self, case_id):
+        # TODO
+        pass
+
+    def open_case(self, case_id):
+        # TODO
+        pass
