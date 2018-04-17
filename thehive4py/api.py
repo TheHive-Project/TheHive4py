@@ -36,26 +36,24 @@ class Api(object):
         self.observables = ObservablesController(self)
         self.alerts = AlertsController(self)
 
-    def do_get(self, endpoint):
+    def do_get(self, endpoint, params={}):
         headers = {
             'Authorization': 'Bearer {}'.format(self.__api_key)
         }
 
-        print("curl -H 'Authorization: Bearer {}' '{}{}' | json_pp".format(self.__api_key, self.__base_url, endpoint))
-
-        response = requests.get('{}{}'.format(self.__base_url, endpoint), headers=headers, proxies=self.__proxies,
+        response = requests.get('{}{}'.format(self.__base_url, endpoint),
+                                headers=headers,
+                                params=params,
+                                proxies=self.__proxies,
                                 verify=self.__verify_cert)
 
         return response.json()
 
-    def do_post(self, endpoint, data, params):
+    def do_post(self, endpoint, data, params={}):
         headers = {
             'Authorization': 'Bearer {}'.format(self.__api_key),
             'Content-Type': 'application/json'
         }
-
-        print("curl -XPOST -H 'Authorization: Bearer {}' '{}{}' -d '{}'| json_pp"
-              .format(self.__api_key, self.__base_url, endpoint, json.dumps(data)))
 
         response = requests.post('{}{}'.format(self.__base_url, endpoint),
                                  headers=headers,

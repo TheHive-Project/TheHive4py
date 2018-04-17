@@ -11,17 +11,20 @@ class CasesController(AbstractController):
         return AbstractController.find_one_by(self, {'caseId': number}, {})
 
     def get_tasks(self, case_id, query, **kwargs):
-        parent_expr = ParentId('case', case_id)
-
-        if query is not None and len(query) is not 0:
-            return self._api.tasks.find_all(And(parent_expr, query), **kwargs)
-        else:
-            return self._api.tasks.find_all(parent_expr, **kwargs)
+        return self._api.tasks.of_case(case_id, query, **kwargs)
 
     def get_observables(self, case_id, query, **kwargs):
-        parent_expr = ParentId('case', case_id)
+        return self._api.observables.of_case(case_id, query, **kwargs)
 
-        if query is not None and len(query) is not 0:
-            return self._api.observables.find_all(And(parent_expr, query), **kwargs)
+    def links(self, case_id):
+        return self._api.do_get('case/{}/links'.format(case_id))
+
+    def has_observable(self, case_query, observable_query, **kwargs):
+        child_expr = Child('case_artifact', observable_query or {})
+
+        if case_query and len(case_query):
+            criteria = And(case_query, child_expr)
         else:
-            return self._api.observables.find_all(parent_expr, **kwargs)
+            criteria = child_expr
+
+        return self.find_all(criteria, **kwargs)
