@@ -18,6 +18,15 @@ api.cases.get_tasks(case_id, query, sort='', range='')
 api.cases.get_observables(case_id, query, sort='', range='')
 api.cases.links(case_id)
 api.cases.has_observable(case_query, observable_query)
+
+api.cases.flag(flag)
+api.cases.close(case_id)
+api.cases.open(case_id)
+
+api.cases.add_metric(case_id, metric, value)
+api.cases.remove_metric(case_id, metric)
+api.cases.add_customfield(case_id, customfield, value)
+api.cases.remove_customfield(case_id, customfield, value)
 ```
 
 ## Observables methods
@@ -39,10 +48,15 @@ api.tasks.count(query)
 api.tasks.get_by_id(id)
 api.tasks.of_case(case_id, query, sort='', range='')
 
-api.tasks.get_waiting(sort='', range='')
-api.tasks.get_by_user(user_id)
+api.tasks.get_waiting(query, sort='', range='')
+api.tasks.get_by_user(user_id, query, sort='', range='')
 api.tasks.get_logs(query, sort='', range='')
 api.tasks.add_log(task_log)
+
+api.tasks.flag(query, flag)
+api.tasks.close(query)
+api.tasks.open(query)
+api.tasks.cancel(query)
 ```
 
 ## Alerts methods

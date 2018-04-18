@@ -45,10 +45,30 @@ class CasesController(AbstractController):
         # TODO
         pass
 
-    def close_case(self, case_id):
+    def flag(self, flag):
         # TODO
         pass
 
-    def open_case(self, case_id):
+    def close(self, case_id):
+        # TODO
+        pass
+
+    def open(self, case_id):
+        # TODO
+        pass
+
+    def add_metric(self, case_id, metric, value):
+        # TODO
+        pass
+
+    def remove_metric(self, case_id, metric):
+        # TODO
+        pass
+
+    def add_customfield(self, case_id, customfield, value):
+        # TODO
+        pass
+
+    def remove_customfield(self, case_id, customfield, value):
         # TODO
         pass
