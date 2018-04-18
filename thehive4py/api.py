@@ -7,6 +7,7 @@ from .controller.cases import CasesController
 from .controller.tasks import TasksController
 from .controller.observables import ObservablesController
 from .controller.alerts import AlertsController
+from .controller.users import UsersController
 
 
 class Api(object):
@@ -35,6 +36,7 @@ class Api(object):
         self.tasks = TasksController(self)
         self.observables = ObservablesController(self)
         self.alerts = AlertsController(self)
+        self.users = UsersController(self)
 
     def do_get(self, endpoint, params={}):
         headers = {

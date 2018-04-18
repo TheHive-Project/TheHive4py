@@ -38,6 +38,11 @@ api.tasks.find_one_by(query, sort='')
 api.tasks.count(query)
 api.tasks.get_by_id(id)
 api.tasks.of_case(case_id, query, sort='', range='')
+
+api.tasks.get_waiting(sort='', range='')
+api.tasks.get_by_user(user_id)
+api.tasks.get_logs(query, sort='', range='')
+api.tasks.add_log(task_log)
 ```
 
 ## Alerts methods
@@ -47,4 +52,22 @@ api.alerts.find_all(query, sort='', range='')
 api.alerts.find_one_by(query, sort='')
 api.alerts.count(query)
 api.alerts.get_by_id(id)
+
+api.alerts.import_as_case(alert_id, template=None)
+api.alerts.merge_into(alert_id, case_id)
+```
+
+## Users methods
+
+```python
+api.users.find_all(query, sort='', range='')
+api.users.find_one_by(query, sort='')
+api.users.count(query)
+api.users.get_by_id(id)
+
+api.users.lock(id)
+api.users.unlock(id)
+api.users.get_key(id)
+api.users.create_key(id)
+api.users.revoke_key(id)
 ```

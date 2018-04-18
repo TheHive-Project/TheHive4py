@@ -8,7 +8,7 @@ class CasesController(AbstractController):
         AbstractController.__init__(self, 'case', api)
 
     def get_by_number(self, number):
-        return AbstractController.find_one_by(self, {'caseId': number}, {})
+        return AbstractController.find_one_by(self, {'caseId': number})
 
     def get_tasks(self, case_id, query, **kwargs):
         return self._api.tasks.of_case(case_id, query, **kwargs)

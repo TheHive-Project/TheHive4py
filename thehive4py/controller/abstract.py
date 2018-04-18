@@ -9,7 +9,7 @@ class AbstractController(object):
 
         return self._api.do_post(url, {'query': query or {}}, params)
 
-    def find_one_by(self, query, kwargs):
+    def find_one_by(self, query, **kwargs):
         url = '{}/_search'.format(self._endpoint)
 
         params = {
