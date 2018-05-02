@@ -1,3 +1,6 @@
+import json
+
+
 class Case(object):
     """This represents a TheHive case."""
     def __init__(self, **kwargs):
@@ -9,46 +12,47 @@ class Case(object):
         :param case_id: Elasticsearch document id of the case
         # Todo: Add the case fields to docstring
         """
-        self.case_number = kwargs.get('case_number', None)
-        self.case_id = kwargs.get('case_id', None)
-        self.case_title = kwargs.get('case_title', None)
-        self.case_description = kwargs.get('case_description', None)
-        self.case_severity = kwargs.get('case_severity', None)
-        self.case_owner = kwargs.get('case_owner', None)
-        self.case_start_date = kwargs.get('case_start_date', None)
-        self.case_flag = kwargs.get('case_flag', False)
-        self.case_tlp = kwargs.get('case_tlp', 2)
-        self.case_resolution_status = kwargs.get('case_resolution_status', None)
-        self.case_impact_status = kwargs.get('case_impact_status', None)
-        self.case_summary = kwargs.get('case_summary', None)
-        self.case_end_date = kwargs.get('case_end_date', None)
-        self.case_status = kwargs.get('case_status', 'Open')
-        self.case_merge_into = kwargs.get('case_merge_into', None)
-        self.case_merge_from = kwargs.get('case_merge_from', None)
+        self.number = kwargs.get('number', None)
+        self.id = kwargs.get('id', None)
+        self.title = kwargs.get('title', None)
+        self.description = kwargs.get('description', None)
+        self.severity = kwargs.get('severity', None)
+        self.owner = kwargs.get('owner', None)
+        self.start_date = kwargs.get('start_date', None)
+        self.flag = kwargs.get('flag', False)
+        self.tlp = kwargs.get('tlp', 2)
+        self.resolution_status = kwargs.get('resolution_status', None)
+        self.impact_status = kwargs.get('impact_status', None)
+        self.summary = kwargs.get('summary', None)
+        self.end_date = kwargs.get('end_date', None)
+        self.status = kwargs.get('status', 'Open')
+        self.merge_into = kwargs.get('merge_into', None)
+        self.merge_from = kwargs.get('merge_from', None)
 
-        metrics = kwargs.get('case_metrics', [])
-        if not isinstance(metrics, list):
-            self.case_metrics = [metrics]
-        else:
-            self.case_metrics = metrics
+        self.reports = kwargs.get('reports', {})
+        self.metrics = kwargs.get('metrics', {})
+        self.custom_fields = kwargs.get('customFields', {})
 
-        tags = kwargs.get('case_tags', [])
+        tags = kwargs.get('tags', [])
         if not isinstance(tags, list):
-            self.case_tags = [tags]
+            self.tags = [tags]
         else:
-            self.case_tags = tags
+            self.tags = tags
 
-        observables = kwargs.get('case_observables', [])
-        if not isinstance(observables, list):
-            self.case_observables = [observables]
-        else:
-            self.case_observables = observables
+        # observables = kwargs.get('observables', [])
+        # if not isinstance(observables, list):
+        #     self.observables = [observables]
+        # else:
+        #     self.observables = observables
+        #
+        # tasks = kwargs.get('tasks', None)
+        # if not isinstance(tasks, list):
+        #     self.tasks = [tasks]
+        # else:
+        #     self.tasks = tasks
 
-        tasks = kwargs.get('case_tasks', None)
-        if not isinstance(tasks, list):
-            self.case_tasks = [tasks]
-        else:
-            self.case_tasks = tasks
+    def __str__(self):
+        return json.dumps(self.__dict__, indent=2)
 
     @staticmethod
     def from_json(**kwargs):
@@ -63,27 +67,27 @@ class Case(object):
             raise TypeError('case should be of type Case.')
 
         diff = []
-        if self.case_number != case.case_number:
-            diff.append('case_number')
-        if self.case_id != case.case_id:
-            diff.append('case_id')
-        if self.case_title != case.case_title:
-            diff.append('case_title')
-        if self.case_description != case.case_description:
-            diff.append('case_description')
-        if self.case_severity != case.case_severity:
-            diff.append('case_severity')
-        if self.case_owner != case.case_owner:
-            diff.append('case_owner')
-        if self.case_start_date != case.case_start_date:
-            diff.append('case_start_date')
-        if self.case_flag != case.case_flag:
-            diff.append('case_flag')
-        if self.case_tlp != case.case_tlp:
-            diff.append('case_tlp')
-        if self.case_resolution_status != case.case_resolution_status:
-            diff.append('case_resolution_status')
-        if self.case_impact_status != case.case_impact_status:
-            diff.append('case_impact_status')
+        if self.number != case.number:
+            diff.append('number')
+        if self.id != case.id:
+            diff.append('id')
+        if self.title != case.title:
+            diff.append('title')
+        if self.description != case.description:
+            diff.append('description')
+        if self.severity != case.severity:
+            diff.append('severity')
+        if self.owner != case.owner:
+            diff.append('owner')
+        if self.start_date != case.start_date:
+            diff.append('start_date')
+        if self.flag != case.flag:
+            diff.append('flag')
+        if self.tlp != case.tlp:
+            diff.append('tlp')
+        if self.resolution_status != case.resolution_status:
+            diff.append('resolution_status')
+        if self.impact_status != case.impact_status:
+            diff.append('impact_status')
         # Todo: add missing attribute checks
         return diff
