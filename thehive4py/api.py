@@ -350,6 +350,32 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert create error: {}".format(e))
 
+    def mark_alert_as_read(self, alert_id):
+        """
+        Mark an alert as read.
+        :param alert_id: The ID of the alert to mark as read.
+        :return:
+        """
+        req = self.url + "/api/alert/{}/markAsRead".format(alert_id)
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            raise AlertException("Mark alert as read error: {}".format(e))    
+
+    def mark_alert_as_unread(self, alert_id):
+        """
+        Mark an alert as unread.
+        :param alert_id: The ID of the alert to mark as unread.
+        :return:
+        """
+        req = self.url + "/api/alert/{}/markAsUnread".format(alert_id)
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            raise AlertException("Mark alert as unread error: {}".format(e))    
+
     def update_alert(self, alert_id, alert, fields=[]):
         """
         Update an alert.
