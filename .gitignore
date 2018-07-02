@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gitignore
 .idea/
+.vscode/
+venv/
 tmp/
 *.pyc
 thehive4py/*.pyc

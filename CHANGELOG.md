@@ -1,7 +1,22 @@
 # Change Log
 
-## [1.4.3](https://github.com/TheHive-Project/TheHive4py/tree/1.4.3)
+## [Unreleased](https://github.com/TheHive-Project/TheHive4py/tree/1.4.4) (2018-07-02)
 
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.3...1.4.4)
+
+**Closed issues:**
+
+- Retrieve analyzer report after analysis \[question\] [\#75](https://github.com/TheHive-Project/TheHive4py/issues/75)
+- Keep analyzer reports when merging a case [\#73](https://github.com/TheHive-Project/TheHive4py/issues/73)
+- Unify the naming of statuses and filters [\#70](https://github.com/TheHive-Project/TheHive4py/issues/70)
+
+**Merged pull requests:**
+
+- Add support for alert markAsRead/Unread [\#74](https://github.com/TheHive-Project/TheHive4py/pull/74) ([itsnotapt](https://github.com/itsnotapt))
+- Missing parameter \_field in Between function [\#71](https://github.com/TheHive-Project/TheHive4py/pull/71) ([tagashy](https://github.com/tagashy))
+- Add Support for update\_case\_tasks method [\#63](https://github.com/TheHive-Project/TheHive4py/pull/63) ([billmurrin](https://github.com/billmurrin))
+
+## [1.4.3](https://github.com/TheHive-Project/TheHive4py/tree/1.4.3) (2018-02-07)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.2...1.4.3)
 
 **Implemented enhancements:**
@@ -16,8 +31,8 @@
 
 **Merged pull requests:**
 
-- created get\_linked\_cases method in api [\#60](https://github.com/TheHive-Project/TheHive4py/pull/60) ([billmurrin](https://github.com/billmurrin))
 - fix spelling of exception [\#58](https://github.com/TheHive-Project/TheHive4py/pull/58) ([billmurrin](https://github.com/billmurrin))
+- created get\_linked\_cases method in api [\#60](https://github.com/TheHive-Project/TheHive4py/pull/60) ([billmurrin](https://github.com/billmurrin))
 
 ## [1.4.2](https://github.com/TheHive-Project/TheHive4py/tree/1.4.2) (2017-12-27)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.1...1.4.2)
