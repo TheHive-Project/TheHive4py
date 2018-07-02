@@ -142,6 +142,27 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task create error: {}".format(e))
 
+    def update_case_task(self, task):
+        """
+        :Updates TheHive Task
+        :param case: The task to update. The task's `id` determines which Task to update.
+        :return:
+        """
+        req = self.url + "/api/case/task/{}".format(task.id)
+
+        # Choose which attributes to send
+        update_keys = [
+            'title', 'description', 'status', 'order', 'user', 'owner', 'flag', 'endDate'
+        ]
+
+        data = {k: v for k, v in task.__dict__.items() if k in update_keys}
+
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data,
+                                  proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task update error: {}".format(e))
+
     def create_task_log(self, task_id, case_task_log):
 
         """
