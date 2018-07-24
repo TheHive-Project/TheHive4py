@@ -18,7 +18,7 @@ class CustomJsonEncoder(json.JSONEncoder):
         if isinstance(o, JSONSerializable):
             return o.__dict__
         else:
-            return json.JSONEncoder.encode(self, o)
+            return json.JSONEncoder.default(self, o)
 
 
 class JSONSerializable(object):
