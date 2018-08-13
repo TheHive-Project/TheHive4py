@@ -315,6 +315,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Linked cases fetch error: {}".format(e))
 
+    def find_case_templates(self, **attributes):
+        """
+            :return: list of case templates
+            :rtype: json
+        """
+        return self.__find_rows("/api/case/template/_search", **attributes)
+
     def get_case_template(self, name):
 
         """
