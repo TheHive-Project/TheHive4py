@@ -347,6 +347,20 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTemplateException("Case template fetch error: {}".format(e))
 
+    def get_case_task(self, taskId):
+        req = self.url + "/api/case/task/{}".format(taskId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task logs search error: {}".format(e))
+
+    def get_task_log(self, logId):
+        req = self.url + "/api/case/task/log/{}".format(logId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task logs search error: {}".format(e))
+
     def get_task_logs(self, taskId):
 
         """
