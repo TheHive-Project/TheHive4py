@@ -3,13 +3,21 @@ class AbstractController(object):
         self._api = api
         self._endpoint = endpoint
 
-    def find_all(self, query, **kwargs):
+    def _wrap(self, data, cls):
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
+            return list(map(lambda item: cls(item), data))
+        else:
+            return data
+
+    def _find_all(self, query, **kwargs):
         url = '{}/_search'.format(self._endpoint)
         params = dict((k, kwargs.get(k, None)) for k in ('sort', 'range'))
 
-        return self._api.do_post(url, {'query': query or {}}, params)
+        return self._api.do_post(url, {'query': query or {}}, params).json()
 
-    def find_one_by(self, query, **kwargs):
+    def _find_one_by(self, query, **kwargs):
         url = '{}/_search'.format(self._endpoint)
 
         params = {
@@ -18,9 +26,14 @@ class AbstractController(object):
         if 'sort' in kwargs:
             params['sort'] = kwargs['sort']
 
-        return self._api.do_post(url, {'query': query or {}}, params)
+        collection = self._api.do_post(url, {'query': query or {}}, params).json()
 
-    def count(self, query):
+        if len(collection) > 0:
+            return collection[0]
+        else:
+            return None
+
+    def _count(self, query):
         url = '{}/_stats'.format(self._endpoint)
 
         payload = {
@@ -30,15 +43,23 @@ class AbstractController(object):
             }]
         }
 
-        return self._api.do_post(url, payload, {})['count']
+        response = self._api.do_post(url, payload, {}).json()
 
-    def get_by_id(self, id):
-        url = '{}/{}'.format(self._endpoint, id)
+        if response is not None:
+            return response.get('count', None)
+        else:
+            return None
 
-        return self._api.do_get(url)
+    def _get_by_id(self, obj_id):
+        url = '{}/{}'.format(self._endpoint, obj_id)
 
-    def update_one_by_id(self, id, **attributes):
-        pass
+        return self._api.do_get(url).json()
 
-    def update_one_by_object(self, updated_obj, limit_attributes=None):
-        pass
+    @staticmethod
+    def _clean_changes(source, allowed, selected=[]):
+        if selected is not None and len(selected) > 0:
+            fields = list(set(allowed) & set(selected) & set(source.keys()))
+        else:
+            fields = list(set(allowed) & set(source.keys()))
+
+        return dict((k, source.get(k, None)) for k in fields)

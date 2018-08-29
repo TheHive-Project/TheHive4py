@@ -1,3 +1,4 @@
+typing
 requests
 python-magic
 pypandoc

@@ -1,4 +1,7 @@
+from typing import List
+
 from .abstract import AbstractController
+from ..models import Task
 from ..query import *
 
 
@@ -6,7 +9,16 @@ class TasksController(AbstractController):
     def __init__(self, api):
         AbstractController.__init__(self, 'case/task', api)
 
-    def of_case(self, case_id, query={}, **kwargs):
+    def find_all(self, query, **kwargs) -> List[Task]:
+        return self._wrap(self._find_all(query, **kwargs), Task)
+
+    def find_one_by(self, query, **kwargs) -> Task:
+        return self._wrap(self._find_one_by(query, **kwargs), Task)
+
+    def get_by_id(self, org_id) -> Task:
+        return self._wrap(self._get_by_id(org_id), Task)
+
+    def of_case(self, case_id, query={}, **kwargs) -> List[Task]:
         parent_expr = ParentId('case', case_id)
 
         if query is not None and len(query) is not 0:
@@ -14,23 +26,23 @@ class TasksController(AbstractController):
         else:
             return self.find_all(parent_expr, **kwargs)
 
-    def get_waiting(self, query={}, **kwargs):
+    def get_waiting(self, query={}, **kwargs) -> List[Task]:
         if query is not None and len(query) is not 0:
-            return AbstractController.find_all(self, And({'status': 'WAITING'}, query), **kwargs)
+            return self.find_all(And({'status': 'Waiting'}, query), **kwargs)
         else:
-            return AbstractController.find_all(self, {'status': 'WAITING'}, **kwargs)
+            return self.find_all({'status': 'Waiting'}, **kwargs)
 
-    def get_by_user(self, user_id, query={}, **kwargs):
+    def get_by_user(self, user_id, query={}, **kwargs) -> List[Task]:
         if query is not None and len(query) is not 0:
-            return AbstractController.find_all(self, And({'owner': user_id}, query), **kwargs)
+            return self.find_all(And({'owner': user_id}, query), **kwargs)
         else:
-            return AbstractController.find_all(self, {'owner': user_id}, **kwargs)
+            return self.find_all({'owner': user_id}, **kwargs)
 
     def get_logs(self, query, **kwargs):
         # TODO
         pass
 
-    def add_log(self, task_log):
+    def add_log(self, task_id, task_log):
         # TODO
         pass
 
