@@ -38,7 +38,7 @@ class TasksController(AbstractController):
         else:
             return self.find_all({'owner': user_id}, **kwargs)
 
-    def get_logs(self, query, **kwargs):
+    def get_logs(self, task_id, query, **kwargs):
         # TODO
         pass
 
@@ -46,18 +46,22 @@ class TasksController(AbstractController):
         # TODO
         pass
 
-    def flag(self, query, flag):
+    def flag(self, task_id, flag):
         # TODO
         pass
 
-    def close(self, query):
+    def close(self, task_id):
         # TODO
         pass
 
-    def open(self, query):
+    def start(self, task_id):
         # TODO
         pass
 
-    def cancel(self, query):
+    def assign(self, task_id, user_id):
+        # TODO
+        pass
+
+    def cancel(self, task_id):
         # TODO
         pass
