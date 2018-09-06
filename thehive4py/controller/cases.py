@@ -1,7 +1,7 @@
 from typing import List
 
 from .abstract import AbstractController
-from ..models import Case
+from ..models import Case, Task
 from ..query import *
 
 
@@ -21,20 +21,17 @@ class CasesController(AbstractController):
     def get_by_number(self, number):
         return self._wrap(self._find_one_by(Eq('caseId', number)), Case)
 
-    # TODO
-    def get_tasks(self, case_id, query, **kwargs):
-        return self._api.tasks.of_case(case_id, query, **kwargs)
+    def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
+        return self._api.tasks.of_case(case_id, query=query, **kwargs)
 
     # TODO
     def get_observables(self, case_id, query, **kwargs):
         return self._api.observables.of_case(case_id, query, **kwargs)
 
-    # TODO
-    def links(self, case_id):
-        return self._api.do_get('case/{}/links'.format(case_id))
+    def links(self, case_id) -> List[Case]:
+        return self._wrap(self._api.do_get('case/{}/links'.format(case_id)), Case)
 
-    # TODO
-    def has_observable(self, case_query, observable_query, **kwargs):
+    def has_observable(self, case_query, observable_query, **kwargs) -> List[Case]:
         child_expr = Child('case_artifact', observable_query or {})
 
         if case_query and len(case_query):
