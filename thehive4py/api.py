@@ -234,6 +234,20 @@ class TheHiveApi:
     def find_cases(self, **attributes):
         return self.__find_rows("/api/case/_search", **attributes)
 
+    def delete_case(self, case_id, force=False):
+        """
+        Deletes a TheHive case. Unless force is set to True the case is 'soft deleted' (status set to deleted).
+        :param case_id: Case identifier
+        :return: A requests response object.
+        """
+        req = self.url + "/api/case/{}".format(case_id)
+        if force:
+            req += '/force'
+        try:
+            return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Case deletion error: {}".format(e))
+
     def find_first(self, **attributes):
         """
             :return: first case of result set given by query
