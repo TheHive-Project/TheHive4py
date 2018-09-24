@@ -8,14 +8,17 @@ import sys
 import json
 from thehive4py.api import TheHiveApi
 
-api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
+ALERT_ID = '** PUT AN ALERT ID HERE **'
+API_KEY = '** YOUR API KEY **'
 
-print('Search for case templates')
+api = TheHiveApi('http://127.0.0.1:9000', API_KEY)
+
+print('Promoting alert %s to a case' % ALERT_ID)
 print('-----------------------------')
 
-response = api.promote_alert_to_case('** PROVIDE AN ALERT ID **')
+response = api.promote_alert_to_case(ALERT_ID)
 
-if response.status_code == 200:
+if response.status_code == 201:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
 
