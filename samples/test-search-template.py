@@ -7,11 +7,9 @@ from __future__ import unicode_literals
 import sys
 import json
 from thehive4py.api import TheHiveApi
-from thehive4py.models import CaseTemplate
-from thehive4py.exceptions import CaseTemplateException
-from thehive4py.query import *
+from thehive4py.query import Eq
 
-api = TheHiveApi('http://127.0.0.1:9000', 'JC7wGXWHi0XhvepKK1fBnP67d6JRjx0r')
+api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 print('Search for case templates')
 print('-----------------------------')
