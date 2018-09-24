@@ -461,6 +461,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
 
+    def find_tasks(self, **attributes):
+        """
+            :return: list of Tasks
+            :rtype: json
+        """
+
+        return self.__find_rows("/api/case/task/_search", **attributes)
 
 # - addObservable(file)
 # - addObservable(data)
