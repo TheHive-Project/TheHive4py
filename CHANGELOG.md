@@ -1,8 +1,28 @@
 # Change Log
 
-## [Unreleased](https://github.com/TheHive-Project/TheHive4py/tree/1.4.4) (2018-07-02)
+## [1.5.0](https://github.com/TheHive-Project/TheHive4py/tree/1.5.0) (2018-09-25)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.4...1.5.0)
 
+**Closed issues:**
+
+- Update observable [\#7](https://github.com/TheHive-Project/TheHive4py/issues/7)
+- Update task [\#6](https://github.com/TheHive-Project/TheHive4py/issues/6)
+- Add a simple template search method [\#83](https://github.com/TheHive-Project/TheHive4py/issues/83)
+- Max recursion depth exceeded error [\#82](https://github.com/TheHive-Project/TheHive4py/issues/82)
+
+**Merged pull requests:**
+
+- Feature/promote alert to case [\#86](https://github.com/TheHive-Project/TheHive4py/pull/86) ([uplateandonline](https://github.com/uplateandonline))
+- Feature/search templates [\#84](https://github.com/TheHive-Project/TheHive4py/pull/84) ([uplateandonline](https://github.com/uplateandonline))
+- Prevent max recursion depth exceeded error [\#80](https://github.com/TheHive-Project/TheHive4py/pull/80) ([Psynbiotik](https://github.com/Psynbiotik))
+- added search support for tasks [\#79](https://github.com/TheHive-Project/TheHive4py/pull/79) ([neok0](https://github.com/neok0))
+
+## [1.4.4](https://github.com/TheHive-Project/TheHive4py/tree/1.4.4) (2018-07-02)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.3...1.4.4)
+
+**Fixed bugs:**
+
+- Missing parameter \_field in Between function [\#71](https://github.com/TheHive-Project/TheHive4py/pull/71) ([tagashy](https://github.com/tagashy))
 
 **Closed issues:**
 
@@ -13,7 +33,6 @@
 **Merged pull requests:**
 
 - Add support for alert markAsRead/Unread [\#74](https://github.com/TheHive-Project/TheHive4py/pull/74) ([itsnotapt](https://github.com/itsnotapt))
-- Missing parameter \_field in Between function [\#71](https://github.com/TheHive-Project/TheHive4py/pull/71) ([tagashy](https://github.com/tagashy))
 - Add Support for update\_case\_tasks method [\#63](https://github.com/TheHive-Project/TheHive4py/pull/63) ([billmurrin](https://github.com/billmurrin))
 
 ## [1.4.3](https://github.com/TheHive-Project/TheHive4py/tree/1.4.3) (2018-02-07)
