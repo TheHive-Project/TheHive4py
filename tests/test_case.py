@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 
 from thehive4py.api import TheHiveApi
 
@@ -37,3 +37,4 @@ def test_get_case(mock_get):
 
     assert mock_response.json.call_count == 1
     assert case.id == test_id
+

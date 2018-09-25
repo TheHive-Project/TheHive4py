@@ -315,6 +315,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Linked cases fetch error: {}".format(e))
 
+    def find_case_templates(self, **attributes):
+        """
+            :return: list of case templates
+            :rtype: json
+        """
+        return self.__find_rows("/api/case/template/_search", **attributes)
+
     def get_case_template(self, name):
 
         """
@@ -382,7 +389,7 @@ class TheHiveApi:
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
-            raise AlertException("Mark alert as read error: {}".format(e))    
+            raise AlertException("Mark alert as read error: {}".format(e))
 
     def mark_alert_as_unread(self, alert_id):
         """
@@ -395,7 +402,7 @@ class TheHiveApi:
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
-            raise AlertException("Mark alert as unread error: {}".format(e))    
+            raise AlertException("Mark alert as unread error: {}".format(e))
 
     def update_alert(self, alert_id, alert, fields=[]):
         """
@@ -441,6 +448,27 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
+    def promote_alert_to_case(self, alert_id):
+        """
+            This uses the TheHiveAPI to promote an alert to a case
+
+            :param alert_id: Alert identifier
+            :return: TheHive Case
+            :rtype: json
+        """
+
+        req = self.url + "/api/alert/{}/createCase".format(alert_id)
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'},
+                                 proxies=self.proxies, auth=self.auth,
+                                 verify=self.cert, data=json.dumps({}))
+
+        except requests.exceptions.RequestException as the_exception:
+            raise AlertException("Couldn't promote alert to case: {}".format(the_exception))
+
+        return None
+
     def run_analyzer(self, cortex_id, artifact_id, analyzer_id):
 
         """
@@ -461,6 +489,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
 
+    def find_tasks(self, **attributes):
+        """
+            :return: list of Tasks
+            :rtype: json
+        """
+
+        return self.__find_rows("/api/case/task/_search", **attributes)
 
 # - addObservable(file)
 # - addObservable(data)
