@@ -6,6 +6,7 @@ install:
 - pip install -r requirements.txt
 script:
 - python -m pytest
+- python setup.py bdist_wheel --universal
 deploy:
   provider: pypi
   user: "thehive-project"
