@@ -5,7 +5,7 @@ from thehive4py.api import TheHiveApi
 
 @mock.patch('thehive4py.api.requests.get')
 def test_get_case(mock_get):
-    thehive = TheHiveApi('http://127.0.0.1:9000', 'username', 'password', {'http': '', 'https': ''})
+    thehive = TheHiveApi('http://127.0.0.1:9000', 'API_KEY')
 
     test_id = 'AV55EOIsPQ_zDQrlj4a9'
     test_json = {
