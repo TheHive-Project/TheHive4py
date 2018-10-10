@@ -1,4 +1,9 @@
-from unittest import mock
+#from unittest import mock
+
+try:
+    import mock
+except ImportError:
+    import unittest.mock as mock
 
 from thehive4py.api import TheHiveApi
 
