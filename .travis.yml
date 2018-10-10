@@ -1,0 +1,16 @@
+language: python
+python:
+- '2.7'
+- '3.6'
+install:
+- pip install -r requirements.txt
+script:
+- python -m pytest
+deploy:
+  provider: pypi
+  user: "thehive-project"
+  password:
+    secure: UFT+5CY4uqrCuZJvm4wbAyY7XEKcDz//VSt+jGPktj2/PxnmL7Qj5EA+2BFwOpLwUpZw3eWHPZrLkquDYsuR+BtXK08QVxtYHZJiNLdc+bM+R8UQh+VSuu4IQYqtUMVBKZtMkkx8ss+LgAdB+ArUKfVn5HVOOmEV8D4Ghx1Yf90D3zBrDfu6i/h3OajNgSrSdy6i/B7EyIjqZ5rfffCroxl9jPvWu8kPimaknRav6qDFykT4golJGoe64IUEz5AnuhbyBc1VTXCOKcjXCaYj6VSfXFxQVZz/vO+DGsFajybDyYwts6z5GD9kx9GFwNhUDVtDoEybMaY1a1UwBZi9OPG/fmUv4M7qQ5yh9YgByhw3B20JElgfgGsOSvmXIZhw9lAhkvRSPom64HIWRFZCtMMEH3f5gzwite07rcsCfV+VDypNa5eOkAKnFg21p2ibG+fij7bpajwnMxiZf3KMpW4F5D25MAu7Rf3+dyfoZj7sA0ElEdzUTbMAZHTST1Zk2CCyoE69PNuPt6ZTmv9oDgWd5GreXfyw4pP/ehR5VDRG/eNv1hzp1Mg328IZhFcS7wwaCb8yh4ZHq4uUF4Egsmx+IhvqXgtrLHKEW9t5ndS+Z7oe+EKU1sLlCFPqzNFVPmqWotZO4gHQ6cF3due6AZnAGlBE69rIkmPrtR8rsW0=
+  distributions: "bdist_wheel"
+  on:
+    tags: true

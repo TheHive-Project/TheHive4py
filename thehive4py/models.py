@@ -280,6 +280,7 @@ class Alert(JSONSerializable):
         self.source = self.attr(attributes, 'source', None, 'Missing alert source')
         self.sourceRef = self.attr(attributes, 'sourceRef', None, 'Missing alert reference')
         self.description = self.attr(attributes, 'description', None, 'Missing alert description')
+        self.customFields = self.attr(attributes, 'customFields', {})
 
         artifacts = attributes.get('artifacts', [])
         self.artifacts = []
