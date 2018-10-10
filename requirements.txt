@@ -1,5 +1,6 @@
 requests
 python-magic
+pandoc
 pypandoc
 future
 pytest
