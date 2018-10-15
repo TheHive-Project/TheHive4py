@@ -4,11 +4,11 @@ import json
 import warnings
 
 from .exceptions import *
-from .controller.cases import CasesController
-from .controller.tasks import TasksController
-from .controller.observables import ObservablesController
-from .controller.alerts import AlertsController
-from .controller.users import UsersController
+from .controllers.cases import CasesController
+from .controllers.tasks import TasksController
+from .controllers.observables import ObservablesController
+from .controllers.alerts import AlertsController
+from .controllers.users import UsersController
 
 
 class Api(object):
