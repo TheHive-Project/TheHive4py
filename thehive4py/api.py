@@ -87,6 +87,13 @@ class TheHiveApi:
         return requests.patch(self.url + api_url, headers={'Content-Type': 'application/json'}, json=attributes,
                               proxies=self.proxies, auth=self.auth, verify=self.cert)
 
+    def health(self):
+        req = self.url + "/api/health"
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Error on retrieving health status: {}".format(e))
+
     def create_case(self, case):
 
         """
