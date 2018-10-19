@@ -15,16 +15,15 @@ class CasesController(AbstractController):
     def find_one_by(self, query, **kwargs) -> Case:
         return self._wrap(self._find_one_by(query, **kwargs), Case)
 
-    def get_by_id(self, org_id) -> Case:
-        return self._wrap(self._get_by_id(org_id), Case)
+    def get_by_id(self, id) -> Case:
+        return self._wrap(self._get_by_id(id), Case)
 
-    def get_by_number(self, number):
+    def get_by_number(self, number) -> Case:
         return self._wrap(self._find_one_by(Eq('caseId', number)), Case)
 
     def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
         return self._api.tasks.of_case(case_id, query=query, **kwargs)
 
-    # TODO
     def get_observables(self, case_id, query, **kwargs):
         return self._api.observables.of_case(case_id, query, **kwargs)
 
