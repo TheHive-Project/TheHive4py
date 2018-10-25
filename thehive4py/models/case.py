@@ -5,23 +5,13 @@ class Case(Model):
 
     def __init__(self, data):
         defaults = {
-            'id': None,
             'title': None,
             'description': None,
-            'severity': 2,
-            'owner': None,
-            'startDate': None,
-            'endDate': None,
-            'flag': None,
             'tlp': 2,
+            'severity': 2,
+            'startDate': None,
+            'flag': False,
             'tags': [],
-            'caseId': None,
-            'status': None,
-            'resolutionStatus': None,
-            'impactStatus': None,
-            'summary': None,
-            'mergedInto': None,
-            'mergedFrom': None,
             'customFields': {},
             'metrics': {}
         }
@@ -32,4 +22,4 @@ class Case(Model):
         if data is None:
             data = dict(defaults)
 
-        self.__dict__ = {k: v for k, v in data.items() if not k.startswith('_')}
+        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}

@@ -30,7 +30,19 @@ class AlertsController(AbstractController):
 
     def update(self, alert_id, data, fields=None) -> Alert:
         url = 'alert/{}'.format(alert_id)
-        patch = AbstractController._clean_changes(data, ['name', 'roles'], fields)
+        updatable_fields = [
+            'title',
+            'type',
+            'source',
+            'sourceRef',
+            'tlp',
+            'severity',
+            'tags',
+            'description',
+            'customFields',
+            'artifacts'
+        ]
+        patch = AbstractController._clean_changes(data, updatable_fields, fields)
         return self._wrap(self._api.do_patch(url, patch).json(), Alert)
 
     def mark_as_read(self, alert_id) -> Alert:

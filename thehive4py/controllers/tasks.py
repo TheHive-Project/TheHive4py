@@ -38,6 +38,30 @@ class TasksController(AbstractController):
         else:
             return self.find_all({'owner': user_id}, **kwargs)
 
+    def create(self, case_id, data) -> task:
+        if isinstance(data, dict):
+            data = Task(data).json()
+        elif isinstance(data, Case):
+            data = data.json()
+
+        return Task(self._api.do_post('case/{}/task'.format(case_id), data).json())
+
+    def update(self, task_id, data, fields=None) -> Task:
+        url = 'case/task/{}'.format(task_id)
+
+        updatable_fields = [
+            'title',
+            'description',
+            'group',
+            'startDate',
+            'owner',
+            'flag',
+            'endDate',
+            'order'
+        ]
+        patch = AbstractController._clean_changes(data, updatable_fields, fields)
+        return self._wrap(self._api.do_patch(url, patch).json(), Task)
+
     def get_logs(self, task_id, query, **kwargs):
         # TODO
         pass
@@ -47,21 +71,16 @@ class TasksController(AbstractController):
         pass
 
     def flag(self, task_id, flag):
-        # TODO
-        pass
+        return self.update(task_id, {'flag': flag})
 
     def close(self, task_id):
-        # TODO
-        pass
+        return self.update(task_id, {'status': 'Completed'})
 
     def start(self, task_id):
-        # TODO
-        pass
+        return self.update(task_id, {'status': 'InProgress'})
 
     def assign(self, task_id, user_id):
-        # TODO
-        pass
+        return self.update(task_id, {'owner': user_id})
 
     def cancel(self, task_id):
-        # TODO
-        pass
+        return self.update(task_id, {'status': 'Cancel'})

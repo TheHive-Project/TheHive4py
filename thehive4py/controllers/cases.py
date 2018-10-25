@@ -21,12 +21,6 @@ class CasesController(AbstractController):
     def get_by_number(self, number) -> Case:
         return self._wrap(self._find_one_by(Eq('caseId', number)), Case)
 
-    def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
-        return self._api.tasks.of_case(case_id, query=query, **kwargs)
-
-    def get_observables(self, case_id, query, **kwargs):
-        return self._api.observables.of_case(case_id, query, **kwargs)
-
     def links(self, case_id) -> List[Case]:
         return self._wrap(self._api.do_get('case/{}/links'.format(case_id)), Case)
 
@@ -40,46 +34,58 @@ class CasesController(AbstractController):
 
         return self.find_all(criteria, **kwargs)
 
-    def create(self, case):
-        # TODO
-        pass
+    def create(self, data) -> Case:
+        if isinstance(data, dict):
+            data = Case(data).json()
+        elif isinstance(data, Case):
+            data = data.json()
 
-    def update(self, case, changes):
-        # TODO
-        pass
+        return Case(self._api.do_post('case', data).json())
 
-    def add_task(self, task):
-        # TODO
-        pass
+    def update(self, case_id, data, fields=None) -> Case:
+        url = 'case/{}'.format(case_id)
 
-    def add_observable(self, observable):
-        # TODO
-        pass
+        updatable_fields = [
+            'title',
+            'description',
+            'severity',
+            'startDate',
+            'owner',
+            'flag',
+            'tlp',
+            'tags',
+            'resolutionStatus',
+            'impactStatus',
+            'summary',
+            'endDate',
+            'metrics',
+            'customFields'
+        ]
+        patch = AbstractController._clean_changes(data, updatable_fields, fields)
+        return self._wrap(self._api.do_patch(url, patch).json(), Case)
 
-    def flag(self, flag):
-        # TODO
-        pass
-
-    def close(self, case_id):
-        # TODO
-        pass
+    def flag(self, case_id, flag) -> Case:
+        return self.update(case_id, {'flag': flag})
 
     def open(self, case_id):
-        # TODO
-        pass
+        return self.update(case_id, {'status': 'Open'})
 
-    def add_metric(self, case_id, metric, value):
-        # TODO
-        pass
+    def close(self, case_id, summary, resolution_status, impact='NoImpact'):
+        return self.update(case_id, {
+            'status': 'Resolved',
+            'summary': summary,
+            'resolutionStatus': resolution_status,
+            'impact': impact
+        })
 
-    def remove_metric(self, case_id, metric):
-        # TODO
-        pass
+    def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
+        return self._api.tasks.of_case(case_id, query=query, **kwargs)
 
-    def add_customfield(self, case_id, customfield, value):
-        # TODO
-        pass
+    def get_observables(self, case_id, query, **kwargs):
+        return self._api.observables.of_case(case_id, query, **kwargs)
 
-    def remove_customfield(self, case_id, customfield, value):
-        # TODO
-        pass
+    def add_task(self, case_id, task) -> Task:
+        return self._api.tasks.create(case_id, task)
+
+    def add_observable(self, case_id, observable):
+        return self._api.observables.create(case_id, observable)

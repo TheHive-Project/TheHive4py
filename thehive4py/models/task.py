@@ -5,9 +5,8 @@ class Task(Model):
 
     def __init__(self, data):
         defaults = {
-            'id': None,
-            'status': None,
             'title': None,
+            'description': None,
             'owner': None,
             'order': 0,
             'flag': False,
@@ -19,4 +18,4 @@ class Task(Model):
         if data is None:
             data = dict(defaults)
 
-        self.__dict__ = {k: v for k, v in data.items() if not k.startswith('_')}
+        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}
