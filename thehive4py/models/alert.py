@@ -1,7 +1,3 @@
-import os
-import base64
-import magic
-
 from .model import Model
 
 
@@ -9,7 +5,6 @@ class Alert(Model):
 
     def __init__(self, data):
         defaults = {
-            'id': None,
             'title': None,
             'type': None,
             'source': None,
@@ -46,12 +41,3 @@ class AlertArtifact(Model):
             input_data['data'] = AlertArtifact._prepare_file_data(input_data['data'])
 
         self.__dict__ = {k: v for k, v in {**defaults, **input_data}.items() if not k.startswith('_')}
-
-    @staticmethod
-    def _prepare_file_data(file_path):
-        with open(file_path, 'rb') as file_artifact:
-            filename = os.path.basename(file_path)
-            mime = magic.Magic(mime=True).from_file(file_path)
-            encoded_string = base64.b64encode(file_artifact.read())
-
-        return "{};{};{}".format(filename, mime, encoded_string.decode())

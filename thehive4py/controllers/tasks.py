@@ -1,7 +1,7 @@
 from typing import List
 
 from .abstract import AbstractController
-from ..models import Task
+from ..models import Task, TaskLog
 from ..query import *
 
 
@@ -38,7 +38,7 @@ class TasksController(AbstractController):
         else:
             return self.find_all({'owner': user_id}, **kwargs)
 
-    def create(self, case_id, data) -> task:
+    def create(self, case_id, data) -> Task:
         if isinstance(data, dict):
             data = Task(data).json()
         elif isinstance(data, Case):
@@ -62,9 +62,19 @@ class TasksController(AbstractController):
         patch = AbstractController._clean_changes(data, updatable_fields, fields)
         return self._wrap(self._api.do_patch(url, patch).json(), Task)
 
-    def get_logs(self, task_id, query, **kwargs):
-        # TODO
-        pass
+    def get_logs(self, task_id, query, **kwargs) -> List[TaskLog]:
+        url = 'case/task/{}/log/_search'.format(task_id)
+
+        parent_expr = ParentId('case_task', task_id)
+        status_expr = Not(Eq('status', 'Deleted'))
+
+        if query is not None and len(query) is not 0:
+            q = And(parent_expr, status_expr, query)
+        else:
+            q = And(parent_expr, status_expr)
+
+        params = dict((k, kwargs.get(k, None)) for k in ('sort', 'range'))
+        return self._wrap(self._api.do_post(url, {'query': q}, params).json(), TaskLog)
 
     def add_log(self, task_id, task_log):
         # TODO

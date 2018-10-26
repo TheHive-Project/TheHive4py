@@ -19,3 +19,20 @@ class Task(Model):
             data = dict(defaults)
 
         self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}
+
+
+class TaskLog(Model):
+
+    def __init__(self, data):
+        defaults = {
+            'message': None,
+            'owner': None,
+            'status': 'Ok',
+            'startDate': None,
+            'file': None
+        }
+
+        if data is None:
+            data = dict(defaults)
+
+        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}

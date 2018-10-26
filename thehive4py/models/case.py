@@ -22,4 +22,12 @@ class Case(Model):
         if data is None:
             data = dict(defaults)
 
+        # tasks = []
+        # if 'tasks' in data:
+        #     for task in data['tasks']:
+        #         if type(task) == Task:
+        #             tasks.append(task.json())
+        #         else:
+        #             tasks.append(task)
+
         self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}

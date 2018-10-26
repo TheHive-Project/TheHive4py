@@ -1,4 +1,7 @@
 import json
+import os
+import base64
+import magic
 
 
 class Model(object):
@@ -7,3 +10,12 @@ class Model(object):
 
     def json(self):
         return self.__dict__
+
+    @staticmethod
+    def _prepare_file_data(file_path):
+        with open(file_path, 'rb') as file_artifact:
+            filename = os.path.basename(file_path)
+            mime = magic.Magic(mime=True).from_file(file_path)
+            encoded_string = base64.b64encode(file_artifact.read())
+
+        return "{};{};{}".format(filename, mime, encoded_string.decode())
