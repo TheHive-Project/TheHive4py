@@ -1,7 +1,7 @@
 from typing import List
 
 from .abstract import AbstractController
-from ..models import Case, Task
+from ..models import Case, Task, Observable
 from ..query import *
 
 
@@ -81,11 +81,11 @@ class CasesController(AbstractController):
     def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
         return self._api.tasks.of_case(case_id, query=query, **kwargs)
 
-    def get_observables(self, case_id, query, **kwargs):
+    def get_observables(self, case_id, query, **kwargs) -> List[Observable]:
         return self._api.observables.of_case(case_id, query, **kwargs)
 
     def add_task(self, case_id, task) -> Task:
         return self._api.tasks.create(case_id, task)
 
-    def add_observable(self, case_id, observable):
+    def add_observable(self, case_id, observable) -> Observable:
         return self._api.observables.create(case_id, observable)

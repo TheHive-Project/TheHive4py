@@ -38,6 +38,6 @@ class AlertArtifact(Model):
             input_data = dict(defaults)
 
         if 'dataType' in input_data and input_data['dataType'] == 'file':
-            input_data['data'] = AlertArtifact._prepare_file_data(input_data['data'])
+            input_data['data'] = Model._prepare_file_data(input_data['data'])
 
         self.__dict__ = {k: v for k, v in {**defaults, **input_data}.items() if not k.startswith('_')}

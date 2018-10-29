@@ -22,11 +22,6 @@ api.cases.has_observable(case_query, observable_query)
 api.cases.flag(flag)
 api.cases.close(case_id)
 api.cases.open(case_id)
-
-api.cases.add_metric(case_id, metric, value)
-api.cases.remove_metric(case_id, metric)
-api.cases.add_customfield(case_id, customfield, value)
-api.cases.remove_customfield(case_id, customfield, value)
 ```
 
 ## Observables methods
@@ -34,7 +29,6 @@ api.cases.remove_customfield(case_id, customfield, value)
 ``` python
 api.observables.find_all(query, sort='', range='')
 api.observables.find_one_by(query, sort='')
-api.observables.count(query)
 api.observables.get_by_id(id)
 api.observables.of_case(case_id, query, sort='', range='')
 ```
@@ -44,7 +38,6 @@ api.observables.of_case(case_id, query, sort='', range='')
 ```python
 api.tasks.find_all(query, sort='', range='')
 api.tasks.find_one_by(query, sort='')
-api.tasks.count(query)
 api.tasks.get_by_id(id)
 api.tasks.of_case(case_id, query, sort='', range='')
 
