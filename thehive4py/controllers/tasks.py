@@ -1,3 +1,7 @@
+import os
+import magic
+import json
+
 from typing import List
 
 from .abstract import AbstractController
@@ -76,21 +80,43 @@ class TasksController(AbstractController):
         params = dict((k, kwargs.get(k, None)) for k in ('sort', 'range'))
         return self._wrap(self._api.do_post(url, {'query': q}, params).json(), TaskLog)
 
-    def add_log(self, task_id, task_log):
-        # TODO
-        pass
+    def add_log(self, task_id, task_log) -> TaskLog:
+        url = 'case/task/{}/log'.format(task_id)
 
-    def flag(self, task_id, flag):
+        if isinstance(task_log, dict):
+            data = TaskLog(task_log).json()
+        elif isinstance(task_log, TaskLog):
+            data = task_log.json()
+
+        if 'file' in data:
+            post_data = {
+                '_json': json.dumps({'message': data['message']})
+            }
+            file_path = data['file']
+            file_mime = magic.Magic(mime=True).from_file(file_path)
+
+            file_def = {
+                'attachment': (os.path.basename(file_path), open(file_path, 'rb'), file_mime)
+            }
+
+            return self._wrap(self._api.do_file_post(url, post_data, files=file_def), TaskLog)
+        else:
+            return self._wrap(self._api.do_post(url, {'message': data['message']}, {}), TaskLog)
+
+    def delete_log(self, task_log_id) -> bool:
+        return self._api.do_delete('case/task/log/{}'.format(task_log_id))
+
+    def flag(self, task_id, flag) -> Task:
         return self.update(task_id, {'flag': flag})
 
-    def close(self, task_id):
+    def close(self, task_id) -> Task:
         return self.update(task_id, {'status': 'Completed'})
 
-    def start(self, task_id):
+    def start(self, task_id) -> Task:
         return self.update(task_id, {'status': 'InProgress'})
 
-    def assign(self, task_id, user_id):
+    def assign(self, task_id, user_id) -> Task:
         return self.update(task_id, {'owner': user_id})
 
-    def cancel(self, task_id):
+    def cancel(self, task_id) -> Task:
         return self.update(task_id, {'status': 'Cancel'})

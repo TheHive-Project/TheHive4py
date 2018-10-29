@@ -28,8 +28,7 @@ class TaskLog(Model):
             'message': None,
             'owner': None,
             'status': 'Ok',
-            'startDate': None,
-            'file': None
+            'startDate': None
         }
 
         if data is None:

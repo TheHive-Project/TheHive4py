@@ -8,8 +8,13 @@ class Model(object):
     def __str__(self):
         return json.dumps(self.__dict__, indent=2)
 
-    def json(self):
-        return self.__dict__
+    def json(self, **kwargs):
+        fields = kwargs.get('fields', [])
+
+        if len(fields) > 0:
+            return {k: v for k, v in self.__dict__.items() if k in fields}
+        else:
+            return self.__dict__
 
     @staticmethod
     def _prepare_file_data(file_path):
