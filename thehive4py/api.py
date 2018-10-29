@@ -4,11 +4,7 @@ import json
 import warnings
 
 from .exceptions import *
-from .controllers.cases import CasesController
-from .controllers.tasks import TasksController
-from .controllers.observables import ObservablesController
-from .controllers.alerts import AlertsController
-from .controllers.users import UsersController
+from .controllers import *
 
 
 class Api(object):
@@ -30,6 +26,7 @@ class Api(object):
 
         self.cases = CasesController(self)
         self.tasks = TasksController(self)
+        self.tasklogs = TaskLogsController(self)
         self.observables = ObservablesController(self)
         self.alerts = AlertsController(self)
         self.users = UsersController(self)

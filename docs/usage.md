@@ -49,7 +49,7 @@ api.tasks.add_log(task_log)
 api.tasks.flag(query, flag)
 api.tasks.close(query)
 api.tasks.open(query)
-api.tasks.cancel(query)
+api.tasks.remove(query)
 ```
 
 ## Alerts methods

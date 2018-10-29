@@ -89,3 +89,14 @@ class CasesController(AbstractController):
 
     def add_observable(self, case_id, observable) -> Observable:
         return self._api.observables.create(case_id, observable)
+
+    def run_responder(self, cortex_id, case_id, responder_name) -> dict:
+        url = 'connector/cortex/action'
+
+        post_data = {
+            'cortexId': cortex_id,
+            'objectType': 'case',
+            'objectId': case_id,
+            'responderName': responder_name
+        }
+        return self._api.do_post(url, post_data, {}).json()
