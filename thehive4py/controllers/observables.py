@@ -57,10 +57,27 @@ class ObservablesController(AbstractController):
                 'attachment': (os.path.basename(file_path), open(file_path, 'rb'), file_mime)
             }
 
-            return self._wrap(self._api.do_file_post(url, post_data, files=file_def), Observable)
+            return self._wrap(self._api.do_file_post(url, post_data, files=file_def).json(), Observable)
         else:
-            return self._wrap(self._api.do_post(url, data, {}), Observable)
+            return self._wrap(self._api.do_post(url, data, {}).json(), Observable)
 
-    def run_analyzer(self):
-        # TODO
-        pass
+    def run_analyzer(self, cortex_id, observable_id, analyzer_id) -> dict:
+        url = 'connector/cortex/job'
+
+        post_data = {
+            'cortexId': cortex_id,
+            'artifactId': observable_id,
+            'analyzerId': analyzer_id
+        }
+        return self._api.do_post(url, post_data, {}).json()
+
+    def run_responder(self, cortex_id, observable_id, responder_name) -> dict:
+        url = 'connector/cortex/action'
+
+        post_data = {
+            'cortexId': cortex_id,
+            'objectType': 'case_artifact',
+            'objectId': observable_id,
+            'responderName': responder_name
+        }
+        return self._api.do_post(url, post_data, {}).json()
