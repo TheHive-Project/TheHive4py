@@ -60,9 +60,9 @@ class TaskLogsController(AbstractController):
                 'attachment': (os.path.basename(file_path), open(file_path, 'rb'), file_mime)
             }
 
-            return self._wrap(self._api.do_file_post(url, post_data, files=file_def), TaskLog)
+            return self._wrap(self._api.do_file_post(url, post_data, files=file_def).json(), TaskLog)
         else:
-            return self._wrap(self._api.do_post(url, {'message': data['message']}, {}), TaskLog)
+            return self._wrap(self._api.do_post(url, {'message': data['message']}, {}).json(), TaskLog)
 
     def remove(self, task_log_id) -> bool:
         return self._api.do_delete('case/task/log/{}'.format(task_log_id))

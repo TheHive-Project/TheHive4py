@@ -82,10 +82,10 @@ class TasksController(AbstractController):
         return self.update(task_id, {'status': 'Cancel'})
 
     def get_logs(self, task_id, query, **kwargs) -> List[TaskLog]:
-        return self._api.tasks.of_task(task_id, query=query, **kwargs)
+        return self._api.tasklogs.of_task(task_id, query=query, **kwargs)
 
     def add_log(self, task_id, task_log) -> TaskLog:
-        return self._api.tasks.create(task_id, task_log)
+        return self._api.tasklogs.create(task_id, task_log)
 
     def run_responder(self, cortex_id, task_id, responder_name) -> dict:
         url = 'connector/cortex/action'
