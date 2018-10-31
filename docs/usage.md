@@ -82,3 +82,21 @@ api.users.get_key(id)
 api.users.create_key(id)
 api.users.revoke_key(id)
 ```
+
+## Metrics methods
+
+```python
+api.metrics.find_all()
+api.metrics.get_by_id(id)
+api.metrics.create(data)
+api.metrics.remove(id)
+```
+
+## Custom fields methods
+
+```python
+api.customfields.find_all()
+api.customfields.get_by_id(id)
+api.customfields.create(data)
+api.customfields.remove(id)
+```

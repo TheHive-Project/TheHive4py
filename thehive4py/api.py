@@ -30,6 +30,8 @@ class Api(object):
         self.observables = ObservablesController(self)
         self.alerts = AlertsController(self)
         self.users = UsersController(self)
+        self.customfields = CustomFieldsController(self)
+        self.metrics = MetricsController(self)
 
     @staticmethod
     def __recover(exception):

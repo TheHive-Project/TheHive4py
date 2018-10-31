@@ -45,7 +45,7 @@ class TasksController(AbstractController):
     def create(self, case_id, data) -> Task:
         if isinstance(data, dict):
             data = Task(data).json()
-        elif isinstance(data, Case):
+        elif isinstance(data, Task):
             data = data.json()
 
         return Task(self._api.do_post('case/{}/task'.format(case_id), data).json())

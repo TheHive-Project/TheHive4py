@@ -1,3 +1,24 @@
+from .model import Model
+
+
+class CustomField(Model):
+
+    def __init__(self, data):
+        defaults = {
+            'name': None,
+            'description': None,
+            'reference': None,
+            'type': None,
+            'options': [],
+            'mandatory': False
+        }
+
+        if data is None:
+            data = dict(defaults)
+
+        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}
+
+
 class CustomFieldHelper(object):
     def __init__(self):
         self.fields = {}

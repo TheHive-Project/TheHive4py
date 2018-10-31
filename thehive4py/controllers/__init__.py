@@ -6,3 +6,7 @@ from .observables import ObservablesController
 from .tasks import TasksController
 from .tasklogs import TaskLogsController
 from .users import UsersController
+
+from .dblist import DBListController
+from .customfields import CustomFieldsController
+from .metrics import MetricsController
