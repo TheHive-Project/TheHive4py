@@ -4,7 +4,7 @@ import uuid
 import os
 
 from thehive4py.api import Api
-from thehive4py.models import Observable
+from thehive4py.models import Observable, Tlp
 from thehive4py.query import *
 
 
@@ -58,9 +58,16 @@ mail_observable = api.observables.create(case.id, {
     'tags': ['source'],
     'ioc': True,
     'sighted': True,
-    'tlp': 1
+    'tlp': Tlp.WHITE.value
 })
 log('New mail observable', mail_observable.json())
+
+api.observables.update(mail_observable.id, {
+    'tags': ['source', 'src'],
+    'ioc': False,
+    'sighted': False,
+    'tlp': Tlp.RED.value
+})
 
 # Clean up
 os.remove(file_name)

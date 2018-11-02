@@ -61,6 +61,21 @@ class ObservablesController(AbstractController):
         else:
             return self._wrap(self._api.do_post(url, data, {}).json(), Observable)
 
+    def update(self, observable_id, data, fields=None) -> Observable:
+        url = 'case/artifact/{}'.format(observable_id)
+
+        updatable_fields = [
+            'message',
+            'owner',
+            'ioc',
+            'sighted',
+            'tags',
+            'tlp'
+        ]
+
+        patch = AbstractController._clean_changes(data, updatable_fields, fields)
+        return self._wrap(self._api.do_patch(url, patch).json(), Observable)
+
     def run_analyzer(self, cortex_id, observable_id, analyzer_id) -> dict:
         url = 'connector/cortex/job'
 

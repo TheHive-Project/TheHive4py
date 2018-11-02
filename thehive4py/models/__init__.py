@@ -6,3 +6,5 @@ from .alert import Alert, AlertArtifact
 
 from .customfield import CustomField, CustomFieldHelper
 from .metric import Metric
+
+from .constants import Tlp, Severity
