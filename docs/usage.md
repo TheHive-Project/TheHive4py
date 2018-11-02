@@ -29,6 +29,7 @@ api.cases.open(case_id)
 ``` python
 api.observables.find_all(query, sort='', range='')
 api.observables.find_one_by(query, sort='')
+api.observables.count(query)
 api.observables.get_by_id(id)
 api.observables.of_case(case_id, query, sort='', range='')
 ```
@@ -38,6 +39,7 @@ api.observables.of_case(case_id, query, sort='', range='')
 ```python
 api.tasks.find_all(query, sort='', range='')
 api.tasks.find_one_by(query, sort='')
+api.tasks.count(query)
 api.tasks.get_by_id(id)
 api.tasks.of_case(case_id, query, sort='', range='')
 

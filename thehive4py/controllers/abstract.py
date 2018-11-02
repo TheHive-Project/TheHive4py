@@ -33,22 +33,11 @@ class AbstractController(object):
         else:
             return None
 
-    def _count(self, query):
-        url = '{}/_stats'.format(self._endpoint)
+    def count(self, query={}):
+        url = '{}/_search'.format(self._endpoint)
+        response = self._api.do_post(url, {'query': query or {}}, {'range': '0-1'})
 
-        payload = {
-            'query': query or {},
-            'stats': [{
-                '_agg': 'count'
-            }]
-        }
-
-        response = self._api.do_post(url, payload, {}).json()
-
-        if response is not None:
-            return response.get('count', None)
-        else:
-            return None
+        return response.headers.get('X-Total')
 
     def _get_by_id(self, obj_id):
         url = '{}/{}'.format(self._endpoint, obj_id)
