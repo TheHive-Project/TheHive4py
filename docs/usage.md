@@ -1,6 +1,6 @@
 ## Initialize an api client
 
-```
+```python
 from thehive4py.api import Api
 
 api = Api('http://localhost:9000', '**API_KEY**')
@@ -22,16 +22,31 @@ api.cases.has_observable(case_query, observable_query)
 api.cases.flag(flag)
 api.cases.close(case_id)
 api.cases.open(case_id)
+
+api.cases.get_tasks(case_id, query, **kwargs)        
+api.cases.get_observables(case_id, query, **kwargs)
+api.cases.add_task(case_id, task)
+api.cases.add_observable(case_id, observable)
+
+api.run_responder(cortex_id, case_id, responder_name)
+
 ```
 
 ## Observables methods
 
-``` python
+```python
 api.observables.find_all(query, sort='', range='')
 api.observables.find_one_by(query, sort='')
 api.observables.count(query)
 api.observables.get_by_id(id)
 api.observables.of_case(case_id, query, sort='', range='')
+
+api.observables.of_type(data_type, query={}, **kwargs)
+api.observables.create(case_id, data)      
+api.observables.update(observable_id, data, fields=None)        
+api.observables.run_analyzer(cortex_id, observable_id, analyzer_id)
+
+api.run_responder(cortex_id, observable_id, responder_name)
 ```
 
 ## Tasks methods
@@ -52,6 +67,21 @@ api.tasks.flag(query, flag)
 api.tasks.close(query)
 api.tasks.open(query)
 api.tasks.remove(query)
+
+api.run_responder(cortex_id, task_id, responder_name)
+```
+
+## Task logs methods
+
+```python
+api.tasklogs.find_all(task_id, query, sort='', range='')
+api.tasklogs.find_one_by(query, sort='')
+api.tasklogs.count(query)
+api.tasklogs.get_by_id(task_log_id)
+api.tasklogs.of_task(task_id)
+api.tasklogs.create(data)
+api.tasklogs.remove(task_log_id)
+api.run_responder(cortex_id, alert_id, responder_name)
 ```
 
 ## Alerts methods
@@ -68,6 +98,8 @@ api.alert.unfollow(id)
 
 api.alerts.import_as_case(alert_id, template=None)
 api.alerts.merge_into(alert_id, case_id)
+api.run_responder(cortex_id, alert_id, responder_name)
+
 ```
 
 ## Users methods

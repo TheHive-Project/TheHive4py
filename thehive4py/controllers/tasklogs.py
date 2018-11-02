@@ -27,6 +27,7 @@ class TaskLogsController(AbstractController):
         params = dict((k, kwargs.get(k, None)) for k in ('sort', 'range'))
         return self._wrap(self._api.do_post(url, {'query': q}, params).json(), TaskLog)
 
+    # TODO add task_id param
     def find_one_by(self, query, **kwargs) -> TaskLog:
         return self._wrap(self._find_one_by(query, **kwargs), TaskLog)
 
