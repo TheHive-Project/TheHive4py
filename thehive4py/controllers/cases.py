@@ -78,6 +78,9 @@ class CasesController(AbstractController):
             'impact': impact
         })
 
+    def merge(self, case_id_1, case_id_2) -> Case:
+        return self._wrap(self._api.do_post('case/{}/_merge/{}'.format(case_id_1, case_id_2), {}).json(), Case)
+
     def stats_by(self, query, field, top=10):
         return self._stats_by(query, field, top)
 
