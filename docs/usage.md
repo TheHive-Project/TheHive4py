@@ -28,7 +28,9 @@ api.cases.get_observables(case_id, query, **kwargs)
 api.cases.add_task(case_id, task)
 api.cases.add_observable(case_id, observable)
 
-api.run_responder(cortex_id, case_id, responder_name)
+api.cases.run_responder(cortex_id, case_id, responder_name)
+
+api.cases.stats_by(query, field, top=10)
 
 ```
 
@@ -43,10 +45,13 @@ api.observables.of_case(case_id, query, sort='', range='')
 
 api.observables.of_type(data_type, query={}, **kwargs)
 api.observables.create(case_id, data)      
-api.observables.update(observable_id, data, fields=None)        
+api.observables.update(observable_id, data, fields=None)
+        
 api.observables.run_analyzer(cortex_id, observable_id, analyzer_id)
+api.observables.run_responder(cortex_id, observable_id, responder_name)
 
-api.run_responder(cortex_id, observable_id, responder_name)
+api.observables.stats_by(query, field, top=10)
+
 ```
 
 ## Tasks methods
@@ -68,7 +73,9 @@ api.tasks.close(query)
 api.tasks.open(query)
 api.tasks.remove(query)
 
-api.run_responder(cortex_id, task_id, responder_name)
+api.tasks.run_responder(cortex_id, task_id, responder_name)
+api.tasks.stats_by(query, field, top=10)
+
 ```
 
 ## Task logs methods
@@ -81,7 +88,7 @@ api.tasklogs.get_by_id(task_log_id)
 api.tasklogs.of_task(task_id)
 api.tasklogs.create(data)
 api.tasklogs.remove(task_log_id)
-api.run_responder(cortex_id, alert_id, responder_name)
+api.tasklogs.run_responder(cortex_id, alert_id, responder_name)
 ```
 
 ## Alerts methods
@@ -98,8 +105,9 @@ api.alert.unfollow(id)
 
 api.alerts.import_as_case(alert_id, template=None)
 api.alerts.merge_into(alert_id, case_id)
-api.run_responder(cortex_id, alert_id, responder_name)
+api.alerts.run_responder(cortex_id, alert_id, responder_name)
 
+api.alerts.stats_by(query, field, top=10)
 ```
 
 ## Users methods

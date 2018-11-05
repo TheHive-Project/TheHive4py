@@ -45,6 +45,9 @@ class AlertsController(AbstractController):
         patch = AbstractController._clean_changes(data, updatable_fields, fields)
         return self._wrap(self._api.do_patch(url, patch).json(), Alert)
 
+    def stats_by(self, query, field, top=10):
+        return self._stats_by(query, field, top)
+
     def mark_as_read(self, alert_id) -> Alert:
         url = 'alert/{}/markAsRead'.format(alert_id)
         return self._wrap(self._api.do_post(url, {}).json(), Alert)

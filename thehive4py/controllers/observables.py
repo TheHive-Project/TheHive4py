@@ -76,6 +76,9 @@ class ObservablesController(AbstractController):
         patch = AbstractController._clean_changes(data, updatable_fields, fields)
         return self._wrap(self._api.do_patch(url, patch).json(), Observable)
 
+    def stats_by(self, query, field, top=10):
+        return self._stats_by(query, field, top)
+
     def run_analyzer(self, cortex_id, observable_id, analyzer_id) -> dict:
         url = 'connector/cortex/job'
 

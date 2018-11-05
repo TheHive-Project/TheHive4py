@@ -44,6 +44,26 @@ class AbstractController(object):
 
         return self._api.do_get(url).json()
 
+    def _stats_by(self, query, field, top):
+        url = '{}/_stats'.format(self._endpoint)
+
+        payload = {
+            'query': query or {},
+            'stats': [
+                {
+                    '_agg': 'field',
+                    '_field': field,
+                    '_select': [{
+                        '_agg': 'count'
+                    }],
+                    '_order': '-_count',
+                    '_size': top
+                }
+            ]
+        }
+
+        return self._api.do_post(url, payload, {}).json()
+
     @staticmethod
     def _clean_changes(source, allowed, selected=[]):
         if selected is not None and len(selected) > 0:

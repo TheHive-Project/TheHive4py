@@ -32,6 +32,7 @@ class Api(object):
         self.users = UsersController(self)
         self.customfields = CustomFieldsController(self)
         self.metrics = MetricsController(self)
+        self.caseTemplates = CaseTemplateController(self)
 
     @staticmethod
     def __recover(exception):

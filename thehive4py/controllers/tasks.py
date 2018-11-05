@@ -66,6 +66,9 @@ class TasksController(AbstractController):
         patch = AbstractController._clean_changes(data, updatable_fields, fields)
         return self._wrap(self._api.do_patch(url, patch).json(), Task)
 
+    def stats_by(self, query, field, top=10):
+        return self._stats_by(query, field, top)
+
     def flag(self, task_id, flag) -> Task:
         return self.update(task_id, {'flag': flag})
 

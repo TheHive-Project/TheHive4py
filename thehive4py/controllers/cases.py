@@ -78,6 +78,9 @@ class CasesController(AbstractController):
             'impact': impact
         })
 
+    def stats_by(self, query, field, top=10):
+        return self._stats_by(query, field, top)
+
     def get_tasks(self, case_id, query, **kwargs) -> List[Task]:
         return self._api.tasks.of_case(case_id, query=query, **kwargs)
 

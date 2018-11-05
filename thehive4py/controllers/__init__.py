@@ -10,3 +10,4 @@ from .users import UsersController
 from .dblist import DBListController
 from .customfields import CustomFieldsController
 from .metrics import MetricsController
+from .case_templates import CaseTemplateController
