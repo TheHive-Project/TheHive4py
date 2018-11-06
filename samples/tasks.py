@@ -15,8 +15,8 @@ def log(title, result):
 
 
 api = Api('http://localhost:9000', 'tBhBXMvsVJYrwcc6Qj9G9OE91m5a/PeF', proxies={
-    'http': 'http://localhost:8080',
-    'https': 'http://localhost:8080'
+    #'http': 'http://localhost:8080',
+    #'https': 'http://localhost:8080'
 })
 
 case = api.cases.get_by_number(143)
@@ -41,7 +41,10 @@ new_log = api.tasks.add_log(tasks[0].id, {
     'file': file_name
 })
 
-log('Run responder', api.tasklogs.run_responder('local-cortex2', new_log.id, 'echoAnalyzer_1_0'))
+try:
+    log('Run responder', api.tasklogs.run_responder('local-cortex2', new_log.id, 'echoAnalyzer_1_0'))
+except:
+    pass
 
 # Clean up
 os.remove(file_name)
@@ -54,6 +57,7 @@ logs = api.tasklogs.find_all(tasks[0].id, Eq('owner', 'nabil'))
 log('Case task logs', list(map(lambda i: i.json(fields=['message', 'attachment']), logs)))
 
 log('Task log by id', api.tasklogs.get_by_id(logs[0].id))
+log('Task log first', api.tasklogs.find_one_by(tasks[0].id, Eq('owner', 'nabil')))
 new_log = api.tasklogs.create(tasks[0].id, {
     'message': 'This is from TheHive4Py with attachment - **{}**'.format(str(uuid.uuid4()))
 })

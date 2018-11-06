@@ -27,9 +27,29 @@ class TaskLogsController(AbstractController):
         params = dict((k, kwargs.get(k, None)) for k in ('sort', 'range'))
         return self._wrap(self._api.do_post(url, {'query': q}, params).json(), TaskLog)
 
-    # TODO add task_id param
-    def find_one_by(self, query, **kwargs) -> TaskLog:
-        return self._wrap(self._find_one_by(query, **kwargs), TaskLog)
+    def find_one_by(self, task_id, query, **kwargs) -> TaskLog:
+        url = 'case/task/{}/log/_search'.format(task_id)
+
+        parent_expr = ParentId('case_task', task_id)
+        status_expr = Not(Eq('status', 'Deleted'))
+
+        if query is not None and len(query) is not 0:
+            q = And(parent_expr, status_expr, query)
+        else:
+            q = And(parent_expr, status_expr)
+
+        params = {
+            'range': '0-1'
+        }
+        if 'sort' in kwargs:
+            params['sort'] = kwargs['sort']
+
+        collection = self._api.do_post(url, {'query': q or {}}, params).json()
+
+        if len(collection) > 0:
+            return self._wrap(collection[0], TaskLog)
+        else:
+            return None
 
     def get_by_id(self, task_log_id) -> TaskLog:
         return self._wrap(self._get_by_id(task_log_id), TaskLog)
