@@ -14,7 +14,7 @@ class TaskLogsController(AbstractController):
         AbstractController.__init__(self, 'case/task/log', api)
 
     def find_all(self, task_id, query, **kwargs) -> List[TaskLog]:
-        url = 'case/task/{}/log/_search'.format(task_id)
+        url = 'case/task/log/_search'.format(task_id)
 
         parent_expr = ParentId('case_task', task_id)
         status_expr = Not(Eq('status', 'Deleted'))
@@ -28,7 +28,7 @@ class TaskLogsController(AbstractController):
         return self._wrap(self._api.do_post(url, {'query': q}, params).json(), TaskLog)
 
     def find_one_by(self, task_id, query, **kwargs) -> TaskLog:
-        url = 'case/task/{}/log/_search'.format(task_id)
+        url = 'case/task/log/_search'.format(task_id)
 
         parent_expr = ParentId('case_task', task_id)
         status_expr = Not(Eq('status', 'Deleted'))

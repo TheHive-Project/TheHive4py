@@ -15,8 +15,8 @@ def log(title, result):
 
 
 api = Api('http://localhost:9000', 'tBhBXMvsVJYrwcc6Qj9G9OE91m5a/PeF', proxies={
-    #'http': 'http://localhost:8080',
-    #'https': 'http://localhost:8080'
+    'http': 'http://localhost:8080',
+    'https': 'http://localhost:8080'
 })
 
 case = api.cases.get_by_number(143)
