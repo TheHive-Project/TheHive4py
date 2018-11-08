@@ -211,6 +211,7 @@ class CaseTask(JSONSerializable):
         self.description = attributes.get('description', None)
         self.owner = attributes.get('owner', None)
         self.startDate = attributes.get('startDate', None)
+        self.group = attributes.get('group', None)
 
 
 class CaseTaskLog(JSONSerializable):
