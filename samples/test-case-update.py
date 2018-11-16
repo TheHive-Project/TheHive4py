@@ -7,7 +7,7 @@ from thehive4py.api import TheHiveApi
 api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
 # Create a new case
-case = thehive.case.create(title='From TheHive4Py', description='N/A', tlp=3, flag=True,
+case = api.case.create(title='From TheHive4Py', description='N/A', tlp=3, flag=True,
                            tags=['TheHive4Py', 'sample'], tasks=[])
 
 # Save the new case's ID for later use
@@ -19,8 +19,8 @@ case.severity = 1
 case.flag = False
 
 # Update the case
-thehive.update_case(case)
+api.update_case(case)
 
 # Retrieve the case from the server and check the updated values
-new_case = thehive.case(case_id)
+new_case = api.case(case_id)
 print("Case ID {}\nTLP: {}, Severity: {}".format(new_case.id, new_case.tlp, new_case.severity))
