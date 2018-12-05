@@ -18,7 +18,11 @@ class Task(Model):
         if data is None:
             data = dict(defaults)
 
-        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}
+        properties = {}
+        properties.update(defaults)
+        properties.update(data)
+
+        self.__dict__ = {k: v for k, v in properties.items() if not k.startswith('_')}
 
 
 class TaskLog(Model):
@@ -34,4 +38,8 @@ class TaskLog(Model):
         if data is None:
             data = dict(defaults)
 
-        self.__dict__ = {k: v for k, v in {**defaults, **data}.items() if not k.startswith('_')}
+        properties = {}
+        properties.update(defaults)
+        properties.update(data)
+
+        self.__dict__ = {k: v for k, v in properties.items() if not k.startswith('_')}
