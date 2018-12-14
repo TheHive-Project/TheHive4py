@@ -94,6 +94,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Error on retrieving health status: {}".format(e))
 
+    def get_current_user(self):
+        req = self.url + "/api/user/current"
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Error on retrieving current user: {}".format(e))
+
     def create_case(self, case):
 
         """
