@@ -128,7 +128,7 @@ class TheHiveApi:
 
         # Choose which attributes to send
         update_keys = [
-            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
+            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'status', 'resolutionStatus',
             'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
@@ -156,7 +156,7 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task create error: {}".format(e))
 
-    def update_case_task(self, task):
+    def update_case_task(self, task, fields=[]):
         """
         :Updates TheHive Task
         :param case: The task to update. The task's `id` determines which Task to update.
@@ -168,8 +168,9 @@ class TheHiveApi:
         update_keys = [
             'title', 'description', 'status', 'order', 'user', 'owner', 'flag', 'endDate'
         ]
-
-        data = {k: v for k, v in task.__dict__.items() if k in update_keys}
+        
+        data = {k: v for k, v in task.__dict__.items() if (
+            len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
 
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data,
@@ -490,10 +491,25 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
-    def update_case_observables(self,obser_id, obser):
-        req= self.url +"/api/case/artifact/{}".format(obser_id)
-        return requests.patch(req, headers={'Content-Type': 'application/json'}, json=obser, proxies=self.proxies,
-                              auth=self.auth, verify=self.cert)
+    def update_case_observables(self, observable, fields=[]):
+        """
+        :Updates TheHive observable
+        :param observable: The observable details to update
+        :return:
+        """
+        req = self.url + "/api/case/artifact/{}".format(observable.id)
+
+        # Choose which attributes to send
+        update_keys = ['tlp', 'ioc', 'flag', 'tags', 'description']
+
+        data = {k: v for k, v in observable.__dict__.items() if (
+            len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'},
+                json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case observable update error: {}".format(e))
 
     def promote_alert_to_case(self, alert_id):
         """
