@@ -49,7 +49,6 @@ def Id(id):
 def Between(field, from_value, to_value):
     return {'_between': {'_field': field, '_from': from_value, '_to': to_value}}
 
-
 def ParentId(tpe, id):
     return {'_parent': {'_type': tpe, '_id': id}}
 

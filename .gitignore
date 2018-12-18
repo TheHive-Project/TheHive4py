@@ -13,3 +13,10 @@ dist/
 build/
 *.egg-info
 build.sh
+
+# Python Venv
+bin/
+lib/
+lib64
+pyvenv.cfg
+venv/

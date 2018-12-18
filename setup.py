@@ -11,7 +11,7 @@ except ImportError:
 
 setup(
     name='thehive4py',
-    version='1.5.3',
+    version='2.0.0',
     description='Python API client for TheHive.',
     long_description=read_md('README.md'),
     author='TheHive-Project',
@@ -19,7 +19,7 @@ setup(
     maintainer='TheHive-Project',
     url='https://github.com/TheHive-Project/Thehive4py',
     license='AGPL-V3',
-    packages=['thehive4py'],
+    packages=['thehive4py', 'thehive4py.models', 'thehive4py.controllers'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -33,5 +33,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     include_package_data=True,
-    install_requires=['future', 'requests', 'python-magic']
+    install_requires=['pypandoc', 'typing', 'requests', 'python-magic']
 )

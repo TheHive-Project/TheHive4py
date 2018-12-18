@@ -1,14 +1,11 @@
-try:
-    import mock
-except ImportError:
-    import unittest.mock as mock
+import unittest.mock as mock
 
-from thehive4py.api import TheHiveApi
+from thehive4py.api import Api
 
 
 @mock.patch('thehive4py.api.requests.get')
 def test_get_case(mock_get):
-    thehive = TheHiveApi('http://127.0.0.1:9000', 'API_KEY')
+    thehive = Api('http://127.0.0.1:9000', 'API_KEY')
 
     test_id = 'AV55EOIsPQ_zDQrlj4a9'
     test_json = {
@@ -36,7 +33,7 @@ def test_get_case(mock_get):
     mock_response.status_code = 200
     mock_get.return_value = mock_response
 
-    case = thehive.case(test_id)
+    case = thehive.cases.get_by_id(test_id)
 
     assert mock_response.json.call_count == 1
     assert case.id == test_id

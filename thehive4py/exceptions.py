@@ -1,19 +1,30 @@
 class TheHiveException(Exception):
-    """Base class for TheHive exceptions"""
     pass
 
 
-class CaseException(TheHiveException):
+class NotFoundError(TheHiveException):
     pass
 
-class CaseTaskException(CaseException):
+
+class AuthenticationError(TheHiveException):
     pass
 
-class CaseObservableException(CaseException):
+
+class AuthorizationError(TheHiveException):
     pass
 
-class AlertException(TheHiveException):
+
+class InvalidInputError(TheHiveException):
     pass
 
-class CaseTemplateException(TheHiveException):
+
+class ServiceUnavailableError(TheHiveException):
+    pass
+
+
+class ServerError(TheHiveException):
+    pass
+
+
+class CortexError(TheHiveException):
     pass
