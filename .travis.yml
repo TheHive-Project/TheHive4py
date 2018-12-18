@@ -1,6 +1,6 @@
 language: python
 python:
-- '3.6'
+- '3.4'
 install:
 - sudo apt-get install pandoc
 - pip install -r requirements.txt
