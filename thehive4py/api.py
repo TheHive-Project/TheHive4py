@@ -152,7 +152,7 @@ class TheHiveApi:
 
         # Choose which attributes to send
         update_keys = [
-            'title', 'description', 'status', 'order', 'user', 'owner', 'flag', 'endDate'
+            'title', 'description', 'status', 'order', 'user', 'owner', 'flag', 'startDate', 'endDate'
         ]
 
         data = {k: v for k, v in task.__dict__.items() if k in update_keys}
@@ -174,17 +174,20 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case/task/{}/log".format(task_id)
-        data = {'_json': json.dumps({"message":case_task_log.message})}
+        dataJson = json.dumps({ "message":case_task_log.message,
+                "startDate":case_task_log.startDate
+                })
+        data = {'_json': json }
 
         if case_task_log.file:
             f = {'attachment': (os.path.basename(case_task_log.file), open(case_task_log.file, 'rb'), magic.Magic(mime=True).from_file(case_task_log.file))}
             try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
+                return requests.post(req, data=data, files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseTaskException("Case task log create error: {}".format(e))
         else:
             try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=json.dumps({'message':case_task_log.message}), proxies=self.proxies, auth=self.auth, verify=self.cert)
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=dataJson, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseTaskException("Case task log create error: {}".format(e))
 

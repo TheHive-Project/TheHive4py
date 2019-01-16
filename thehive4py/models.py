@@ -211,6 +211,7 @@ class CaseTask(JSONSerializable):
         self.description = attributes.get('description', None)
         self.owner = attributes.get('owner', None)
         self.startDate = attributes.get('startDate', None)
+        self.endDate = attributes.get('endDate', None)
         self.group = attributes.get('group', None)
 
 
@@ -220,6 +221,7 @@ class CaseTaskLog(JSONSerializable):
             attributes = attributes['json']
 
         self.message = attributes.get('message', None)
+        self.startDate = attributes.get('startDate', None)
         self.file = attributes.get('file', None)
 
 
