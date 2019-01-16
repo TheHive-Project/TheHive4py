@@ -271,6 +271,7 @@ class Alert(JSONSerializable):
             attributes = attributes['json']
 
         self.tlp = attributes.get('tlp', 2)
+        self.status = attributes.get('status', "New")
         self.severity = attributes.get('severity', 2)
         self.date = attributes.get('date', int(time.time()) * 1000)
         self.tags = attributes.get('tags', [])
