@@ -114,7 +114,7 @@ class TheHiveApi:
 
         # Choose which attributes to send
         update_keys = [
-            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
+            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'status', 'resolutionStatus',
             'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
@@ -447,11 +447,6 @@ class TheHiveApi:
         """
 
         return self.__find_rows("/api/alert/_search", **attributes)
-
-    def update_case_observables(self,obser_id, obser):
-        req= self.url +"/api/case/artifact/{}".format(obser_id)
-        return requests.patch(req, headers={'Content-Type': 'application/json'}, json=obser, proxies=self.proxies,
-                              auth=self.auth, verify=self.cert)
 
     def promote_alert_to_case(self, alert_id):
         """
