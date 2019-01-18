@@ -217,6 +217,23 @@ class TheHiveApi:
                 return requests.post(req, headers={'Content-Type': 'application/json'}, data=case_observable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
+				
+	def update_case_observable(self, observable_id, case_observable):
+
+        """
+        :param observable_id: observable_id identifier
+        :param case_observable: TheHive observable case
+        """
+	    # Choose which attributes to send
+        update_keys = [
+            'message', 'tlp', 'ioc', 'status', 'tags'
+        ]
+        data = {k: v for k, v in case_observable.__dict__.items() if k in update_keys}
+        req = self.url + "/api/case/artifact/{}".format(observable_id)
+            try:
+                return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                raise CaseObservableException("Case observable update error: {}".format(e))
 
     def get_case(self, case_id):
         """
@@ -415,7 +432,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'status']
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
 
         data = {k: v for k, v in alert.__dict__.items() if
                 (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
