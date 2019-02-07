@@ -15,8 +15,8 @@ def log(title, result):
 
 
 api = Api('http://localhost:9000', 'tBhBXMvsVJYrwcc6Qj9G9OE91m5a/PeF', proxies={
-    'http': 'http://localhost:8080',
-    'https': 'http://localhost:8080'
+    #'http': 'http://localhost:8080',
+    #'https': 'http://localhost:8080'
 })
 
 # Fetch alerts
@@ -35,6 +35,10 @@ sourceRef = str(uuid.uuid4())[0:6]
 
 ip_artifact = AlertArtifact({'dataType': 'ip', 'data': '8.8.8.8'})
 file_artifact = AlertArtifact({'dataType': 'file', 'data': './observable.file.txt'})
+mail_artifact = AlertArtifact({
+    'dataType': 'mail',
+    'data': '{}@sample.com'.format(str(uuid.uuid4())[0:10])
+})
 
 new_alert = api.alerts.create(Alert({
     'title': 'New Alert from TH4P 2.0',
@@ -44,7 +48,7 @@ new_alert = api.alerts.create(Alert({
     'type': 'external',
     'source': 'thehive4py',
     'sourceRef': sourceRef,
-    'artifacts': list(map(lambda a: a.json(), [ip_artifact, file_artifact])),
+    'artifacts': list(map(lambda a: a.json(), [ip_artifact, file_artifact, mail_artifact])),
     'customFields': customFields
 }))
 log('New alert with', new_alert.json())
@@ -55,5 +59,5 @@ api.alerts.mark_as_read(new_alert.id)
 api.alerts.mark_as_unread(new_alert.id)
 api.alerts.follow(new_alert.id)
 api.alerts.unfollow(new_alert.id)
-api.alerts.import_as_case(new_alert.id, 'IOC')
+# api.alerts.import_as_case(new_alert.id, 'IOC')
 # api.alerts.merge_into(new_alert.id, 'CASE_ID')
