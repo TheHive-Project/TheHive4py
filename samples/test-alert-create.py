@@ -10,7 +10,7 @@ import json
 import time
 import uuid
 from thehive4py.api import TheHiveApi
-from thehive4py.models import Alert, AlertArtifact
+from thehive4py.models import Alert, AlertArtifact, CustomFieldHelper
 
 api = TheHiveApi('http://127.0.0.1:9000', '**YOUR_API_KEY**')
 
@@ -21,6 +21,13 @@ artifacts = [
     AlertArtifact(dataType='file', data='sample.txt')
 ]
 
+# Prepare the custom fields
+customFields = CustomFieldHelper()\
+    .add_boolean('booleanField', True)\
+    .add_string('businessImpact', 'HIGH')\
+    .add_date('occurDate', int(time.time())*1000)\
+    .add_number('cvss', 9)\
+    .build()
 
 # Prepare the sample Alert
 sourceRef = str(uuid.uuid4())[0:6]
@@ -31,7 +38,8 @@ alert = Alert(title='New Alert',
               type='external',
               source='instance1',
               sourceRef=sourceRef,
-              artifacts=artifacts)
+              artifacts=artifacts,
+              customFields=customFields)
 
 # Create the Alert
 print('Create Alert')

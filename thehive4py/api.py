@@ -114,7 +114,7 @@ class TheHiveApi:
 
         # Choose which attributes to send
         update_keys = [
-            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'resolutionStatus',
+            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'status', 'resolutionStatus',
             'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
