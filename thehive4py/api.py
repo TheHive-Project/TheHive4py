@@ -520,7 +520,7 @@ class TheHiveApi:
         req = self.url + "/api/connector/cortex/action"
 
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies,
+            return requests.post(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies,
                                  auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Responder run error: {}".format(e))
@@ -539,7 +539,7 @@ class TheHiveApi:
 
         req = self.url + "/api/connector/cortex/responder/_search"
         try:
-            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, data=data,
+            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, json=data,
                                            proxies=self.proxies,
                                            auth=self.auth, verify=self.cert).json()
             if len(responder_list) == 1:
@@ -562,7 +562,7 @@ class TheHiveApi:
 
         req = self.url + "/api/connector/cortex/responder/_search"
         try:
-            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, data=data,
+            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, json=data,
                                            proxies=self.proxies,
                                            auth=self.auth, verify=self.cert).json()
             if len(responder_list) == 1:
