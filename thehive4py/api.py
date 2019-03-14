@@ -415,7 +415,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'status']
 
         data = {k: v for k, v in alert.__dict__.items() if
                 (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
@@ -488,6 +488,88 @@ class TheHiveApi:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
+
+    def run_responder(self, object_id, object_type, responder_name=None, responder_id=None):
+
+        """
+        Run a responder by name or id. Must have either name or ID provided.
+        :param object_id: identifier of the object to run the responder on
+        :param object_type: type of the object the responder is running on
+        :param responder_name: Name of the responder to run (optional)
+        :param responder_id: identifier of the Cortex responder (optional)
+        :rtype: json
+        """
+        if not responder_id and not responder_name:
+            raise TheHiveException("Responder run error: No responder ID or Name provided")
+
+        data = json.dumps({
+            "objectType": object_type,
+            "objectId":   object_id
+        })
+
+        if responder_name:
+            if not self.verify_responder_name(responder_name):
+                resp_id = self.search_responder_by_name(responder_name)
+                if resp_id:
+                    data['responderId'] = resp_id
+            else:
+                data['responderName'] = responder_name
+        else:
+            data['responderId'] = responder_id
+
+        req = self.url + "/api/connector/cortex/action"
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies,
+                                 auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder run error: {}".format(e))
+
+    def verify_responder_name(self, responder_name):
+        """
+        Verify the responder name.
+        :param responder_name: Cortex responder name
+        :return: bool
+        """
+        data = {
+            "query": {
+                "name": responder_name
+            }
+        }
+
+        req = self.url + "/api/connector/cortex/responder/_search"
+        try:
+            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, data=data,
+                                           proxies=self.proxies,
+                                           auth=self.auth, verify=self.cert).json()
+            if len(responder_list) == 1:
+                return True
+            return False
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder verify error: {}".format(e))
+
+    def search_responder_by_name(self, responder_name):
+        """
+        Find a responder by short name (without version)
+        :param responder_name: Cortex responder name
+        :return: str
+        """
+        data = {
+            "query": {
+                "_string": responder_name
+            }
+        }
+
+        req = self.url + "/api/connector/cortex/responder/_search"
+        try:
+            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, data=data,
+                                           proxies=self.proxies,
+                                           auth=self.auth, verify=self.cert).json()
+            if len(responder_list) == 1:
+                return responder_list[0].get('id')
+            return None
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder verify error: {}".format(e))
 
     def find_tasks(self, **attributes):
         """
