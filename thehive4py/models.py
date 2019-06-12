@@ -206,7 +206,8 @@ class CaseTask(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
-
+            
+        self.id = attributes.get('id', None)
         self.title = attributes.get('title', None)
         self.status = attributes.get('status', 'Waiting')
         self.flag = attributes.get('flag', False)
