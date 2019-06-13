@@ -72,6 +72,7 @@ class Case(JSONSerializable):
             'title': None,
             'description': None,
             'tlp': 2,
+            'pap': 2,
             'severity': 2,
             'flag': False,
             'tags': [],
@@ -80,7 +81,7 @@ class Case(JSONSerializable):
             'customFields': {},
             'tasks': [],
             'template': None,
-            'owner' : None
+            'owner': None
         }
 
         if attributes.get('json', False):
@@ -94,6 +95,7 @@ class Case(JSONSerializable):
         self.title = attributes.get('title', None)
         self.description = attributes.get('description', defaults['description'])
         self.tlp = attributes.get('tlp', defaults['tlp'])
+        self.pap = attributes.get('pap', defaults['pap'])
         self.severity = attributes.get('severity', defaults['severity'])
         self.flag = attributes.get('flag', defaults['flag'])
         self.tags = attributes.get('tags', defaults['tags'])
