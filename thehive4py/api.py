@@ -524,7 +524,7 @@ class TheHiveApi:
         req = self.url + "/api/case/artifact/{}".format(observable.id)
 
         # Choose which attributes to send
-        update_keys = ['tlp', 'ioc', 'flag', 'tags', 'description']
+        update_keys = ['tlp', 'ioc', 'flag', 'sighted', 'tags', 'message']
 
         data = {k: v for k, v in observable.__dict__.items() if (
             len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
