@@ -535,11 +535,12 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case observable update error: {}".format(e))
 
-    def promote_alert_to_case(self, alert_id):
+    def promote_alert_to_case(self, alert_id, case_template=None):
         """
             This uses the TheHiveAPI to promote an alert to a case
 
             :param alert_id: Alert identifier
+            :param case_template: Optional Case Template name
             :return: TheHive Case
             :rtype: json
         """
@@ -549,7 +550,7 @@ class TheHiveApi:
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'},
                                  proxies=self.proxies, auth=self.auth,
-                                 verify=self.cert, data=json.dumps({}))
+                                 verify=self.cert, data=json.dumps({"caseTemplate": case_template}))
 
         except requests.exceptions.RequestException as the_exception:
             raise AlertException("Couldn't promote alert to case: {}".format(the_exception))
