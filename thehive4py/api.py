@@ -233,6 +233,30 @@ class TheHiveApi:
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
 
+    def update_case_observable(self, observable_id, case_observable):
+
+        """
+        :param observable_id: Observable identifier
+        :param case_observable: TheHive observable
+        :type case_observable: CaseObservable defined in models.py
+        :return: TheHive observable
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/artifact/{}".format(observable_id)
+
+        try:
+            data = json.dumps({
+                "message": case_observable.message,
+                "tlp": case_observable.tlp,
+                "tags": case_observable.tags,
+                "ioc": case_observable.ioc,
+                "sighted": case_observable.sighted
+                })
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Case observable update error: {}".format(e))
+
     def get_case(self, case_id):
         """
             :param case_id: Case identifier
