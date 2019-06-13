@@ -78,7 +78,8 @@ class Case(JSONSerializable):
             'metrics': {},
             'customFields': {},
             'tasks': [],
-            'template': None
+            'template': None,
+            'owner' : None
         }
 
         if attributes.get('json', False):
@@ -98,6 +99,7 @@ class Case(JSONSerializable):
         self.metrics = attributes.get('metrics', defaults['metrics'])
         self.customFields = attributes.get('customFields', defaults['customFields'])
         self.template = attributes.get('template', defaults['template'])
+        self.owner = attributes.get('owner', defaults['owner'])
 
         tasks = attributes.get('tasks', defaults['tasks'])
         self.tasks = []
@@ -204,7 +206,8 @@ class CaseTask(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
-
+            
+        self.id = attributes.get('id', None)
         self.title = attributes.get('title', None)
         self.status = attributes.get('status', 'Waiting')
         self.flag = attributes.get('flag', False)
