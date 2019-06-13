@@ -68,6 +68,7 @@ class Case(JSONSerializable):
 
     def __init__(self, **attributes):
         defaults = {
+            'id': None,
             'title': None,
             'description': None,
             'tlp': 2,
@@ -89,6 +90,7 @@ class Case(JSONSerializable):
         if is_from_template:
             defaults['template'] = attributes['template']
 
+        self.id = attributes.get('id', None)
         self.title = attributes.get('title', None)
         self.description = attributes.get('description', defaults['description'])
         self.tlp = attributes.get('tlp', defaults['tlp'])
@@ -206,7 +208,7 @@ class CaseTask(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
-            
+
         self.id = attributes.get('id', None)
         self.title = attributes.get('title', None)
         self.status = attributes.get('status', 'Waiting')
@@ -222,6 +224,7 @@ class CaseTaskLog(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        self.id = attributes.get('id', None)
         self.message = attributes.get('message', None)
         self.file = attributes.get('file', None)
 
@@ -231,6 +234,7 @@ class CaseTemplate(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        self.id = attributes.get('id', None)
         self.name = attributes.get('name', None)
         self.titlePrefix = attributes.get('titlePrefix', None)
         self.description = attributes.get('description', None)
@@ -254,6 +258,8 @@ class CaseObservable(JSONSerializable):
     def __init__(self, **attributes):
         if attributes.get('json', False):
             attributes = attributes['json']
+
+        self.id = attributes.get('id', None)
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', 2)
@@ -273,6 +279,7 @@ class Alert(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        self.id = attributes.get('id', None)
         self.tlp = attributes.get('tlp', 2)
         self.severity = attributes.get('severity', 2)
         self.date = attributes.get('date', int(time.time()) * 1000)
