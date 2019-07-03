@@ -111,7 +111,7 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case"
-        data = case.jsonify()
+        data = case.jsonify(excludes=['id'])
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
@@ -149,7 +149,7 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case/{}/task".format(case_id)
-        data = case_task.jsonify()
+        data = case_task.jsonify(excludes=['id'])
 
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
@@ -189,12 +189,12 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case/task/{}/log".format(task_id)
-        data = {'_json': json.dumps({"message":case_task_log.message})}
+        data = {'_json': json.dumps({"message": case_task_log.message})}
 
         if case_task_log.file:
             f = {'attachment': (os.path.basename(case_task_log.file), open(case_task_log.file, 'rb'), magic.Magic(mime=True).from_file(case_task_log.file))}
             try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
+                return requests.post(req, data=data, files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseTaskException("Case task log create error: {}".format(e))
         else:
@@ -217,12 +217,14 @@ class TheHiveApi:
 
         if case_observable.dataType == 'file':
             try:
-                mesg = json.dumps({ "dataType": case_observable.dataType,
+                mesg = json.dumps({
+                    "dataType": case_observable.dataType,
                     "message": case_observable.message,
                     "tlp": case_observable.tlp,
                     "tags": case_observable.tags,
-                    "ioc": case_observable.ioc
-                    })
+                    "ioc": case_observable.ioc,
+                    "sighted": case_observable.sighted
+                })
                 data = {"_json": mesg}
                 return requests.post(req, data=data, files=case_observable.data[0], proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
@@ -252,7 +254,7 @@ class TheHiveApi:
                 "tags": case_observable.tags,
                 "ioc": case_observable.ioc,
                 "sighted": case_observable.sighted
-                })
+            })
             return requests.patch(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable update error: {}".format(e))
@@ -439,7 +441,7 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/alert"
-        data = alert.jsonify()
+        data = alert.jsonify(excludes=['id'])
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:

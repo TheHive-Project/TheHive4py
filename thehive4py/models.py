@@ -22,8 +22,14 @@ class CustomJsonEncoder(json.JSONEncoder):
 
 
 class JSONSerializable(object):
-    def jsonify(self):
-        return json.dumps(self, sort_keys=True, indent=4, cls=CustomJsonEncoder)
+    def jsonify(self, excludes=[]):
+        data = self.__dict__
+
+        for ex in excludes:
+            if ex in data:
+                del data[ex]
+
+        return json.dumps(data, sort_keys=True, indent=4, cls=CustomJsonEncoder)
 
     def attr(self, attributes, name, default, error=None):
         is_required = error is not None
@@ -313,6 +319,8 @@ class AlertArtifact(JSONSerializable):
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', 2)
         self.tags = attributes.get('tags', [])
+        self.ioc = attributes.get('ioc', False)
+        self.sighted = attributes.get('sighted', False)
 
         if self.dataType == 'file':
             self.data = self._prepare_file_data(attributes.get('data', None))

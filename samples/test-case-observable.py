@@ -32,6 +32,7 @@ domain = CaseObservable(dataType='filename',
                         data=['pic.png'],
                         tlp=1,
                         ioc=True,
+                        sighted=True,
                         tags=['thehive4py'],
                         message='test'
                         )
@@ -50,6 +51,7 @@ file_observable = CaseObservable(dataType='file',
                         data=['pic.png'],
                         tlp=1,
                         ioc=True,
+                        sighted=True,
                         tags=['thehive4py'],
                         message='test'
                         )
