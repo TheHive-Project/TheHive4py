@@ -249,6 +249,7 @@ class CaseTemplate(JSONSerializable):
         self.severity = attributes.get('severity', 2)
         self.flag = attributes.get('flag', False)
         self.tlp = attributes.get('tlp', 2)
+        self.pap = attributes.get('pap', 2)
         self.tags = attributes.get('tags', [])
         self.metrics = attributes.get('metrics', {})
         self.customFields = attributes.get('customFields', {})
