@@ -175,10 +175,10 @@ class CaseHelper:
 
     def update(self, case_id, **attributes):
         """
-        Update a case.        
+        Update a case.
         :param case_id: The ID of the case to update
         :param attributes: key=value pairs of case attributes to update (field=new_value)
-        
+
         :return: The created instance.
         """
 
@@ -300,6 +300,7 @@ class AlertArtifact(JSONSerializable):
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', 2)
+        self.ioc = attributes.get('ioc', False)
         self.tags = attributes.get('tags', [])
 
         if self.dataType == 'file':
