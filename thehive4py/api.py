@@ -115,7 +115,7 @@ class TheHiveApi:
         # Choose which attributes to send
         update_keys = [
             'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'status', 'resolutionStatus',
-            'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
+            'impactStatus', 'summary', 'endDate', 'metrics', 'customFields', 'artifacts'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
         try:
@@ -415,7 +415,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'status']
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields', 'artifacts']
 
         data = {k: v for k, v in alert.__dict__.items() if
                 (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
