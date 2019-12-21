@@ -260,7 +260,17 @@ class CaseObservable(JSONSerializable):
 
         data = attributes.get('data', [])
         if self.dataType == 'file':
-            self.data = [{'attachment': (os.path.basename(data[0]), open(data[0], 'rb'), magic.Magic(mime=True).from_file(data[0]))}]
+            if isinstance(data[0], tuple):
+                file_object, filename = data[0]
+            else:
+                filename = data[0]
+                # we are opening this here, but we can't close it
+                # because it gets passed into requests.post. this is
+                # the substance of issue #10.
+                file_object = open(data[0], 'rb')
+            mime = magic.Magic(mime=True).from_buffer(file_object.read())
+            file_object.seek(0)
+            self.data = [{'attachment': (filename, file_object, mime)}]
         else:
             self.data = data
 
