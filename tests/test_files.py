@@ -31,7 +31,7 @@ def test_file_observable_named_file(mock_post):
 def test_file_observable_file_object(mock_post):
     thehive = TheHiveApi('http://127.0.0.1:9000', 'API_KEY')
     test_id = 'AV55EOIsPQ_zDQrlj4a9'
-    our_file = mock.Mock(wraps=StringIO('contents of file'))
+    our_file = mock.Mock(wraps=StringIO(u'contents of file'))
     with mock.patch('thehive4py.models.open', mock.mock_open()):
         file_observable = CaseObservable(dataType='file',
                                          data=[(our_file, 'pic.png')],
