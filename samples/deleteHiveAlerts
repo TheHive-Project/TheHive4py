@@ -1,0 +1,74 @@
+'''
+
+Script that works with thehive4py and theHive's elasticsearch api to:
+1. Obtain a list of all alert ids
+2. Use these ids to permantely delete the alerts
+
+Use at your own risk! This will delete ALL alerts
+
+Note:In testing, no negative consequneces found on cases that orignated from alerts.
+Your experience may vary.
+
+ 
+Note 2: You may need to change the index queried in line 56. To determine your theHive index first run:
+  curl -GET http://127.0.0.1:9200/_cat/indices?pretty
+  
+  Lines 37, 38 contain logic to narrow down to times less than or equal to a unix date stamp
+  
+
+'''
+
+
+def get_alerts():
+    '''
+    Use theHive4py api to get all alert ids
+    :return: list of alert ids
+    '''
+    from thehive4py.api import TheHiveApi
+    from thehive4py.api import Lte
+
+    API_KEY = 'YOUR KEY'
+
+    api = TheHiveApi('http://127.0.0.1:9000', API_KEY)
+
+    alert_ids = list()
+
+    resp = api.find_alerts()
+    #query = Lte('createdAt', '1578518708424')
+    #resp = api.find_alerts(query=query)
+
+    print(resp.status_code)
+    alt = resp.json()
+    for each in alt:
+        alert_ids.append(each["id"])
+
+    return alert_ids
+
+def delete_alerts():
+    '''
+    Delete all alerts from the alert_ids list
+    '''
+    import requests
+
+    alert_ids = get_alerts()
+    print("Working with %s alerts" %len(alert_ids))
+
+    url = 'http://127.0.0.1:9200/the_hive_14/_delete_by_query?pretty'
+    header={'Content-Type': 'application/json'}
+
+    for alert in alert_ids:
+        print(alert)
+        payload = {
+            "query": {
+                "match": {
+                    "_id": alert
+                        }
+                    }
+                }
+        r = requests.post(url, json=payload, headers=header)
+        print(r.status_code)
+        print(r.json())
+
+
+
+delete_alerts()
