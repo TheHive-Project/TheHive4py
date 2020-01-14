@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import base64
+import datetime
 import json
 import os
 import time
@@ -17,6 +18,8 @@ class CustomJsonEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, JSONSerializable):
             return o.__dict__
+        elif isinstance(o, datetime.datetime):
+            return o.timestamp()
         else:
             return json.JSONEncoder.default(self, o)
 
