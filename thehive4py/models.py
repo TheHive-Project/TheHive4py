@@ -229,6 +229,7 @@ class CaseTemplate(JSONSerializable):
             attributes = attributes['json']
 
         self.name = attributes.get('name', None)
+        self.id = attributes.get('id', None)
         self.titlePrefix = attributes.get('titlePrefix', None)
         self.description = attributes.get('description', None)
         self.severity = attributes.get('severity', 2)
