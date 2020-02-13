@@ -488,6 +488,26 @@ class TheHiveApi:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
+    
+    def run_responder(self, object_type, object_id, responder_id):
+
+        """
+        :param object_type: type of object for the responder to act upon (for example; case, case_task)
+        :param object_id: identifier of the object (id of for example; case, case_task)
+        :param responder_id: name of the responder used by the job
+        :rtype: json
+        """
+
+        req = self.url + "/api/connector/cortex/action"
+
+        try:
+            data = json.dumps({ "objectType": object_type,
+                "objectId": object_id,
+                "responderId": responder_id
+                })
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder run error: {}".format(e))
 
     def find_tasks(self, **attributes):
         """
