@@ -448,7 +448,7 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
-    def promote_alert_to_case(self, alert_id):
+    def promote_alert_to_case(self, alert_id, data={}):
         """
             This uses the TheHiveAPI to promote an alert to a case
 
@@ -462,7 +462,7 @@ class TheHiveApi:
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'},
                                  proxies=self.proxies, auth=self.auth,
-                                 verify=self.cert, data=json.dumps({}))
+                                 verify=self.cert, data=json.dumps(data))
 
         except requests.exceptions.RequestException as the_exception:
             raise AlertException("Couldn't promote alert to case: {}".format(the_exception))
