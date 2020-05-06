@@ -347,6 +347,52 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTemplateException("Case template fetch error: {}".format(e))
 
+    def create_case_template(self, case_template):
+
+        """
+        :param case_template: The case template
+        :type case_template: CaseTemplate defined in models.py
+        :return: TheHive case template
+        :rtype: requests.Reponse
+        """
+
+        req = self.url + "/api/case/template"
+        data = case_template.jsonify()
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTemplateException("Case template create error: {}".format(e))
+
+    def _check_if_custom_field_exists(self, custom_field):
+        data = {
+                'key': 'reference',
+                'value': custom_field.reference
+            }
+        req = self.url + "/api/list/custom_fields/_exists"
+        response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        return response.json().get('found', 'False')
+
+    def create_custom_field(self, custom_field):
+        """
+        :param custom_field: CustomField defined in models.py
+        """
+
+        if self._check_if_custom_field_exists(custom_field):
+            raise CustomFieldException('Field with reference "{}" already exists'.format(custom_field.reference))
+        
+        data = {
+            "value": {
+                "name": custom_field.name, 
+                "reference": custom_field.reference,
+                "description": custom_field.description, 
+                "type": custom_field.type, 
+                "options": custom_field.options
+                }
+            }
+        req = self.url + "/api/list/custom_fields"
+        return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+
     def get_task_logs(self, taskId):
 
         """
