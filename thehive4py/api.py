@@ -231,6 +231,19 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseException("Case fetch error: {}".format(e))
 
+    def delete_case(self, case_id):
+        """
+            :param case_id: Case identifier
+            :return: requests.Response
+            :rtype: json
+        """
+        req = self.url + "/api/case/{}".format(case_id)
+
+        try:
+            return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Case deletion error: {}".format(e))
+
     def find_cases(self, **attributes):
         return self.__find_rows("/api/case/_search", **attributes)
 
@@ -380,13 +393,13 @@ class TheHiveApi:
 
         if self._check_if_custom_field_exists(custom_field):
             raise CustomFieldException('Field with reference "{}" already exists'.format(custom_field.reference))
-        
+
         data = {
             "value": {
-                "name": custom_field.name, 
+                "name": custom_field.name,
                 "reference": custom_field.reference,
-                "description": custom_field.description, 
-                "type": custom_field.type, 
+                "description": custom_field.description,
+                "type": custom_field.type,
                 "options": custom_field.options
                 }
             }
