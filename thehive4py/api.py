@@ -484,13 +484,16 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields']
 
-        data = {k: v for k, v in alert.__dict__.items() if
-                (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+        if len(fields) > 0:
+            data = {k: v for k, v in alert.__dict__.items() if k in fields}
+        else:
+            data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
 
-        if hasattr(alert, 'artifacts'):
+        if hasattr(data, 'artifacts'):
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
