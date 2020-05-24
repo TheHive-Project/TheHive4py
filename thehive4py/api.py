@@ -107,7 +107,7 @@ class TheHiveApi:
         :param case: The case details
         :type case: Case defined in models.py
         :return: TheHive case
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case"
@@ -144,7 +144,7 @@ class TheHiveApi:
         :param case_task: TheHive task
         :type case_task: CaseTask defined in models.py
         :return: TheHive task
-        :rtype: json
+        :rtype: requests.Response
 
         """
 
@@ -185,7 +185,7 @@ class TheHiveApi:
         :param case_task_log: TheHive log
         :type case_task_log: CaseTaskLog defined in models.py
         :return: TheHive log
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case/task/{}/log".format(task_id)
@@ -210,7 +210,7 @@ class TheHiveApi:
         :param case_observable: TheHive observable
         :type case_observable: CaseObservable defined in models.py
         :return: TheHive observable
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case/{}/artifact".format(case_id)
@@ -437,7 +437,7 @@ class TheHiveApi:
         :param alert: TheHive alert
         :type alert: Alert defined in models.py
         :return: TheHive alert
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/alert"
