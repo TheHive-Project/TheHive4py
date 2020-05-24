@@ -69,6 +69,14 @@ class CustomFieldHelper(object):
         self.__add_field('number', name, value)
         return self
 
+    def add_integer(self, name, value):
+        self.__add_field('integer', name, value)
+        return self
+
+    def add_float(self, name, value):
+        self.__add_field('float', name, value)
+        return self
+
     def build(self):
         return self.fields
 
@@ -327,7 +335,10 @@ class AlertArtifact(JSONSerializable):
         self.sighted = attributes.get('sighted', False)
 
         if self.dataType == 'file':
-            self.data = self._prepare_file_data(attributes.get('data', None))
+            if 'attachment' in attributes:
+                self.attachment = attributes.get('attachment')
+            else:
+                self.data = self._prepare_file_data(attributes.get('data', None))
         else:
             self.data = attributes.get('data', None)
 
