@@ -91,12 +91,14 @@ class CustomField(object):
         :param description: description of the custom field
         :param type: type of the field, possible values are string, boolean, number or date
         :param options: list of possible values for the field
+        :param mandatory: True if the field is mandatory
         """
         self.name = attributes.get('name', None)
         self.reference = attributes.get('name', None)
         self.description = attributes.get('description', None)
         self.type = attributes.get('type', None)
         self.options = attributes.get('options', [])
+        self.mandatory = attributes.get('mandatory', False)
 
 
 class Case(JSONSerializable):

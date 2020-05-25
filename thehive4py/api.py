@@ -443,6 +443,8 @@ class TheHiveApi:
 
     def create_custom_field(self, custom_field):
         """
+        This function is available only for TheHive 3
+
         :param custom_field: CustomField defined in models.py
         """
 
@@ -455,36 +457,48 @@ class TheHiveApi:
                 "reference": custom_field.reference,
                 "description": custom_field.description,
                 "type": custom_field.type,
-                "options": custom_field.options
+                "options": custom_field.options,
+                "mandatory": custom_field.madatory
                 }
             }
         req = self.url + "/api/list/custom_fields"
         return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
 
-    def get_case_task(self, taskId):
-        req = self.url + "/api/case/task/{}".format(taskId)
+    def get_case_task(self, task_id):
+        """
+        :param task_id: Task identifier
+        :return: TheHive task by id
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/task/{}".format(task_id)
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task logs search error: {}".format(e))
 
-    def get_task_log(self, logId):
-        req = self.url + "/api/case/task/log/{}".format(logId)
+    def get_task_log(self, log_id):
+        """
+        :param log_id: Task log identifier
+        :return: TheHive task log by id
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/task/log/{}".format(log_id)
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task logs search error: {}".format(e))
 
-    def get_task_logs(self, taskId):
+    def get_task_logs(self, task_id):
 
         """
-        :param taskId: Task identifier
-        :type caseTaskLog: CaseTaskLog defined in models.py
+        :param task_id: Task identifier
         :return: TheHive logs
         :rtype: json
         """
 
-        req = self.url + "/api/case/task/{}/log".format(taskId)
+        req = self.url + "/api/case/task/{}/log".format(task_id)
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
