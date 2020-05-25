@@ -81,6 +81,24 @@ class CustomFieldHelper(object):
         return self.fields
 
 
+class CustomField(object):
+
+    def __init__(self, **attributes):
+        """
+        Class that represents a single custom field
+        :param name: name of the custom field
+        :param reference: internal reference name
+        :param description: description of the custom field
+        :param type: type of the field, possible values are string, boolean, number or date
+        :param options: list of possible values for the field
+        """
+        self.name = attributes.get('name', None)
+        self.reference = attributes.get('name', None)
+        self.description = attributes.get('description', None)
+        self.type = attributes.get('type', None)
+        self.options = attributes.get('options', [])
+
+
 class Case(JSONSerializable):
 
     def __init__(self, **attributes):

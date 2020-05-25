@@ -17,3 +17,6 @@ class AlertException(TheHiveException):
 
 class CaseTemplateException(TheHiveException):
     pass
+
+class CustomFieldException(TheHiveException):
+    pass
