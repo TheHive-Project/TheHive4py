@@ -30,6 +30,7 @@ customFields = CustomFieldHelper()\
 
 case = Case(title='From TheHive4Py',
             tlp=3,
+            pap=3,
             flag=True,
             tags=['TheHive4Py', 'sample'],
             description='N/A',

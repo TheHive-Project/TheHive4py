@@ -68,3 +68,32 @@ def Type(tpe):
 
 def String(query_string):
     return {'_string': query_string}
+
+
+def Like(field, value):
+    return {'_like': {'_field': field, '_value': value}}
+
+
+def StartsWith(field, value):
+    if not value.endswith('*'):
+        value = value + '*'
+
+    return {'_wildcard': {'_field': field, '_value': value}}
+
+
+def EndsWith(field, value):
+    if not value.startswith('*'):
+        value = '*' + value
+
+    return {'_wildcard': {'_field': field, '_value': value}}
+
+
+def ContainsString(field, value):
+
+    if not value.endswith('*'):
+        value = value + '*'
+
+    if not value.startswith('*'):
+        value = '*' + value
+
+    return {'_wildcard': {'_field': field, '_value': value}}

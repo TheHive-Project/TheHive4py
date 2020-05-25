@@ -18,7 +18,7 @@ artifacts = [
     AlertArtifact(dataType='ip', data='8.8.8.8'),
     AlertArtifact(dataType='domain', data='google.com'),
     AlertArtifact(dataType='file', data='pic.png'),
-    AlertArtifact(dataType='file', data='sample.txt')
+    AlertArtifact(dataType='file', data='sample.txt', sighted=True, ioc=True)
 ]
 
 # Prepare the custom fields

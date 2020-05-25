@@ -87,17 +87,31 @@ class TheHiveApi:
         return requests.patch(self.url + api_url, headers={'Content-Type': 'application/json'}, json=attributes,
                               proxies=self.proxies, auth=self.auth, verify=self.cert)
 
+    def health(self):
+        req = self.url + "/api/health"
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Error on retrieving health status: {}".format(e))
+
+    def get_current_user(self):
+        req = self.url + "/api/user/current"
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Error on retrieving current user: {}".format(e))
+
     def create_case(self, case):
 
         """
         :param case: The case details
         :type case: Case defined in models.py
         :return: TheHive case
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case"
-        data = case.jsonify()
+        data = case.jsonify(excludes=['id'])
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
@@ -114,8 +128,8 @@ class TheHiveApi:
 
         # Choose which attributes to send
         update_keys = [
-            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'tags', 'status', 'resolutionStatus',
-            'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
+            'title', 'description', 'severity', 'startDate', 'owner', 'flag', 'tlp', 'pap', 'tags', 'status',
+            'resolutionStatus', 'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
         try:
@@ -130,19 +144,19 @@ class TheHiveApi:
         :param case_task: TheHive task
         :type case_task: CaseTask defined in models.py
         :return: TheHive task
-        :rtype: json
+        :rtype: requests.Response
 
         """
 
         req = self.url + "/api/case/{}/task".format(case_id)
-        data = case_task.jsonify()
+        data = case_task.jsonify(excludes=['id'])
 
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task create error: {}".format(e))
 
-    def update_case_task(self, task):
+    def update_case_task(self, task, fields=[]):
         """
         :Updates TheHive Task
         :param case: The task to update. The task's `id` determines which Task to update.
@@ -154,8 +168,9 @@ class TheHiveApi:
         update_keys = [
             'title', 'description', 'status', 'order', 'user', 'owner', 'flag', 'endDate'
         ]
-
-        data = {k: v for k, v in task.__dict__.items() if k in update_keys}
+        
+        data = {k: v for k, v in task.__dict__.items() if (
+            len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
 
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data,
@@ -170,16 +185,16 @@ class TheHiveApi:
         :param case_task_log: TheHive log
         :type case_task_log: CaseTaskLog defined in models.py
         :return: TheHive log
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case/task/{}/log".format(task_id)
-        data = {'_json': json.dumps({"message":case_task_log.message})}
+        data = {'_json': json.dumps({"message": case_task_log.message})}
 
         if case_task_log.file:
             f = {'attachment': (os.path.basename(case_task_log.file), open(case_task_log.file, 'rb'), magic.Magic(mime=True).from_file(case_task_log.file))}
             try:
-                return requests.post(req, data=data,files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
+                return requests.post(req, data=data, files=f, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseTaskException("Case task log create error: {}".format(e))
         else:
@@ -195,19 +210,21 @@ class TheHiveApi:
         :param case_observable: TheHive observable
         :type case_observable: CaseObservable defined in models.py
         :return: TheHive observable
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/case/{}/artifact".format(case_id)
 
         if case_observable.dataType == 'file':
             try:
-                mesg = json.dumps({ "dataType": case_observable.dataType,
+                mesg = json.dumps({
+                    "dataType": case_observable.dataType,
                     "message": case_observable.message,
                     "tlp": case_observable.tlp,
                     "tags": case_observable.tags,
-                    "ioc": case_observable.ioc
-                    })
+                    "ioc": case_observable.ioc,
+                    "sighted": case_observable.sighted
+                })
                 data = {"_json": mesg}
                 return requests.post(req, data=data, files=case_observable.data[0], proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
@@ -217,6 +234,30 @@ class TheHiveApi:
                 return requests.post(req, headers={'Content-Type': 'application/json'}, data=case_observable.jsonify(), proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
+
+    def update_case_observable(self, observable_id, case_observable):
+
+        """
+        :param observable_id: Observable identifier
+        :param case_observable: TheHive observable
+        :type case_observable: CaseObservable defined in models.py
+        :return: TheHive observable
+        :rtype: json
+        """
+
+        req = self.url + "/api/case/artifact/{}".format(observable_id)
+
+        try:
+            data = json.dumps({
+                "message": case_observable.message,
+                "tlp": case_observable.tlp,
+                "tags": case_observable.tags,
+                "ioc": case_observable.ioc,
+                "sighted": case_observable.sighted
+            })
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Case observable update error: {}".format(e))
 
     def get_case(self, case_id):
         """
@@ -246,6 +287,20 @@ class TheHiveApi:
 
     def find_cases(self, **attributes):
         return self.__find_rows("/api/case/_search", **attributes)
+
+    def delete_case(self, case_id, force=False):
+        """
+        Deletes a TheHive case. Unless force is set to True the case is 'soft deleted' (status set to deleted).
+        :param case_id: Case identifier
+        :return: A requests response object.
+        """
+        req = self.url + "/api/case/{}".format(case_id)
+        if force:
+            req += '/force'
+        try:
+            return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Case deletion error: {}".format(e))
 
     def find_first(self, **attributes):
         """
@@ -406,6 +461,20 @@ class TheHiveApi:
         req = self.url + "/api/list/custom_fields"
         return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
 
+    def get_case_task(self, taskId):
+        req = self.url + "/api/case/task/{}".format(taskId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task logs search error: {}".format(e))
+
+    def get_task_log(self, logId):
+        req = self.url + "/api/case/task/log/{}".format(logId)
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task logs search error: {}".format(e))
+
     def get_task_logs(self, taskId):
 
         """
@@ -427,11 +496,11 @@ class TheHiveApi:
         :param alert: TheHive alert
         :type alert: Alert defined in models.py
         :return: TheHive alert
-        :rtype: json
+        :rtype: requests.Response
         """
 
         req = self.url + "/api/alert"
-        data = alert.jsonify()
+        data = alert.jsonify(excludes=['id'])
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
@@ -474,13 +543,16 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description']
+        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields']
 
-        data = {k: v for k, v in alert.__dict__.items() if
-                (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+        if len(fields) > 0:
+            data = {k: v for k, v in alert.__dict__.items() if k in fields}
+        else:
+            data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
 
-        if hasattr(alert, 'artifacts'):
+        if hasattr(data, 'artifacts'):
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
@@ -507,11 +579,32 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
-    def promote_alert_to_case(self, alert_id):
+    def update_case_observables(self, observable, fields=[]):
+        """
+        :Updates TheHive observable
+        :param observable: The observable details to update
+        :return:
+        """
+        req = self.url + "/api/case/artifact/{}".format(observable.id)
+
+        # Choose which attributes to send
+        update_keys = ['tlp', 'ioc', 'flag', 'sighted', 'tags', 'message']
+
+        data = {k: v for k, v in observable.__dict__.items() if (
+            len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'},
+                json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case observable update error: {}".format(e))
+
+    def promote_alert_to_case(self, alert_id, case_template=None):
         """
             This uses the TheHiveAPI to promote an alert to a case
 
             :param alert_id: Alert identifier
+            :param case_template: Optional Case Template name
             :return: TheHive Case
             :rtype: json
         """
@@ -521,7 +614,7 @@ class TheHiveApi:
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'},
                                  proxies=self.proxies, auth=self.auth,
-                                 verify=self.cert, data=json.dumps({}))
+                                 verify=self.cert, data=json.dumps({"caseTemplate": case_template}))
 
         except requests.exceptions.RequestException as the_exception:
             raise AlertException("Couldn't promote alert to case: {}".format(the_exception))
