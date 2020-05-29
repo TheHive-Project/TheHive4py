@@ -1,22 +1,42 @@
 class TheHiveException(Exception):
-    """Base class for TheHive exceptions"""
+    """
+    Base class for TheHive exceptions
+    """
     pass
 
 
 class CaseException(TheHiveException):
+    """
+    Exception raised by failure of API calls related to `Case` handling
+    """
     pass
 
 class CaseTaskException(CaseException):
+    """
+    Exception raised by failure of API calls related to `Case Task` handling
+    """
     pass
 
 class CaseObservableException(CaseException):
+    """
+    Exception raised by failure of API calls related to `Case Observable` handling
+    """
     pass
 
 class AlertException(TheHiveException):
+    """
+    Exception raised by failure of API calls related to `Alert` handling
+    """
     pass
 
 class CaseTemplateException(TheHiveException):
+    """
+    Exception raised by failure of API calls related to `Case Template` handling
+    """
     pass
 
 class CustomFieldException(TheHiveException):
+    """
+    Exception raised by failure of API calls related to `Custom Fields` handling
+    """
     pass

@@ -10,69 +10,56 @@ import warnings
 import json
 import magic
 import requests
-from requests.auth import AuthBase
 
+from thehive4py.auth import *
 from thehive4py.models import CaseHelper
 from thehive4py.query import *
 from thehive4py.exceptions import *
 
 
-class BasicAuth(AuthBase):
-    """
-        A custom authentication class for requests
+class TheHiveApi:    
+    
+    def __init__(self, url: str, principal: str, organisation=None, password=None, proxies={}, cert=True):
+        """
+        Python API client for TheHive.
 
-        :param username: The username to use for the authentication
-        :param password: The password to use for the authentication
-        :param organisation: (Optional) The organisation to use
-    """
-    def __init__(self, username, password, organisation=None):
-        self.username = username
-        self.password = password
-        self.organisation = organisation
+        Arguments:
+            url (str): URL of Thehive instance, including the port. Ex: `http://myserver:9000`
+            principal (str): The API key, or the username if basic authentication is used.
+            password (str): The password for basic authentication or None. Defaults to None
+            organisation (str): The name of the organisation against which api calls will be run. Defaults to None
+            proxies (dict): The proxy configuration, would have `http` and `https` attributes. Defaults to {}
+                ```python
+                proxies: {
+                    "http: "http://my_proxy:8080"
+                    "https: "http://my_proxy:8080"
+                }
+                ```
+            cert (bool): Wether or not to enable SSL certificate validation
 
-    def __call__(self, req):
-        req.headers['Authorization'] = requests.auth._basic_auth_str(self.username, self.password)
+        !!! note "Basic example"
+            Example of simple usage: call TheHive APIs using an API key, without proxy, nor organisation
 
-        if self.organisation is not None:
-            req.headers['X-Organisation'] = self.organisation
+            ```python
+            api = TheHiveApi('http://my_thehive:9000', 'my_api_key')
+            ```
+        
+        !!! note "Full example"
+            Example using all the options: call TheHive APIs using an API key, with orgnisation, proxy and sst certificate
 
-        return req
-
-
-class BearerAuth(AuthBase):
-    """
-        A custom authentication class for requests
-
-        :param api_key: The API Key to use for the authentication
-        :param organisation: (Optional) The organisation to use
-    """
-    def __init__(self, api_key, organisation=None):
-        self.api_key = api_key
-        self.organisation = organisation
-
-    def __call__(self, req):
-        req.headers['Authorization'] = 'Bearer {}'.format(self.api_key)
-
-        if self.organisation is not None:
-            req.headers['X-Organisation'] = self.organisation
-
-        return req
-
-
-class TheHiveApi:
-
-    """
-        Python API for TheHive
-
-        :param url: thehive URL
-        :param principal: The username or the API key
-        :param password: The password for basic authentication or None. Defaults to None
-        :param organisation: The organisation against which api calls will be run. Defaults to None
-        :param proxies: The proxy configuration, would have `http` and `https` attributes. Defaults to {}
-    """
-
-    def __init__(self, url, principal, organisation=None, password=None, proxies={}, cert=True):
-
+            ```python
+            proxies = {
+                "http: "http://my_proxy:8080"
+                "https: "http://my_proxy:8080"
+            }
+            api = TheHiveApi('http://my_thehive:9000', 
+                'my_api_key', 
+                organisation='my-org', 
+                proxies=proxies, 
+                cert=True
+            )
+            ```
+        """
         self.url = url
         self.principal = principal
         self.password = password
@@ -91,10 +78,14 @@ class TheHiveApi:
 
     def __find_rows(self, find_url, **attributes):
         """
-            :param find_url: URL of the find api
-            :type find_url: string
-            :return: The Response returned by requests including the list of documents based on find_url
-            :rtype: Response object
+        Private fuction that abstracts the calls to _search API
+
+        Arguements:
+            find_url: URL of the find api
+
+        Returns:
+            Response object resulting from the API call.
+            The Response returned by requests including the list of documents based on find_url
         """
         req = self.url + find_url
 
@@ -119,6 +110,12 @@ class TheHiveApi:
                               proxies=self.proxies, auth=self.auth, verify=self.cert)
 
     def health(self):
+        """
+        Method to call the /api/health endpoint
+
+        Returns:
+            Response object resulting from the API call. 
+        """
         req = self.url + "/api/health"
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
@@ -126,6 +123,13 @@ class TheHiveApi:
             raise TheHiveException("Error on retrieving health status: {}".format(e))
 
     def get_current_user(self):
+        """
+        Method to call the /api/current endpoint, returning the current authenticated user.
+
+        Returns:
+            Response object resulting from the API call. 
+        """
+
         req = self.url + "/api/user/current"
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)

@@ -1,13 +1,22 @@
 language: python
 python:
-- '2.7'
 - '3.6'
+- '3.7'
 install:
 - sudo apt-get install pandoc
 - pip install -r requirements.txt
+- pip install mkdocs
+- pip install pytkdocs
+- pip install mkdocs-material
+- pip install mkdocstrings
+- pip install mkdocs-awesome-pages-plugin
 script:
 - python -m pytest
 - python setup.py bdist_wheel --universal
+- cd docs
+- mkdocs build
+- mkdocs gh-deploy
+
 deploy:
   provider: pypi
   user: "thehive-project"
