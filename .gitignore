@@ -14,3 +14,4 @@ build/
 *.egg-info
 build.sh
 .DS_Store
+site/
