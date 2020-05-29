@@ -37,14 +37,14 @@ class TheHiveApi:
                 ```
             cert (bool): Wether or not to enable SSL certificate validation
 
-        !!! note "Basic example"
+        ??? note "Basic example"
             Example of simple usage: call TheHive APIs using an API key, without proxy, nor organisation
 
             ```python
             api = TheHiveApi('http://my_thehive:9000', 'my_api_key')
             ```
         
-        !!! note "Full example"
+        ??? note "Full example"
             Example using all the options: call TheHive APIs using an API key, with orgnisation, proxy and sst certificate
 
             ```python

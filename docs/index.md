@@ -14,3 +14,41 @@ sudo pip install thehive4py
 ```
 
 If you are using Python on a Windows operating system, please forgo the `sudo` command.
+
+
+## Use It
+On macOS and Linux, type:
+
+```bash
+sudo pip install thehive4py
+```
+
+If you are using Python on a Windows operating system, please forgo the `sudo` command.
+
+
+## License
+TheHive4py is an open source and free software released under the [AGPL](https://github.com/TheHive-Project/TheHive/blob/master/LICENSE) (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.
+
+
+## Updates
+Information, news and updates are regularly posted on [TheHive Project Twitter account](https://twitter.com/thehive_project) and on [the blog](https://blog.thehive-project.org/).
+
+
+## Contributing
+We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests using [issues](https://github.com/TheHive-Project/TheHive4py/issues).
+
+We do have a [Code of conduct](code_of_conduct.md). Make sure to check it out before contributing.
+
+
+## Support
+Please [open an issue on GitHub](https://github.com/TheHive-Project/TheHive4py/issues/new) if you'd like to report a bug or request a feature. We are also available on [Gitter](https://gitter.im/TheHive-Project/TheHive) to help you out.
+
+If you need to contact the project team, send an email to <support@thehive-project.org>.
+
+
+## Community Discussions
+We have set up a Google forum at <https://groups.google.com/a/thehive-project.org/d/forum/users>. To request access, you need a Google account. You may create one [using a Gmail address](https://accounts.google.com/SignUp?hl=en) or [without one](https://accounts.google.com/SignUpWithoutGmail?hl=en).
+
+
+## Website
+<https://thehive-project.org/>
