@@ -17,17 +17,45 @@ from thehive4py.query import *
 from thehive4py.exceptions import *
 
 
+class BasicAuth(AuthBase):
+    """
+        A custom authentication class for requests
+
+        :param username: The username to use for the authentication
+        :param password: The password to use for the authentication
+        :param organisation: (Optional) The organisation to use
+    """
+    def __init__(self, username, password, organisation=None):
+        self.username = username
+        self.password = password
+        self.organisation = organisation
+
+    def __call__(self, req):
+        req.headers['Authorization'] = requests.auth._basic_auth_str(self.username, self.password)
+
+        if self.organisation is not None:
+            req.headers['X-Organisation'] = self.organisation
+
+        return req
+
+
 class BearerAuth(AuthBase):
     """
         A custom authentication class for requests
 
         :param api_key: The API Key to use for the authentication
+        :param organisation: (Optional) The organisation to use
     """
-    def __init__(self, api_key):
+    def __init__(self, api_key, organisation=None):
         self.api_key = api_key
+        self.organisation = organisation
 
     def __call__(self, req):
         req.headers['Authorization'] = 'Bearer {}'.format(self.api_key)
+
+        if self.organisation is not None:
+            req.headers['X-Organisation'] = self.organisation
+
         return req
 
 
@@ -39,19 +67,22 @@ class TheHiveApi:
         :param url: thehive URL
         :param principal: The username or the API key
         :param password: The password for basic authentication or None. Defaults to None
+        :param organisation: The organisation against which api calls will be run. Defaults to None
+        :param proxies: The proxy configuration, would have `http` and `https` attributes. Defaults to {}
     """
 
-    def __init__(self, url, principal, password=None, proxies={}, cert=True):
+    def __init__(self, url, principal, organisation=None, password=None, proxies={}, cert=True):
 
         self.url = url
         self.principal = principal
         self.password = password
         self.proxies = proxies
+        self.organisation = organisation
 
         if self.password is not None:
-            self.auth = requests.auth.HTTPBasicAuth(self.principal,self.password)
+            self.auth = BasicAuth(self.principal,self.password, self.organisation)
         else:
-            self.auth = BearerAuth(self.principal)
+            self.auth = BearerAuth(self.principal, self.organisation)
 
         self.cert = cert
 
