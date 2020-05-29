@@ -1,5 +1,84 @@
 # Change Log
 
+## [1.7.0](https://github.com/TheHive-Project/TheHive4py/tree/1.7.0) (2020-05-29)
+
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.6.0...1.7.0)
+
+**Implemented enhancements:**
+
+- Add custom field support for new types [\#152](https://github.com/TheHive-Project/TheHive4py/issues/152)
+- Return type is not correctly filled [\#150](https://github.com/TheHive-Project/TheHive4py/issues/150)
+- Models Case and CaseTemplate don't have PAP attribute [\#127](https://github.com/TheHive-Project/TheHive4py/issues/127)
+- Improve jsonify function to allow excluding attributes [\#125](https://github.com/TheHive-Project/TheHive4py/issues/125)
+
+**Fixed bugs:**
+
+- Add support to datetime for "date" CustomFields [\#138](https://github.com/TheHive-Project/TheHive4py/issues/138)
+- Update alert using 'fields' is not working [\#130](https://github.com/TheHive-Project/TheHive4py/issues/130)
+- Models should have the attribute 'id' [\#120](https://github.com/TheHive-Project/TheHive4py/issues/120)
+- promote\_alert\_to\_case\(\) doesn't apply caseTemplate [\#114](https://github.com/TheHive-Project/TheHive4py/issues/114)
+- PAP flag missing when creating a case from a retrieved Case object [\#111](https://github.com/TheHive-Project/TheHive4py/issues/111)
+- Specify an optional case template parameter to promote\_alert\_to\_case [\#115](https://github.com/TheHive-Project/TheHive4py/pull/115) ([agix](https://github.com/agix))
+
+**Closed issues:**
+
+- Add support to like and wildcard operators [\#149](https://github.com/TheHive-Project/TheHive4py/issues/149)
+- FR: Get "task name" in an "case\_task\_log" event [\#148](https://github.com/TheHive-Project/TheHive4py/issues/148)
+- Create case with the hive 4 rc1 [\#144](https://github.com/TheHive-Project/TheHive4py/issues/144)
+- Is TheHive4py still alive? [\#141](https://github.com/TheHive-Project/TheHive4py/issues/141)
+- Add ioc and sighted attributes to case and alert artifacts [\#126](https://github.com/TheHive-Project/TheHive4py/issues/126)
+- support for case template deletion/creation [\#124](https://github.com/TheHive-Project/TheHive4py/issues/124)
+- Create update\_case\_observable [\#121](https://github.com/TheHive-Project/TheHive4py/issues/121)
+- Example python create case with observables [\#113](https://github.com/TheHive-Project/TheHive4py/issues/113)
+- Alert create error: \('Connection aborted.', error\(104, 'Connection reset by peer'\) [\#109](https://github.com/TheHive-Project/TheHive4py/issues/109)
+- Requesting analyzer report from cortex with thehive4py [\#107](https://github.com/TheHive-Project/TheHive4py/issues/107)
+
+**Merged pull requests:**
+
+- Add support for case delete, creating custom fields and create case templates [\#146](https://github.com/TheHive-Project/TheHive4py/pull/146) ([aurelienhess](https://github.com/aurelienhess))
+- Support for json datetime [\#139](https://github.com/TheHive-Project/TheHive4py/pull/139) ([ehooo](https://github.com/ehooo))
+- Added IDs in all models [\#123](https://github.com/TheHive-Project/TheHive4py/pull/123) ([mgabriel-silva](https://github.com/mgabriel-silva))
+- Added update\_case\_observable [\#122](https://github.com/TheHive-Project/TheHive4py/pull/122) ([mgabriel-silva](https://github.com/mgabriel-silva))
+- Added support for custom owner on Case creation [\#118](https://github.com/TheHive-Project/TheHive4py/pull/118) ([victorvillar](https://github.com/victorvillar))
+
+## [1.6.0](https://github.com/TheHive-Project/TheHive4py/tree/1.6.0) (2018-12-17)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.5.3...1.6.0)
+
+**Merged pull requests:**
+
+- Implement some more functions [\#96](https://github.com/TheHive-Project/TheHive4py/pull/96) ([jojoob](https://github.com/jojoob))
+- Create new sample bulk-alert-merge-to-case.py [\#95](https://github.com/TheHive-Project/TheHive4py/pull/95) ([david-burkett](https://github.com/david-burkett))
+- Update observable [\#94](https://github.com/TheHive-Project/TheHive4py/pull/94) ([joseluratm](https://github.com/joseluratm))
+
+## [1.5.3](https://github.com/TheHive-Project/TheHive4py/tree/1.5.3) (2018-11-16)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.5.2...1.5.3)
+
+**Fixed bugs:**
+
+- Unable to close case as TruePositive WithImpact [\#93](https://github.com/TheHive-Project/TheHive4py/issues/93)
+
+## [1.5.2](https://github.com/TheHive-Project/TheHive4py/tree/1.5.2) (2018-11-12)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.5.1...1.5.2)
+
+**Fixed bugs:**
+
+- Support task-groups for tasks \(e.g. creation of Cases\) [\#91](https://github.com/TheHive-Project/TheHive4py/issues/91)
+
+**Closed issues:**
+
+- Unknown attribute alert.customFields when creating alert in version 1.5.1 [\#88](https://github.com/TheHive-Project/TheHive4py/issues/88)
+
+**Merged pull requests:**
+
+- support for task group names [\#92](https://github.com/TheHive-Project/TheHive4py/pull/92) ([crackytsi](https://github.com/crackytsi))
+
+## [1.5.1](https://github.com/TheHive-Project/TheHive4py/tree/1.5.1) (2018-10-10)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.5.0...1.5.1)
+
+**Implemented enhancements:**
+
+- Add customFields to Alert [\#87](https://github.com/TheHive-Project/TheHive4py/pull/87) ([zpriddy](https://github.com/zpriddy))
+
 ## [1.5.0](https://github.com/TheHive-Project/TheHive4py/tree/1.5.0) (2018-09-25)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.4.4...1.5.0)
 
