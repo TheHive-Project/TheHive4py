@@ -10,6 +10,7 @@ install:
 - pip install mkdocs-material
 - pip install mkdocstrings
 - pip install mkdocs-awesome-pages-plugin
+- pip install -e .
 script:
 - python -m pytest
 - python setup.py bdist_wheel --universal
