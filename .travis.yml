@@ -13,7 +13,6 @@ install:
 script:
 - python -m pytest
 - python setup.py bdist_wheel --universal
-- cd docs
 - mkdocs build
 - mkdocs gh-deploy
 
