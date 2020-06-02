@@ -4,10 +4,12 @@
 from requests.auth import AuthBase
 
 class BasicAuth(AuthBase):
-
+    """
+    A custom basic authentication class for requests, that takes into account the organisation header
+    """
     def __init__(self, username, password, organisation=None):
         """
-        A custom basic authentication class for requests, that takes into account the organisation header
+        Constructor
 
         Arguments:
             username (str): The username to use for the authentication.
@@ -28,11 +30,13 @@ class BasicAuth(AuthBase):
 
 
 class BearerAuth(AuthBase):
-    
+    """
+    A custom authentication class for requests, relying on API key (Bearer authorization header), 
+    and taking into account the organisation header
+    """
     def __init__(self, api_key, organisation=None):
         """
-        A custom authentication class for requests, relying on API key (Bearer authorization header), 
-        and taking into account the organisation header
+        Constructor
 
         Arguments:
             api_key (str): The API Key to use for the authentication

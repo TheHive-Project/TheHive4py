@@ -16,14 +16,22 @@ sudo pip install thehive4py
 If you are using Python on a Windows operating system, please forgo the `sudo` command.
 
 
-## Use It
-On macOS and Linux, type:
+## Features
 
-```bash
-sudo pip install thehive4py
-```
+TheHive4py allows the following features:
 
-If you are using Python on a Windows operating system, please forgo the `sudo` command.
+- Authentication
+  - Using and API key
+  - Using a username/password pair
+- Case managmement
+  - Search for cases
+  - [Create cases](reference/api#thehive4py.api.TheHiveApi.create_case)
+  - Update cases
+  - Delete cases
+  - Search for tasks
+  - Create and update tasks
+  - Delete tasks
+- Alert management
 
 
 ## License

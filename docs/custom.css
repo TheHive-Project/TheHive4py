@@ -1,8 +1,17 @@
-/* div.doc-contents:not(.first) {
+div.doc-class > div.doc-contents {
+  border-left: 0px !important;
+  padding-left: 0 !important;
+}
+
+div.doc-contents:not(.first) {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
   margin-bottom: 80px;
-} */
+}
+
+.md-grid {
+  max-width: 100%;
+}
 
 /* Indentation. */
 div.doc-contents:not(.first) {
