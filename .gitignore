@@ -13,5 +13,6 @@ dist/
 build/
 *.egg-info
 build.sh
+doc-deploy.sh
 .DS_Store
 site/
