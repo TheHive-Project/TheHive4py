@@ -1,7 +1,6 @@
 # Change Log
 
 ## [1.7.0](https://github.com/TheHive-Project/TheHive4py/tree/1.7.0) (2020-05-29)
-
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.6.0...1.7.0)
 
 **Implemented enhancements:**
@@ -22,16 +21,17 @@
 
 **Closed issues:**
 
-- Add support to like and wildcard operators [\#149](https://github.com/TheHive-Project/TheHive4py/issues/149)
 - FR: Get "task name" in an "case\_task\_log" event [\#148](https://github.com/TheHive-Project/TheHive4py/issues/148)
 - Create case with the hive 4 rc1 [\#144](https://github.com/TheHive-Project/TheHive4py/issues/144)
 - Is TheHive4py still alive? [\#141](https://github.com/TheHive-Project/TheHive4py/issues/141)
-- Add ioc and sighted attributes to case and alert artifacts [\#126](https://github.com/TheHive-Project/TheHive4py/issues/126)
 - support for case template deletion/creation [\#124](https://github.com/TheHive-Project/TheHive4py/issues/124)
-- Create update\_case\_observable [\#121](https://github.com/TheHive-Project/TheHive4py/issues/121)
 - Example python create case with observables [\#113](https://github.com/TheHive-Project/TheHive4py/issues/113)
 - Alert create error: \('Connection aborted.', error\(104, 'Connection reset by peer'\) [\#109](https://github.com/TheHive-Project/TheHive4py/issues/109)
 - Requesting analyzer report from cortex with thehive4py [\#107](https://github.com/TheHive-Project/TheHive4py/issues/107)
+- Add support to multi tenancy [\#154](https://github.com/TheHive-Project/TheHive4py/issues/154)
+- Add support to like and wildcard operators [\#149](https://github.com/TheHive-Project/TheHive4py/issues/149)
+- Add ioc and sighted attributes to case and alert artifacts [\#126](https://github.com/TheHive-Project/TheHive4py/issues/126)
+- Create update\_case\_observable [\#121](https://github.com/TheHive-Project/TheHive4py/issues/121)
 
 **Merged pull requests:**
 
