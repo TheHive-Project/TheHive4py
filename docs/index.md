@@ -20,29 +20,32 @@ TheHive4py allows the following features:
     - [ ] Delete alert
 === "Cases"
     - [X] [Search for cases](reference/api#thehive4py.api.TheHiveApi.find_cases)
+    - [X] [Get first case](reference/api#thehive4py.api.TheHiveApi.find_first)
     - [X] [Create case](reference/api#thehive4py.api.TheHiveApi.create_case)
     - [X] [Update case](reference/api#thehive4py.api.TheHiveApi.update_case)
     - [X] [Delete case](reference/api#thehive4py.api.TheHiveApi.delete_case)
     - [X] [Get related cases](reference/api#thehive4py.api.TheHiveApi.get_linked_case)
 === "Tasks"
-    - [X] Search for tasks
-    - [X] Create and update tasks
-    - [X] Delete tasks
-    - [X] Create task log
+    - [X] [Search for tasks](reference/api#thehive4py.api.TheHiveApi.find_tasks)
+    - [X] [Create tasks](reference/api#thehive4py.api.TheHiveApi.create_case_task)
+    - [ ] Update tasks
+    - [ ] Delete tasks
+    - [X] [Create task logs](reference/api#thehive4py.api.TheHiveApi.create_task_log)
     - [ ] Run responder on task
 === "Observables"
-    - [X] Search for observables
-    - [X] Create observable
-    - [X] Update observable
-    - [ ] Delete observable
-    - [X] Run analyzer on observable
+    - [X] [Search for observables of a case](reference/api#thehive4py.api.TheHiveApi.get_case_observables)
+    - [ ] Search for observables
+    - [X] [Create observables](reference/api#thehive4py.api.TheHiveApi.create_case_observable)
+    - [ ] Update observables
+    - [ ] Delete observables
+    - [ ] Run analyzer on observable
     - [ ] Run responder on observable
 
 === "Administration"
     - [X] [Search for Case templates](reference/api#thehive4py.api.find_case_templates)
     - [X] [Get Case template by name](reference/api#thehive4py.api.get_case_template)
     - [X] [Create Case templates](reference/api#thehive4py.api.create_case_template)
-    - [ ] Create custom fields
+    - [X] [Create custom fields](reference/api#thehive4py.api.create_custom_field)
 
 
 ## Installation
