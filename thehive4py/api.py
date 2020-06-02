@@ -85,11 +85,12 @@ class TheHiveApi:
         Arguments:
             find_url: URL of the find api
             query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
-            sort (Array): Case identifier
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
             range (str): A rnge describing the number of rows to be returned
 
         Returns:
-            response (requests.Response): Response object including a JSON array representing the list of searched records.            
+            response (requests.Response): Response object including a JSON array representing the list of searched records.
 
         Raises:
             TheHiveException
@@ -381,7 +382,8 @@ class TheHiveApi:
 
         Arguments:
             query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
-            sort (Array): Case identifier
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
             range (str): A rnge describing the number of rows to be returned
 
         Returns:
@@ -405,7 +407,7 @@ class TheHiveApi:
 
         Raises:
             CaseException: An error occured during case deletion
-        """        
+        """
         req = self.url + "/api/case/{}".format(case_id)
         if force:
             req += '/force'
@@ -420,7 +422,8 @@ class TheHiveApi:
 
         Arguments:
             query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
-            sort (Array): Case identifier
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
             range (str): A rnge describing the number of rows to be returned
 
         Returns:
@@ -437,9 +440,10 @@ class TheHiveApi:
         Find observables of a given case identified by its id
 
         Arguments:
-            case_id (str): Id of the case 
+            case_id (str): Id of the case
             query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
-            sort (Array): Case identifier
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
             range (str): A rnge describing the number of rows to be returned
 
         Returns:
@@ -476,6 +480,23 @@ class TheHiveApi:
             raise CaseObservableException("Case observables search error: {}".format(e))
 
     def get_case_tasks(self, case_id, **attributes):
+        """
+        Find tasks of a given case identified by its id
+
+        Arguments:
+            case_id (str): Id of the case
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
+            range (str): A rnge describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON array of case task.
+
+        Raises:
+            CaseTaskException: An error occured during case task search
+        """
+
         req = self.url + "/api/case/task/_search"
 
         # Add range and sort parameters
@@ -504,9 +525,16 @@ class TheHiveApi:
 
     def get_linked_cases(self, case_id):
         """
-        :param case_id: Case identifier
-        :return: TheHive case(s)
-        :rtype: json
+        Find related cases of a given case identified by its id
+
+        Arguments:
+            case_id (str): Id of the case
+
+        Returns:
+            response (requests.Response): Response object including a JSON array of related cases.
+
+        Raises:
+            CaseException: An error occured during case links fetch
         """
         req = self.url + "/api/case/{}/links".format(case_id)
 
@@ -517,18 +545,35 @@ class TheHiveApi:
 
     def find_case_templates(self, **attributes):
         """
-            :return: list of case templates
-            :rtype: json
+        Find case templates using a query, sort and pagination
+
+        Arguments:
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
+            range (str): A rnge describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON array of case templates
+
+        Raises:
+            TheHiveException: An error occured during case template search
         """
         return self.__find_rows("/api/case/template/_search", **attributes)
 
     def get_case_template(self, name):
 
         """
-        :param name: Case template name
-        :return: TheHive case template
-        :rtype: json
+        Get a case template by its name
 
+        Arguments:
+            name (str): Case template's name
+
+        Returns:
+            response (requests.Response): Response object including a JSON representation of the case template
+
+        Raises:
+            CaseTemplateException: An error occured during case template fetch
         """
 
         req = self.url + "/api/case/template/_search"
@@ -548,6 +593,18 @@ class TheHiveApi:
             raise CaseTemplateException("Case template fetch error: {}".format(e))
 
     def create_case_template(self, case_template):
+        """
+        Create a case template
+
+        Arguments:
+            case_template (CaseTemplate): Case template's name
+
+        Returns:
+            response (requests.Response): Response object including a JSON representation of the case template
+
+        Raises:
+            CaseTemplateException: An error occured during case template fetch
+        """
 
         """
         :param case_template: The case template

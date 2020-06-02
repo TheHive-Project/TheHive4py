@@ -23,6 +23,7 @@ TheHive4py allows the following features:
     - [X] [Create case](reference/api#thehive4py.api.TheHiveApi.create_case)
     - [X] [Update case](reference/api#thehive4py.api.TheHiveApi.update_case)
     - [X] [Delete case](reference/api#thehive4py.api.TheHiveApi.delete_case)
+    - [X] [Get related cases](reference/api#thehive4py.api.TheHiveApi.get_linked_case)
 === "Tasks"
     - [X] Search for tasks
     - [X] Create and update tasks
@@ -36,6 +37,12 @@ TheHive4py allows the following features:
     - [ ] Delete observable
     - [X] Run analyzer on observable
     - [ ] Run responder on observable
+
+=== "Administration"
+    - [X] [Search for Case templates](reference/api#thehive4py.api.find_case_templates)
+    - [X] [Get Case template by name](reference/api#thehive4py.api.get_case_template)
+    - [X] [Create Case templates](reference/api#thehive4py.api.create_case_template)
+    - [ ] Create custom fields
 
 
 ## Installation
