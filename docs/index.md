@@ -6,33 +6,47 @@ TheHive4py allows analysts to send alerts to TheHive out of different sources. T
 
 For example, a SOC may ask its constituency to send suspicious email reports to a specific mailbox that a script polls at regular intervals. When a new email is received, the script parses it then calls TheHive4py to create a corresponding alert in TheHive. Once the alert is raised, SOC analysts will get a notification thanks to TheHive's live stream so they can preview it and import it if deemed worth investigating using a specific template.
 
+## Features
+
+TheHive4py allows the following features:
+
+=== "Authentication"
+    - [X] [Using and API key](reference/auth#thehive4py.auth.BearerAuth)
+    - [X] [Using a username/password pair](reference/auth#thehive4py.auth.BasicAuth)
+=== "Alerts"
+    - [X] [Search for alerts](reference/api#thehive4py.api.TheHiveApi.find_alerts)
+    - [X] [Create alert](reference/api#thehive4py.api.TheHiveApi.create_alert)
+    - [X] [Update alert](reference/api#thehive4py.api.TheHiveApi.update_alert)
+    - [ ] Delete alert
+=== "Cases"
+    - [X] [Search for cases](reference/api#thehive4py.api.TheHiveApi.find_cases)
+    - [X] [Create case](reference/api#thehive4py.api.TheHiveApi.create_case)
+    - [X] [Update case](reference/api#thehive4py.api.TheHiveApi.update_case)
+    - [X] [Delete case](reference/api#thehive4py.api.TheHiveApi.delete_case)
+=== "Tasks"
+    - [X] Search for tasks
+    - [X] Create and update tasks
+    - [X] Delete tasks
+    - [X] Create task log
+    - [ ] Run responder on task
+=== "Observables"
+    - [X] Search for observables
+    - [X] Create observable
+    - [X] Update observable
+    - [ ] Delete observable
+    - [X] Run analyzer on observable
+    - [ ] Run responder on observable
+
+
 ## Installation
 
 On macOS and Linux, type:
+
 ```bash
 sudo pip install thehive4py
 ```
 
 If you are using Python on a Windows operating system, please forgo the `sudo` command.
-
-
-## Features
-
-TheHive4py allows the following features:
-
-- Authentication
-  - Using and API key
-  - Using a username/password pair
-- Case managmement
-  - Search for cases
-  - [Create cases](reference/api#thehive4py.api.TheHiveApi.create_case)
-  - Update cases
-  - Delete cases
-  - Search for tasks
-  - Create and update tasks
-  - Delete tasks
-- Alert management
-
 
 ## License
 TheHive4py is an open source and free software released under the [AGPL](https://github.com/TheHive-Project/TheHive/blob/master/LICENSE) (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.

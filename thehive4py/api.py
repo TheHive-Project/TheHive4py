@@ -84,10 +84,12 @@ class TheHiveApi:
 
         Arguments:
             find_url: URL of the find api
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): Case identifier
+            range (str): A rnge describing the number of rows to be returned
 
         Returns:
-            Response object resulting from the API call.
-            The Response returned by requests including the list of documents based on find_url
+            response (requests.Response): Response object including a JSON array representing the list of searched records.            
 
         Raises:
             TheHiveException
@@ -375,26 +377,35 @@ class TheHiveApi:
 
     def find_cases(self, **attributes):
         """
-        Find cases using 
+        Find cases using sort, pagination and a query
 
         Arguments:
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
             sort (Array): Case identifier
             range (str): A rnge describing the number of rows to be returned
 
         Returns:
-            response (requests.Response): Response object including a JSON description of the case.
+            response (requests.Response): Response object including a JSON array of cases.
 
         Raises:
-            CaseException: An error occured during case fetch
+            CaseException: An error occured during case search
         """
         return self.__find_rows("/api/case/_search", **attributes)
 
     def delete_case(self, case_id, force=False):
         """
         Deletes a TheHive case. Unless force is set to True the case is 'soft deleted' (status set to deleted).
-        :param case_id: Case identifier
-        :return: A requests response object.
-        """
+
+        Arguments:
+            case_id (str): Id of the case to delete
+            force (bool): True to physically delete the case, False to mark the case as deleted
+
+        Returns:
+            response (requests.Response): Response object including true or false based on the action's success
+
+        Raises:
+            CaseException: An error occured during case deletion
+        """        
         req = self.url + "/api/case/{}".format(case_id)
         if force:
             req += '/force'
@@ -405,17 +416,37 @@ class TheHiveApi:
 
     def find_first(self, **attributes):
         """
-            :return: first case of result set given by query
-            :rtype: dict
+        Find cases and return just the first record
+
+        Arguments:
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): Case identifier
+            range (str): A rnge describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of the case.
+
+        Raises:
+            CaseException: An error occured during case search
         """
         return self.find_cases(**attributes).json()[0]
 
     def get_case_observables(self, case_id, **attributes):
 
         """
-        :param case_id: Case identifier
-        :return: list of observables
-        ;rtype: json
+        Find observables of a given case identified by its id
+
+        Arguments:
+            case_id (str): Id of the case 
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): Case identifier
+            range (str): A rnge describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON array of case observable.
+
+        Raises:
+            CaseObservableException: An error occured during case observable search
         """
 
         req = self.url + "/api/case/artifact/_search"
