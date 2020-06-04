@@ -42,6 +42,7 @@ TheHive4py allows the following features:
     - [X] [Create task logs](reference/api#thehive4py.api.TheHiveApi.create_task_log)
     - [X] [Get log by id](reference/api#thehive4pi.api.TheHiveApi.get_task_log)
     - [X] [List task logs by task id](reference/api#thehive4pi.api.TheHiveApi.get_task_logs)
+    - [ ] Search for task logs
     - [ ] Run responder on a task
 === "Observables"
     - [X] [Search for observables of a case](reference/api#thehive4py.api.TheHiveApi.get_case_observables)
