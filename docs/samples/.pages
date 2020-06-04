@@ -1,0 +1,7 @@
+title: Examples
+arrange:
+  - alert-operations.md
+  - case-operations.md
+  - task-operations.md
+  - observable-operations.md
+  - admin-operations.md

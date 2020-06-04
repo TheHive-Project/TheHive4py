@@ -1,4 +1,4 @@
-# Code samples for observable operations
+# Observable operations
 
 ## Create a file observable
 

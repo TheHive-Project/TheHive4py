@@ -9,27 +9,28 @@ theme:
     primary: 'blue'
     accent: blue
 
-nav:
-  - Home: index.md
-  - Reference: 
-      Models: reference/models.md
-      Authentication: reference/auth.md
-      API: reference/api.md
-      Query DSL: reference/query.md
-      Exceptions: reference/exceptions.md
-  - Examples:
-      Alert operations: samples/alert-operations.md
-      Case operations: samples/case-operations.md      
-      Task operations: samples/task-operations.md
-      Observable operations: samples/observable-operations.md
-      Admin operations: samples/admin-operations.md
-  - Change log: changelog.md
-  - Code of conduct: code_of_conduct.md
+# nav:
+#   - Home: index.md
+#   - Reference: 
+#       Models: reference/models.md
+#       Authentication: reference/auth.md
+#       API: reference/api.md
+#       Query DSL: reference/query.md
+#       Exceptions: reference/exceptions.md
+#   - Examples:
+#       Alert operations: samples/alert-operations.md
+#       Case operations: samples/case-operations.md      
+#       Task operations: samples/task-operations.md
+#       Observable operations: samples/observable-operations.md
+#       Admin operations: samples/admin-operations.md
+#   - Change log: changelog.md
+#   - Code of conduct: code_of_conduct.md
 
 plugins:
   - search
-  - awesome-pages:
-        filename: .md
+  - git-revision-date-localized:
+      type: datetime
+  - awesome-pages
 
   - mkdocstrings:
       default_handler: python
