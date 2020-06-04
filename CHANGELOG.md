@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.7.1](https://github.com/TheHive-Project/TheHive4py/tree/1.7.1) (2020-06-04)
+
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.7.0...1.7.1)
+
+**Fixed bugs:**
+
+- Not able to create Case Observable [\#162](https://github.com/TheHive-Project/TheHive4py/issues/162)
+
+**Merged pull requests:**
+
+- Add id for case template [\#140](https://github.com/TheHive-Project/TheHive4py/pull/140) ([golaso](https://github.com/golaso))
+
 ## [1.7.0](https://github.com/TheHive-Project/TheHive4py/tree/1.7.0) (2020-05-29)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.6.0...1.7.0)
 
