@@ -611,7 +611,7 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case/template"
-        data = case_template.jsonify()
+        data = case_template.jsonify(excludes=['id'])
 
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
