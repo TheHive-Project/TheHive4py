@@ -66,6 +66,12 @@ On macOS and Linux, type:
 sudo pip install thehive4py
 ```
 
+or if you already installed it, update it by typing
+
+```bash
+sudo pip install -U thehive4py
+```
+
 If you are using Python on a Windows operating system, please forgo the `sudo` command.
 
 ## License
