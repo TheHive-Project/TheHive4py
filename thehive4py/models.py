@@ -15,7 +15,16 @@ from thehive4py.exceptions import TheHiveException, CaseException
 
 
 class CustomJsonEncoder(json.JSONEncoder):
+    """
+    Custom JSON encoder class that takes into account [thehive4py.models.JSONSerializable][] instances and 
+    `datetime.datetime` objects
+    """
     def default(self, o):
+        """
+        Method to serialize [thehive4py.models.JSONSerializable][] objects.
+
+        Used by [thehive4py.models.JSONSerializable.jsonify][] method
+        """
         if isinstance(o, JSONSerializable):
             return o.__dict__
         elif isinstance(o, datetime.datetime):
@@ -25,7 +34,22 @@ class CustomJsonEncoder(json.JSONEncoder):
 
 
 class JSONSerializable(object):
+    """
+    Abstract class of all the models classes. 
+    
+    It defines utility methods called `jsonify` used to get a model object's JSON representation
+    """
+
     def jsonify(self, excludes=[]):
+        """
+        A method that returns a stringyfied JSON representing a model object
+
+        Arguments:
+            excludes (str[]): list of fields to exclude from the returned JSON object.
+
+        Returns:
+            str: the JSON string of the object.
+        """
         data = self.__dict__
 
         for ex in excludes:
@@ -58,44 +82,90 @@ class CustomFieldHelper(object):
 
     def add_date(self, name, value):
         """
-        add_date
+        Add a custom field of type `date`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (int): number of milliseconds representing a timestamp (Example: int(time.time())*1000)
+        
         """
         self.__add_field('date', name, value)
         return self
 
     def add_string(self, name, value):
         """
-        add_string
+        Add a custom field of type `string`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (str): value of the custom field
+        
         """
         self.__add_field('string', name, value)
         return self
 
     def add_boolean(self, name, value):
         """
-        add_boolean
+        Add a custom field of type `bool`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (bool): True or False, value of the custom field
+        
         """
         self.__add_field('boolean', name, value)
         return self
 
     def add_number(self, name, value):
         """
-        add_number
+        Add a custom field of type `number`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (number): value of the custom field
+        
+        !!! Warning
+            This is method that work for TheHive 3 ONLY
         """
         self.__add_field('number', name, value)
         return self
 
     def add_integer(self, name, value):
         """
-        add_integer
+        Add a custom field of type `integer`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (int): value of the custom field
+        
+        !!! Warning
+            This is method that work for TheHive 4 ONLY
         """
         self.__add_field('integer', name, value)
         return self
 
     def add_float(self, name, value):
+        """
+        Add a custom field of type `float`.
+
+        Arguments:
+            name (str): name of the custom field
+            value (float): value of the custom field
+        
+        !!! Warning
+            This is method that work for TheHive 4 ONLY
+        """
         self.__add_field('float', name, value)
         return self
 
     def build(self):
+        """
+        Builds the custom field value dict as expected by TheHive, 
+        maintining the order of the fields, specified by `order`
+
+        Returns:
+            dict: A json representation of the custom fields map
+        """
         return self.fields
 
 

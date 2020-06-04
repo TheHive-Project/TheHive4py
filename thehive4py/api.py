@@ -156,7 +156,7 @@ class TheHiveApi:
         Create a case
 
         Arguments:
-            case (Case): The case object as defined in models.my
+            case (Case): Instance of [Case][thehive4py.models.Case]
 
         Returns:
             response (requests.Response): Response object including a JSON description of a case
@@ -177,7 +177,7 @@ class TheHiveApi:
         Update a case.
 
         Arguments:
-            case (Case): The case to update. The case's `id` determines which case to update.
+            case (Case): Instance of [Case][thehive4py.models.Case] to update. The case's `id` determines which case to update.
             fields (Array): Optional parameter, an array of fields names, the ones we want to update
 
                 Updatable fields are: [`title`, `description`, `severity`, `startDate`, `owner`, `flag`, `tlp`, `pap`, `tags`, `status`,
@@ -209,8 +209,7 @@ class TheHiveApi:
 
         Arguments:
             case_id: Case identifier
-            case_task: TheHive task
-            :return: TheHive task
+            case_task: Instance of [CaseTask][thehive4py.models.CaseTask]
 
         Returns:
             response (requests.Response): Response object including a JSON description of a case task
@@ -233,7 +232,7 @@ class TheHiveApi:
         Update a case task
 
         Arguments:
-            task (CaseTask): Case task object as described in model.py
+            task (CaseTask): Instance of [CaseTask][thehive4py.models.CaseTask]
             fields (array): Arry of strings representing CaseTask properties to be updated
                
                 Updatable fields are: [`title`, `description`, `status`, `order`, `user`, `owner`, `flag`, `endDate`]
@@ -268,7 +267,7 @@ class TheHiveApi:
 
         Arguments:
             task_id (str): Task identifier
-            case_task_log (CaseTaskLocg): Task log as defined in models.py
+            case_task_log (CaseTaskLocg): Instance of [CaseTaskLog][thehive4py.models.CaseTaskLog]
 
         Returns:
             response (requests.Response): Response object including a JSON description of a case
@@ -298,8 +297,8 @@ class TheHiveApi:
         Create a case observable
 
         Arguments:
-            case_id: Case identifier
-            case_observable (CaseObservable): as defined in models.py
+            case_id (str): Case identifier
+            case_observable (CaseObservable): Instance of [CaseObservable][thehive4py.models.CaseObservable]
 
         Returns:
             response (requests.Response): Response object including a JSON description of a case observable
@@ -337,7 +336,7 @@ class TheHiveApi:
 
         Arguments:
             observable_id: Observable identifier
-            case_observable (CaseObservable): TheHive observable as defined in models.py
+            case_observable (CaseObservable): Instance of [CaseObservable][thehive4py.models.CaseObservable]
 
         Returns:
             response (requests.Response): Response object including a JSON description of the updated case observable
@@ -602,7 +601,7 @@ class TheHiveApi:
         Create a case template
 
         Arguments:
-            case_template (CaseTemplate): Case template instance as defined in models module
+            case_template (CaseTemplate): Instance of [CaseTemplate][thehive4py.models.CaseTemplate]
 
         Returns:
             response (requests.Response): Response object including a JSON representation of the case template
@@ -633,7 +632,7 @@ class TheHiveApi:
         Create a custom field
 
         Arguments:
-            custom_field (CustomField): Custom field instance as defined in models module
+            custom_field (CustomField): Instance of [CustomField][thehive4py.models.CustomField]
 
         Returns:
             response (requests.Response): Response object including a JSON representation of the case template
@@ -731,7 +730,7 @@ class TheHiveApi:
         Create an alert. Supports adding observables and custom fields
 
         Arguments:
-            alert (Alert): Alert instance as defined by the models module
+            alert (Alert): Instance of [Alert][thehive4py.models.Alert]
 
         Returns:
             response (requests.Response): Response object including a JSON array representing a list of case task logs
@@ -793,7 +792,7 @@ class TheHiveApi:
 
         Arguments:
             alert_id (str): Id of the alert
-            alert (Alert): Alert instance as described in the models module
+            alert (Alert): Instance of [Alert][thehive4py.models.Alert]
             fields (Array): Optional parameter, an array of field names, the ones we want to update
 
                 Updatable fields are: [`tlp`, `severity`, `tags`, `caseTemplate`, `title`, `description`, `customFields`]
@@ -866,7 +865,8 @@ class TheHiveApi:
         Update a case observable
 
         Arguments:
-            observable (CaseObservable): The case observable to update. The observable's `id` determines which case to update.
+            observable (CaseObservable): Instance of [CaseObservable][thehive4py.models.CaseObservable] to update. 
+                The observable's `id` determines which case to update.
             fields (Array): Optional parameter, an array of fields names, the ones we want to update.
                 
                 Updatable fields are: [`tlp`, `ioc`, `flag`, `sighted`, `tags`, `message`]
