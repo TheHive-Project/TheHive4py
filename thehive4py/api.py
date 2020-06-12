@@ -786,6 +786,20 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Mark alert as unread error: {}".format(e))
 
+    def merge_alert_to_case(self, alert_id, case_id):
+        """
+        Merge alert into existing case.
+        :param alert_id: The ID of the alert to merge.
+        :param case_id: The ID of the case where to merge alert
+        :return:
+        """
+        req = self.url + "/api/alert/{}/merge/{}".format(alert_id, case_id)
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException:
+            raise AlertException("Merge alert to case error: {}".format(e))
+
     def update_alert(self, alert_id, alert, fields=[]):
         """
         Update an alert completely or using specified fields
