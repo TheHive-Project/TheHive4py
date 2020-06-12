@@ -796,7 +796,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}/merge/{}".format(alert_id, case_id)
 
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, json={}, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException:
             raise AlertException("Merge alert to case error: {}".format(e))
 
