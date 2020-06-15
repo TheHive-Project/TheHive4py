@@ -436,7 +436,7 @@ class TheHiveApi:
             CaseException: An error occured during case search
         """
         attributes['range'] = '0-1'
-        return self.find_cases(**attributes).json()[0]
+        return self.find_cases(**attributes)
 
     def get_case_observables(self, case_id, **attributes):
 
