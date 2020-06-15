@@ -428,7 +428,6 @@ class TheHiveApi:
             query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
             sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
                 and `+` for ascending order
-            range (str): A range describing the number of rows to be returned
 
         Returns:
             response (requests.Response): Response object including a JSON description of the case.
@@ -436,6 +435,7 @@ class TheHiveApi:
         Raises:
             CaseException: An error occured during case search
         """
+        attributes['range'] = '0-1'
         return self.find_cases(**attributes).json()[0]
 
     def get_case_observables(self, case_id, **attributes):
