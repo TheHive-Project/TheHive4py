@@ -704,23 +704,47 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task logs search error: {}".format(e))
 
-    def get_task_logs(self, task_id):
+    def get_task_logs(self, task_id, **attributes):
         """
         Get logs of a case task by its id
 
         Arguments:
             task_id (str): Case task identifier
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
+            range (str): A range describing the number of rows to be returned
 
         Returns:
             response (requests.Response): Response object including a JSON array representing a list of case task logs
 
         Raises:
-            CaseTaskException: An error occured during case task log fetch
+            CaseTaskException: An error occured during case task log search
         """
 
-        req = self.url + "/api/case/task/{}/log".format(task_id)
+        req = self.url + "/api/case/task/log/_search"
+
+        # Add range and sort parameters
+        params = {
+            "range": attributes.get("range", "all"),
+            "sort": attributes.get("sort", [])
+        }
+
+        # Add body
+        parent_criteria = Parent('case_task', Id(task_id))
+
+        # Append the custom query if specified
+        if "query" in attributes:
+            criteria = And(parent_criteria, attributes["query"])
+        else:
+            criteria = parent_criteria
+
+        data = {
+            "query": criteria
+        }
+
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task logs search error: {}".format(e))
 
