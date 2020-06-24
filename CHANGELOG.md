@@ -1,7 +1,18 @@
 # Change Log
 
-## [1.7.1](https://github.com/TheHive-Project/TheHive4py/tree/1.7.1) (2020-06-04)
+## [1.7.2](https://github.com/TheHive-Project/TheHive4py/tree/1.7.2) (2020-06-24)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.7.1...1.7.2)
 
+**Fixed bugs:**
+
+- Fix the constructor of TheHiveApi class [\#170](https://github.com/TheHive-Project/TheHive4py/issues/170)
+- NameError: name 'requests' is not defined [\#163](https://github.com/TheHive-Project/TheHive4py/issues/163)
+
+**Merged pull requests:**
+
+- Importing requests module [\#168](https://github.com/TheHive-Project/TheHive4py/pull/168) ([gaglimax](https://github.com/gaglimax))
+
+## [1.7.1](https://github.com/TheHive-Project/TheHive4py/tree/1.7.1) (2020-06-04)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.7.0...1.7.1)
 
 **Fixed bugs:**
