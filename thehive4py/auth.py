@@ -4,6 +4,7 @@
 import requests
 from requests.auth import AuthBase
 
+
 class BasicAuth(AuthBase):
     """
     A custom basic authentication class for requests, that takes into account the organisation header
