@@ -19,7 +19,7 @@ from thehive4py.exceptions import TheHiveException, CaseException, CaseTaskExcep
 
 class TheHiveApi:
 
-    def __init__(self, url: str, principal: str, organisation=None, password=None, proxies={}, cert=True):
+    def __init__(self, url: str, principal: str, password=None, proxies={}, cert=True, organisation=None):
         """
         Python API client for TheHive.
 
@@ -27,7 +27,6 @@ class TheHiveApi:
             url (str): URL of Thehive instance, including the port. Ex: `http://myserver:9000`
             principal (str): The API key, or the username if basic authentication is used.
             password (str): The password for basic authentication or None. Defaults to None
-            organisation (str): The name of the organisation against which api calls will be run. Defaults to None
             proxies (dict): The proxy configuration, would have `http` and `https` attributes. Defaults to {}
                 ```python
                 proxies: {
@@ -36,6 +35,7 @@ class TheHiveApi:
                 }
                 ```
             cert (bool): Wether or not to enable SSL certificate validation
+            organisation (str): The name of the organisation against which api calls will be run. Defaults to None
 
 
         ??? note "Examples"
@@ -56,9 +56,9 @@ class TheHiveApi:
                 }
                 api = TheHiveApi('http://my_thehive:9000',
                     'my_api_key',
-                    organisation='my-org',
                     proxies=proxies,
-                    cert=True
+                    cert=True,
+                    organisation='my-org'
                 )
                 ```
         """
@@ -69,7 +69,7 @@ class TheHiveApi:
         self.organisation = organisation
 
         if self.password is not None:
-            self.auth = BasicAuth(self.principal,self.password, self.organisation)
+            self.auth = BasicAuth(self.principal, self.password, self.organisation)
         else:
             self.auth = BearerAuth(self.principal, self.organisation)
 
