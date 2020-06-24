@@ -56,9 +56,9 @@ class TheHiveApi:
                 }
                 api = TheHiveApi('http://my_thehive:9000',
                     'my_api_key',
-                    proxies=proxies,
-                    cert=True,
-                    organisation='my-org'
+                    proxies,
+                    True,
+                    'my-org'
                 )
                 ```
         """
