@@ -23,6 +23,12 @@ class CaseObservableException(CaseException):
     """
     pass
 
+class ObservableException(TheHiveException):
+    """
+    Exception raised by failure of API calls related to `Observable` handling
+    """
+    pass
+
 class AlertException(TheHiveException):
     """
     Exception raised by failure of API calls related to `Alert` handling
