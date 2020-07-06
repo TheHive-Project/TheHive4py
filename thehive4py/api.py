@@ -846,7 +846,7 @@ class TheHiveApi:
 
         Arguments:
             alert_id (str): Id of the alert
-            get_similar_cases (book): True if similar cases should be retrieved (Default False)
+            get_similar_cases (bool): True if similar cases should be retrieved (Default False)
 
         Returns:
             response (requests.Response): Response object including a JSON representation of the alert
