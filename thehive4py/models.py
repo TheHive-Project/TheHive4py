@@ -462,6 +462,7 @@ class CaseObservable(JSONSerializable):
         ioc (bool): Observable's ioc flag, `True` to mark an observable as IOC. Default: `False`
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
         tags (str[]): List of observable tags. Default: `[]`
+        status (str): Observable's status (Ok or Deleted). Default 'Ok'
         data (str): Observable's data:
 
             - If the `dataType` field is set to `file`, the `data` field should contain a file path to be used as attachment
@@ -483,6 +484,7 @@ class CaseObservable(JSONSerializable):
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
         self.sighted = attributes.get('sighted', False)
+        self.status = attributes.get('status', 'Ok')
 
         data = attributes.get('data', [])
         if self.dataType == 'file':
