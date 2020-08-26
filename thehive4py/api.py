@@ -483,6 +483,25 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observables search error: {}".format(e))
 
+    def find_observables(self, **attributes):
+        """
+        Find observables using sort, pagination and a query
+
+        Arguments:
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
+            range (str): A range describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON array of observables.
+
+        Raises:
+            ObservableException: An error occured during observable search
+        """
+
+        return self.__find_rows("/api/case/artifact/_search", **attributes)
+
     def get_case_tasks(self, case_id, **attributes):
         """
         Find tasks of a given case identified by its id
