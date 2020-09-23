@@ -10,54 +10,54 @@ For example, a SOC may ask its constituency to send suspicious email reports to 
 
 TheHive4py allows the following features:
 
-=== "Authentication"
-    - [X] [Using and API key](reference/auth#thehive4py.auth.BearerAuth)
-    - [X] [Using a username/password pair](reference/auth#thehive4py.auth.BasicAuth)
-=== "Alerts"
-    - [X] [Search for alerts](reference/api#thehive4py.api.TheHiveApi.find_alerts)
-    - [X] [Create alert](reference/api#thehive4py.api.TheHiveApi.create_alert)
-    - [X] [Get alert](reference/api#thehive4py.api.TheHiveApi.get_alert)
-    - [X] [Update alert](reference/api#thehive4py.api.TheHiveApi.update_alert)
-    - [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_read)
-    - [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_unread)
-    - [X] [Promote alert to case](reference/api#thehive4py.api.TheHiveApi.promote_alert_to_case)
-    - [ ] Delete alert
-    - [ ] Create case from many alert
-    - [ ] Merge alert into an existing case
-    - [ ] Run responder on an alert
-=== "Cases"
-    - [X] [Search for cases](reference/api#thehive4py.api.TheHiveApi.find_cases)
-    - [X] [Get first case](reference/api#thehive4py.api.TheHiveApi.find_first)
-    - [X] [Create case](reference/api#thehive4py.api.TheHiveApi.create_case)
-    - [X] [Update case](reference/api#thehive4py.api.TheHiveApi.update_case)
-    - [X] [Delete case](reference/api#thehive4py.api.TheHiveApi.delete_case)
-    - [X] [Get related cases](reference/api#thehive4py.api.TheHiveApi.get_linked_case)
-    - [ ] Run responder on a case
-=== "Tasks"
-    - [X] [Search for tasks](reference/api#thehive4py.api.TheHiveApi.find_tasks)
-    - [X] [Create tasks](reference/api#thehive4py.api.TheHiveApi.create_case_task)
-    - [X] [Get task by id](reference/api#thehive4pi.api.TheHiveApi.get_case_task)
-    - [ ] Update tasks
-    - [ ] Delete tasks
-    - [X] [Create task logs](reference/api#thehive4py.api.TheHiveApi.create_task_log)
-    - [X] [Get log by id](reference/api#thehive4pi.api.TheHiveApi.get_task_log)
-    - [X] [List task logs by task id](reference/api#thehive4pi.api.TheHiveApi.get_task_logs)
-    - [ ] Search for task logs
-    - [ ] Run responder on a task
-=== "Observables"
-    - [X] [Search for observables of a case](reference/api#thehive4py.api.TheHiveApi.get_case_observables)
-    - [ ] Search for observables
-    - [X] [Create observables](reference/api#thehive4py.api.TheHiveApi.create_case_observable)
-    - [ ] [Update observables](reference/api#thehive4py.api.TheHiveApi.create_caseupdate)
-    - [ ] Delete observables
-    - [ ] [Run analyzer on observable](reference/api#thehive4py.api.TheHiveApi.run_analyzer)
-    - [ ] Run responder on an observable
+### Authentication
+- [X] [Using and API key](reference/auth#thehive4py.auth.BearerAuth)
+- [X] [Using a username/password pair](reference/auth#thehive4py.auth.BasicAuth)
+### Alerts
+- [X] [Search for alerts](reference/api#thehive4py.api.TheHiveApi.find_alerts)
+- [X] [Create alert](reference/api#thehive4py.api.TheHiveApi.create_alert)
+- [X] [Get alert](reference/api#thehive4py.api.TheHiveApi.get_alert)
+- [X] [Update alert](reference/api#thehive4py.api.TheHiveApi.update_alert)
+- [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_read)
+- [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_unread)
+- [X] [Promote alert to case](reference/api#thehive4py.api.TheHiveApi.promote_alert_to_case)
+- [ ] Delete alert
+- [ ] Create case from many alert
+- [ ] Merge alert into an existing case
+- [ ] Run responder on an alert
+### Cases
+- [X] [Search for cases](reference/api#thehive4py.api.TheHiveApi.find_cases)
+- [X] [Get first case](reference/api#thehive4py.api.TheHiveApi.find_first)
+- [X] [Create case](reference/api#thehive4py.api.TheHiveApi.create_case)
+- [X] [Update case](reference/api#thehive4py.api.TheHiveApi.update_case)
+- [X] [Delete case](reference/api#thehive4py.api.TheHiveApi.delete_case)
+- [X] [Get related cases](reference/api#thehive4py.api.TheHiveApi.get_linked_case)
+- [ ] Run responder on a case
+### Tasks
+- [X] [Search for tasks](reference/api#thehive4py.api.TheHiveApi.find_tasks)
+- [X] [Create tasks](reference/api#thehive4py.api.TheHiveApi.create_case_task)
+- [X] [Get task by id](reference/api#thehive4pi.api.TheHiveApi.get_case_task)
+- [ ] Update tasks
+- [ ] Delete tasks
+- [X] [Create task logs](reference/api#thehive4py.api.TheHiveApi.create_task_log)
+- [X] [Get log by id](reference/api#thehive4pi.api.TheHiveApi.get_task_log)
+- [X] [List task logs by task id](reference/api#thehive4pi.api.TheHiveApi.get_task_logs)
+- [ ] Search for task logs
+- [ ] Run responder on a task
+### Observables
+- [X] [Search for observables of a case](reference/api#thehive4py.api.TheHiveApi.get_case_observables)
+- [ ] Search for observables
+- [X] [Create observables](reference/api#thehive4py.api.TheHiveApi.create_case_observable)
+- [ ] [Update observables](reference/api#thehive4py.api.TheHiveApi.create_caseupdate)
+- [ ] Delete observables
+- [ ] [Run analyzer on observable](reference/api#thehive4py.api.TheHiveApi.run_analyzer)
+- [ ] Run responder on an observable
 
-=== "Administration"
-    - [X] [Search for Case templates](reference/api#thehive4py.api.find_case_templates)
-    - [X] [Get Case template by name](reference/api#thehive4py.api.get_case_template)
-    - [X] [Create Case templates](reference/api#thehive4py.api.create_case_template)
-    - [X] [Create custom fields](reference/api#thehive4py.api.create_custom_field)
+### Administration
+- [X] [Search for Case templates](reference/api#thehive4py.api.find_case_templates)
+- [X] [Get Case template by name](reference/api#thehive4py.api.get_case_template)
+- [X] [Create Case templates](reference/api#thehive4py.api.create_case_template)
+- [X] [Create custom fields](reference/api#thehive4py.api.create_custom_field)
 
 ## Installation
 
