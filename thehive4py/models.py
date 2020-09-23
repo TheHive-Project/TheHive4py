@@ -506,6 +506,7 @@ class Alert(JSONSerializable):
         type (str): Alert's type. Default: None
         source (str): Alert's source. Default: None
         sourceRef (str): Alert's source reference. Used to specify the unique identifier of the alert. Default: None
+        externalLink (str): Alert's external link. Used to easily navigate to the source of the alert. Default: None
         description (str): Alert's description. Default: None
         customFields (CustomField[]): A set of CustomField instances, or the result of a CustomFieldHelper.build() method. Default: `{}`
 
@@ -524,6 +525,7 @@ class Alert(JSONSerializable):
         self.date = attributes.get('date', int(time.time()) * 1000)
         self.tags = attributes.get('tags', [])
         self.caseTemplate = attributes.get('caseTemplate', None)
+        self.externalLink = attributes.get('externalLink', None)
 
         self.title = self.attr(attributes, 'title', None, 'Missing alert title')
         self.type = self.attr(attributes, 'type', None, 'Missing alert type')
