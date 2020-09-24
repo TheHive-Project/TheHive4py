@@ -601,7 +601,7 @@ class TheHiveApi:
 
         req = self.url + "/api/case/template/_search"
         data = {
-            "query": And(Eq("name", name), Eq("status", "Ok"))
+            "query": Eq("name", name)
         }
 
         try:
