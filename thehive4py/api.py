@@ -674,7 +674,7 @@ class TheHiveApi:
                 "description": custom_field.description,
                 "type": custom_field.type,
                 "options": custom_field.options,
-                "mandatory": custom_field.madatory
+                "mandatory": custom_field.mandatory
                 }
             }
         req = self.url + "/api/list/custom_fields"
