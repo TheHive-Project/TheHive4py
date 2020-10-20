@@ -329,6 +329,27 @@ class TheHiveApi:
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
 
+
+    def delete_case_observable(self, observable_id):
+        """
+        Deletes a TheHive case observable.
+
+        Arguments:
+            observable_id (str): Id of the observable to delete
+
+        Returns:
+            response (requests.Response): Response object including true or false based on the action's success
+
+        Raises:
+            CaseException: An error occured during observable deletion
+        """
+        req = self.url + "/api/case/artifact/{}".format(observable_id)
+
+        try:
+            return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Observable deletion error: {}".format(e))
+
     def update_case_observable(self, observable_id, case_observable):
 
         """
