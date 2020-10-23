@@ -341,14 +341,14 @@ class TheHiveApi:
             response (requests.Response): Response object including true or false based on the action's success
 
         Raises:
-            CaseException: An error occured during observable deletion
+            CaseObservableException: An error occured during case observable deletion
         """
         req = self.url + "/api/case/artifact/{}".format(observable_id)
 
         try:
             return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
-            raise CaseException("Observable deletion error: {}".format(e))
+            raise CaseObservableException("Case observable deletion error: {}".format(e))
 
     def update_case_observable(self, observable_id, case_observable):
 
