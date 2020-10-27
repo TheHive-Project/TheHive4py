@@ -260,6 +260,27 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskException("Case task update error: {}".format(e))
 
+    def delete_case_task(self, task_id):
+        """
+        Deletes a TheHive case task.
+
+        Arguments:
+            task_id (str): Id of the task to delete
+
+        Returns:
+            response (requests.Response): Response object including true or false based on the action's success
+
+        Raises:
+            CaseException: An error occured during case deletion
+        """
+        req = self.url + "/api/case/task/{}".format(task_id)
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json={'status': 'Cancel'},
+                                   proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Case deletion error: {}".format(e))
+
+
     def create_task_log(self, task_id, case_task_log):
 
         """
