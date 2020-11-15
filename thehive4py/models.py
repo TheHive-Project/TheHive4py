@@ -459,6 +459,7 @@ class CaseObservable(JSONSerializable):
         dataType (str): Observable's type, must be a valid type, one of the defined data types in TheHive. Default: None
         message (str): Observable's description. Default: None
         tlp (Enum): Case's TLP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
+        pap (Enum): Case's PAP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
         ioc (bool): Observable's ioc flag, `True` to mark an observable as IOC. Default: `False`
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
         tags (str[]): List of observable tags. Default: `[]`
