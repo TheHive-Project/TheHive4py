@@ -339,24 +339,38 @@ class TheHiveApi:
 
         if case_observable.dataType == 'file':
             try:
-                mesg = json.dumps({
+
+                data = {
                     "dataType": case_observable.dataType,
                     "message": case_observable.message,
                     "tlp": case_observable.tlp,
                     "tags": case_observable.tags,
                     "ioc": case_observable.ioc,
-                    "sighted": case_observable.sighted
-                })
-                data = {"_json": mesg}
+                    "sighted": case_observable.sighted,
+                    "ignoreSimilarity": case_observable.ignoreSimilarity
+                }
+
+                # Exclude ignoreSimilarity field for TheHive 3
+                if self.__isVersion(Version.THEHIVE_3.value):
+                    data.pop('ignoreSimilarity', None)
+
+                data = {"_json": json.dumps(data)}
                 return requests.post(req, data=data, files=case_observable.data[0], proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
         else:
             try:
-                return requests.post(req, headers={'Content-Type': 'application/json'}, data=case_observable.jsonify(excludes=['id']), proxies=self.proxies, auth=self.auth, verify=self.cert)
+                to_exclude = ['id']
+
+                # Exclude ignoreSimilarity field for TheHive 3
+                if self.__isVersion(Version.THEHIVE_3.value):
+                    to_exclude.append('ignoreSimilarity')
+
+                data = case_observable.jsonify(excludes=to_exclude)
+
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
-
 
     def delete_case_observable(self, observable_id):
         """
@@ -378,7 +392,7 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable deletion error: {}".format(e))
 
-    def update_case_observable(self, observable_id, case_observable):
+    def update_case_observable(self, observable_id, case_observable, fields=[]):
 
         """
         Update an existing case observable
@@ -386,6 +400,9 @@ class TheHiveApi:
         Arguments:
             observable_id: Observable identifier
             case_observable (CaseObservable): Instance of [CaseObservable][thehive4py.models.CaseObservable]
+            fields (Array): Optional parameter, an array of fields names, the ones we want to update.
+
+                Updatable fields are: [`tlp`, `ioc`, `sighted`, `tags`, `message`, `ignoreSimilarity`]
 
         Returns:
             response (requests.Response): Response object including a JSON description of the updated case observable
@@ -396,15 +413,17 @@ class TheHiveApi:
 
         req = self.url + "/api/case/artifact/{}".format(observable_id)
 
+        update_keys = ['message', 'tlp', 'tags', 'ioc', 'sighted', 'ignoreSimilarity']
+
+        data = {k: v for k, v in case_observable.__dict__.items() if (
+                len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
+        # Exclude ignoreSimilarity field for TheHive 3
+        if self.__isVersion(Version.THEHIVE_3.value):
+            data.pop('ignoreSimilarity', None)
+
         try:
-            data = json.dumps({
-                "message": case_observable.message,
-                "tlp": case_observable.tlp,
-                "tags": case_observable.tags,
-                "ioc": case_observable.ioc,
-                "sighted": case_observable.sighted
-            })
-            return requests.patch(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable update error: {}".format(e))
 
@@ -951,7 +970,7 @@ class TheHiveApi:
                 The observable's `id` determines which case to update.
             fields (Array): Optional parameter, an array of fields names, the ones we want to update.
                 
-                Updatable fields are: [`tlp`, `ioc`, `flag`, `sighted`, `tags`, `message`]
+                Updatable fields are: [`tlp`, `ioc`, `sighted`, `tags`, `message`, `ignoreSimilarity`]
 
         Returns:
             response (requests.Response): Response object including a JSON description of a case observable
@@ -962,7 +981,7 @@ class TheHiveApi:
         req = self.url + "/api/case/artifact/{}".format(observable.id)
 
         # Choose which attributes to send
-        update_keys = ['tlp', 'ioc', 'flag', 'sighted', 'tags', 'message']
+        update_keys = ['tlp', 'ioc', 'sighted', 'tags', 'message', 'ignoreSimilarity']
 
         data = {k: v for k, v in observable.__dict__.items() if (
             len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
