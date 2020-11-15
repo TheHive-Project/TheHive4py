@@ -1025,7 +1025,7 @@ class TheHiveApi:
 
         return self.__find_rows("/api/case/task/_search", **attributes)
 
-    def export_MISP(self, misp_id, case_id):
+    def export_to_misp(self, misp_id, case_id):
         """
         Export selected IOCs of a case as an event to a MISP instance 
         This function triggers the same action triggered when the "Share" button on the TheHive GUI is clicked
@@ -1043,7 +1043,8 @@ class TheHiveApi:
 
         req = self.url + "/api/connector/misp/export/{0}/{1}".format(case_id, misp_id)
         try:
-            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.post(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies,
+                                 json={}, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("MISP export error: {}".format(e))
         
