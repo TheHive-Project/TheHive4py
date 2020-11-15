@@ -874,7 +874,7 @@ class TheHiveApi:
         else:
             data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
 
-        if hasattr(data, 'artifacts'):
+        if 'artifacts' in data:
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
 
         try:
