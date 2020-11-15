@@ -588,7 +588,7 @@ class Alert(JSONSerializable):
         json (JSON): If the field is not equal to None, the Alert is instantiated using the JSON value instead of the arguements
 
     !!! Warning
-            `pap` attribute is available in TheHive 4 ONLY
+            `pap`, `externalLink` attributes are available in TheHive 4 ONLY
     """
 
     def __init__(self, **attributes):

@@ -814,6 +814,7 @@ class TheHiveApi:
         # Exclude PAP field for TheHive 3
         if self.__isVersion(Version.THEHIVE_3.value):
             to_exclude.append('pap')
+            to_exclude.append('externalLink')
 
         data = alert.jsonify(excludes=to_exclude)
         try:
@@ -881,12 +882,11 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'pap', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields']
+        update_keys = ['tlp', 'pap', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields',
+                       'artifacts', 'follow']
 
-        if len(fields) > 0:
-            data = {k: v for k, v in alert.__dict__.items() if k in fields}
-        else:
-            data = {k: v for k, v in alert.__dict__.items() if k in update_keys}
+        data = {k: v for k, v in alert.__dict__.items() if (
+                len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
 
         if 'artifacts' in data:
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
@@ -894,6 +894,7 @@ class TheHiveApi:
         # Exclude PAP field for TheHive 3
         if self.__isVersion(Version.THEHIVE_3.value):
             data.pop('pap', None)
+            data.pop('externalLink', None)
 
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
