@@ -882,7 +882,7 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Mark alert as unread error: {}".format(e))
 
-    def merge_alert_to_case(self, alert_id, case_id):
+    def merge_alert_into_case(self, alert_id, case_id):
         """
         Merge alert into existing case.
         :param alert_id: The ID of the alert to merge.
