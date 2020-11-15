@@ -15,6 +15,16 @@ from future.utils import raise_with_traceback
 from thehive4py.exceptions import TheHiveException, CaseException
 
 
+class Version(Enum):
+    """
+    Enumeration representing a version used to specify the version of TheHive instance
+
+    Possible values: THEHIVE_3, THEHIVE_4
+    """
+    THEHIVE_3 = 3
+    THEHIVE_4 = 4
+
+
 class Tlp(Enum):
     """
     Enumeration representing TLP, used in cases, observables and alerts
@@ -560,6 +570,7 @@ class Alert(JSONSerializable):
     Arguments:
         id (str): Alert's id. Default: None
         tlp (Enum): Alert's TLP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
+        pap (Enum): Alert's PAP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2` (TheHive 4 ONLY)
         severity (Enum): Alert's severity: `1`, `2`, `3`, `4` for `LOW`, `MEDIUM`, `HIGH`, `CRTICAL`. Default: `2`
         date (datetime): Alert's occur date. Default: `Now()`
         tags (str[]): List of alert tags. Default: `[]`
@@ -574,6 +585,9 @@ class Alert(JSONSerializable):
         caseTemplate (str): Alert template's name. Default: `None`
 
         json (JSON): If the field is not equal to None, the Alert is instantiated using the JSON value instead of the arguements
+
+    !!! Warning
+            `pap` attribute is available in TheHive 4 ONLY
     """
 
     def __init__(self, **attributes):
@@ -582,6 +596,7 @@ class Alert(JSONSerializable):
 
         self.id = attributes.get('id', None)
         self.tlp = attributes.get('tlp', Tlp.AMBER.value)
+        self.pap = attributes.get('pap', Pap.AMBER.value)
         self.severity = attributes.get('severity', Severity.MEDIUM.value)
         self.date = attributes.get('date', int(time.time()) * 1000)
         self.tags = attributes.get('tags', [])

@@ -12,14 +12,15 @@ import magic
 import requests
 
 from thehive4py.auth import BasicAuth, BearerAuth
-from thehive4py.models import CaseHelper
+from thehive4py.models import CaseHelper, Version
 from thehive4py.query import Parent, Id, And, Eq
 from thehive4py.exceptions import TheHiveException, CaseException, CaseTaskException, CaseTemplateException, AlertException, CaseObservableException, CustomFieldException
 
 
 class TheHiveApi:
 
-    def __init__(self, url: str, principal: str, password=None, proxies={}, cert=True, organisation=None):
+    def __init__(self, url: str, principal: str, password=None, proxies={}, cert=True, organisation=None,
+                 version=Version.THEHIVE_3.value):
         """
         Python API client for TheHive.
 
@@ -36,6 +37,7 @@ class TheHiveApi:
                 ```
             cert (bool): Wether or not to enable SSL certificate validation
             organisation (str): The name of the organisation against which api calls will be run. Defaults to None
+            version(integer): The version of TheHive instance. Defaults to 3
 
 
         ??? note "Examples"
@@ -59,7 +61,8 @@ class TheHiveApi:
                     None,
                     proxies,
                     True,
-                    'my-org'
+                    'my-org',
+                    version=Version.THEHIVE_3.value
                 )
                 ```
         """
@@ -75,9 +78,13 @@ class TheHiveApi:
             self.auth = BearerAuth(self.principal, self.organisation)
 
         self.cert = cert
+        self.version = version
 
         # Create a CaseHelper instance
         self.case = CaseHelper(self)
+
+    def __isVersion(self, version):
+        return self.version is version
 
     def __find_rows(self, find_url, **attributes):
         """
@@ -801,7 +808,14 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/alert"
-        data = alert.jsonify(excludes=['id'])
+
+        to_exclude = ['id']
+
+        # Exclude PAP field for TheHive 3
+        if self.__isVersion(Version.THEHIVE_3.value):
+            to_exclude.append('pap')
+
+        data = alert.jsonify(excludes=to_exclude)
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
@@ -867,7 +881,7 @@ class TheHiveApi:
         req = self.url + "/api/alert/{}".format(alert_id)
 
         # update only the alert attributes that are not read-only
-        update_keys = ['tlp', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields']
+        update_keys = ['tlp', 'pap', 'severity', 'tags', 'caseTemplate', 'title', 'description', 'customFields']
 
         if len(fields) > 0:
             data = {k: v for k, v in alert.__dict__.items() if k in fields}
@@ -876,6 +890,10 @@ class TheHiveApi:
 
         if 'artifacts' in data:
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+
+        # Exclude PAP field for TheHive 3
+        if self.__isVersion(Version.THEHIVE_3.value):
+            data.pop('pap', None)
 
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
