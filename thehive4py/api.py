@@ -963,7 +963,7 @@ class TheHiveApi:
 
     def update_case_observables(self, observable, fields=[]):
         """
-        Update a case observable
+        [DEPRECATED] Update a case observable
 
         Arguments:
             observable (CaseObservable): Instance of [CaseObservable][thehive4py.models.CaseObservable] to update. 
@@ -978,19 +978,7 @@ class TheHiveApi:
         Raises:
             CaseObservableException: An error occured during observable update
         """
-        req = self.url + "/api/case/artifact/{}".format(observable.id)
-
-        # Choose which attributes to send
-        update_keys = ['tlp', 'ioc', 'sighted', 'tags', 'message', 'ignoreSimilarity']
-
-        data = {k: v for k, v in observable.__dict__.items() if (
-            len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
-
-        try:
-            return requests.patch(req, headers={'Content-Type': 'application/json'},
-                json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            raise CaseTaskException("Case observable update error: {}".format(e))
+        return self.update_case_observable(observable.id, observable, fields=fields)
 
     def promote_alert_to_case(self, alert_id, case_template=None):
         """
