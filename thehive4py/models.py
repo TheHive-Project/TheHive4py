@@ -7,11 +7,72 @@ import json
 import os
 import time
 
+from enum import Enum
 import magic
 import requests
 from future.utils import raise_with_traceback
 
 from thehive4py.exceptions import TheHiveException, CaseException
+
+
+class Tlp(Enum):
+    """
+    Enumeration representing TLP, used in cases, observables and alerts
+
+    Possible values: WHITE, GREEN, AMBER, RED
+    """
+    WHITE = 0
+    GREEN = 1
+    AMBER = 2
+    RED = 3
+
+
+class Pap(Enum):
+    """
+    Enumeration representing PAP, used in cases, observables and alerts (TheHive 4 only)
+
+    Possible values: WHITE, GREEN, AMBER, RED
+    """
+    WHITE = 0
+    GREEN = 1
+    AMBER = 2
+    RED = 3
+
+
+class Severity(Enum):
+    """
+    Enumeration representing severity, used in cases and alerts
+
+    Possible values: LOW, MEDIUM, HIGH, CRITICAL
+    """
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+    CRITICAL = 4
+
+
+class CaseStatus(Enum):
+    """
+    Enumeration representing case statuses
+
+    Possible values: OPEN, RESOLVED, DELETED, DUPLICATE
+    """
+    OPEN = 'Open'
+    RESOLVED = 'Resolved'
+    DELETED = 'Deleted'
+    DUPLICATE = 'Duplicate'
+
+
+class TaskStatus(Enum):
+    """
+    Enumeration representing task statuses
+
+    Possible values: WAITING, INPROGRESS, COMPLETED, CANCEL
+    """
+    WAITING = 'Waiting'
+    INPROGRESS = 'InProgress'
+    COMPLETED = 'Completed',
+    CANCEL = 'Cancel'
 
 
 class CustomJsonEncoder(json.JSONEncoder):
@@ -220,9 +281,9 @@ class Case(JSONSerializable):
             'id': None,
             'title': None,
             'description': None,
-            'tlp': 2,
-            'pap': 2,
-            'severity': 2,
+            'tlp': Tlp.AMBER.value,
+            'pap': Pap.AMBER.value,
+            'severity': Severity.MEDIUM.value,
             'flag': False,
             'tags': [],
             'startDate': int(time.time()) * 1000,
@@ -375,7 +436,7 @@ class CaseTask(JSONSerializable):
 
         self.id = attributes.get('id', None)
         self.title = attributes.get('title', None)
-        self.status = attributes.get('status', 'Waiting')
+        self.status = attributes.get('status', TaskStatus.WAITING.value)
         self.flag = attributes.get('flag', False)
         self.description = attributes.get('description', None)
         self.owner = attributes.get('owner', None)
@@ -433,10 +494,10 @@ class CaseTemplate(JSONSerializable):
         self.id = attributes.get('id', None)
         self.titlePrefix = attributes.get('titlePrefix', None)
         self.description = attributes.get('description', None)
-        self.severity = attributes.get('severity', 2)
+        self.severity = attributes.get('severity', Severity.MEDIUM.value)
         self.flag = attributes.get('flag', False)
-        self.tlp = attributes.get('tlp', 2)
-        self.pap = attributes.get('pap', 2)
+        self.tlp = attributes.get('tlp', Tlp.AMBER.value)
+        self.pap = attributes.get('pap', Pap.AMBER.value)
         self.tags = attributes.get('tags', [])
         self.metrics = attributes.get('metrics', {})
         self.customFields = attributes.get('customFields', {})
@@ -480,7 +541,7 @@ class CaseObservable(JSONSerializable):
         self.id = attributes.get('id', None)
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
-        self.tlp = attributes.get('tlp', 2)
+        self.tlp = attributes.get('tlp', Tlp.AMBER.value)
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
         self.sighted = attributes.get('sighted', False)
@@ -520,8 +581,8 @@ class Alert(JSONSerializable):
             attributes = attributes['json']
 
         self.id = attributes.get('id', None)
-        self.tlp = attributes.get('tlp', 2)
-        self.severity = attributes.get('severity', 2)
+        self.tlp = attributes.get('tlp', Tlp.AMBER.value)
+        self.severity = attributes.get('severity', Severity.MEDIUM.value)
         self.date = attributes.get('date', int(time.time()) * 1000)
         self.tags = attributes.get('tags', [])
         self.caseTemplate = attributes.get('caseTemplate', None)
@@ -566,7 +627,7 @@ class AlertArtifact(JSONSerializable):
 
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
-        self.tlp = attributes.get('tlp', 2)
+        self.tlp = attributes.get('tlp', Tlp.AMBER.value)
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
         self.sighted = attributes.get('sighted', False)
