@@ -817,6 +817,7 @@ class TheHiveApi:
             to_exclude.append('externalLink')
 
         data = alert.jsonify(excludes=to_exclude)
+
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
@@ -890,6 +891,7 @@ class TheHiveApi:
 
         if 'artifacts' in data:
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
+            # data['artifacts'] = [{k: v for k, v in a.__dict__.items()} for a in alert.artifacts]
 
         # Exclude PAP field for TheHive 3
         if self.__isVersion(Version.THEHIVE_3.value):

@@ -533,6 +533,7 @@ class CaseObservable(JSONSerializable):
         pap (Enum): Case's PAP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
         ioc (bool): Observable's ioc flag, `True` to mark an observable as IOC. Default: `False`
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
+        ignoreSimilarity (bool): Observable's similarity ignore flag. `True`to ignore the observable during similarity computing
         tags (str[]): List of observable tags. Default: `[]`
         data (str): Observable's data:
 
@@ -542,6 +543,9 @@ class CaseObservable(JSONSerializable):
 
     !!! Warning
         At least, one of `tags` or `message` are required. You cannot create an observable without specifying one of those fields
+
+    !!! Warning
+        `ignoreSimilarity` attribute is available in TheHive 4 ONLY
     """
 
     def __init__(self, **attributes):
@@ -555,6 +559,7 @@ class CaseObservable(JSONSerializable):
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
         self.sighted = attributes.get('sighted', False)
+        self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
         data = attributes.get('data', [])
         if self.dataType == 'file':
@@ -630,12 +635,16 @@ class AlertArtifact(JSONSerializable):
         tlp (Enum): Case's TLP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
         ioc (bool): Observable's ioc flag, `True` to mark an observable as IOC. Default: `False`
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
+        ignoreSimilarity (bool): Observable's similarity ignore flag. `True`to ignore the observable during similarity computing
         tags (str[]): List of observable tags. Default: `[]`
         data (str): Observable's data:
 
             - If the `dataType` field is set to `file`, the `data` field should contain a file path to be used as attachment
             - Otherwise, the `data` value is the observable's value
         json (JSON): If the field is not equal to None, the observable is instantiated using the JSON value instead of the arguements
+
+        !!! Warning
+            `ignoreSimilarity` attribute is available in TheHive 4 ONLY
     """
 
     def __init__(self, **attributes):
@@ -648,6 +657,9 @@ class AlertArtifact(JSONSerializable):
         self.tags = attributes.get('tags', [])
         self.ioc = attributes.get('ioc', False)
         self.sighted = attributes.get('sighted', False)
+
+        if 'ignoreSimilarity' in attributes:
+            self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
         if self.dataType == 'file':
             if 'attachment' in attributes:
