@@ -975,6 +975,28 @@ class TheHiveApi:
 
         return self.__find_rows("/api/alert/_search", **attributes)
 
+    def delete_alert(self, alert_id):
+        """
+        Deletes a TheHive alert.
+
+        Arguments:
+            alert_id (str): Id of the alert to delete
+
+        Returns:
+            response (requests.Response): Response object including true or false based on the action's success
+
+        Raises:
+            AlertException: An error occured during alert deletion
+        """
+        req = self.url + "/api/alert/{}".format(alert_id)
+        params = {
+            "force": 1
+        }
+        try:
+            return requests.delete(req, params=params, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise AlertException("Alert deletion error: {}".format(e))
+
     def update_case_observables(self, observable, fields=[]):
         """
         [DEPRECATED] Update a case observable
