@@ -830,10 +830,12 @@ class TheHiveApi:
             "query": criteria
         }
 
-        try:
-            return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            raise CaseTaskException("Case task logs search error: {}".format(e))
+        return self.find_task_logs(query=criteria, **params)
+
+        # try:
+        #     return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        # except requests.exceptions.RequestException as e:
+        #     raise CaseTaskException("Case task logs search error: {}".format(e))
 
     def create_alert(self, alert):
 
@@ -1090,6 +1092,25 @@ class TheHiveApi:
         """
 
         return self.__find_rows("/api/case/task/_search", **attributes)
+
+    def find_task_logs(self, **attributes):
+        """
+        Find task logs using sort, pagination and a query
+
+        Arguments:
+            query (dict): A query object, defined in JSON format or using utiliy methods from thehive4py.query module
+            sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
+                and `+` for ascending order
+            range (str): A range describing the number of rows to be returned
+
+        Returns:
+            response (requests.Response): Response object including a JSON array representing a list of case task logs
+
+        Raises:
+            CaseTaskException: An error occured during case task log search
+        """
+
+        return self.__find_rows("/api/case/task/log/_search", **attributes)
 
     def export_to_misp(self, misp_id, case_id):
         """
