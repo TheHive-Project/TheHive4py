@@ -668,8 +668,14 @@ class TheHiveApi:
         """
 
         req = self.url + "/api/case/template/_search"
+
+        if self.__isVersion(Version.THEHIVE_3.value):
+            query = And(Eq("name", name), Eq("status", "Ok"))
+        else:
+            query = Eq("name", name)
+
         data = {
-            "query": And(Eq("name", name), Eq("status", "Ok"))
+            "query": query
         }
 
         try:
