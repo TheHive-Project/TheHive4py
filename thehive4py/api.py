@@ -498,13 +498,17 @@ class TheHiveApi:
                 and `+` for ascending order
 
         Returns:
-            response (requests.Response): Response object including a JSON description of the case.
+            response (dict): A dict object describing the first case resulting from the query and sort options.
 
         Raises:
             CaseException: An error occured during case search
         """
         attributes['range'] = '0-1'
-        return self.find_cases(**attributes)
+
+        try:
+            return self.find_cases(**attributes).json()[0]
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Case search error: {}".format(e))
 
     def get_case_observables(self, case_id, **attributes):
 
