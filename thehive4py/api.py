@@ -1023,7 +1023,12 @@ class TheHiveApi:
 
         Raises:
             AlertException: An error occured during alert deletion
+
+        !!! Warning
+            TheHive 3: Deleting alert requires `admin` role
+            TheHive 4: Deleting alert requires a role including `manageAlert` permissing
         """
+        
         req = self.url + "/api/alert/{}".format(alert_id)
         params = {
             "force": 1
