@@ -817,11 +817,25 @@ class TheHiveApi:
             CaseTaskException: An error occured during case task log fetch
         """
 
-        req = self.url + "/api/case/task/log/{}".format(log_id)
-        try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            raise CaseTaskException("Case task logs search error: {}".format(e))
+        if self.__isVersion(Version.THEHIVE_3.value):
+            req = self.url + "/api/case/task/log/{}".format(log_id)
+            try:
+                return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                raise CaseTaskLogException("Case task log fetch error: {}".format(e))
+        else:
+            req = self.url + "/api/v1/query"
+
+            data = {
+                "query": [
+                    {"_name": "getLog", "idOrName": log_id}
+                ]
+            }
+            try:
+                return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                raise CaseTaskLogException("Case task log fetch error: {}".format(e))
+            #'{"query": [{"_name": "getLog", "idOrName": "~40976560"}]}'
 
     def get_task_logs(self, task_id, **attributes):
         """
@@ -863,11 +877,6 @@ class TheHiveApi:
         }
 
         return self.find_task_logs(query=criteria, **params)
-
-        # try:
-        #     return requests.post(req, params=params, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        # except requests.exceptions.RequestException as e:
-        #     raise CaseTaskException("Case task logs search error: {}".format(e))
 
     def create_alert(self, alert):
 
@@ -1214,14 +1223,25 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Error on retrieving attachment {}: {}".format(attachment_id, e))
 
-    def download_task_log_attachment(self, task_log_id):
-        ## Get the task log by id
+    def download_task_log_attachment(self, task_log_id, archive=False):
+        try:
+            # Get the task log by id
+            response = self.get_task_log(task_log_id)
 
-        ## check if it has an attachment
+            # Check if it has an attachment
+            if self.__isVersion(Version.THEHIVE_3.value):
+                log = response.json()
+            else:
+                log = response.json()[0]
 
-        ## if yes, call self.download_attachment()
-        pass
+            if 'attachment' in log:
+                attachment = log['attachment']
+                return self.download_attachment(attachment['id'], filename=attachment['name'], archive=archive)
+            else:
+                raise CaseTaskLogException("Task log {} doesn't have an attachment".format(task_log_id))
 
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskLogException("Error on retrieving attachment of task log {}: {}".format(task_log_id, e))
 
     def download_observable_attachment(self, observable_id):
 
