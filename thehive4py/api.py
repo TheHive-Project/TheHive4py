@@ -249,14 +249,10 @@ class TheHiveApi:
         ;rtype: json
         """
 
-        req = self.url + "/api/case/artifact/_search"
-
-        data = {
-            '_id': artifact_id
-        }
+        req = self.url + "/api/case/artifact/{}".format(artifact_id)
 
         try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable search error: {}".format(e))
 
