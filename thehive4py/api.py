@@ -929,7 +929,7 @@ class TheHiveApi:
 
         try:
             return requests.post(req, headers={'Content-Type': 'application/json'}, json={}, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException:
+        except requests.exceptions.RequestException as e:
             raise AlertException("Merge alert to case error: {}".format(e))
 
     def update_alert(self, alert_id, alert, fields=[]):
