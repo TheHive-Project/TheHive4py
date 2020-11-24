@@ -17,6 +17,12 @@ class CaseTaskException(CaseException):
     """
     pass
 
+class CaseTaskLogException(CaseTaskException):
+    """
+    Exception raised by failure of API calls related to `Case Task Log` handling
+    """
+    pass
+
 class CaseObservableException(CaseException):
     """
     Exception raised by failure of API calls related to `Case Observable` handling

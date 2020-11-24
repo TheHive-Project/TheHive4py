@@ -14,7 +14,7 @@ import requests
 from thehive4py.auth import BasicAuth, BearerAuth
 from thehive4py.models import CaseHelper, Version
 from thehive4py.query import Parent, Id, And, Eq
-from thehive4py.exceptions import TheHiveException, CaseException, CaseTaskException, CaseTemplateException, AlertException, CaseObservableException, CustomFieldException
+from thehive4py.exceptions import TheHiveException, CaseException, CaseTaskException, CaseTaskLogException, CaseTemplateException, AlertException, CaseObservableException, CustomFieldException
 
 
 class TheHiveApi:
@@ -1195,6 +1195,36 @@ class TheHiveApi:
                                  json={}, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("MISP export error: {}".format(e))
-        
+
+    def download_attachment(self, attachment_id, filename="attachment", archive=False):
+        if archive is True:
+            req = self.url + "/api/datastore/{}".format(attachment_id)
+        else:
+            req = self.url + "/api/datastorezip/{}".format(attachment_id)
+
+        try:
+            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Error on retrieving attachment {}: {}".format(attachment_id, e))
+
+    def download_task_log_attachment(self, task_log_id):
+        ## Get the task log by id
+
+        ## check if it has an attachment
+
+        ## if yes, call self.download_attachment()
+        pass
+
+
+    def download_observable_attachment(self, observable_id):
+
+        ## Get the observable by id
+
+        ## check if it has an attachment
+
+        ## if yes, call self.download_attachment()
+        pass
+
+
 # - addObservable(file)
 # - addObservable(data)
