@@ -510,15 +510,22 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case search error: {}".format(e))
 
-    def get_case_observable(self, artifact_id):
+    def get_case_observable(self, observable_id):
 
         """
-        :param case_id: Artifact identifier
-        :return: (first) observable
-        ;rtype: json
+        Get a case observable by its id
+
+        Arguments:
+            observable_id (str): Case observable identifier
+
+        Returns:
+            response (requests.Response): Response object including a JSON representation of the case observable
+
+        Raises:
+            CaseObservableException: An error occured during case observable fetch
         """
 
-        req = self.url + "/api/case/artifact/{}".format(artifact_id)
+        req = self.url + "/api/case/artifact/{}".format(observable_id)
 
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
