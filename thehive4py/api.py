@@ -508,6 +508,29 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
 
+    def search_responder_by_name(self, responder_name):
+        """
+        Find a responder by short name (without version)
+        :param responder_name: Cortex responder name
+        :return: str
+        """
+        data = {
+            "query": {
+                "_string": responder_name
+            }
+        }
+
+        req = self.url + "/api/connector/cortex/responder/_search"
+        try:
+            responder_list = requests.post(req, headers={'Content-Type': 'application/json'}, json=data,
+                                           proxies=self.proxies,
+                                           auth=self.auth, verify=self.cert).json()
+            if len(responder_list) == 1:
+                return responder_list[0].get('id')
+            return None
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder verify error: {}".format(e))
+    
     def run_responder(self, object_type, object_id, responder_id):
 
         """
