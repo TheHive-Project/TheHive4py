@@ -71,7 +71,7 @@ def Gt(field, value):
     A criterion used to search for a field greater than a certain value. For example
 
     * search for TLP > 2
-    * search for customField.cvss > 4.5
+    * search for customFields.cvss > 4.5
     * search for date > now
 
     Arguments:
@@ -96,7 +96,7 @@ def Gte(field, value):
     A criterion used to search for a field greater or equal than a certain value. For example
 
     * search for TLP >= 2
-    * search for customField.cvss >= 4.5
+    * search for customFields.cvss >= 4.5
     * search for date >= now
 
     Arguments:
@@ -121,7 +121,7 @@ def Lt(field, value):
     A criterion used to search for a field less than a certain value. For example
 
     * search for TLP < 2
-    * search for customField.cvss < 4.5
+    * search for customFields.cvss < 4.5
     * search for date < now
 
     Arguments:
@@ -146,7 +146,7 @@ def Lte(field, value):
     A criterion used to search for a field less or equal than a certain value. For example
 
     * search for TLP <= 2
-    * search for customField.cvss <= 4.5
+    * search for customFields.cvss <= 4.5
     * search for date <= now
 
     Arguments:
@@ -171,7 +171,7 @@ def And(*criteria):
     A criterion used to search for records that verfies all the specified criteria. For example
 
     * search for observables flagged as IOC and having TLP <= 2
-    * search for closed cases related to customField.customer "Company" and having a WHITE tlp
+    * search for closed cases related to customFields.customer "Company" and having a WHITE tlp
 
     Arguments:
         criteria (Array): A set of criteria, can be any operator defined in the query module (`Eq`, `In`, `Not`, `And`...)
