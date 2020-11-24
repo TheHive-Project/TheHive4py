@@ -241,6 +241,25 @@ class TheHiveApi:
         """
         return self.find_cases(**attributes).json()[0]
 
+    def get_case_observable(self, artifact_id):
+
+        """
+        :param case_id: Artifact identifier
+        :return: (first) observable
+        ;rtype: json
+        """
+
+        req = self.url + "/api/case/artifact/_search"
+
+        data = {
+            '_id': artifact_id
+        }
+
+        try:
+            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Case observable search error: {}".format(e))
+
     def get_case_observables(self, case_id, **attributes):
 
         """
@@ -424,7 +443,7 @@ class TheHiveApi:
             data['artifacts'] = [a.__dict__ for a in alert.artifacts]
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException:
+        except requests.exceptions.RequestException as e:
             raise AlertException("Alert update error: {}".format(e))
 
     def get_alert(self, alert_id):
@@ -488,7 +507,7 @@ class TheHiveApi:
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
-    
+
     def run_responder(self, object_type, object_id, responder_id):
 
         """
