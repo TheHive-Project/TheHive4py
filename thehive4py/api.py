@@ -241,25 +241,6 @@ class TheHiveApi:
         """
         return self.find_cases(**attributes).json()[0]
 
-    def get_case_observable(self, artifact_id):
-
-        """
-        :param case_id: Artifact identifier
-        :return: (first) observable
-        ;rtype: json
-        """
-
-        req = self.url + "/api/case/artifact/_search"
-
-        data = {
-            '_id': artifact_id
-        }
-
-        try:
-            return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        except requests.exceptions.RequestException as e:
-            raise CaseObservableException("Case observable search error: {}".format(e))
-
     def get_case_observables(self, case_id, **attributes):
 
         """
