@@ -1213,10 +1213,24 @@ class TheHiveApi:
             raise TheHiveException("MISP export error: {}".format(e))
 
     def download_attachment(self, attachment_id, filename="attachment", archive=False):
+        """
+        Get the content of an attachement object by ID
+
+        Arguments:
+            attachment_id: identifier of the attachment object
+            filename (str): name of the downloaded file
+            archive (bool): set to `True` to zip and password protect the downloaded file
+
+        Returns:
+            response (requests.Response): Response object including a the attachment content as bytes
+
+        Raises:
+            TheHiveException: An error occured during the attachment download
+        """
         if archive is True:
-            req = self.url + "/api/datastore/{}".format(attachment_id)
+            req = self.url + "/api/datastorezip/{}?name{}".format(attachment_id, filename)
         else:
-            req = self.url + "/api/datastorezip/{}".format(attachment_id)
+            req = self.url + "/api/datastore/{}?name={}".format(attachment_id, filename)
 
         try:
             return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
@@ -1224,6 +1238,20 @@ class TheHiveApi:
             raise TheHiveException("Error on retrieving attachment {}: {}".format(attachment_id, e))
 
     def download_task_log_attachment(self, task_log_id, archive=False):
+        """
+        Get the content of the attachement object of a task log
+
+        Arguments:
+            task_log_id: identifier of the task log object
+            archive (bool): set to `True` to zip and password protect the downloaded file
+
+        Returns:
+            response (requests.Response): Response object including a the attachment content as bytes
+
+        Raises:
+            CaseTaskLogException: If the task log doesn't have an attachment
+            TheHiveException: An error occured during the attachment download
+        """
         try:
             # Get the task log by id
             response = self.get_task_log(task_log_id)
@@ -1243,14 +1271,36 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseTaskLogException("Error on retrieving attachment of task log {}: {}".format(task_log_id, e))
 
-    def download_observable_attachment(self, observable_id):
+    def download_observable_attachment(self, observable_id, archive=True):
+        """
+        Get the content of the attachement object of a file observable
 
-        ## Get the observable by id
+        Arguments:
+            observable_id: identifier of the case observable object
+            archive (bool): set to `False` to disable zip and password protection of the downloaded file
 
-        ## check if it has an attachment
+        Returns:
+            response (requests.Response): Response object including a the attachment content as bytes
 
-        ## if yes, call self.download_attachment()
-        pass
+        Raises:
+            CaseObservableException: If the observable is not a file
+            TheHiveException: An error occured during the attachment download
+        """
+        try:
+            # Get the observable by id
+            response = self.get_case_observable(observable_id)
+
+            # Check if it has an attachment
+            observable = response.json()
+
+            if 'attachment' in observable:
+                attachment = observable['attachment']
+                return self.download_attachment(attachment['id'], filename=attachment['name'], archive=True)
+            else:
+                raise CaseObservableException("Observable {} doesn't have an attachment".format(observable_id))
+
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Error on retrieving attachment of case observable {}: {}".format(observable_id, e))
 
 
 # - addObservable(file)
