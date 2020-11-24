@@ -987,13 +987,13 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert update error: {}".format(e))
 
-    def get_alert(self, alert_id, get_similar_cases = False):
+    def get_alert(self, alert_id, similar_cases=False):
         """
         Get an alert by its id
 
         Arguments:
             alert_id (str): Id of the alert
-            get_similar_cases (bool): True if similar cases should be retrieved (Default False)
+            similar_cases (bool): True if similar cases should be retrieved (Default False)
 
         Returns:
             response (requests.Response): Response object including a JSON representation of the alert
@@ -1001,12 +1001,18 @@ class TheHiveApi:
         Raises:
             AlertException: An error occured during alert update
         """
+
         req = self.url + "/api/alert/{}".format(alert_id)
-        if get_similar_cases:
-            req = req + "?similarity=1"
+
+        params = {}
+
+        if similar_cases:
+            params = {
+                "similarity": int(similar_cases)
+            }
 
         try:
-            return requests.get(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return requests.get(req, proxies=self.proxies, params=params, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise AlertException("Alert fetch error: {}".format(e))
 
