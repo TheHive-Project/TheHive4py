@@ -472,6 +472,20 @@ class CaseTaskLog(JSONSerializable):
         self.message = attributes.get('message', None)
         self.file = attributes.get('file', None)
 
+        if self.file is not None:
+            if isinstance(self.file, tuple):
+                file_object, filename = self.file
+            else:
+                filename = self.file
+                # we are opening this here, but we can't close it
+                # because it gets passed into requests.post. this is
+                # the substance of issue #10.
+                file_object = open(self.file, 'rb')
+
+            mime = magic.Magic(mime=True).from_buffer(file_object.read())
+            file_object.seek(0)
+            self.attachment = {'attachment': (filename, file_object, mime)}
+            
 
 class CaseTemplate(JSONSerializable):
     """
