@@ -6,10 +6,9 @@
 </div>
 <div>
   <p align="center">
-    <a href="https://travis-ci.org/github/TheHive-Project/TheHive4py" target"_blank">
+    <a href="https://travis-ci.org/github/TheHive-Project/TheHive4py" target="_blank">
       <img src="https://travis-ci.org/TheHive-Project/TheHive4py.svg?branch=1.x" alt="Build status">
     </a>
-    
     <a href="https://chat.thehive-project.org" target"_blank">
       <img src="https://img.shields.io/discord/779945042039144498" alt="Discord">
     </a>
