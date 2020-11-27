@@ -6,6 +6,10 @@
 </div>
 <div>
   <p align="center">
+    <a href="https://travis-ci.org/github/TheHive-Project/TheHive4py" target"_blank">
+      <img src="https://travis-ci.org/TheHive-Project/TheHive4py.svg?branch=1.x" alt="Build status">
+    </a>
+    
     <a href="https://chat.thehive-project.org" target"_blank">
       <img src="https://img.shields.io/discord/779945042039144498" alt="Discord">
     </a>
@@ -25,16 +29,9 @@ TheHive4py allows analysts to send alerts to TheHive out of different sources. T
 
 For example, a SOC may ask its constituency to send suspicious email reports to a specific mailbox that a script polls at regular intervals. When a new email is received, the script parses it then calls TheHive4py to create a corresponding alert in TheHive. Once the alert is raised, SOC analysts will get a notification thanks to TheHive's live stream so they can preview it and import it if deemed worth investigating using a specific template.
 
-# Caution - WIP
-TheHive4py is considered work in progress. It is considered *beta* software though we are using it on a regular basis for the use case outlined above. It should be sufficient in most situations where you need to interact with [TheHive's REST API](https://github.com/TheHive-Project/TheHiveDocs/blob/master/api/README.md). If not, please feel free to contribute and submit pull requests or [request missing features](https://github.com/TheHive-Project/TheHive4py/issues/new) if you are not comfortable with Python.
+# Documentation
 
-# Use It
-On macOS and Linux, type:
-```
-sudo pip install thehive4py
-```
-
-If you are using Python on a Windows operating system, please forgo the `sudo` command.
+Here is the link to the [The official documentation](https://thehive-project.github.io/TheHive4py/) 
 
 # License
 TheHive4py is an open source and free software released under the [AGPL](https://github.com/TheHive-Project/TheHive/blob/master/LICENSE) (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.
@@ -48,7 +45,7 @@ We welcome your contributions. Please feel free to fork the code, play with it, 
 We do have a [Code of conduct](code_of_conduct.md). Make sure to check it out before contributing.
 
 # Support
-Please [open an issue on GitHub](https://github.com/TheHive-Project/TheHive4py/issues/new) if you'd like to report a bug or request a feature. We are also available on [Gitter](https://gitter.im/TheHive-Project/TheHive) to help you out.
+Please [open an issue on GitHub](https://github.com/TheHive-Project/TheHive4py/issues/new) if you'd like to report a bug or request a feature. We are also available on [Discord](https://chat.thehive-project.org) to help you out.
 
 If you need to contact the project team, send an email to <support@thehive-project.org>.
 
