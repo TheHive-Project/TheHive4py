@@ -1,0 +1,3 @@
+bug_labels=category:bug
+enhancement_labels=category:enhancement
+exclude_labels=status:invalid,status:duplicate,status:wontfix
