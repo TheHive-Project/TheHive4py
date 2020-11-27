@@ -671,13 +671,26 @@ class AlertArtifact(JSONSerializable):
         if 'ignoreSimilarity' in attributes:
             self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
+        data = attributes.get('data', [])
         if self.dataType == 'file':
-            if 'attachment' in attributes:
-                self.attachment = attributes.get('attachment')
+            if isinstance(data[0], tuple):
+                file_object, filename = data[0]
             else:
-                self.data = self._prepare_file_data(attributes.get('data', None))
+                filename = data[0]
+                # we are opening this here, but we can't close it
+                # because it gets passed into requests.post. this is
+                # the substance of issue #10.
+                file_object = open(data[0], 'rb')
+
+            mime = magic.Magic(mime=True).from_buffer(file_object.read())
+            file_object.seek(0)
+
+            encoded_string = base64.b64encode(file_object.read())
+            file_object.seek(0)
+
+            self.data = "{};{};{}".format(filename, mime, encoded_string.decode())
         else:
-            self.data = attributes.get('data', None)
+            self.data = data
 
     def _prepare_file_data(self, file_path):
         with open(file_path, "rb") as file_artifact:
