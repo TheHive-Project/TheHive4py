@@ -21,9 +21,9 @@ TheHive4py allows the following features:
     - [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_read)
     - [X] [Mark alert as Read](reference/api#thehive4py.api.TheHiveApi.mark_alert_as_unread)
     - [X] [Promote alert to case](reference/api#thehive4py.api.TheHiveApi.promote_alert_to_case)
-    - [ ] Delete alert
+    - [X] [Delete alert](reference/api#thehive4py.api.TheHiveApi.delete_alert)
     - [ ] Create case from many alert
-    - [ ] Merge alert into an existing case
+    - [X] [Merge alert into an existing case](reference/api#thehive4py.api.TheHiveApi.merge_alert_into_case)
     - [ ] Run responder on an alert
 === "Cases"
     - [X] [Search for cases](reference/api#thehive4py.api.TheHiveApi.find_cases)
@@ -38,19 +38,22 @@ TheHive4py allows the following features:
     - [X] [Create tasks](reference/api#thehive4py.api.TheHiveApi.create_case_task)
     - [X] [Get task by id](reference/api#thehive4pi.api.TheHiveApi.get_case_task)
     - [ ] Update tasks
-    - [ ] Delete tasks
+    - [X] [Delete tasks](reference/api#thehive4py.api.TheHiveApi.delete_case_task)
     - [X] [Create task logs](reference/api#thehive4py.api.TheHiveApi.create_task_log)
     - [X] [Get log by id](reference/api#thehive4pi.api.TheHiveApi.get_task_log)
     - [X] [List task logs by task id](reference/api#thehive4pi.api.TheHiveApi.get_task_logs)
-    - [ ] Search for task logs
+    - [X] [Search for task logs](reference/api#thehive4py.api.TheHiveApi.find_task_logs)
+    - [X] [Download log attachment](reference/api#thehive4py.api.TheHiveApi.download_task_log_attachment)
     - [ ] Run responder on a task
 === "Observables"
     - [X] [Search for observables of a case](reference/api#thehive4py.api.TheHiveApi.get_case_observables)
-    - [ ] Search for observables
+    - [X] [Get observable by Id](reference/api#thehive4py.api.TheHiveApi.get_case_observable)
+    - [X] [Search for observables](reference/api#thehive4py.api.TheHiveApi.find_observables)
     - [X] [Create observables](reference/api#thehive4py.api.TheHiveApi.create_case_observable)
-    - [ ] [Update observables](reference/api#thehive4py.api.TheHiveApi.create_caseupdate)
-    - [ ] Delete observables
-    - [ ] [Run analyzer on observable](reference/api#thehive4py.api.TheHiveApi.run_analyzer)
+    - [X] [Update observables](reference/api#thehive4py.api.TheHiveApi.update_case_observable)
+    - [X] [Delete observables](reference/api#thehive4py.api.TheHiveApi.delete_case_observable)
+    - [X] [Download observable archive](reference/api#thehive4py.api.TheHiveApi.download_observable_attachment)
+    - [X] [Run analyzer on observable](reference/api#thehive4py.api.TheHiveApi.run_analyzer)
     - [ ] Run responder on an observable
 
 === "Administration"

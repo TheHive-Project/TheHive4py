@@ -2,18 +2,15 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 
-try:
-    from pypandoc import convert
-    read_md = lambda f: convert(f, 'rst')
-except ImportError:
-    print("warning: pypandoc module not found, could not convert Markdown to RST")
-    read_md = lambda f: open(f, 'r').read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name='thehive4py',
     version='1.8.0',
     description='Python API client for TheHive.',
-    long_description=read_md('README.md'),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author='TheHive-Project',
     author_email='support@thehive-project.org',
     maintainer='TheHive-Project',

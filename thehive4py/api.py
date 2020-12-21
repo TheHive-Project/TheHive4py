@@ -37,7 +37,7 @@ class TheHiveApi:
                 ```
             cert (bool): Wether or not to enable SSL certificate validation
             organisation (str): The name of the organisation against which api calls will be run. Defaults to None
-            version(integer): The version of TheHive instance. Defaults to 3
+            version (int): The version of TheHive instance. Defaults to 3
 
 
         ??? note "Examples"
