@@ -29,7 +29,7 @@ else:
 print('Create domain observable')
 print('-----------------------------')
 domain = CaseObservable(dataType='filename',
-                        data=['pic.png'],
+                        data='pic.png',
                         tlp=1,
                         ioc=True,
                         sighted=True,
@@ -48,7 +48,7 @@ else:
 print('Create file observable')
 print('-----------------------------')
 file_observable = CaseObservable(dataType='file',
-                        data=['pic.png'],
+                        data='pic.png',
                         tlp=1,
                         ioc=True,
                         sighted=True,

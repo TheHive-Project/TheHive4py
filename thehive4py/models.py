@@ -549,9 +549,13 @@ class CaseObservable(JSONSerializable):
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
         ignoreSimilarity (bool): Observable's similarity ignore flag. `True`to ignore the observable during similarity computing
         tags (str[]): List of observable tags. Default: `[]`
-        data (str): Observable's data:
+        data (str | (file, str)): Observable's data:
 
-            - If the `dataType` field is set to `file`, the `data` field should contain a file path to be used as attachment
+            - If the `dataType` field is set to `file`, then there are two options:
+
+                * `data` must be equal to a string representing the file's path
+                * `data` must be equal to Tuple composed by an in memory file object, and the file name
+
             - Otherwise, the `data` value is the observable's value
         json (JSON): If the field is not equal to None, the observable is instantiated using the JSON value instead of the arguements
 
@@ -575,16 +579,16 @@ class CaseObservable(JSONSerializable):
         self.sighted = attributes.get('sighted', False)
         self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
-        data = attributes.get('data', [])
+        data = attributes.get('data', None)
         if self.dataType == 'file':
-            if isinstance(data[0], tuple):
-                file_object, filename = data[0]
+            if isinstance(data, tuple):
+                file_object, filename = data
             else:
-                filename = data[0]
+                filename = data
                 # we are opening this here, but we can't close it
                 # because it gets passed into requests.post. this is
                 # the substance of issue #10.
-                file_object = open(data[0], 'rb')
+                file_object = open(filename, 'rb')
             mime = magic.Magic(mime=True).from_buffer(file_object.read())
             file_object.seek(0)
             self.data = [{'attachment': (filename, file_object, mime)}]
@@ -661,9 +665,13 @@ class AlertArtifact(JSONSerializable):
         sighted (bool): Observable's sighted flag, `True` to mark the observable as sighted. Default: `False`
         ignoreSimilarity (bool): Observable's similarity ignore flag. `True`to ignore the observable during similarity computing
         tags (str[]): List of observable tags. Default: `[]`
-        data (str): Observable's data:
+        data (str | (file, str)): Observable's data:
 
-            - If the `dataType` field is set to `file`, the `data` field should contain a file path to be used as attachment
+            - If the `dataType` field is set to `file`, then there are two options:
+
+                * `data` must be equal to a string representing the file's path
+                * `data` must be equal to Tuple composed by an in memory file object, and the file name
+
             - Otherwise, the `data` value is the observable's value
         json (JSON): If the field is not equal to None, the observable is instantiated using the JSON value instead of the arguements
 
@@ -685,16 +693,16 @@ class AlertArtifact(JSONSerializable):
         if 'ignoreSimilarity' in attributes:
             self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
-        data = attributes.get('data', [])
+        data = attributes.get('data', None)
         if self.dataType == 'file':
-            if isinstance(data[0], tuple):
-                file_object, filename = data[0]
+            if isinstance(data, tuple):
+                file_object, filename = data
             else:
-                filename = data[0]
+                filename = data
                 # we are opening this here, but we can't close it
                 # because it gets passed into requests.post. this is
                 # the substance of issue #10.
-                file_object = open(data[0], 'rb')
+                file_object = open(filename, 'rb')
 
             mime = magic.Magic(mime=True).from_buffer(file_object.read())
             file_object.seek(0)
@@ -705,11 +713,3 @@ class AlertArtifact(JSONSerializable):
             self.data = "{};{};{}".format(filename, mime, encoded_string.decode())
         else:
             self.data = data
-
-    def _prepare_file_data(self, file_path):
-        with open(file_path, "rb") as file_artifact:
-            filename = os.path.basename(file_path)
-            mime = magic.Magic(mime=True).from_file(file_path)
-            encoded_string = base64.b64encode(file_artifact.read())
-
-        return "{};{};{}".format(filename, mime, encoded_string.decode())
