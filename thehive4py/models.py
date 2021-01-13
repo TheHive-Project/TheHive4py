@@ -648,9 +648,9 @@ class Alert(JSONSerializable):
         self.artifacts = []
         for artifact in artifacts:
             if type(artifact) == AlertArtifact:
-                self.artifacts.append(artifact)
+                self.artifacts.append(artifact.as_base64())
             else:
-                self.artifacts.append(AlertArtifact(json=artifact))
+                self.artifacts.append(AlertArtifact(json=artifact).as_base64())
 
 
 class AlertArtifact(JSONSerializable):
@@ -675,8 +675,8 @@ class AlertArtifact(JSONSerializable):
             - Otherwise, the `data` value is the observable's value
         json (JSON): If the field is not equal to None, the observable is instantiated using the JSON value instead of the arguements
 
-        !!! Warning
-            `ignoreSimilarity` attribute is available in TheHive 4 ONLY
+    !!! Warning
+        `ignoreSimilarity` attribute is available in TheHive 4 ONLY
     """
 
     def __init__(self, **attributes):
@@ -694,22 +694,34 @@ class AlertArtifact(JSONSerializable):
             self.ignoreSimilarity = attributes.get('ignoreSimilarity', False)
 
         data = attributes.get('data', None)
-        if self.dataType == 'file':
-            if isinstance(data, tuple):
-                file_object, filename = data
+        if self.dataType != 'file':
+            self.data = data
+        else:
+            if data is not None:
+                if isinstance(data, tuple):
+                    file_object, filename = data
+                else:
+                    filename = data
+                    # we are opening this here, but we can't close it
+                    # because it gets passed into requests.post. this is
+                    # the substance of issue #10.
+                    file_object = open(filename, 'rb')
+
+                mime = magic.Magic(mime=True).from_buffer(file_object.read())
+                file_object.seek(0)
+
+                self.data = {'attachment': (filename, file_object, mime)}
             else:
-                filename = data
-                # we are opening this here, but we can't close it
-                # because it gets passed into requests.post. this is
-                # the substance of issue #10.
-                file_object = open(filename, 'rb')
+                self.attachment = attributes.get('attachment', None)
 
-            mime = magic.Magic(mime=True).from_buffer(file_object.read())
+    def as_base64(self):
+        if 'data' in self.__dict__ and self.data is not None and self.dataType == 'file' and isinstance(self.data, dict):
+            filename, file_object, mime = self.data.get('attachment')
+
             file_object.seek(0)
-
             encoded_string = base64.b64encode(file_object.read())
-            file_object.seek(0)
 
             self.data = "{};{};{}".format(filename, mime, encoded_string.decode())
-        else:
-            self.data = data
+
+        return self
+

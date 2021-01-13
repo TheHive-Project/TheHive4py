@@ -11,11 +11,13 @@ class CaseException(TheHiveException):
     """
     pass
 
+
 class CaseTaskException(CaseException):
     """
     Exception raised by failure of API calls related to `Case Task` handling
     """
     pass
+
 
 class CaseTaskLogException(CaseTaskException):
     """
@@ -23,11 +25,13 @@ class CaseTaskLogException(CaseTaskException):
     """
     pass
 
+
 class CaseObservableException(CaseException):
     """
     Exception raised by failure of API calls related to `Case Observable` handling
     """
     pass
+
 
 class ObservableException(TheHiveException):
     """
@@ -35,17 +39,27 @@ class ObservableException(TheHiveException):
     """
     pass
 
+
 class AlertException(TheHiveException):
     """
     Exception raised by failure of API calls related to `Alert` handling
     """
     pass
 
+
+class AlertArtifactException(CaseException):
+    """
+    Exception raised by failure of API calls related to `Alert Artifact` handling
+    """
+    pass
+
+
 class CaseTemplateException(TheHiveException):
     """
     Exception raised by failure of API calls related to `Case Template` handling
     """
     pass
+
 
 class CustomFieldException(TheHiveException):
     """

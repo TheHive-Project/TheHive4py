@@ -82,6 +82,28 @@ alert_data = response.json()
 print(alert_data.get('title'))
 ```
 
+## Update alert
+
+Update an existing alert
+
+```python
+from thehive4py.api import TheHiveApi
+
+THEHIVE_URL = 'http://127.0.0.1:9000'
+THEHIVE_API_KEY = '**YOUR_API_KEY**'
+
+api = TheHiveApi(THEHIVE_URL, THEHIVE_API_KEY)
+
+response = api.get_alert(ALERT_ID)
+
+# Update description
+alert_data = response.json()
+alert_data['description'] = 'Updated alert desciption...'
+
+# Update alert
+api.update_alert(alert=Alert(json=alert_data), alert_id=ALERT_ID, fields=['description'])
+```
+
 ## Search alerts
 
 Search for alerts with `HIGH` severity, `AMBER` TLP and with a title containing `MALSPAM`
@@ -122,4 +144,84 @@ THEHIVE_API_KEY = '**YOUR_API_KEY**'
 api = TheHiveApi(THEHIVE_URL, THEHIVE_API_KEY)
 
 response = api.promote_alert_to_case(ALERT_ID, case_template='MALSPAM')
+```
+
+## Create an Alert Artifact
+
+Create and add an artifact to an existing alert identified by `ALERT_ID`
+
+!!! Warning
+    This function is available in TheHive 4 ONLY
+    
+```python
+from thehive4py.api import TheHiveApi
+from thehive4py.models import Tlp
+
+THEHIVE_URL = 'http://127.0.0.1:9000'
+THEHIVE_API_KEY = '**YOUR_API_KEY**'
+
+api = TheHiveApi(THEHIVE_URL, THEHIVE_API_KEY)
+
+# Instanciate a new domain artifact
+artifact = AlertArtifact(dataType='domain', data='malicious-domain.tld', ignoreSimilarity=True, ioc=True)
+api.create_alert_artifact(ALERT_ID, artifact)
+
+# Instanciate a new file artifact
+artifact = AlertArtifact(
+    dataType='file', 
+    data='malicious-file.exe', 
+    ignoreSimilarity=False, 
+    ioc=True, 
+    sighted=True, 
+    tlp=Tlp.RED.value)
+api.create_alert_artifact(alert_id, artifact)
+```
+
+## Update an Alert Artifact
+
+Update an existing artifact identified by `ALERT_ID`
+
+!!! Warning
+    This function is available in TheHive 4 ONLY
+    
+```python
+from thehive4py.api import TheHiveApi
+from thehive4py.models import Tlp
+
+THEHIVE_URL = 'http://127.0.0.1:9000'
+THEHIVE_API_KEY = '**YOUR_API_KEY**'
+
+api = TheHiveApi(THEHIVE_URL, THEHIVE_API_KEY)
+
+# Create a new domain artifact
+artifact = AlertArtifact(dataType='domain', data='malicious-domain.tld', ignoreSimilarity=True, ioc=True)
+response = api.create_alert_artifact(ALERT_ID, artifact)
+
+# Update its tlp, sighted and ignoreSimilarity flags
+artifact_data = response.json()[0]
+artifact_data['tlp'] = Tlp.RED.value
+artifact_data['sighted'] = True
+artifact_data['ignoreSimilarity'] = False
+
+new_artifact = AlertArtifact(json=artifact_data)
+api.update_alert_artifact(artifact_data['id'], new_artifact, fields=['tlp', 'ioc', 'ignoreSimilarity'])
+```
+
+## Delete an Alert Artifact
+
+Delete an existing alert artifact identified by `ARTIFACT_ID`
+
+!!! Warning
+    This function is available in TheHive 4 ONLY
+    
+```python
+from thehive4py.api import TheHiveApi
+
+THEHIVE_URL = 'http://127.0.0.1:9000'
+THEHIVE_API_KEY = '**YOUR_API_KEY**'
+
+api = TheHiveApi(THEHIVE_URL, THEHIVE_API_KEY)
+
+# Delete alert artifact
+api.delete_alert_artifact(ARTIFACT_ID)
 ```

@@ -14,7 +14,7 @@ import requests
 from thehive4py.auth import BasicAuth, BearerAuth
 from thehive4py.models import CaseHelper, Version
 from thehive4py.query import Parent, Id, And, Eq
-from thehive4py.exceptions import TheHiveException, CaseException, CaseTaskException, CaseTaskLogException, CaseTemplateException, AlertException, CaseObservableException, CustomFieldException
+from thehive4py.exceptions import *
 
 
 class TheHiveApi:
@@ -409,7 +409,7 @@ class TheHiveApi:
             response (requests.Response): Response object including a JSON description of the updated case observable
 
         Raises:
-            CaseObservableException: An error occured during case observable creation
+            CaseObservableException: An error occured during case observable update
         """
 
         req = self.url + "/api/case/artifact/{}".format(observable_id)
@@ -1303,6 +1303,107 @@ class TheHiveApi:
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Error on retrieving attachment of case observable {}: {}".format(observable_id, e))
 
+    def create_alert_artifact(self, alert_id, alert_artifact):
 
-# - addObservable(file)
-# - addObservable(data)
+        """
+        Create an alert artifact
+
+        Arguments:
+            alert_id (str): Alert identifier
+            alert_artifact (AlertArtifact): Instance of [AlertArtifact][thehive4py.models.AlertArtifact]
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of an alert artifact
+
+        Raises:
+            AlertArtifactException: An error occured during alert artifact creation
+
+        !!! Warning
+            This function is available in TheHive 4 ONLY
+        """
+
+        if self.__isVersion(Version.THEHIVE_3.value):
+            raise AlertArtifactException("This function is available in TheHive 4 ONLY")
+
+        req = self.url + "/api/alert/{}/artifact".format(alert_id)
+
+        if alert_artifact.dataType == 'file':
+            try:
+                fields = ["dataType", "message", "tlp", "tags", "ioc", "sighted", "ignoreSimilarity"]
+                data = {k: v for k, v in alert_artifact.__dict__.items() if k in fields}
+
+                data = {"_json": json.dumps(data)}
+                return requests.post(req, data=data, files=alert_artifact.data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                raise AlertArtifactException("Alert artifact create error: {}".format(e))
+        else:
+            try:
+                data = alert_artifact.jsonify(excludes=['id'])
+
+                return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            except requests.exceptions.RequestException as e:
+                raise AlertArtifactException("Alert artifact create error: {}".format(e))
+
+    def delete_alert_artifact(self, artifact_id):
+        """
+        Deletes a TheHive alert artifact.
+
+        Arguments:
+            artifact_id (str): Id of the artifact to delete
+
+        Returns:
+            response (requests.Response): Response object including true or false based on the action's success
+
+        Raises:
+            AlertArtifactException: An error occured during alert artifact deletion
+
+        !!! Warning
+            This function is available in TheHive 4 ONLY
+        """
+
+        if self.__isVersion(Version.THEHIVE_3.value):
+            raise AlertArtifactException("This function is available in TheHive 4 ONLY")
+
+        req = self.url + "/api/alert/artifact/{}".format(artifact_id)
+
+        try:
+            return requests.delete(req, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise AlertArtifactException("Alert artifact deletion error: {}".format(e))
+
+    def update_alert_artifact(self, artifact_id, alert_artifact, fields=[]):
+
+        """
+        Update an existing alert artifact
+
+        Arguments:
+            artifact_id: Artifact identifier
+            alert_artifact (AlertArtifact): Instance of [AlertArtifact][thehive4py.models.AlertArtifact]
+            fields (Array): Optional parameter, an array of fields names, the ones we want to update.
+
+                Updatable fields are: [`tlp`, `ioc`, `sighted`, `tags`, `message`, `ignoreSimilarity`]
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of the updated alert artifact
+
+        Raises:
+            AlertArtifactException: An error occured during alert artifact update
+
+        !!! Warning
+            This function is available in TheHive 4 ONLY
+        """
+
+        if self.__isVersion(Version.THEHIVE_3.value):
+            raise AlertArtifactException("This function is available in TheHive 4 ONLY")
+
+        req = self.url + "/api/alert/artifact/{}".format(artifact_id)
+
+        update_keys = ['message', 'tlp', 'tags', 'ioc', 'sighted', 'ignoreSimilarity']
+
+        data = {k: v for k, v in alert_artifact.__dict__.items() if (
+                len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseObservableException("Case observable update error: {}".format(e))
