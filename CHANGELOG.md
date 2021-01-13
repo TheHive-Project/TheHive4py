@@ -1,7 +1,18 @@
 # Change Log
 
-## [1.8.0](https://github.com/TheHive-Project/TheHive4py/tree/1.8.0) (2020-11-27)
+## [Unreleased](https://github.com/TheHive-Project/TheHive4py/tree/HEAD)
 
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.8.0...HEAD)
+
+**Fixed bugs:**
+
+- \[BUG\] Unable to create Alert [\#207](https://github.com/TheHive-Project/TheHive4py/issues/207)
+
+**Closed issues:**
+
+- \[Feature Request\] Add alert artifact methods, for TheHive 4 only [\#208](https://github.com/TheHive-Project/TheHive4py/issues/208)
+
+## [1.8.0](https://github.com/TheHive-Project/TheHive4py/tree/1.8.0) (2020-11-27)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.7.2...1.8.0)
 
 **Fixed bugs:**
@@ -15,28 +26,29 @@
 
 **Closed issues:**
 
+- Query ContainsString not working [\#193](https://github.com/TheHive-Project/TheHive4py/issues/193)
+- \[Bug\] Cannot create Case Observable on TheHive4 despite manageObservable Permission [\#179](https://github.com/TheHive-Project/TheHive4py/issues/179)
+- Querying for Cases that Contain Substring in Custom Field [\#128](https://github.com/TheHive-Project/TheHive4py/issues/128)
+- FR: Download file from task log [\#112](https://github.com/TheHive-Project/TheHive4py/issues/112)
 - Add attachment download support [\#204](https://github.com/TheHive-Project/TheHive4py/issues/204)
 - Add method to merge an alert into a case [\#197](https://github.com/TheHive-Project/TheHive4py/issues/197)
 - Add support to ignoreSimilarity attribute [\#194](https://github.com/TheHive-Project/TheHive4py/issues/194)
-- Query ContainsString not working [\#193](https://github.com/TheHive-Project/TheHive4py/issues/193)
 - Missing function delete\_case\_task [\#190](https://github.com/TheHive-Project/TheHive4py/issues/190)
 - \[Bug\] Get\_Case\_Template broken in TheHive 4 [\#183](https://github.com/TheHive-Project/TheHive4py/issues/183)
-- \[Bug\] Cannot create Case Observable on TheHive4 despite manageObservable Permission [\#179](https://github.com/TheHive-Project/TheHive4py/issues/179)
 - Add support to alert.externalLink attribute [\#169](https://github.com/TheHive-Project/TheHive4py/issues/169)
 - Create enumerations for enumerated data [\#161](https://github.com/TheHive-Project/TheHive4py/issues/161)
 - Add find\_task\_logs function [\#160](https://github.com/TheHive-Project/TheHive4py/issues/160)
 - Add PAP field to alert [\#159](https://github.com/TheHive-Project/TheHive4py/issues/159)
 - Add find\_observables method [\#157](https://github.com/TheHive-Project/TheHive4py/issues/157)
-- Querying for Cases that Contain Substring in Custom Field [\#128](https://github.com/TheHive-Project/TheHive4py/issues/128)
-- FR: Download file from task log [\#112](https://github.com/TheHive-Project/TheHive4py/issues/112)
+- Allow passing in file-like objects to alert artifacts [\#136](https://github.com/TheHive-Project/TheHive4py/issues/136)
 - Allow file observable creation from memory [\#35](https://github.com/TheHive-Project/TheHive4py/issues/35)
 
 **Merged pull requests:**
 
+- Fixed typo in explanation part of some functions in query.py [\#199](https://github.com/TheHive-Project/TheHive4py/pull/199) ([fwalloe](https://github.com/fwalloe))
 - Get case observable function [\#206](https://github.com/TheHive-Project/TheHive4py/pull/206) ([jeffrey-e](https://github.com/jeffrey-e))
 - Add method to delete alert [\#202](https://github.com/TheHive-Project/TheHive4py/pull/202) ([haam3r](https://github.com/haam3r))
 - Make get\_task\_logs\(\) use 'api/case/task/log/\_search/'  [\#200](https://github.com/TheHive-Project/TheHive4py/pull/200) ([jnahorny](https://github.com/jnahorny))
-- Fixed typo in explanation part of some functions in query.py [\#199](https://github.com/TheHive-Project/TheHive4py/pull/199) ([fwalloe](https://github.com/fwalloe))
 - Use dict key lookup instead of hasattr [\#196](https://github.com/TheHive-Project/TheHive4py/pull/196) ([Kamforka](https://github.com/Kamforka))
 - Implement case task deletion via patch request [\#191](https://github.com/TheHive-Project/TheHive4py/pull/191) ([gelim](https://github.com/gelim))
 - Add delete\_case\_observable method to api [\#189](https://github.com/TheHive-Project/TheHive4py/pull/189) ([p-tekh](https://github.com/p-tekh))
