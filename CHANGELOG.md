@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/TheHive-Project/TheHive4py/tree/HEAD)
-
-[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.8.0...HEAD)
+## [1.8.1](https://github.com/TheHive-Project/TheHive4py/tree/1.8.1) (2021-01-13)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.8.0...1.8.1)
 
 **Fixed bugs:**
 
