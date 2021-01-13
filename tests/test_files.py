@@ -15,7 +15,7 @@ def test_file_observable_named_file(mock_post):
     test_id = 'AV55EOIsPQ_zDQrlj4a9'
     with mock.patch('thehive4py.models.open', mock.mock_open()):
         file_observable = CaseObservable(dataType='file',
-                                         data=['pic.png'],
+                                         data='pic.png',
                                          tlp=1,
                                          ioc=True,
                                          tags=['thehive4py'],
@@ -34,7 +34,7 @@ def test_file_observable_file_object(mock_post):
     our_file = mock.Mock(wraps=StringIO(u'contents of file'))
     with mock.patch('thehive4py.models.open', mock.mock_open()):
         file_observable = CaseObservable(dataType='file',
-                                         data=[(our_file, 'pic.png')],
+                                         data=(our_file, 'pic.png'),
                                          tlp=1,
                                          ioc=True,
                                          tags=['thehive4py'],
