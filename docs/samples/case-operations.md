@@ -63,8 +63,8 @@ try:
   # Print the JSON response 
   print(json.dumps(response.json(), indent=4, sort_keys=True))
 
-except AlertException as e:
-  print("Alert create error: {}".format(e))
+except CaseException as e:
+  print("Case create error: {}".format(e))
 
 
 # Exit the program
