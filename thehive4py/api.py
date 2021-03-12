@@ -4,11 +4,9 @@
 import json
 import sys
 
-import magic
 import os
 import warnings
 import json
-import magic
 import requests
 
 from thehive4py.auth import BasicAuth, BearerAuth
