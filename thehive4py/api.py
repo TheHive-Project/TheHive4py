@@ -15,6 +15,7 @@ from thehive4py.auth import BasicAuth, BearerAuth
 from thehive4py.models import CaseHelper, Version
 from thehive4py.query import Parent, Id, And, Eq
 from thehive4py.exceptions import *
+from thehive4py.utils import *
 
 
 class TheHiveApi:
@@ -205,6 +206,30 @@ class TheHiveApi:
             'resolutionStatus', 'impactStatus', 'summary', 'endDate', 'metrics', 'customFields'
         ]
         data = {k: v for k, v in case.__dict__.items() if (len(fields) > 0 and k in fields) or (len(fields) == 0 and k in update_keys)}
+        try:
+            return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseException("Case update error: {}".format(e))
+
+    def update_case_customfields(self, case, fields):
+        """
+        Update custom fields in a case. Only the fields specified are updated.
+
+        Arguments:
+            case (Case): Instance of [Case][thehive4py.models.Case] to update. The case's `id` determines which case to update.
+            fields (Array): An array of custom fields names, the ones we want to update
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of a case
+
+        Raises:
+            CaseException: An error occured during case update
+        """
+        req = self.url + "/api/case/{}".format(case.id)
+
+        data = {'customFields': {k: v for k, v in case.customFields.items() if k in fields}}
+        data = flatten_dict(data)
+
         try:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
