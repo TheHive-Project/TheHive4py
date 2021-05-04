@@ -1407,3 +1407,30 @@ class TheHiveApi:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable update error: {}".format(e))
+
+    def run_responder(self, responder_id, object_type, object_id):
+        """
+        Run a responder by its ID.
+
+        Arguments:
+            responder_id: identifier of the Cortex responder
+            object_type: type of the object on which to run the responder (e.g. "case_task")
+            object_id: identifier of the object on which to run the responder  (e.g. a task id) 
+            
+        Returns:
+            response (requests.Response): Response object including a JSON representation of the responder job
+
+        Raises:
+            TheHiveException: An error occured during job creation
+        """
+        
+        req = self.url + "/api/connector/cortex/action"
+
+        try:
+            data = json.dumps({ "responderId": responder_id,
+                "objectType": object_type,
+                "objectId": object_id
+                })
+            return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Responder run error: {}".format(e))
