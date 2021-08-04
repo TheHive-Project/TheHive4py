@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from concurrent.futures import ThreadPoolExecutor
 import json
 import sys
 
@@ -372,6 +373,27 @@ class TheHiveApi:
                 return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
             except requests.exceptions.RequestException as e:
                 raise CaseObservableException("Case observable create error: {}".format(e))
+
+    def create_case_observables(self, case_id, case_observables):
+        """
+        Create multiple case observables in parallel
+
+        Arguments:
+            case_id (str): Case identifier
+            case_observables (Array): Array of [CaseObservable][thehive4py.models.CaseObservable]
+
+        Returns:
+            response (Array): Array of (requests.Response) objects including a JSON description of a case observable
+
+        Raises:
+            CaseObservableException: An error occured during case observable creation
+        """
+        futures = []
+        with ThreadPoolExecutor() as executor:
+            for case_observable in case_observables:
+                executor.submit(self.create_case_observable, case_id, case_observable)
+
+        return [future.result() for future in futures]
 
     def delete_case_observable(self, observable_id):
         """
