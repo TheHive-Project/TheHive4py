@@ -743,9 +743,17 @@ class TheHiveApi:
             'key': 'reference',
             'value': custom_field.reference
         }
-        req = self.url + "/api/list/custom_fields/_exists"
-        response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
-        return response.json().get('found', 'False')
+        if self.__isVersion(Version.THEHIVE_3.value):
+            req = self.url + "/api/list/custom_fields/_exists"
+            response = requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            return response.json().get('found', 'False')
+        else:
+            req = self.url + "/api/customField/" + custom_field.reference
+            response = requests.get(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+            if (response.status_code) == 404:
+                return False
+            else:
+                return 'found'
 
     def create_custom_field(self, custom_field):
         """
@@ -755,14 +763,11 @@ class TheHiveApi:
             custom_field (CustomField): Instance of [CustomField][thehive4py.models.CustomField]
 
         Returns:
-            response (requests.Response): Response object including a JSON representation of the case template
+            response (requests.Response): Response object including a JSON representation of the custom field
 
         Raises:
             CustomFieldException: Custom field already exists
             CustomFieldException: An error occured during custom field creation
-
-        !!! Warning
-            This function is available only for TheHive 3
         """
 
         if self._check_if_custom_field_exists(custom_field):
@@ -778,7 +783,12 @@ class TheHiveApi:
                 "mandatory": custom_field.mandatory
                 }
             }
-        req = self.url + "/api/list/custom_fields"
+
+        if self.__isVersion(Version.THEHIVE_3.value):
+            req = self.url + "/api/list/custom_fields"
+        else:
+            req = self.url + "/api/customField"
+            data = data['value']
         try:
             return requests.post(req, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
