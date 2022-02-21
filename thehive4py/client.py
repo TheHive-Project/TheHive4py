@@ -1,8 +1,6 @@
 from thehive4py.endpoints import (
     AlertEndpoint,
-    AuditEndpoint,
     CaseEndpoint,
-    CortexEndpoint,
     ObservableEndpoint,
     TaskEndpoint,
     UserEndpoint,
@@ -29,12 +27,11 @@ class TheHiveApi:
             verify=verify,
         )
 
-        self.audit = AuditEndpoint(session)
+        # case management endpoints
         self.alert = AlertEndpoint(session)
         self.case = CaseEndpoint(session)
         self.observable = ObservableEndpoint(session)
         self.task = TaskEndpoint(session)
-        self.user = UserEndpoint(session)
 
-        # connectors
-        self.cortex = CortexEndpoint(session)
+        # user management endpoints
+        self.user = UserEndpoint(session)
