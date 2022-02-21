@@ -30,6 +30,7 @@ class TheHiveSession(requests.Session):
         super().__init__()
         self.url = self._sanitize_url(url)
         self.verify = verify
+        self.headers["User-Agent"] = f"thehive4py/{__version__}"
 
         if organisation:
             self.headers["X-Organisation"] = organisation
