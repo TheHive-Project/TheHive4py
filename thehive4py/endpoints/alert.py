@@ -5,7 +5,12 @@ from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
 from thehive4py.query.page import Paginate
 from thehive4py.query.sort import SortExpr
-from thehive4py.types.alert import InputAlert, OutputAlert
+from thehive4py.types.alert import (
+    InputAlert,
+    InputBulkUpdateAlert,
+    InputUpdateAlert,
+    OutputAlert,
+)
 from thehive4py.types.case import OutputCase
 from thehive4py.types.observable import InputObservable, OutputObservable
 
@@ -14,37 +19,58 @@ class AlertEndpoint(EndpointBase):
     def create(self, alert: InputAlert) -> OutputAlert:
         return self._session.make_request("POST", path="/api/v1/alert", json=alert)
 
-    def get(self, id_or_name: str) -> OutputAlert:
-        return self._session.make_request("GET", path=f"/api/v1/alert/{id_or_name}")
+    def get(self, alert_id: str) -> OutputAlert:
+        return self._session.make_request("GET", path=f"/api/v1/alert/{alert_id}")
 
-    def update(self, id_or_name: str, fields: dict) -> None:
-        # NOTE: the returned custom field format is causing errors during update
-        # needs more investigation, for now it is not supported and popped out
-        fields.pop("customFields", None)
-
-        self._session.make_request(
-            "PATCH", path=f"/api/v1/alert/{id_or_name}", json=fields
+    def update(self, alert_id: str, fields: InputUpdateAlert) -> None:
+        return self._session.make_request(
+            "PATCH", path=f"/api/v1/alert/{alert_id}", json=fields
         )
 
-    def delete(self, id_or_name: str) -> None:
-        # NOTE: no delete route in v1 routes
-        self._session.make_request("DELETE", path=f"/api/alert/{id_or_name}")
+    def delete(self, alert_id: str) -> None:
+        return self._session.make_request("DELETE", path=f"/api/v1/alert/{alert_id}")
 
-    def read(self, id_or_name: str) -> None:
-        self._session.make_request("POST", path=f"/api/v1/alert/{id_or_name}/read")
-
-    def unread(self, id_or_name: str) -> None:
-        self._session.make_request("POST", path=f"/api/v1/alert/{id_or_name}/unread")
-
-    def follow(self, id_or_name: str) -> None:
-        self._session.make_request("POST", path=f"/api/v1/alert/{id_or_name}/follow")
-
-    def unfollow(self, id_or_name: str) -> None:
-        self._session.make_request("POST", path=f"/api/v1/alert/{id_or_name}/unfollow")
-
-    def promote_to_case(self, id_or_name: str) -> OutputCase:
+    def bulk_update(self, fields: InputBulkUpdateAlert) -> None:
         return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{id_or_name}/case"
+            "PATCH", path="/api/v1/alert/_bulk", json=fields
+        )
+
+    def bulk_delete(self, ids: List[str]) -> None:
+        return self._session.make_request(
+            "POST", path="/api/v1/alert/delete/_bulk", json={"ids": ids}
+        )
+
+    def follow(self, alert_id: str) -> None:
+        self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/follow")
+
+    def unfollow(self, alert_id: str) -> None:
+        self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/unfollow")
+
+    def promote_to_case(self, alert_id: str) -> OutputCase:
+        return self._session.make_request(
+            "POST",
+            path=f"/api/v1/alert/{alert_id}/case",
+            json={"placholder": ""},  # TODO: replace with optional body definition
+        )
+
+    def create_observable(
+        self, alert_id: str, observable: InputObservable
+    ) -> List[OutputObservable]:
+        # TODO: implement bulk creation with isZip
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{alert_id}/artifact", json=observable
+        )
+
+    def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{alert_id}/merge/{case_id}"
+        )
+
+    def bulk_merge_into_case(self, case_id: str, alert_ids: List[str]) -> OutputCase:
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/alert/merge/_bulk",
+            json={"caseId": case_id, "alertIds": alert_ids},
         )
 
     def find(
@@ -70,7 +96,7 @@ class AlertEndpoint(EndpointBase):
         query: QueryExpr = [
             {"_name": "listAlert"},
             *self._build_subquery(filters=filters),
-            {"_name": "limitedCount"},
+            {"_name": "count"},
         ]
 
         return self._session.make_request(
@@ -80,23 +106,15 @@ class AlertEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def create_observable(
-        self, id_or_name: str, observable: InputObservable
-    ) -> OutputObservable:
-        # NOTE: the backend return the observable in a list
-        return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{id_or_name}/artifact", json=observable
-        )[0]
-
     def find_observables(
         self,
-        id_or_name: str,
+        alert_id: str,
         filters: FilterExpr = None,
         sortby: SortExpr = None,
         paginate: Paginate = None,
     ) -> List[OutputObservable]:
         query: QueryExpr = [
-            {"_name": "getAlert", "idOrName": id_or_name},
+            {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "observables"},
             *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
         ]

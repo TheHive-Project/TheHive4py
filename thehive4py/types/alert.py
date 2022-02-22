@@ -20,6 +20,9 @@ class InputAlert(InputAlertRequired, total=False):
     tlp: int
     pap: int
     customFieldValue: List[InputCustomFieldValue]
+    summary: str
+    status: str
+    caseTemplate: str
 
 
 class OutputAlertRequired(TypedDict):
@@ -34,13 +37,12 @@ class OutputAlertRequired(TypedDict):
     description: str
     severity: int
     date: int
-    tags: List[str]
     tlp: int
     pap: int
-    read: bool
     follow: bool
-    customFields: List[OutputCustomFieldValue]
     observableCount: int
+    status: str
+    stage: str
     extraData: dict
 
 
@@ -48,5 +50,31 @@ class OutputAlert(OutputAlertRequired, total=False):
     _updatedBy: str
     _updatedAt: int
     externalLink: str
+    tags: List[str]
+    customFields: List[OutputCustomFieldValue]
     caseTemplate: str
     caseId: str
+    summary: str
+
+
+class InputUpdateAlert(TypedDict, total=False):
+    type: str
+    source: str
+    sourceRef: str
+    externalLink: str
+    title: str
+    description: str
+    severity: int
+    date: int
+    lastSyncDate: int
+    tags: List[str]
+    tlp: int
+    pap: int
+    follow: bool
+    customFields: List[InputCustomFieldValue]
+    status: str
+    summary: str
+
+
+class InputBulkUpdateAlert(InputUpdateAlert):
+    ids: List[str]
