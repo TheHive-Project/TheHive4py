@@ -5,18 +5,21 @@ Attachment = Any  # TODO: find the most suitable type
 
 class InputObservableRequired(TypedDict):
     dataType: str
-    data: str
 
 
 class InputObservable(InputObservableRequired, total=False):
+    data: str
     message: str
     startDate: int
-    attachment: Attachment
     tlp: int
+    pap: int
     tags: List[str]
     ioc: bool
     sighted: bool
+    sightedAt: int
     ignoreSimilarity: bool
+    isZip: bool
+    zipPassword: bool
 
 
 class OutputObservableRequired(TypedDict):
@@ -27,11 +30,12 @@ class OutputObservableRequired(TypedDict):
     dataType: str
     startDate: int
     tlp: int
-    tags: List[str]
+    pap: int
     ioc: bool
     sighted: bool
     reports: dict
     extraData: dict
+    ignoreSimilarity: bool
 
 
 class OutputObservable(OutputObservableRequired, total=False):
@@ -39,5 +43,6 @@ class OutputObservable(OutputObservableRequired, total=False):
     _updatedAt: int
     data: str
     attachment: Attachment
+    tags: List[str]
+    sightedAt: int
     message: str
-    ignoreSimilarity: bool

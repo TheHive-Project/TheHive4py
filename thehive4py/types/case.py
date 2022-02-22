@@ -1,27 +1,29 @@
 from typing import List, Literal, TypedDict
 
-from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
+from thehive4py.types.share import InputShare
 
-CaseStatusValue = Literal["Open", "Resolved", "Duplicated"]
+from .custom_field import InputCustomFieldValue, OutputCustomFieldValue
+from .task import InputTask
 
-
-class CaseStatus:
-    Open: CaseStatusValue = "Open"
-    Resolved: CaseStatusValue = "Resolved"
-    Duplicated: CaseStatusValue = "Duplicated"
-
-
-ResolutionStatusValue = Literal[
-    "Indeterminate", "FalsePositive", "TruePositive", "Other", "Duplicated"
+CaseStatusValue = Literal[
+    "New",
+    "InProgress",
+    "Indeterminate",
+    "FalsePositive",
+    "TruePositive",
+    "Other",
+    "Duplicated",
 ]
 
 
-class ResolutionStatus:
-    Indeterminate: ResolutionStatusValue = "Indeterminate"
-    FalsePositive: ResolutionStatusValue = "FalsePositive"
-    TruePositive: ResolutionStatusValue = "TruePositive"
-    Other: ResolutionStatusValue = "Other"
-    Duplicated: ResolutionStatusValue = "Duplicated"
+class CaseStatus:
+    New: CaseStatusValue = "New"
+    InProgress: CaseStatusValue = "InProgress"
+    Indeterminate: CaseStatusValue = "Indeterminate"
+    FalsePositive: CaseStatusValue = "FalsePositive"
+    TruePositive: CaseStatusValue = "TruePositive"
+    Other: CaseStatusValue = "Other"
+    Duplicated: CaseStatusValue = "Duplicated"
 
 
 ImpactStatusValue = Literal["NotApplicable", "WithImpact", "NoImpact"]
@@ -39,6 +41,7 @@ class InputCaseRequired(TypedDict):
 
 
 class InputCase(InputCaseRequired, total=False):
+    severity: int
     startDate: int
     endDate: int
     tags: List[str]
@@ -49,6 +52,11 @@ class InputCase(InputCaseRequired, total=False):
     summary: str
     user: str
     customFieldValues: List[InputCustomFieldValue]
+    caseTemplate: str
+    tasks: List[InputTask]
+    sharingParameters: List[dict]  # TODO: add better typing
+    taskRule: str
+    observableRule: str
 
 
 class OutputCaseRequired(TypedDict):
@@ -61,11 +69,11 @@ class OutputCaseRequired(TypedDict):
     description: str
     severity: int
     startDate: int
-    tags: List[str]
     flag: bool
     tlp: int
     pap: int
     status: CaseStatusValue
+    stage: str
     extraData: dict
 
 
@@ -73,8 +81,42 @@ class OutputCase(OutputCaseRequired, total=False):
     _updatedBy: str
     _updatedAt: int
     endDate: int
+    tags: List[str]
     summary: str
     impactStatus: ImpactStatusValue
-    resolutionStatus: ResolutionStatusValue
     assignee: str
     customFields: List[OutputCustomFieldValue]
+    userPermissions: List[str]
+
+
+class InputUpdateCase(TypedDict, total=False):
+    title: str
+    description: str
+    severity: int
+    startDate: int
+    endDate: int
+    tags: List[str]
+    flag: bool
+    tlp: int
+    pap: int
+    status: str
+    summary: str
+    assignee: str
+    impactStatus: str
+    customFields: List[InputCustomFieldValue]
+    taskRule: str
+    observableRule: str
+
+
+class InputBulkUpdateCase(InputUpdateCase):
+    ids: List[str]
+
+
+class InputImportCaseRequired(TypedDict):
+    password: str
+
+
+class InputImportCase(InputImportCaseRequired, total=False):
+    sharingParameters: List[InputShare]
+    taskRule: str
+    observableRule: str

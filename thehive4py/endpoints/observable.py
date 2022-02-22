@@ -23,20 +23,20 @@ class ObservableEndpoint(EndpointBase):
 
     def get(self, observable_id: str) -> OutputObservable:
         return self._session.make_request(
-            "GET", path=f"/api/observable/{observable_id}"
+            "GET", path=f"/api/v1/observable/{observable_id}"
         )
 
     def delete(self, observable_id: str) -> None:
         return self._session.make_request(
-            "DELETE", path=f"/api/observable/{observable_id}"
+            "DELETE", path=f"/api/v1/observable/{observable_id}"
         )
 
     def update(self, observable_id: str, fields: dict) -> None:
         return self._session.make_request(
-            "PATCH", path=f"/api/observable/{observable_id}", json=fields
+            "PATCH", path=f"/api/v1/observable/{observable_id}", json=fields
         )
 
     def update_bulk(self, bulk_fields: List[dict]) -> None:
         return self._session.make_request(
-            "PATCH", path="/api/observable/_bulk", json=bulk_fields
+            "PATCH", path="/api/observable/v1/_bulk", json=bulk_fields
         )

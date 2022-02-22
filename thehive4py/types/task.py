@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import List, TypedDict
 
 
 class InputTaskRequired(TypedDict):
@@ -27,7 +27,7 @@ class OutputTaskRequired(TypedDict):
     status: str
     flag: bool
     order: int
-    extreData: dict
+    extraData: dict
 
 
 class OutputTask(OutputTaskRequired, total=False):
@@ -38,3 +38,20 @@ class OutputTask(OutputTaskRequired, total=False):
     endDate: int
     assignee: str
     dueDate: int
+
+
+class InputUpdateTask(TypedDict, total=False):
+    title: str
+    group: str
+    description: str
+    status: str
+    flag: bool
+    startDate: int
+    endDate: int
+    order: int
+    dueDate: int
+    assignee: str
+
+
+class InputBulkUpdateTask(InputUpdateTask):
+    ids: List[str]

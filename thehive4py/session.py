@@ -1,10 +1,12 @@
 import json as jsonlib
 from collections import UserDict
 from json.decoder import JSONDecodeError
+from typing import Any
 
 import requests
 import requests.auth
 
+from thehive4py import __version__
 from thehive4py.errors import TheHiveError
 
 
@@ -58,28 +60,34 @@ class TheHiveSession(requests.Session):
         params=None,
         data=None,
         json=None,
-    ):
+        files=None,
+        download_path=None,
+    ) -> Any:
         if path.startswith("/"):
             url = f"{self.url}{path}"
         else:
             url = f"{self.url}/api/v1/{path}"
 
+        headers = {**self.headers}
+
         if json:
             data = jsonlib.dumps(json, cls=SessionJSONEncoder)
-            self.headers["Content-Type"] = "application/json"
+            headers = {**headers, "Content-Type": "application/json"}
 
         response = self.request(
             method,
             url=url,
             params=params,
             data=data,
-            headers=self.headers,
+            files=files,
+            headers=headers,
             verify=self.verify,
+            stream=bool(download_path),
         )
 
-        return self._process_response(response)
+        return self._process_response(response, download_path=download_path)
 
-    def _process_response(self, response: requests.Response):
+    def _process_response(self, response: requests.Response, download_path=None):
         try:
             json_data = response.json()
         except JSONDecodeError:
@@ -99,6 +107,11 @@ class TheHiveSession(requests.Session):
 
             raise TheHiveError(error_text)
         else:
-            if json_data is None:
-                return response.text
-            return json_data
+            if download_path:
+                with open(download_path, "wb") as download_fp:
+                    for chunk in response.iter_content(chunk_size=4096):
+                        download_fp.write(chunk)
+            else:
+                if json_data is None:
+                    return response.text
+                return json_data
