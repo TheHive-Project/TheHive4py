@@ -99,7 +99,9 @@ def reinit_hive_container(client: TheHiveApi) -> None:
 
     alerts = client.alert.find()
     cases = client.case.find()
+    observables = client.case.find()
 
     with ThreadPoolExecutor() as executor:
         executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
         executor.map(client.case.delete, [case["_id"] for case in cases])
+        executor.map(client.observable.delete, [ob["_id"] for ob in observables])
