@@ -62,7 +62,7 @@ def build_container_url(container_name: str) -> str:
 
 
 def run_hive_container(
-    container_name: str, container_image: str = "thehive4py-thehive"
+    container_name: str, container_image: str = "thehive4py-thehive:5.0.0"
 ):
     subprocess.run(
         shlex.split(
