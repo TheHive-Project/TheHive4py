@@ -5,6 +5,7 @@ import pytest
 from thehive4py.client import TheHiveApi
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
+from thehive4py.types.task import InputTask, OutputTask
 
 from tests.utils import Container, reinit_hive_container, spawn_hive_container
 
@@ -86,6 +87,18 @@ def test_cases(thehive: TheHiveApi) -> List[OutputCase]:
     return [thehive.case.create(case=case) for case in cases]
 
 
+@pytest.fixture
+def test_task(test_case: OutputCase, thehive: TheHiveApi) -> OutputTask:
+    return thehive.task.create(
+        case_id=test_case["_id"],
+        task={"title": "my first task"},
     )
-    reinit_hive_container(client)
-    yield client
+
+
+@pytest.fixture
+def test_tasks(thehive: TheHiveApi, test_case: OutputCase) -> List[OutputTask]:
+    tasks: List[InputTask] = [
+        {"title": "my first task"},
+        {"title": "my second task"},
+    ]
+    return [thehive.task.create(case_id=test_case["_id"], task=task) for task in tasks]
