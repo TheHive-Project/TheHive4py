@@ -3,6 +3,7 @@ from thehive4py.endpoints import (
     CaseEndpoint,
     ObservableEndpoint,
     TaskEndpoint,
+    TaskLogEndpoint,
     UserEndpoint,
 )
 from thehive4py.session import TheHiveSession
@@ -32,6 +33,7 @@ class TheHiveApi:
         self.case = CaseEndpoint(session)
         self.observable = ObservableEndpoint(session)
         self.task = TaskEndpoint(session)
+        self.task_log = TaskLogEndpoint(session)
 
         # user management endpoints
         self.user = UserEndpoint(session)

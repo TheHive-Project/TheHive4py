@@ -26,3 +26,8 @@ class OutputTaskLog(OutputTaskLogRequired, total=False):
     _updatedAt: int
     attachments: List[dict]  # TODO: typehint
     includeInTimeline: int
+
+
+class InputUpdateTaskLog(TypedDict, total=False):
+    message: str
+    includeInTimeline: int
