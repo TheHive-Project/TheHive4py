@@ -5,6 +5,7 @@ import pytest
 from thehive4py.client import TheHiveApi
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
+from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.task import InputTask, OutputTask
 from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
@@ -169,3 +170,11 @@ def test_task_logs(thehive: TheHiveApi, test_task: OutputTask) -> List[OutputTas
         thehive.task_log.create(task_id=test_task["_id"], task_log=task_log)
         for task_log in task_logs
     ]
+
+
+@pytest.fixture
+def test_comment(thehive: TheHiveApi, test_case: OutputCase) -> OutputComment:
+    return thehive.comment.create_in_case(
+        case_id=test_case["_id"],
+        comment={"message": "my first comment"},
+    )
