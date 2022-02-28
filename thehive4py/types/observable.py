@@ -1,6 +1,6 @@
 from typing import Any, List, TypedDict
 
-Attachment = Any  # TODO: find the most suitable type
+from thehive4py.types.attachment import OutputAttachment
 
 
 class InputObservableRequired(TypedDict):
@@ -42,7 +42,23 @@ class OutputObservable(OutputObservableRequired, total=False):
     _updatedBy: str
     _updatedAt: int
     data: str
-    attachment: Attachment
+    attachment: OutputAttachment
     tags: List[str]
     sightedAt: int
     message: str
+
+
+class InputUpdateObservable(TypedDict, total=False):
+    dataType: str
+    message: str
+    tlp: int
+    pap: int
+    tags: List[str]
+    ioc: bool
+    sighted: bool
+    sightedAt: int
+    ignoreSimilarity: bool
+
+
+class InputBulkUpdateObservable(InputUpdateObservable):
+    ids: List[str]
