@@ -1,4 +1,10 @@
 import datetime as dt
+import time
+
+
+def now_to_ts() -> int:
+    """Return now as TheHive timestamp."""
+    return int(time.time() * 1000)
 
 
 def dt_to_ts(datetime: dt.datetime) -> int:
