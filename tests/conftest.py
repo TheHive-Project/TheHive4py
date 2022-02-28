@@ -5,7 +5,9 @@ import pytest
 from thehive4py.client import TheHiveApi
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
+from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.task import InputTask, OutputTask
+from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 
 from tests.utils import Container, reinit_hive_container, spawn_hive_container
 
@@ -88,7 +90,52 @@ def test_cases(thehive: TheHiveApi) -> List[OutputCase]:
 
 
 @pytest.fixture
-def test_task(test_case: OutputCase, thehive: TheHiveApi) -> OutputTask:
+def test_observable(thehive: TheHiveApi, test_case: OutputCase) -> OutputObservable:
+    return thehive.observable.create_in_case(
+        case_id=test_case["_id"],
+        observable={
+            "dataType": "domain",
+            "data": "example.com",
+            "message": "test observable",
+            "tlp": 1,
+            "pap": 1,
+            "tags": ["test-tag"],
+        },
+    )[0]
+
+
+@pytest.fixture
+def test_observables(
+    thehive: TheHiveApi, test_case: OutputCase
+) -> List[OutputObservable]:
+    observables: List[InputObservable] = [
+        {
+            "dataType": "domain",
+            "data": "example.com",
+            "message": "test observable",
+            "tlp": 1,
+            "pap": 1,
+            "tags": ["test-tag"],
+        },
+        {
+            "dataType": "ip",
+            "data": "127.0.0.1",
+            "message": "test observable",
+            "tlp": 2,
+            "pap": 2,
+            "tags": ["test-tag"],
+        },
+    ]
+    return [
+        thehive.observable.create_in_case(
+            case_id=test_case["_id"], observable=observable
+        )[0]
+        for observable in observables
+    ]
+
+
+@pytest.fixture
+def test_task(thehive: TheHiveApi, test_case: OutputCase) -> OutputTask:
     return thehive.task.create(
         case_id=test_case["_id"],
         task={"title": "my first task"},
