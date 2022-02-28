@@ -102,3 +102,23 @@ def test_tasks(thehive: TheHiveApi, test_case: OutputCase) -> List[OutputTask]:
         {"title": "my second task"},
     ]
     return [thehive.task.create(case_id=test_case["_id"], task=task) for task in tasks]
+
+
+@pytest.fixture
+def test_task_log(thehive: TheHiveApi, test_task: OutputTask) -> OutputTaskLog:
+    return thehive.task_log.create(
+        task_id=test_task["_id"],
+        task_log={"message": "test log"},
+    )
+
+
+@pytest.fixture
+def test_task_logs(thehive: TheHiveApi, test_task: OutputTask) -> List[OutputTaskLog]:
+    task_logs: List[InputTaskLog] = [
+        {"message": "my first log"},
+        {"message": "my second log"},
+    ]
+    return [
+        thehive.task_log.create(task_id=test_task["_id"], task_log=task_log)
+        for task_log in task_logs
+    ]
