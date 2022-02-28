@@ -1,6 +1,7 @@
 from thehive4py.endpoints import (
     AlertEndpoint,
     CaseEndpoint,
+    CommentEndpoint,
     ObservableEndpoint,
     TaskEndpoint,
     TaskLogEndpoint,
@@ -31,6 +32,7 @@ class TheHiveApi:
         # case management endpoints
         self.alert = AlertEndpoint(session)
         self.case = CaseEndpoint(session)
+        self.comment = CommentEndpoint(session)
         self.observable = ObservableEndpoint(session)
         self.task = TaskEndpoint(session)
         self.task_log = TaskLogEndpoint(session)
