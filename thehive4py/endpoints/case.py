@@ -19,7 +19,7 @@ from thehive4py.types.case import (
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.share import InputShare, OutputShare
 from thehive4py.types.task import InputTask, OutputTask
-from thehive4py.types.timeline import OutputTimelineEvent
+from thehive4py.types.timeline import OutputTimeline
 
 CaseId = Union[str, int]
 
@@ -88,7 +88,7 @@ class CaseEndpoint(EndpointBase):
             download_path=export_path,
         )
 
-    def get_timeline(self, case_id: CaseId) -> OutputTimelineEvent:
+    def get_timeline(self, case_id: CaseId) -> OutputTimeline:
         return self._session.make_request("GET", f"/api/v1/case/{case_id}/timeline")
 
     def add_attachment(
@@ -134,6 +134,11 @@ class CaseEndpoint(EndpointBase):
     def remove_share(self, share_id: str) -> None:
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/share/{share_id}"
+        )
+
+    def update_share(self, share_id: str, profile: str) -> None:
+        return self._session.make_request(
+            "PATCH", path=f"/api/v1/case/share/{share_id}", json={"profile": profile}
         )
 
     def find(
@@ -196,11 +201,13 @@ class CaseEndpoint(EndpointBase):
         )
 
     def create_observable(
-        self, case_id: CaseId, observable: InputObservable
+        self, case_id: CaseId, observable: InputObservable, observable_path: str = None
     ) -> List[OutputObservable]:
-        # TODO: implement bulk creation with isZip
+        kwargs = self._build_observable_kwargs(
+            observable=observable, observable_path=observable_path
+        )
         return self._session.make_request(
-            "POST", path=f"/api/v1/case/{case_id}/observable", json=observable
+            "POST", path=f"/api/v1/case/{case_id}/observable", **kwargs
         )
 
     def find_observables(

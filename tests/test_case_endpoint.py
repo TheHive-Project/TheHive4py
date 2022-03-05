@@ -134,7 +134,7 @@ class TestCaseEndpoint:
 
     def test_get_timeline(self, thehive: TheHiveApi, test_case: OutputCase):
         timeline = thehive.case.get_timeline(case_id=test_case["_id"])
-        assert timeline
+        assert timeline["events"]
 
     def test_add_and_download_attachment(
         self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
@@ -202,6 +202,19 @@ class TestCaseEndpoint:
         thehive.case.remove_share(share_id=shares[0]["_id"])
         assert len(thehive.case.list_shares(case_id=test_case["_id"])) == 0
 
+    @pytest.mark.skip(reason="patch endpoint errors out")
+    def test_update_share(self, thehive: TheHiveApi, test_case: OutputCase):
+        organisation = "share-org"
+        share: InputShare = {"organisation": organisation, "profile": "read-only"}
+
+        created_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
+
+        update_profile = "read-only"
+        thehive.case.update_share(share_id=created_share["_id"], profile=update_profile)
+
+        updated_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
+        assert updated_share["profileName"] == update_profile
+
     def test_find_and_count(self, thehive: TheHiveApi, test_cases: List[OutputCase]):
         filters = Eq("title", test_cases[0]["title"]) | Eq(
             "title", test_cases[1]["title"]
@@ -231,6 +244,30 @@ class TestCaseEndpoint:
         )
         case_observables = thehive.case.find_observables(test_case["_id"])
         assert created_observables == case_observables
+
+    def test_create_observable_from_file(
+        self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
+    ):
+        observable_path = str(tmp_path / "case-observable.txt")
+        with open(observable_path, "w") as observable_fp:
+            observable_fp.write("observable content")
+
+        created_observable = thehive.observable.create_in_case(
+            case_id=test_case["_id"],
+            observable={
+                "dataType": "file",
+                "message": "file based observable",
+            },
+            observable_path=observable_path,
+        )[0]
+
+        fetched_observable = thehive.observable.get(
+            observable_id=created_observable["_id"]
+        )
+        assert created_observable == fetched_observable
+
+        attachment = fetched_observable.get("attachment")
+        assert attachment and attachment["name"] in observable_path
 
     def test_create_and_get_task(self, thehive: TheHiveApi, test_case: OutputCase):
 

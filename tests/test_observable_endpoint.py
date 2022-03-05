@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 import pytest
@@ -31,6 +32,30 @@ class TestObservableEndpoint:
         )
         assert created_observable == fetched_observable
 
+    def test_create_in_alert_from_file(
+        self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
+    ):
+        observable_path = str(tmp_path / "alert-observable.txt")
+        with open(observable_path, "w") as observable_fp:
+            observable_fp.write("observable content")
+
+        created_observable = thehive.observable.create_in_alert(
+            alert_id=test_alert["_id"],
+            observable={
+                "dataType": "file",
+                "message": "file based observable",
+            },
+            observable_path=observable_path,
+        )[0]
+
+        fetched_observable = thehive.observable.get(
+            observable_id=created_observable["_id"]
+        )
+        assert created_observable == fetched_observable
+
+        attachment = fetched_observable.get("attachment")
+        assert attachment and attachment["name"] in observable_path
+
     def test_create_in_case_and_get(self, thehive: TheHiveApi, test_case: OutputCase):
         created_observable = thehive.observable.create_in_case(
             case_id=test_case["_id"],
@@ -45,6 +70,30 @@ class TestObservableEndpoint:
             observable_id=created_observable["_id"]
         )
         assert created_observable == fetched_observable
+
+    def test_create_in_case_from_file(
+        self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
+    ):
+        observable_path = str(tmp_path / "case-observable.txt")
+        with open(observable_path, "w") as observable_fp:
+            observable_fp.write("observable content")
+
+        created_observable = thehive.observable.create_in_case(
+            case_id=test_case["_id"],
+            observable={
+                "dataType": "file",
+                "message": "file based observable",
+            },
+            observable_path=observable_path,
+        )[0]
+
+        fetched_observable = thehive.observable.get(
+            observable_id=created_observable["_id"]
+        )
+        assert created_observable == fetched_observable
+
+        attachment = fetched_observable.get("attachment")
+        assert attachment and attachment["name"] in observable_path
 
     def test_delete(self, thehive: TheHiveApi, test_observable: OutputObservable):
         observable_id = test_observable["_id"]

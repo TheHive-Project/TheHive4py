@@ -54,11 +54,13 @@ class AlertEndpoint(EndpointBase):
         )
 
     def create_observable(
-        self, alert_id: str, observable: InputObservable
+        self, alert_id: str, observable: InputObservable, observable_path: str = None
     ) -> List[OutputObservable]:
-        # TODO: implement bulk creation with isZip
+        kwargs = self._build_observable_kwargs(
+            observable=observable, observable_path=observable_path
+        )
         return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{alert_id}/artifact", json=observable
+            "POST", path=f"/api/v1/alert/{alert_id}/artifact", **kwargs
         )
 
     def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:

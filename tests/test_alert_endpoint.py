@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 import pytest
@@ -137,3 +138,27 @@ class TestAlertEndpoint:
         )
         alert_observables = thehive.alert.find_observables(test_alert["_id"])
         assert created_observables == alert_observables
+
+    def test_create_observable_from_file(
+        self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
+    ):
+        observable_path = str(tmp_path / "alert-observable.txt")
+        with open(observable_path, "w") as observable_fp:
+            observable_fp.write("observable content")
+
+        created_observable = thehive.observable.create_in_alert(
+            alert_id=test_alert["_id"],
+            observable={
+                "dataType": "file",
+                "message": "file based observable",
+            },
+            observable_path=observable_path,
+        )[0]
+
+        fetched_observable = thehive.observable.get(
+            observable_id=created_observable["_id"]
+        )
+        assert created_observable == fetched_observable
+
+        attachment = fetched_observable.get("attachment")
+        assert attachment and attachment["name"] in observable_path

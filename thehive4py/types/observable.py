@@ -1,4 +1,4 @@
-from typing import Any, List, TypedDict
+from typing import List, TypedDict
 
 from thehive4py.types.attachment import OutputAttachment
 
