@@ -5,4 +5,5 @@ from .observable import ObservableEndpoint  # noqa
 from .procedure import ProcedureEndpoint  # noqa
 from .task import TaskEndpoint  # noqa
 from .task_log import TaskLogEndpoint  # noqa
+from .timeline import TimelineEndpoint  # noqa
 from .user import UserEndpoint  # noqa

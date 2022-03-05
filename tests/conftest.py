@@ -1,4 +1,3 @@
-import time
 from typing import List
 
 import pytest
@@ -11,6 +10,7 @@ from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.task import InputTask, OutputTask
 from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
+from thehive4py.types.timeline import OutputCustomEvent, OutputTimelineEvent
 
 from tests.utils import Container, reinit_hive_container, spawn_hive_container
 
@@ -190,6 +190,21 @@ def test_procedure(thehive: TheHiveApi, test_case: OutputCase) -> OutputProcedur
             "occurDate": now_to_ts(),
             "patternId": "T1059.006",
             "tactic": "execution",
+            "description": "...",
+        },
+    )
+
+
+@pytest.fixture
+def test_timeline_event(
+    thehive: TheHiveApi, test_case: OutputCase
+) -> OutputCustomEvent:
+    return thehive.timeline.create_event(
+        case_id=test_case["_id"],
+        event={
+            "date": now_to_ts(),
+            "endDate": now_to_ts(),
+            "title": "test timeline event",
             "description": "...",
         },
     )
