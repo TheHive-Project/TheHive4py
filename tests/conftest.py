@@ -3,10 +3,12 @@ from typing import List
 
 import pytest
 from thehive4py.client import TheHiveApi
+from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
+from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.task import InputTask, OutputTask
 from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 
@@ -45,7 +47,7 @@ def test_alert(thehive: TheHiveApi) -> OutputAlert:
             "source": "test",
             "sourceRef": "first",
             "externalLink": "http://",
-            "date": int(time.time() * 1000),
+            "date": now_to_ts(),
             "tags": ["whatever"],
         }
     )
@@ -60,7 +62,7 @@ def test_alerts(thehive: TheHiveApi) -> List[OutputAlert]:
             "type": "test",
             "source": "test",
             "sourceRef": "first",
-            "date": int(time.time() * 1000),
+            "date": now_to_ts(),
         },
         {
             "title": "my second alert",
@@ -68,7 +70,7 @@ def test_alerts(thehive: TheHiveApi) -> List[OutputAlert]:
             "type": "test",
             "source": "test",
             "sourceRef": "second",
-            "date": int(time.time() * 1000),
+            "date": now_to_ts(),
         },
     ]
     return [thehive.alert.create(alert=alert) for alert in alerts]
@@ -177,4 +179,17 @@ def test_comment(thehive: TheHiveApi, test_case: OutputCase) -> OutputComment:
     return thehive.comment.create_in_case(
         case_id=test_case["_id"],
         comment={"message": "my first comment"},
+    )
+
+
+@pytest.fixture
+def test_procedure(thehive: TheHiveApi, test_case: OutputCase) -> OutputProcedure:
+    return thehive.procedure.create_in_case(
+        procedure={
+            "caseId": test_case["_id"],
+            "occurDate": now_to_ts(),
+            "patternId": "T1059.006",
+            "tactic": "execution",
+            "description": "...",
+        },
     )
