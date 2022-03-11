@@ -1,15 +1,6 @@
 from typing import TypedDict
 
 
-class InputCaseProcedureRequired(TypedDict):
-    occurDate: int
-    tactic: str
-    caseId: str
-    patternId: str
-
-
-class InputCaseProcedure(InputCaseProcedureRequired, total=False):
-    description: str
 
 
 class InputProcedureRequired(TypedDict):

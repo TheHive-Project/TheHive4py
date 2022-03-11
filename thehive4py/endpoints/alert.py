@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -54,13 +54,16 @@ class AlertEndpoint(EndpointBase):
         )
 
     def create_observable(
-        self, alert_id: str, observable: InputObservable, observable_path: str = None
+        self,
+        alert_id: str,
+        observable: InputObservable,
+        observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
         )
         return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{alert_id}/artifact", **kwargs
+            "POST", path=f"/api/v1/alert/{alert_id}/observable", **kwargs
         )
 
     def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:

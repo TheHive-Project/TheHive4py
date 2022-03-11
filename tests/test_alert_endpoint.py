@@ -26,8 +26,6 @@ class TestAlertEndpoint:
         )
 
         fetched_alert = thehive.alert.get(created_alert["_id"])
-        fetched_alert.pop("_updatedAt")
-        fetched_alert.pop("_updatedBy")
         assert created_alert == fetched_alert
 
     def test_update(self, thehive: TheHiveApi, test_alert: OutputAlert):
@@ -108,10 +106,6 @@ class TestAlertEndpoint:
             sortby=Asc("_createdAt"),
         )
         alert_count = thehive.alert.count()
-
-        for alert in found_alerts:
-            alert.pop("_updatedAt")
-            alert.pop("_updatedBy")
 
         assert found_alerts == test_alerts
         assert len(found_alerts) == alert_count

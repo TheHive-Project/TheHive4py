@@ -1,7 +1,6 @@
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.errors import TheHiveError
 from thehive4py.types.procedure import (
-    InputCaseProcedure,
     InputProcedure,
     InputUpdateProcedure,
     OutputProcedure,
@@ -16,9 +15,11 @@ class ProcedureEndpoint(EndpointBase):
             "POST", path=f"/api/v1/alert/{alert_id}/procedure", json=procedure
         )
 
-    def create_in_case(self, procedure: InputCaseProcedure) -> OutputProcedure:
+    def create_in_case(
+        self, case_id: str, procedure: InputProcedure
+    ) -> OutputProcedure:
         return self._session.make_request(
-            "POST", path="/api/v1/procedure", json=procedure
+            "POST", path=f"/api/v1/case/{case_id}/procedure", json=procedure
         )
 
     def get(self, procedure_id: str) -> OutputProcedure:

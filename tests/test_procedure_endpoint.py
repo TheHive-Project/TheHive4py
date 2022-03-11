@@ -26,8 +26,8 @@ class TestProcedureEndpoint:
 
     def test_create_in_case_and_get(self, thehive: TheHiveApi, test_case: OutputCase):
         created_procedure = thehive.procedure.create_in_case(
+            case_id=test_case["_id"],
             procedure={
-                "caseId": test_case["_id"],
                 "occurDate": now_to_ts(),
                 "patternId": "T1059.006",
                 "tactic": "execution",

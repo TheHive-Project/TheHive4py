@@ -190,8 +190,8 @@ def test_comment(thehive: TheHiveApi, test_case: OutputCase) -> OutputComment:
 @pytest.fixture
 def test_procedure(thehive: TheHiveApi, test_case: OutputCase) -> OutputProcedure:
     return thehive.procedure.create_in_case(
+        case_id=test_case["_id"],
         procedure={
-            "caseId": test_case["_id"],
             "occurDate": now_to_ts(),
             "patternId": "T1059.006",
             "tactic": "execution",
