@@ -8,33 +8,38 @@ from thehive4py.types.case import InputCase, OutputCase
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.procedure import OutputProcedure
+from thehive4py.types.profile import OutputProfile
 from thehive4py.types.task import InputTask, OutputTask
 from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
-from thehive4py.types.timeline import OutputCustomEvent, OutputTimelineEvent
+from thehive4py.types.timeline import OutputCustomEvent
+from thehive4py.types.user import OutputUser
 
-from tests.utils import Container, reinit_hive_container, spawn_hive_container
-
-
-@pytest.fixture(scope="session")
-def thehive_container():
-    container = spawn_hive_container()
-    yield container
+from tests.utils import reinit_hive_container, spawn_hive_container
 
 
 @pytest.fixture(scope="function", autouse=True)
-def init_hive_container(thehive_container: Container):
-    client = TheHiveApi(
-        url=thehive_container.url, username="admin@org1.test", password="secret"
-    )
-    reinit_hive_container(client)
+def init_hive_container(thehive: TheHiveApi):
+    reinit_hive_container(thehive)
 
 
-@pytest.fixture(scope="session")
-def thehive(thehive_container: Container):
+@pytest.fixture(scope="function")
+def thehive():
+    hive_container = spawn_hive_container()
     client = TheHiveApi(
-        url=thehive_container.url, username="admin@org1.test", password="secret"
+        url=hive_container.url,
+        username="admin@thehive.local",
+        password="secret",
+        organisation="test-org",
     )
     return client
+
+
+@pytest.fixture
+def thehive_admin(thehive: TheHiveApi):
+    default_organisation = thehive.session_organisation
+    thehive.session_organisation = "admin"
+    yield thehive
+    thehive.session_organisation = default_organisation
 
 
 @pytest.fixture
@@ -207,4 +212,24 @@ def test_timeline_event(
             "title": "test timeline event",
             "description": "...",
         },
+    )
+
+
+@pytest.fixture
+def test_user(thehive: TheHiveApi) -> OutputUser:
+    return thehive.user.create(
+        user={
+            "email": "user@example.com",
+            "name": "test user",
+            "login": "user@example.com",
+            "profile": "analyst",
+            "organisation": "test-org",
+        }
+    )
+
+
+@pytest.fixture
+def test_profile(thehive_admin: TheHiveApi) -> OutputProfile:
+    return thehive_admin.profile.create(
+        profile={"name": "my-read-only", "permissions": []}
     )

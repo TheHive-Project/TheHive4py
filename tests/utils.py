@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 import requests
 from thehive4py.client import TheHiveApi
+from thehive4py.query.filters import Eq
 
 
 @dataclass
@@ -97,9 +98,21 @@ def spawn_hive_container() -> Container:
 
 def reinit_hive_container(client: TheHiveApi) -> None:
 
-    alerts = client.alert.find()
-    cases = client.case.find()
+    original_session_organisation = client.session_organisation
+    for organisation in ["test-org", "share-org", "admin"]:
+        client.session_organisation = organisation
+        alerts = client.alert.find()
+        cases = client.case.find()
+        users = client.user.find(filters=~Eq("login", "admin@thehive.local"))
+        profiles = client.profile.find(
+            filters=~Eq("name", "analyst") & ~Eq("name", "read-only")
+        )
+        with ThreadPoolExecutor() as executor:
+            executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
+            executor.map(client.case.delete, [case["_id"] for case in cases])
+            executor.map(client.user.delete, [user["_id"] for user in users])
+            executor.map(
+                client.profile.delete, [profile["_id"] for profile in profiles]
+            )
 
-    with ThreadPoolExecutor() as executor:
-        executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
-        executor.map(client.case.delete, [case["_id"] for case in cases])
+    client.session_organisation = original_session_organisation
