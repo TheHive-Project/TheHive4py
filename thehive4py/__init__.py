@@ -1,3 +1,3 @@
-__version__ = "2.0.0-b0.1"
+__version__ = "2.0.0b0"
 
-from thehive4py.client import TheHiveApi  # noqa
+from thehive4py.client import TheHiveApi
