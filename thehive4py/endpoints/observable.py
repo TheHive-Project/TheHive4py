@@ -16,7 +16,10 @@ from thehive4py.types.share import OutputShare
 
 class ObservableEndpoint(EndpointBase):
     def create_in_alert(
-        self, alert_id: str, observable: InputObservable, observable_path: Optional[str] = None
+        self,
+        alert_id: str,
+        observable: InputObservable,
+        observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
@@ -26,7 +29,10 @@ class ObservableEndpoint(EndpointBase):
         )
 
     def create_in_case(
-        self, case_id: str, observable: InputObservable, observable_path: str = None
+        self,
+        case_id: str,
+        observable: InputObservable,
+        observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
@@ -76,9 +82,9 @@ class ObservableEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
         query: QueryExpr = [
             {"_name": "listObservable"},
@@ -92,7 +98,7 @@ class ObservableEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
         query: QueryExpr = [
             {"_name": "listObservable"},
             *self._build_subquery(filters=filters),

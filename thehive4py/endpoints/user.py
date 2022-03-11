@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -24,7 +24,7 @@ class UserEndpoint(EndpointBase):
     def get_current(self) -> OutputUser:
         return self._session.make_request("GET", path="/api/v1/user/current")
 
-    def delete(self, user_id: str, organisation: str = None) -> None:
+    def delete(self, user_id: str, organisation: Optional[str] = None) -> None:
         return self._session.make_request(
             "DELETE",
             path=f"/api/v1/user/{user_id}/force",
@@ -75,9 +75,9 @@ class UserEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputUser]:
         query: QueryExpr = [
             {"_name": "listUser"},
@@ -91,7 +91,7 @@ class UserEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
         query: QueryExpr = [
             {"_name": "listUser"},
             *self._build_subquery(filters=filters),

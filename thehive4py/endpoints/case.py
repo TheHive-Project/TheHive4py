@@ -1,4 +1,4 @@
-from typing import List, Sequence, Union
+from typing import List, Optional, Sequence, Union
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -85,7 +85,7 @@ class CaseEndpoint(EndpointBase):
             "GET",
             path=f"/api/v1/case/{case_id}/export",
             params={"password": password},
-            download_path=export_path,
+            download_stream=export_path,
         )
 
     def get_timeline(self, case_id: CaseId) -> OutputTimeline:
@@ -143,9 +143,9 @@ class CaseEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputCase]:
         query: QueryExpr = [
             {"_name": "listCase"},
@@ -159,7 +159,7 @@ class CaseEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
         query: QueryExpr = [
             {"_name": "listCase"},
             *self._build_subquery(filters=filters),
@@ -183,9 +183,9 @@ class CaseEndpoint(EndpointBase):
     def find_tasks(
         self,
         case_id: CaseId,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputTask]:
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
@@ -201,7 +201,10 @@ class CaseEndpoint(EndpointBase):
         )
 
     def create_observable(
-        self, case_id: CaseId, observable: InputObservable, observable_path: str = None
+        self,
+        case_id: CaseId,
+        observable: InputObservable,
+        observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
@@ -213,9 +216,9 @@ class CaseEndpoint(EndpointBase):
     def find_observables(
         self,
         case_id: CaseId,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
@@ -232,9 +235,9 @@ class CaseEndpoint(EndpointBase):
     def find_attachments(
         self,
         case_id: CaseId,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputAttachment]:
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},

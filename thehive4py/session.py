@@ -23,10 +23,9 @@ class TheHiveSession(requests.Session):
     def __init__(
         self,
         url: str,
-        apikey: str = None,
-        username: str = None,
-        password: str = None,
-        organisation: str = None,
+        apikey: Optional[str] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
         verify=None,
     ):
         super().__init__()

@@ -1,5 +1,6 @@
 import json
 import mimetypes
+from typing import Optional
 
 from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
@@ -21,7 +22,7 @@ class EndpointBase:
         return (filename, filestream, mimetype)
 
     def _build_observable_kwargs(
-        self, observable: InputObservable, observable_path: str = None
+        self, observable: InputObservable, observable_path: Optional[str] = None
     ) -> dict:
         if observable_path:
             kwargs = {
@@ -35,9 +36,9 @@ class EndpointBase:
 
     def _build_subquery(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> QueryExpr:
 
         subquery: QueryExpr = []

@@ -80,9 +80,9 @@ class AlertEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputAlert]:
         query: QueryExpr = [
             {"_name": "listAlert"},
@@ -96,7 +96,7 @@ class AlertEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
 
         query: QueryExpr = [
             {"_name": "listAlert"},
@@ -114,9 +114,9 @@ class AlertEndpoint(EndpointBase):
     def find_observables(
         self,
         alert_id: str,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},

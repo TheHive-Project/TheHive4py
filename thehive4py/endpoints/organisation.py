@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -59,9 +59,9 @@ class OrganisationEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputOrganisation]:
         query: QueryExpr = [
             {"_name": "listOrganisation"},
@@ -75,7 +75,7 @@ class OrganisationEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
         query: QueryExpr = [
             {"_name": "listOrganisation"},
             *self._build_subquery(filters=filters),

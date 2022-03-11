@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -62,9 +62,9 @@ class TaskEndpoint(EndpointBase):
 
     def find(
         self,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputTask]:
         query: QueryExpr = [
             {"_name": "listTask"},
@@ -78,7 +78,7 @@ class TaskEndpoint(EndpointBase):
             json={"query": query},
         )
 
-    def count(self, filters: FilterExpr = None) -> int:
+    def count(self, filters: Optional[FilterExpr] = None) -> int:
         query: QueryExpr = [
             {"_name": "listTask"},
             *self._build_subquery(filters=filters),
@@ -100,9 +100,9 @@ class TaskEndpoint(EndpointBase):
     def find_logs(
         self,
         task_id: str,
-        filters: FilterExpr = None,
-        sortby: SortExpr = None,
-        paginate: Paginate = None,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
     ) -> List[OutputTaskLog]:
         query: QueryExpr = [
             {"_name": "getTask", "idOrName": task_id},
