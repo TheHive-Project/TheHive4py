@@ -1,6 +1,4 @@
-from typing import Any, List, TypedDict
-
-Avatar = Any  # TODO: find the most suitable type
+from typing import List, TypedDict
 
 
 class InputUserRequired(TypedDict):
@@ -10,9 +8,10 @@ class InputUserRequired(TypedDict):
 
 
 class InputUser(InputUserRequired, total=False):
+    email: str
     password: str
     organisation: str
-    avatar: Avatar
+    type: str
 
 
 class OutputOrganisationProfile(TypedDict):
@@ -32,12 +31,41 @@ class OutputUserRequired(TypedDict):
     hasMFA: bool
     locked: bool
     profile: str
-    permissions: List[str]
-    organistaion: str
-    organisations: List[OutputOrganisationProfile]
+    organisation: str
+    type: str
+    extraData: dict
 
 
 class OutputUser(OutputUserRequired, total=False):
     _updatedBy: str
     _updatedAt: int
+    email: str
+    permissions: List[str]
     avatar: str
+    organisations: List[OutputOrganisationProfile]
+    defaultOrganisation: str
+
+
+class InputUpdateUser(TypedDict, total=False):
+    name: str
+    organisation: str
+    profile: str
+    locked: bool
+    avatar: str
+    email: str
+    defaultOrganisation: str
+
+
+class InputUserOrganisationRequired(TypedDict):
+    organisation: str
+    profile: str
+
+
+class InputUserOrganisation(InputUserOrganisationRequired, total=False):
+    default: bool
+
+
+class OutputUserOrganisation(TypedDict):
+    organisation: str
+    profile: str
+    default: bool

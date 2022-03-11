@@ -1,9 +1,11 @@
-from .alert import AlertEndpoint  # noqa
-from .case import CaseEndpoint  # noqa
-from .comment import CommentEndpoint  # noqa
-from .observable import ObservableEndpoint  # noqa
-from .procedure import ProcedureEndpoint  # noqa
-from .task import TaskEndpoint  # noqa
-from .task_log import TaskLogEndpoint  # noqa
-from .timeline import TimelineEndpoint  # noqa
-from .user import UserEndpoint  # noqa
+from .alert import AlertEndpoint
+from .case import CaseEndpoint
+from .comment import CommentEndpoint
+from .observable import ObservableEndpoint
+from .organisation import OrganisationEndpoint
+from .procedure import ProcedureEndpoint
+from .profile import ProfileEndpoint
+from .task import TaskEndpoint
+from .task_log import TaskLogEndpoint
+from .timeline import TimelineEndpoint
+from .user import UserEndpoint
