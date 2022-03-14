@@ -1,7 +1,8 @@
 import json as jsonlib
 from collections import UserDict
 from json.decoder import JSONDecodeError
-from typing import Any
+from os import PathLike
+from typing import Any, Optional, Union
 
 import requests
 import requests.auth
@@ -13,7 +14,7 @@ from thehive4py.errors import TheHiveError
 class SessionJSONEncoder(jsonlib.JSONEncoder):
     """Custom JSON encoder class for TheHive session."""
 
-    def default(self, o):
+    def default(self, o: Any):
         if isinstance(o, UserDict):
             return o.data
         return super().default(o)
@@ -29,12 +30,10 @@ class TheHiveSession(requests.Session):
         verify=None,
     ):
         super().__init__()
-        self.url = self._sanitize_url(url)
+        self.hive_url = self._sanitize_hive_url(url)
         self.verify = verify
         self.headers["User-Agent"] = f"thehive4py/{__version__}"
 
-        if organisation:
-            self.headers["X-Organisation"] = organisation
         if username and password:
             self.headers["Authorization"] = requests.auth._basic_auth_str(
                 username, password
@@ -46,11 +45,11 @@ class TheHiveSession(requests.Session):
                 "Either apikey or the username/password combination must be provided!"
             )
 
-    def _sanitize_url(self, url: str) -> str:
+    def _sanitize_hive_url(self, hive_url: str) -> str:
         """Sanitize the base url for the client."""
-        if url.endswith("/"):
-            return url[:-1]
-        return url
+        if hive_url.endswith("/"):
+            return hive_url[:-1]
+        return hive_url
 
     def make_request(
         self,
@@ -60,22 +59,19 @@ class TheHiveSession(requests.Session):
         data=None,
         json=None,
         files=None,
-        download_path=None,
+        download_path: Union[str, PathLike, None] = None,
     ) -> Any:
-        if path.startswith("/"):
-            url = f"{self.url}{path}"
-        else:
-            url = f"{self.url}/api/v1/{path}"
+
+        endpoint_url = f"{self.hive_url}{path}"
 
         headers = {**self.headers}
-
         if json:
             data = jsonlib.dumps(json, cls=SessionJSONEncoder)
             headers = {**headers, "Content-Type": "application/json"}
 
         response = self.request(
             method,
-            url=url,
+            url=endpoint_url,
             params=params,
             data=data,
             files=files,
@@ -86,31 +82,48 @@ class TheHiveSession(requests.Session):
 
         return self._process_response(response, download_path=download_path)
 
-    def _process_response(self, response: requests.Response, download_path=None):
+    def _process_response(
+        self,
+        response: requests.Response,
+        download_path: Union[str, PathLike, None] = None,
+    ):
+
+        if response.ok:
+            if download_path is None:
+                return self._process_text_response(response)
+            else:
+                self._process_stream_response(
+                    response=response, download_path=download_path
+                )
+
+        if not response.ok:
+            self._process_error_response(response=response)
+
+    def _process_text_response(self, response: requests.Response):
         try:
             json_data = response.json()
         except JSONDecodeError:
             json_data = None
 
-        if response.status_code == 207:
-            error_text = (
-                f"{json_data['failure'][0]['type']} "
-                f"- {json_data['failure'][0]['message']}"
-            )
-            raise TheHiveError(error_text)
-        elif not response.ok:
-            if json_data is None:
-                error_text = response.text
-            else:
-                error_text = f"{json_data['type']} - {json_data['message']}"
+        if json_data is None:
+            return response.text
+        return json_data
 
-            raise TheHiveError(error_text)
+    def _process_stream_response(
+        self, response: requests.Response, download_path: Union[str, PathLike]
+    ):
+        with open(download_path, "wb") as download_fp:
+            for chunk in response.iter_content(chunk_size=4096):
+                download_fp.write(chunk)
+
+    def _process_error_response(self, response: requests.Response):
+        try:
+            json_data = response.json()
+        except JSONDecodeError:
+            json_data = None
+
+        if json_data is None:
+            error_text = response.text
         else:
-            if download_path:
-                with open(download_path, "wb") as download_fp:
-                    for chunk in response.iter_content(chunk_size=4096):
-                        download_fp.write(chunk)
-            else:
-                if json_data is None:
-                    return response.text
-                return json_data
+            error_text = f"{json_data['type']} - {json_data['message']}"
+        raise TheHiveError(error_text)

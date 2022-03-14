@@ -85,7 +85,7 @@ class CaseEndpoint(EndpointBase):
             "GET",
             path=f"/api/v1/case/{case_id}/export",
             params={"password": password},
-            download_stream=export_path,
+            download_path=export_path,
         )
 
     def get_timeline(self, case_id: CaseId) -> OutputTimeline:
