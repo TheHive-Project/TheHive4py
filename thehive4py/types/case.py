@@ -54,7 +54,7 @@ class InputCase(InputCaseRequired, total=False):
     customFieldValues: List[InputCustomFieldValue]
     caseTemplate: str
     tasks: List[InputTask]
-    sharingParameters: List[dict]  # TODO: add better typing
+    sharingParameters: List[InputShare]
     taskRule: str
     observableRule: str
 
@@ -75,6 +75,8 @@ class OutputCaseRequired(TypedDict):
     status: CaseStatusValue
     stage: str
     extraData: dict
+    newDate: int
+    timeToDetect: int
 
 
 class OutputCase(OutputCaseRequired, total=False):
@@ -87,6 +89,17 @@ class OutputCase(OutputCaseRequired, total=False):
     assignee: str
     customFields: List[OutputCustomFieldValue]
     userPermissions: List[str]
+    inProgressDate: int
+    closedDate: int
+    alertDate: int
+    alertNewDate: int
+    alertInProgressDate: int
+    alertImportedDate: int
+    timeToTriage: int
+    timeToQualify: int
+    timeToAcknowledge: int
+    timeToResolve: int
+    handlingDuration: int
 
 
 class InputUpdateCase(TypedDict, total=False):

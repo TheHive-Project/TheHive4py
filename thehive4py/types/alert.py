@@ -44,6 +44,8 @@ class OutputAlertRequired(TypedDict):
     status: str
     stage: str
     extraData: dict
+    newDate: int
+    timeToDetect: int
 
 
 class OutputAlert(OutputAlertRequired, total=False):
@@ -55,6 +57,12 @@ class OutputAlert(OutputAlertRequired, total=False):
     caseTemplate: str
     caseId: str
     summary: str
+    inProgressDate: int
+    closedDate: int
+    importedDate: int
+    timeToTriage: int
+    timeToQualify: int
+    timeToAcknowledge: int
 
 
 class InputUpdateAlert(TypedDict, total=False):
