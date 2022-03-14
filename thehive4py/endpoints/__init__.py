@@ -1,6 +1,7 @@
 from .alert import AlertEndpoint
 from .case import CaseEndpoint
 from .comment import CommentEndpoint
+from .cortex import CortexEndpoint
 from .observable import ObservableEndpoint
 from .organisation import OrganisationEndpoint
 from .procedure import ProcedureEndpoint

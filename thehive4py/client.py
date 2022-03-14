@@ -13,6 +13,7 @@ from thehive4py.endpoints import (
     TimelineEndpoint,
     UserEndpoint,
 )
+from thehive4py.endpoints.cortex import CortexEndpoint
 from thehive4py.session import TheHiveSession
 
 
@@ -49,6 +50,9 @@ class TheHiveApi:
         self.user = UserEndpoint(self.session)
         self.organisation = OrganisationEndpoint(self.session)
         self.profile = ProfileEndpoint(self.session)
+
+        # connector endpoints
+        self.cortex = CortexEndpoint(self.session)
 
     @property
     def session_organisation(self) -> Optional[str]:
