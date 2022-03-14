@@ -19,7 +19,6 @@ class TestTaskEndpoint:
 
         assert created_task == fetched_task
 
-    @pytest.mark.skip(reason="endpoint is missing from backend")
     def test_delete(self, thehive: TheHiveApi, test_task: OutputTask):
         thehive.task.delete(task_id=test_task["_id"])
 
