@@ -1,19 +1,6 @@
 # thehive4py
-Rebooted version of thehive4py for TheHive5!
 
+    IMPORTANT: The library is still under development and is in beta phase. Use it with caution and expect breaking changes before the first stable release!
 
-## Endpoint development roadmap
-
-### Version 2.0.0
-Support for the following case managament endpoints (with partial query functionalities):
-- Case
-- Alert
-- Observable
-- Task
-- Task Log
-
-Support the below user management endpoints (with partial query functionalities):
-- Organisation
-- User
-- Profile
+Rebooted version of thehive4py for TheHive5! Stay tuned, more to come!
 
