@@ -50,7 +50,7 @@ class InputCase(InputCaseRequired, total=False):
     pap: int
     status: CaseStatusValue
     summary: str
-    user: str
+    assignee: str
     customFieldValues: List[InputCustomFieldValue]
     caseTemplate: str
     tasks: List[InputTask]

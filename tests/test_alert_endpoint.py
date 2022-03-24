@@ -156,3 +156,59 @@ class TestAlertEndpoint:
 
         attachment = fetched_observable.get("attachment")
         assert attachment and attachment["name"] in observable_path
+
+    def test_create_alert_with_observables(self, thehive: TheHiveApi):
+        created_alert = thehive.alert.create(
+            {
+                "title": "my first alert",
+                "description": "...",
+                "type": "test",
+                "source": "test",
+                "sourceRef": "second",
+                "externalLink": "http://",
+                "date": 123,
+                "tags": ["whatever"],
+                "observables": [
+                    {
+                        "dataType": "url",
+                        "data": "example.org"
+                    },
+                    {
+                        "dataType": "email",
+                        "data": "foo@example.org"
+                    }
+                ]
+            }
+        )
+
+        fetched_alert = thehive.alert.get(created_alert["_id"])
+        assert created_alert == fetched_alert
+        assert created_alert["observableCount"] == 2
+
+    def test_create_alert_with_observable_file(self, thehive: TheHiveApi, tmp_path: Path):
+        observable_path = str(tmp_path / "alert-observable.txt")
+        with open(observable_path, "w") as observable_fp:
+            observable_fp.write("observable content")
+
+        created_alert = thehive.alert.create(
+            {
+                "title": "my first alert",
+                "description": "...",
+                "type": "test",
+                "source": "test",
+                "sourceRef": "third",
+                "externalLink": "http://",
+                "date": 123,
+                "tags": ["whatever"],
+                "observables": [
+                    {
+                        "dataType": "url",
+                        "attachment": "obs1"
+                    }
+                ]
+            },
+            observables_path={
+                "obs1": observable_path
+            }
+        )
+        assert created_alert["observableCount"] == 1

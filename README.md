@@ -24,3 +24,12 @@
 
 Rebooted version of thehive4py for TheHive5! Stay tuned, more to come!
 
+## Development
+
+Using venv:
+
+```
+python3 -m venv .env
+source .env/bin/activate
+pip install -e '.[dev]'
+```

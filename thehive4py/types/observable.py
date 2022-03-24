@@ -20,6 +20,7 @@ class InputObservable(InputObservableRequired, total=False):
     ignoreSimilarity: bool
     isZip: bool
     zipPassword: bool
+    attachment: str
 
 
 class OutputObservableRequired(TypedDict):
