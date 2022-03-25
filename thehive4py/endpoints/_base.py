@@ -1,5 +1,6 @@
 import json
 import mimetypes
+import os
 from typing import Optional
 
 from thehive4py.query import QueryExpr
@@ -15,7 +16,7 @@ class EndpointBase:
         self._session = session
 
     def _fileinfo_from_filepath(self, filepath: str) -> tuple:
-        filename = filepath.split("/")[-1]
+        filename = os.path.split(filepath)[1]
         mimetype = mimetypes.guess_type(filepath)
         filestream = open(filepath, "rb")
 

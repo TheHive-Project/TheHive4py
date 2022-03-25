@@ -6,4 +6,3 @@ dist/
 # local garbage yet
 tests/resources/
 examples/
-.env/

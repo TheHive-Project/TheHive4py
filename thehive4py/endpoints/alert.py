@@ -1,5 +1,5 @@
-import json
-from typing import Dict, List, Optional
+import json as jsonlib
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -17,17 +17,18 @@ from thehive4py.types.observable import InputObservable, OutputObservable
 
 
 class AlertEndpoint(EndpointBase):
-    def create(self, alert: InputAlert, observables_path: Optional[Dict[str, str]] = None) -> OutputAlert:
+    def create(
+        self, alert: InputAlert, observables_path: Optional[Dict[str, str]] = None
+    ) -> OutputAlert:
         if observables_path:
-            files = [(key, open(path, 'rb')) for key, path in observables_path.items()]
-            kwargs = {
-                "files": {
-                    "_json": json.dumps(alert),
-                    **files
-                }
-            }
+            files: List[Union[Tuple[str, Tuple], Tuple[str, str]]] = [
+                (key, self._fileinfo_from_filepath(path))
+                for key, path in observables_path.items()
+            ]
+            files.insert(0, ("_json", jsonlib.dumps(alert)))
+            kwargs: Dict[str, Any] = {"files": files}
         else:
-            kwargs = {json:alert}
+            kwargs = {"json": alert}
         return self._session.make_request("POST", path="/api/v1/alert", **kwargs)
 
     def get(self, alert_id: str) -> OutputAlert:

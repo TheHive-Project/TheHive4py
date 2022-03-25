@@ -3,6 +3,7 @@ from typing import List, TypedDict
 from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
 from thehive4py.types.observable import InputObservable
 
+
 class InputAlertRequired(TypedDict):
     type: str
     source: str
