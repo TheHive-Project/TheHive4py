@@ -51,7 +51,7 @@ class InputCase(InputCaseRequired, total=False):
     status: CaseStatusValue
     summary: str
     assignee: str
-    customFieldValues: List[InputCustomFieldValue]
+    customFields: List[InputCustomFieldValue]
     caseTemplate: str
     tasks: List[InputTask]
     sharingParameters: List[InputShare]
