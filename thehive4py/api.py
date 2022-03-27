@@ -4,7 +4,6 @@
 import json
 import sys
 
-import magic
 import os
 import warnings
 import json
@@ -1149,6 +1148,28 @@ class TheHiveApi:
                 "analyzerId": analyzer_id
                 })
             return requests.post(req, headers={'Content-Type': 'application/json'}, data=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise TheHiveException("Analyzer run error: {}".format(e))
+
+    def get_job_status(self, job_id):
+        """
+        Get the job status previously launched
+
+        Arguments:
+            job_id: Analysis job ID
+            
+            
+        Returns:
+            response (requests.Response): Response object including a JSON representation of the analysis job
+
+        Raises:
+            TheHiveException: An error occured during job fetch
+        """
+
+        req = self.url + "/api/connector/cortex/job/{job_id}?nstats=true".format(job_id = job_id)
+
+        try:
+            return requests.get(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise TheHiveException("Analyzer run error: {}".format(e))
 
