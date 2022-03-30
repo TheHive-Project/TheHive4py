@@ -131,6 +131,11 @@ class CaseEndpoint(EndpointBase):
             json={"organisations": organisation_ids},
         )
 
+    def set_share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
+        return self._session.make_request(
+            "PUT", path=f"/api/v1/case/{case_id}/shares", json={"shares": shares}
+        )
+
     def remove_share(self, share_id: str) -> None:
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/share/{share_id}"
