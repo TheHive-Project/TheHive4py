@@ -18,12 +18,12 @@ from thehive4py.types.observable import InputObservable, OutputObservable
 
 class AlertEndpoint(EndpointBase):
     def create(
-        self, alert: InputAlert, attachment_paths: Optional[Dict[str, str]] = None
+        self, alert: InputAlert, attachment_map: Optional[Dict[str, str]] = None
     ) -> OutputAlert:
-        if attachment_paths:
+        if attachment_map:
             files: Dict[str, Any] = {
                 key: self._fileinfo_from_filepath(path)
-                for key, path in attachment_paths.items()
+                for key, path in attachment_map.items()
             }
             files["_json"] = jsonlib.dumps(alert)
             kwargs: dict = {"files": files}

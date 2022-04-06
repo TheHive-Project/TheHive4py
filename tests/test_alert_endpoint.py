@@ -201,6 +201,6 @@ class TestAlertEndpoint:
                 "date": 123,
                 "observables": alert_observables,
             },
-            attachment_paths={"obs1": attachment_path},
+            attachment_map={"obs1": attachment_path},
         )
         assert created_alert["observableCount"] == len(alert_observables)
