@@ -169,15 +169,9 @@ class TestAlertEndpoint:
                 "date": 123,
                 "tags": ["whatever"],
                 "observables": [
-                    {
-                        "dataType": "url",
-                        "data": "example.org"
-                    },
-                    {
-                        "dataType": "email",
-                        "data": "foo@example.org"
-                    }
-                ]
+                    {"dataType": "url", "data": "example.org"},
+                    {"dataType": "mail", "data": "foo@example.org"},
+                ],
             }
         )
 
