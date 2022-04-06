@@ -8,6 +8,7 @@ from thehive4py.query.filters import Eq
 from thehive4py.query.sort import Asc
 from thehive4py.types.alert import InputBulkUpdateAlert, InputUpdateAlert, OutputAlert
 from thehive4py.types.case import OutputCase
+from thehive4py.types.observable import InputObservable
 
 
 class TestAlertEndpoint:
@@ -179,30 +180,27 @@ class TestAlertEndpoint:
         assert created_alert == fetched_alert
         assert created_alert["observableCount"] == 2
 
-    def test_create_alert_with_observable_file(self, thehive: TheHiveApi, tmp_path: Path):
-        observable_path = str(tmp_path / "alert-observable.txt")
-        with open(observable_path, "w") as observable_fp:
-            observable_fp.write("observable content")
+    def test_create_alert_with_observable_file(
+        self, thehive: TheHiveApi, tmp_path: Path
+    ):
+        attachment_path = str(tmp_path / "alert-observable.txt")
+        with open(attachment_path, "w") as attachment_fp:
+            attachment_fp.write("observable content")
 
+        alert_observables: List[InputObservable] = [
+            {"dataType": "url", "data": "example.com"},
+            {"dataType": "file", "attachment": "obs1"},
+        ]
         created_alert = thehive.alert.create(
-            {
+            alert={
                 "title": "my first alert",
                 "description": "...",
                 "type": "test",
                 "source": "test",
                 "sourceRef": "third",
-                "externalLink": "http://",
                 "date": 123,
-                "tags": ["whatever"],
-                "observables": [
-                    {
-                        "dataType": "url",
-                        "attachment": "obs1"
-                    }
-                ]
+                "observables": alert_observables,
             },
-            observables_path={
-                "obs1": observable_path
-            }
+            attachment_paths={"obs1": attachment_path},
         )
-        assert created_alert["observableCount"] == 1
+        assert created_alert["observableCount"] == len(alert_observables)

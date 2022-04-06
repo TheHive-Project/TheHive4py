@@ -18,15 +18,15 @@ from thehive4py.types.observable import InputObservable, OutputObservable
 
 class AlertEndpoint(EndpointBase):
     def create(
-        self, alert: InputAlert, observables_path: Optional[Dict[str, str]] = None
+        self, alert: InputAlert, attachment_paths: Optional[Dict[str, str]] = None
     ) -> OutputAlert:
-        if observables_path:
-            files: List[Union[Tuple[str, Tuple], Tuple[str, str]]] = [
-                (key, self._fileinfo_from_filepath(path))
-                for key, path in observables_path.items()
-            ]
-            files.insert(0, ("_json", jsonlib.dumps(alert)))
-            kwargs: Dict[str, Any] = {"files": files}
+        if attachment_paths:
+            files: Dict[str, Any] = {
+                key: self._fileinfo_from_filepath(path)
+                for key, path in attachment_paths.items()
+            }
+            files["_json"] = jsonlib.dumps(alert)
+            kwargs: dict = {"files": files}
         else:
             kwargs = {"json": alert}
         return self._session.make_request("POST", path="/api/v1/alert", **kwargs)
