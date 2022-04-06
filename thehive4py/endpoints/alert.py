@@ -1,5 +1,5 @@
 import json as jsonlib
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
