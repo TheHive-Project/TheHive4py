@@ -1,4 +1,5 @@
-from typing import List, Optional
+import json as jsonlib
+from typing import Any, Dict, List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -16,8 +17,19 @@ from thehive4py.types.observable import InputObservable, OutputObservable
 
 
 class AlertEndpoint(EndpointBase):
-    def create(self, alert: InputAlert) -> OutputAlert:
-        return self._session.make_request("POST", path="/api/v1/alert", json=alert)
+    def create(
+        self, alert: InputAlert, attachment_map: Optional[Dict[str, str]] = None
+    ) -> OutputAlert:
+        if attachment_map:
+            files: Dict[str, Any] = {
+                key: self._fileinfo_from_filepath(path)
+                for key, path in attachment_map.items()
+            }
+            files["_json"] = jsonlib.dumps(alert)
+            kwargs: dict = {"files": files}
+        else:
+            kwargs = {"json": alert}
+        return self._session.make_request("POST", path="/api/v1/alert", **kwargs)
 
     def get(self, alert_id: str) -> OutputAlert:
         return self._session.make_request("GET", path=f"/api/v1/alert/{alert_id}")

@@ -1,8 +1,6 @@
 from typing import TypedDict
 
 
-
-
 class InputProcedureRequired(TypedDict):
     occurDate: int
     tactic: str

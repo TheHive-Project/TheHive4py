@@ -1,6 +1,7 @@
 from typing import List, TypedDict
 
 from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
+from thehive4py.types.observable import InputObservable
 
 
 class InputAlertRequired(TypedDict):
@@ -19,10 +20,11 @@ class InputAlert(InputAlertRequired, total=False):
     flag: bool
     tlp: int
     pap: int
-    customFieldValue: List[InputCustomFieldValue]
+    customFields: List[InputCustomFieldValue]
     summary: str
     status: str
     caseTemplate: str
+    observables: List[InputObservable]
 
 
 class OutputAlertRequired(TypedDict):

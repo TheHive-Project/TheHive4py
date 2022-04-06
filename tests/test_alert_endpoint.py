@@ -8,6 +8,7 @@ from thehive4py.query.filters import Eq
 from thehive4py.query.sort import Asc
 from thehive4py.types.alert import InputBulkUpdateAlert, InputUpdateAlert, OutputAlert
 from thehive4py.types.case import OutputCase
+from thehive4py.types.observable import InputObservable
 
 
 class TestAlertEndpoint:
@@ -156,3 +157,50 @@ class TestAlertEndpoint:
 
         attachment = fetched_observable.get("attachment")
         assert attachment and attachment["name"] in observable_path
+
+    def test_create_alert_with_observables(self, thehive: TheHiveApi):
+        created_alert = thehive.alert.create(
+            {
+                "title": "my first alert",
+                "description": "...",
+                "type": "test",
+                "source": "test",
+                "sourceRef": "second",
+                "externalLink": "http://",
+                "date": 123,
+                "tags": ["whatever"],
+                "observables": [
+                    {"dataType": "url", "data": "example.org"},
+                    {"dataType": "mail", "data": "foo@example.org"},
+                ],
+            }
+        )
+
+        fetched_alert = thehive.alert.get(created_alert["_id"])
+        assert created_alert == fetched_alert
+        assert created_alert["observableCount"] == 2
+
+    def test_create_alert_with_observable_file(
+        self, thehive: TheHiveApi, tmp_path: Path
+    ):
+        attachment_path = str(tmp_path / "alert-observable.txt")
+        with open(attachment_path, "w") as attachment_fp:
+            attachment_fp.write("observable content")
+
+        alert_observables: List[InputObservable] = [
+            {"dataType": "url", "data": "example.com"},
+            {"dataType": "file", "attachment": "obs1"},
+        ]
+        created_alert = thehive.alert.create(
+            alert={
+                "title": "my first alert",
+                "description": "...",
+                "type": "test",
+                "source": "test",
+                "sourceRef": "third",
+                "date": 123,
+                "observables": alert_observables,
+            },
+            attachment_map={"obs1": attachment_path},
+        )
+        assert created_alert["observableCount"] == len(alert_observables)

@@ -24,3 +24,17 @@
 
 Rebooted version of thehive4py for TheHive5! Stay tuned, more to come!
 
+## Development
+
+You can setup a venv (see the [official docs for this](https://docs.python.org/3/tutorial/venv.html):
+
+```
+# Create and activate venv
+python3 -m venv <path_of_venv>
+source <path_of_venv>/bin/activate
+```
+
+Install the dev dependencies for the project
+```
+pip install -e '.[dev]'
+```
