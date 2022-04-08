@@ -215,6 +215,17 @@ class TestCaseEndpoint:
         updated_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
         assert updated_share["profileName"] == update_profile
 
+    def test_share_and_set_share(self, thehive: TheHiveApi, test_case: OutputCase):
+        organisation = "share-org"
+        share: InputShare = {"organisation": organisation}
+
+        shares = thehive.case.share(case_id=test_case["_id"], shares=[share])
+        assert len(thehive.case.list_shares(case_id=test_case["_id"])) == len(shares)
+
+        set_shares = thehive.case.set_share(case_id=test_case["_id"], shares=[])
+        assert len(thehive.case.list_shares(case_id=test_case["_id"])) == len(set_shares)
+
+
     def test_find_and_count(self, thehive: TheHiveApi, test_cases: List[OutputCase]):
         filters = Eq("title", test_cases[0]["title"]) | Eq(
             "title", test_cases[1]["title"]
