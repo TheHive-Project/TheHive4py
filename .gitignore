@@ -2,6 +2,8 @@ __pycache__/
 thehive4py.egg-info/
 build/
 dist/
+venv/
+tmp/
 
 # local garbage yet
 tests/resources/

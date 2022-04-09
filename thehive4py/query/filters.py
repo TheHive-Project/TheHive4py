@@ -37,6 +37,21 @@ class Like(FilterExpr):
         super().__init__(_like={"_field": field, "_value": value})
 
 
+class Match(FilterExpr):
+    def __init__(self, field: str, value):
+        super().__init__(_match={"_field": field, "_value": value})
+
+
+class StartsWith(FilterExpr):
+    def __init__(self, field: str, value):
+        super().__init__(_startsWith={"_field": field, "_value": value})
+
+
+class EndsWith(FilterExpr):
+    def __init__(self, field: str, value):
+        super().__init__(_endsWith={"_field": field, "_value": value})
+
+
 class Contains(FilterExpr):
     def __init__(self, field: str):
         super().__init__(_contains=field)
@@ -65,3 +80,13 @@ class Lte(FilterExpr):
 class Between(FilterExpr):
     def __init__(self, field: str, start: int, end: int):
         super().__init__(_between={"_field": field, "_from": start, "_to": end})
+
+
+class Before(FilterExpr):
+    def __init__(self, field: str, end: int):
+        super().__init__(_between={"_field": field, "_to": end})
+
+
+class After(FilterExpr):
+    def __init__(self, field: str, start: int):
+        super().__init__(_between={"_field": field, "_from": start})
