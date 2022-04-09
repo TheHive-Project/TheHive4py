@@ -95,6 +95,7 @@ class TheHiveApi:
             sort (Array): List of fields to sort the result with. Prefix the field name with `-` for descending order
                 and `+` for ascending order
             range (str): A range describing the number of rows to be returned
+            nparent (int): Number of parent objects for a record to return. E.g. parent case(s) for a task or observable. The default used by TheHive when searching for these items is 10.
 
         Returns:
             response (requests.Response): Response object including a JSON array representing the list of searched records.
@@ -107,7 +108,8 @@ class TheHiveApi:
         # Add range and sort parameters
         params = {
             "range": attributes.get("range", "all"),
-            "sort": attributes.get("sort", [])
+            "sort": attributes.get("sort", []),
+            "nparent": attributes.get("nparent", 0)
         }
 
         # Add body
