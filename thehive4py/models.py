@@ -658,6 +658,7 @@ class AlertArtifact(JSONSerializable):
     Model class describing a alert observable as defined in TheHive
 
     Arguments:
+        id (str): Observable's id. Default: None
         dataType (str): Observable's type, must be a valid type, one of the defined data types in TheHive. Default: None
         message (str): Observable's description. Default: None
         tlp (Enum): Case's TLP: `0`, `1`, `2`, `3` for `WHITE`, `GREEN`, `AMBER`, `RED`. Default: `2`
@@ -683,6 +684,7 @@ class AlertArtifact(JSONSerializable):
         if attributes.get('json', False):
             attributes = attributes['json']
 
+        self.id = attributes.get('id', None)
         self.dataType = attributes.get('dataType', None)
         self.message = attributes.get('message', None)
         self.tlp = attributes.get('tlp', Tlp.AMBER.value)
