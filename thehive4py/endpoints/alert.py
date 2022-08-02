@@ -13,6 +13,7 @@ from thehive4py.types.alert import (
     OutputAlert,
 )
 from thehive4py.types.case import OutputCase
+from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
 
 
@@ -139,5 +140,24 @@ class AlertEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "alert-observables"},
+            json={"query": query},
+        )
+
+    def find_comments(
+        self,
+        alert_id: str,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputComment]:
+        query: QueryExpr = [
+            {"_name": "getAlert", "idOrName": alert_id},
+            {"_name": "comments"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "alert-comments"},
             json={"query": query},
         )
