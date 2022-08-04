@@ -16,6 +16,7 @@ from thehive4py.types.case import (
     InputUpdateCase,
     OutputCase,
 )
+from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.share import InputShare, OutputShare
 from thehive4py.types.task import InputTask, OutputTask
@@ -253,6 +254,25 @@ class CaseEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "case-attachments"},
+            json={"query": query},
+        )
+
+    def find_comments(
+        self,
+        case_id: CaseId,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputComment]:
+        query: QueryExpr = [
+            {"_name": "getCase", "idOrName": case_id},
+            {"_name": "comments"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "case-comments"},
             json={"query": query},
         )
 

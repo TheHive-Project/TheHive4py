@@ -223,8 +223,9 @@ class TestCaseEndpoint:
         assert len(thehive.case.list_shares(case_id=test_case["_id"])) == len(shares)
 
         set_shares = thehive.case.set_share(case_id=test_case["_id"], shares=[])
-        assert len(thehive.case.list_shares(case_id=test_case["_id"])) == len(set_shares)
-
+        assert len(thehive.case.list_shares(case_id=test_case["_id"])) == len(
+            set_shares
+        )
 
     def test_find_and_count(self, thehive: TheHiveApi, test_cases: List[OutputCase]):
         filters = Eq("title", test_cases[0]["title"]) | Eq(
@@ -309,3 +310,14 @@ class TestCaseEndpoint:
         thehive.case.open(case_id, status=open_status)
         reopened_case = thehive.case.get(case_id)
         assert reopened_case["status"] == open_status
+
+    def test_find_comments(self, thehive: TheHiveApi, test_case: OutputCase):
+
+        created_comment = thehive.comment.create_in_case(
+            case_id=test_case["_id"],
+            comment={"message": "my first comment"},
+        )
+
+        case_comments = thehive.case.find_comments(case_id=test_case["_id"])
+
+        assert [created_comment] == case_comments
