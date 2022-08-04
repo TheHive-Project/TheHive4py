@@ -204,3 +204,14 @@ class TestAlertEndpoint:
             attachment_map={"obs1": attachment_path},
         )
         assert created_alert["observableCount"] == len(alert_observables)
+
+    def test_find_comments(self, thehive: TheHiveApi, test_alert: OutputAlert):
+
+        created_comment = thehive.comment.create_in_alert(
+            alert_id=test_alert["_id"],
+            comment={"message": "my first comment"},
+        )
+
+        alert_comments = thehive.alert.find_comments(alert_id=test_alert["_id"])
+
+        assert [created_comment] == alert_comments
