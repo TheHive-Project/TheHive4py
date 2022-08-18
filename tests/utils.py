@@ -63,7 +63,7 @@ def build_container_url(container_name: str) -> str:
 
 
 def run_hive_container(
-    container_name: str, container_image: str = "thehive4py-thehive:5.0.1"
+    container_name: str, container_image: str = "thehive4py-thehive:5.0.9"
 ):
     subprocess.run(
         shlex.split(
@@ -107,12 +107,17 @@ def reinit_hive_container(client: TheHiveApi) -> None:
         profiles = client.profile.find(
             filters=~Eq("name", "analyst") & ~Eq("name", "read-only")
         )
+        custom_fields = client.custom_field.list()
         with ThreadPoolExecutor() as executor:
             executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
             executor.map(client.case.delete, [case["_id"] for case in cases])
             executor.map(client.user.delete, [user["_id"] for user in users])
             executor.map(
                 client.profile.delete, [profile["_id"] for profile in profiles]
+            )
+            executor.map(
+                client.custom_field.delete,
+                [custom_field["_id"] for custom_field in custom_fields],
             )
 
     client.session_organisation = original_session_organisation

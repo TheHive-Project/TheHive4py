@@ -6,6 +6,7 @@ from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
 from thehive4py.types.comment import OutputComment
+from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.profile import OutputProfile
@@ -232,4 +233,18 @@ def test_user(thehive: TheHiveApi) -> OutputUser:
 def test_profile(thehive_admin: TheHiveApi) -> OutputProfile:
     return thehive_admin.profile.create(
         profile={"name": "my-read-only", "permissions": []}
+    )
+
+
+@pytest.fixture
+def test_custom_field(thehive_admin: TheHiveApi) -> OutputCustomField:
+    return thehive_admin.custom_field.create(
+        custom_field={
+            "name": "test-field",
+            "type": "string",
+            "displayName": "Test Field",
+            "description": "...",
+            "group": "default",
+            "options": [],
+        }
     )
