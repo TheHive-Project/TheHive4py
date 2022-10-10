@@ -1,6 +1,6 @@
 import json as jsonlib
 from collections import UserDict
-from requests import JSONDecodeError
+from simplejson import JSONDecodeError
 from os import PathLike
 from typing import Any, Optional, Union
 
