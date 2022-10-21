@@ -9,7 +9,7 @@ def parse_version():
         raise ValueError("Unable to parse version number")
 
 
-REQUIREMENTS = ["requests==2.26.*"]
+REQUIREMENTS = ["requests>=2.27"]
 
 
 EXTRAS_REQUIRE = {"lint": ["flake8", "black", "mypy"], "test": ["pytest"]}

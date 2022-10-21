@@ -1,6 +1,5 @@
 import json as jsonlib
 from collections import UserDict
-from json.decoder import JSONDecodeError
 from os import PathLike
 from typing import Any, Optional, Union
 
@@ -102,7 +101,7 @@ class TheHiveSession(requests.Session):
     def _process_text_response(self, response: requests.Response):
         try:
             json_data = response.json()
-        except JSONDecodeError:
+        except requests.exceptions.JSONDecodeError:
             json_data = None
 
         if json_data is None:
@@ -119,7 +118,7 @@ class TheHiveSession(requests.Session):
     def _process_error_response(self, response: requests.Response):
         try:
             json_data = response.json()
-        except JSONDecodeError:
+        except requests.exceptions.JSONDecodeError:
             json_data = None
 
         if json_data is None:
