@@ -126,4 +126,4 @@ class TheHiveSession(requests.Session):
             error_text = response.text
         else:
             error_text = f"{json_data['type']} - {json_data['message']}"
-        raise TheHiveError(error_text)
+        raise TheHiveError(message=error_text, response=response)
