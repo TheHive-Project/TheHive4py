@@ -101,7 +101,7 @@ class TheHiveSession(requests.Session):
 
     def _process_text_response(self, response: requests.Response):
         try:
-            json_data = response.json()
+            json_data = jsonlib.loads(response.content)
         except JSONDecodeError:
             json_data = None
 
@@ -118,7 +118,7 @@ class TheHiveSession(requests.Session):
 
     def _process_error_response(self, response: requests.Response):
         try:
-            json_data = response.json()
+            json_data = jsonlib.loads(response.content)
         except JSONDecodeError:
             json_data = None
 
