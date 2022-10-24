@@ -10,10 +10,10 @@ class InputAlertRequired(TypedDict):
     sourceRef: str
     title: str
     description: str
-    date: int
 
 
 class InputAlert(InputAlertRequired, total=False):
+    date: int
     externalLink: str
     severity: int
     tags: List[str]
