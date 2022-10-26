@@ -10,7 +10,7 @@ class FilterExpr(UserDict):
         args = self.get("_and", [self]) + other.get("_and", [other])
         return FilterExpr(_and=args)
 
-    def __or__(self, other: "FilterExpr") -> "FilterExpr":
+    def __or__(self, other: "FilterExpr") -> "FilterExpr":  # type:ignore
         if not isinstance(other, FilterExpr):
             self._raise_type_error("|", self, other)
         args = self.get("_or", [self]) + other.get("_or", [other])
