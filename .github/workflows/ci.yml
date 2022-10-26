@@ -32,3 +32,9 @@ jobs:
           auditvenv/bin/pip install . && auditvenv/bin/pip freeze > audit-requirements
           pip-audit -r audit-requirements
           rm -rf auditvenv/
+      - name: Security check with bandit
+        run: |
+          python -m venv bandit/
+          banditvenv/bin/pip install bandit
+          banditvenv/bin/bandit setup.py thehive4py/
+          rm -rf auditvenv/
