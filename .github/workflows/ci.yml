@@ -22,3 +22,6 @@ jobs:
       - name: Format with black
         run: |
           black --diff setup.py thehive4py/ tests/
+      - name: Typing with mypy
+        run: |
+          mypy setup.py thehive4py/ tests/
