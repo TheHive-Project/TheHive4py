@@ -34,7 +34,7 @@ jobs:
           rm -rf auditvenv/
       - name: Security check with bandit
         run: |
-          python -m venv bandit/
+          python -m venv banditvenv/
           banditvenv/bin/pip install bandit
           banditvenv/bin/bandit setup.py thehive4py/
           rm -rf auditvenv/
