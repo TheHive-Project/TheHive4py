@@ -37,4 +37,4 @@ jobs:
           python -m venv banditvenv/
           banditvenv/bin/pip install bandit
           banditvenv/bin/bandit setup.py thehive4py/
-          rm -rf auditvenv/
+          rm -rf banditvenv/
