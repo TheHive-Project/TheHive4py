@@ -1,5 +1,4 @@
 from collections import UserDict
-from logging import Filter
 
 
 class FilterExpr(UserDict):
