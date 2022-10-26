@@ -24,6 +24,5 @@ jobs:
           black --diff setup.py thehive4py/ tests/
       - name: Typing with mypy
         run: |
-          pip freeze > requirements.txt
-          mypy --install-types -r requirements.txt
+          mypy --install-types --non-interactive thehive4py/ tests/ 
           mypy setup.py thehive4py/ tests/
