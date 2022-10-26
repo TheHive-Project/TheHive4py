@@ -16,13 +16,19 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -e .['dev'] 
-      - name: Lint with flake8
+      - name: Lint check with flake8
         run: |
           flake8 setup.py thehive4py/ tests/
-      - name: Format with black
+      - name: Format check with black
         run: |
           black --diff setup.py thehive4py/ tests/
-      - name: Typing with mypy
+      - name: Type check with mypy
         run: |
           mypy --install-types --non-interactive thehive4py/ tests/ 
           mypy setup.py thehive4py/ tests/
+      - name: CVE check with pip-audit
+        run: |
+          python -m venv auditvenv/
+          auditvenv/bin/pip install . && auditvenv/bin/pip freeze > audit-requirements
+          pip-audit -r audit-requirements
+          rm -rf auditvenv/

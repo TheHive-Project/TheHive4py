@@ -12,7 +12,7 @@ def parse_version():
 REQUIREMENTS = ["requests>=2.27"]
 
 
-EXTRAS_REQUIRE = {"lint": ["flake8", "black", "mypy"], "test": ["pytest"]}
+EXTRAS_REQUIRE = {"lint": ["flake8", "black", "mypy", "pip-audit"], "test": ["pytest"]}
 EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["lint"] + EXTRAS_REQUIRE["test"]
 
 
