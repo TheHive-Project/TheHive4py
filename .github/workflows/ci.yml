@@ -28,7 +28,7 @@ jobs:
       # the pip-audit step will become much cleaner after migrating to pyproject.toml
       - name: CVE check with pip-audit
         run: |
-          python -m venv auditvenv/ && auditvenv/bin/pip install -U pip . &> /dev/null
+          python -m venv auditvenv/ && auditvenv/bin/pip install --no-cache-dir -U pip . &> /dev/null
           auditvenv/bin/pip freeze > audit-requirements
           pip-audit -r audit-requirements
       - name: Security check with bandit
