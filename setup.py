@@ -12,8 +12,14 @@ def parse_version():
 REQUIREMENTS = ["requests>=2.27"]
 
 
-EXTRAS_REQUIRE = {"lint": ["flake8", "black", "mypy", "pip-audit"], "test": ["pytest"]}
-EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["lint"] + EXTRAS_REQUIRE["test"]
+EXTRAS_REQUIRE = {
+    "audit": ["pip-audit", "bandit"],
+    "lint": ["flake8", "black", "mypy", "pip-audit"],
+    "test": ["pytest"],
+}
+EXTRAS_REQUIRE["dev"] = (
+    EXTRAS_REQUIRE["lint"] + EXTRAS_REQUIRE["test"] + EXTRAS_REQUIRE["audit"]
+)
 
 
 def read(fname):
