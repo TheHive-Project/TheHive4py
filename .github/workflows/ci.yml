@@ -14,8 +14,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install -e .['dev'] 
+          pip install -U pip .['dev']
       - name: Lint check with flake8
         run: |
           flake8 setup.py thehive4py/ tests/
@@ -26,15 +25,12 @@ jobs:
         run: |
           mypy --install-types --non-interactive thehive4py/ tests/ 
           mypy setup.py thehive4py/ tests/
+      # the pip-audit step will become much cleaner after migrating to pyproject.toml
       - name: CVE check with pip-audit
         run: |
-          python -m venv auditvenv/
-          auditvenv/bin/pip install . && auditvenv/bin/pip freeze > audit-requirements
+          python -m venv auditvenv/ && auditvenv/bin/pip install -U pip . &> /dev/null
+          auditvenv/bin/pip freeze > audit-requirements
           pip-audit -r audit-requirements
-          rm -rf auditvenv/
       - name: Security check with bandit
         run: |
-          python -m venv banditvenv/
-          banditvenv/bin/pip install bandit
-          banditvenv/bin/bandit -r setup.py thehive4py/
-          rm -rf banditvenv/
+          bandit -r setup.py thehive4py/
