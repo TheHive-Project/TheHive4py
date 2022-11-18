@@ -1,0 +1,36 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -U pip .['dev']
+      - name: Lint check with flake8
+        run: |
+          flake8 setup.py thehive4py/ tests/
+      - name: Format check with black
+        run: |
+          black --diff setup.py thehive4py/ tests/
+      - name: Type check with mypy
+        run: |
+          mypy --install-types --non-interactive thehive4py/ tests/  &> /dev/null
+          mypy setup.py thehive4py/ tests/
+      # the pip-audit step will become much cleaner after migrating to pyproject.toml
+      - name: CVE check with pip-audit
+        run: |
+          python -m venv auditvenv/ && auditvenv/bin/pip install --no-cache-dir -U pip . &> /dev/null
+          auditvenv/bin/pip freeze > audit-requirements
+          pip-audit -r audit-requirements
+      - name: Security check with bandit
+        run: |
+          bandit -r setup.py thehive4py/

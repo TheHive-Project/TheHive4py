@@ -7,7 +7,7 @@ class SortExpr(UserDict):
     def __and__(self, other: "SortExpr") -> "SortExpr":
         return self._concat_expressions("&", self, other)
 
-    def __or__(self, other: "SortExpr") -> "SortExpr":
+    def __or__(self, other: "SortExpr") -> "SortExpr":  # type:ignore
         return self._concat_expressions("|", self, other)
 
     def _concat_expressions(

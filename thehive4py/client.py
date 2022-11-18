@@ -60,7 +60,7 @@ class TheHiveApi:
 
     @property
     def session_organisation(self) -> Optional[str]:
-        return self.session.headers.get("X-Organisation")
+        return self.session.headers.get("X-Organisation")  # type:ignore
 
     @session_organisation.setter
     def session_organisation(self, organisation: Optional[str] = None):
