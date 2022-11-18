@@ -6,7 +6,7 @@ from typing import Any, Optional, Union
 import requests
 import requests.auth
 
-from thehive4py import __version__
+from thehive4py.__version__ import __version__
 from thehive4py.errors import TheHiveError
 
 
