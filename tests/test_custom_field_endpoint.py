@@ -4,7 +4,7 @@ from thehive4py.errors import TheHiveError
 from thehive4py.types.custom_field import InputUpdateCustomField, OutputCustomField
 
 
-class TestTaskLogEndpoint:
+class TestCustomeFieldEndpoint:
     def test_create_and_list(self, thehive_admin: TheHiveApi):
         created_custom_field = thehive_admin.custom_field.create(
             custom_field={
@@ -26,7 +26,7 @@ class TestTaskLogEndpoint:
         thehive_admin.custom_field.delete(custom_field_id=test_custom_field["_id"])
 
         with pytest.raises(TheHiveError):
-            thehive_admin.task_log.get(task_log_id=test_custom_field["_id"])
+            thehive_admin.custom_field.delete(custom_field_id=test_custom_field["_id"])
 
     def test_update(
         self, thehive_admin: TheHiveApi, test_custom_field: OutputCustomField

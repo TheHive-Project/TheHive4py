@@ -119,5 +119,7 @@ def reinit_hive_container(client: TheHiveApi) -> None:
                 client.custom_field.delete,
                 [custom_field["_id"] for custom_field in custom_fields],
             )
+            executor.map(client.observable_type.delete,
+                ["my-observable-type", "new-observable-type"])
 
     client.session_organisation = original_session_organisation

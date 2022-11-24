@@ -15,6 +15,7 @@ from thehive4py.endpoints import (
 )
 from thehive4py.endpoints.cortex import CortexEndpoint
 from thehive4py.endpoints.custom_field import CustomFieldEndpoint
+from thehive4py.endpoints.observable_type import ObservableTypeEndpoint
 from thehive4py.session import TheHiveSession
 
 
@@ -54,6 +55,7 @@ class TheHiveApi:
 
         # entity endpoints
         self.custom_field = CustomFieldEndpoint(self.session)
+        self.observable_type = ObservableTypeEndpoint(self.session)
 
         # connector endpoints
         self.cortex = CortexEndpoint(self.session)

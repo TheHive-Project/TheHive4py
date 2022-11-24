@@ -8,6 +8,7 @@ from thehive4py.types.case import InputCase, OutputCase
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
+from thehive4py.types.observable_type import OutputObservableType
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.profile import OutputProfile
 from thehive4py.types.task import InputTask, OutputTask
@@ -247,4 +248,11 @@ def test_custom_field(thehive_admin: TheHiveApi) -> OutputCustomField:
             "group": "default",
             "options": [],
         }
+    )
+
+
+@pytest.fixture
+def test_observable_type(thehive_admin: TheHiveApi) -> OutputObservableType:
+    return thehive_admin.observable_type.create(
+        observable_type={"name": "my-observable-type"}
     )
