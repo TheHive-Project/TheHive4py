@@ -14,6 +14,9 @@
     <a href="https://pypi.org/project/thehive4py" target"_blank">
       <img src="https://img.shields.io/pypi/dm/thehive4py" alt="Pypi page">
     </a>
+    <a href="https://github.com/TheHive-Project/TheHive4py/actions/workflows/ci.yml" target"_blank">
+      <img src="https://github.com/TheHive-Project/TheHive4py/actions/workflows/ci.yml/badge.svg" alt="ci action badge">
+    </a>
   </p>
 </div>
 
