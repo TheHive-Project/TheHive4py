@@ -18,7 +18,9 @@ class ObservableTypeEndpoint(EndpointBase):
         )
 
     def get(self, observable_type_id: str) -> OutputObservableType:
-        return self._session.make_request("GET", path=f"/api/v1/observable/type/{observable_type_id}")
+        return self._session.make_request(
+            "GET", path=f"/api/v1/observable/type/{observable_type_id}"
+        )
 
     def delete(self, observable_type_id: str) -> None:
         return self._session.make_request(
