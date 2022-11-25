@@ -4,9 +4,9 @@ from typing import List
 import pytest
 from thehive4py import TheHiveApi
 from thehive4py.errors import TheHiveError
-from thehive4py.query.sort import Asc
 from thehive4py.types.alert import OutputAlert
 from thehive4py.types.case import OutputCase
+from thehive4py.query.sort import Asc
 from thehive4py.types.observable import (
     InputBulkUpdateObservable,
     InputUpdateObservable,

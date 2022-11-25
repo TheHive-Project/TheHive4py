@@ -6,7 +6,7 @@ class InputObservableTypeRequired(TypedDict):
 
 
 class InputObservableType(InputObservableTypeRequired, total=False):
-    isAttachement: bool
+    isAttachment: bool
 
 
 class OutputObservableTypeRequired(TypedDict):
@@ -15,7 +15,7 @@ class OutputObservableTypeRequired(TypedDict):
     _createdBy: str
     _createdAt: int
     name: str
-    isAttachement: bool
+    isAttachment: bool
 
 
 class OutputObservableType(OutputObservableTypeRequired, total=False):
