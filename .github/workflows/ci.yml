@@ -15,12 +15,12 @@ jobs:
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
       - name: Lint check with flake8
-        run: python scripts/ci.py lint
+        run: scripts/ci.py lint
       - name: Format check with black
-        run: python scripts/ci.py format
+        run: scripts/ci.py format
       - name: Type check with mypy
-        run: python scripts/ci.py type 
+        run: scripts/ci.py type 
       - name: CVE check with pip-audit
-        run: python scripts/ci.py cve
+        run: scripts/ci.py cve
       - name: Security check with bandit
-        run: python scripts/ci.py security
+        run: scripts/ci.py security
