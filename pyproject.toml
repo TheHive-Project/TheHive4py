@@ -27,7 +27,7 @@ authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 [project.optional-dependencies]
 audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
-lint = ["black", "flake8", "mypy"]
+lint = ["black", "flake8", "mypy", "pre-commit"]
 test = ["pytest"]
 dev = ["thehive4py[audit, lint, test, build]"]
 
