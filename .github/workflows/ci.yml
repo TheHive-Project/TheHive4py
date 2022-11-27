@@ -13,21 +13,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          pip install --no-cache-dir -U pip .['dev']
+        run: pip install --no-cache-dir -U pip .['dev']
       - name: Lint check with flake8
-        run: |
-          flake8 thehive4py/ tests/
+        run: python scripts/ci.py lint
       - name: Format check with black
-        run: |
-          black --diff thehive4py/ tests/
+        run: python scripts/ci.py format
       - name: Type check with mypy
-        run: |
-          mypy --install-types --non-interactive thehive4py/ tests/  &> /dev/null
-          mypy thehive4py/ tests/
+        run: python scripts/ci.py type 
       - name: CVE check with pip-audit
-        run: |
-          pip-audit .
+        run: python scripts/ci.py cve
       - name: Security check with bandit
-        run: |
-          bandit -r thehive4py/
+        run: python scripts/ci.py security
