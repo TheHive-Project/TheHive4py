@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 
 from scripts._shared import _run_subprocess
