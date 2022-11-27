@@ -59,12 +59,8 @@ def check_format(verbose=False):
 
 
 def check_type(verbose=False):
-
     _run_subprocess(
-        args=(
-            "mypy --install-types --non-interactive thehive4py/ tests/ &> /dev/null"
-            "&& mypy thehive4py/"
-        ),
+        args="mypy --install-types --non-interactive thehive4py/",
         init_message="Run type checks with mypy...",
         success_message="Type checks succeeded!",
         error_message="Type checks failed due to:",
