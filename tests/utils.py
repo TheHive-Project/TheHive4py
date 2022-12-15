@@ -107,6 +107,9 @@ def reinit_hive_container(client: TheHiveApi) -> None:
         profiles = client.profile.find(
             filters=~Eq("name", "analyst") & ~Eq("name", "read-only")
         )
+        observable_types = client.observable_type.find(
+            filters=~Eq("_createdBy", "system@thehive.local")
+        )
         custom_fields = client.custom_field.list()
         with ThreadPoolExecutor() as executor:
             executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
@@ -118,6 +121,10 @@ def reinit_hive_container(client: TheHiveApi) -> None:
             executor.map(
                 client.custom_field.delete,
                 [custom_field["_id"] for custom_field in custom_fields],
+            )
+            executor.map(
+                client.observable_type.delete,
+                [observable_type["_id"] for observable_type in observable_types],
             )
 
     client.session_organisation = original_session_organisation
