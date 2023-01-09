@@ -29,6 +29,9 @@ Rebooted version of thehive4py for TheHive5! Stay tuned, more to come!
 
 ## Development
 
+
+### Setting up a virtual environment (optional)
+
 You can setup a venv (see the [official docs for this](https://docs.python.org/3/tutorial/venv.html):
 
 ```
@@ -37,7 +40,32 @@ python3 -m venv <path_of_venv>
 source <path_of_venv>/bin/activate
 ```
 
-Install the dev dependencies for the project
+### Install the package for development 
+
+To install the package with the dev dependencies one can run:
+
 ```
 pip install -e '.[dev]'
+```
+
+### Run CI checks before pushing changes
+
+To check the integrity of changes made one can run:
+
+```
+python scripts/ci.py 
+```
+
+or to execute the checks automatically just install the pre-commit hooks come with the repo:
+
+```
+pre-commit install
+```
+
+### Run CD commands to build and publish
+
+To build the package one can run:
+
+```
+python scripts/cd.py build
 ```

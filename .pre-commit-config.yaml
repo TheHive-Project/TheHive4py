@@ -1,0 +1,11 @@
+# experimental (works from the terminal but not from vscode and possibly from other IDEs)
+repos:
+- repo: local
+  hooks:
+    - id: ci-checks 
+      name: ci-checks
+      entry: scripts/ci.py
+      language: system
+      pass_filenames: false
+      always_run: true
+      stages: [push]
