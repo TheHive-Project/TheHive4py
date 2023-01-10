@@ -113,15 +113,15 @@ class ObservableEndpoint(EndpointBase):
         )
 
     def download_attachment(
-        self, 
-        observable_id: str, 
-        attachment_id: str, 
-        observable_path: str, 
+        self,
+        observable_id: str,
+        attachment_id: str,
+        observable_path: str,
         as_zip: bool = False
     ) -> None:
         return self._session.make_request(
             "GET",
-            path=(f"/api/v1/observable/{observable_id}
+            path=(f"/api/v1/observable/{observable_id}"
                   f"/attachment/{attachment_id}/download"),
             params={"asZip": as_zip},
             download_path=observable_path,
