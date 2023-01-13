@@ -10,6 +10,7 @@ from thehive4py.types.alert import (
     InputAlert,
     InputBulkUpdateAlert,
     InputUpdateAlert,
+    InputPromoteAlert,
     OutputAlert,
 )
 from thehive4py.types.case import OutputCase
@@ -59,11 +60,13 @@ class AlertEndpoint(EndpointBase):
     def unfollow(self, alert_id: str) -> None:
         self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/unfollow")
 
-    def promote_to_case(self, alert_id: str) -> OutputCase:
+    def promote_to_case(
+        self, alert_id: str, fields: InputPromoteAlert = {}
+    ) -> OutputCase:
         return self._session.make_request(
             "POST",
             path=f"/api/v1/alert/{alert_id}/case",
-            json={"placholder": ""},  # TODO: replace with optional body definition
+            json=fields,
         )
 
     def create_observable(

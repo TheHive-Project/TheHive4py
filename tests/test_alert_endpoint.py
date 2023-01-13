@@ -72,9 +72,12 @@ class TestAlertEndpoint:
     def test_promote_to_case(self, thehive: TheHiveApi, test_alert: OutputAlert):
         alert_id = test_alert["_id"]
 
-        case_from_alert = thehive.alert.promote_to_case(alert_id=alert_id)
+        case_from_alert = thehive.alert.promote_to_case(
+            alert_id=alert_id, fields={"title": "promoted title"}
+        )
         promoted_alert = thehive.alert.get(alert_id=alert_id)
         assert promoted_alert.get("caseId") == case_from_alert["_id"]
+        assert promoted_alert["title"] != case_from_alert["title"]
 
     def test_merge_into_case(
         self, thehive: TheHiveApi, test_alert: OutputAlert, test_case: OutputCase

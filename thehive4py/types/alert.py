@@ -2,6 +2,8 @@ from typing import List, TypedDict
 
 from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
 from thehive4py.types.observable import InputObservable
+from thehive4py.types.share import InputShare
+from thehive4py.types.task import InputTask
 
 
 class InputAlertRequired(TypedDict):
@@ -88,3 +90,24 @@ class InputUpdateAlert(TypedDict, total=False):
 
 class InputBulkUpdateAlert(InputUpdateAlert):
     ids: List[str]
+
+
+class InputPromoteAlert(TypedDict, total=False):
+    title: str
+    description: str
+    severity: int
+    startDate: int
+    endDate: int
+    tags: List[str]
+    flag: bool
+    tlp: int
+    pap: int
+    status: str
+    summary: str
+    assignee: str
+    customFields: List[InputCustomFieldValue]
+    caseTemplate: str
+    tasks: List[InputTask]
+    sharingParameters: List[InputShare]
+    taskRule: str
+    observableRule: str
