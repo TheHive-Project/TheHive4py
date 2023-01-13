@@ -61,12 +61,12 @@ class AlertEndpoint(EndpointBase):
         self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/unfollow")
 
     def promote_to_case(
-        self, alert_id: str, update: InputPromoteAlert = {}
+        self, alert_id: str, fields: InputPromoteAlert = {}
     ) -> OutputCase:
         return self._session.make_request(
             "POST",
             path=f"/api/v1/alert/{alert_id}/case",
-            json=update,
+            json=fields,
         )
 
     def create_observable(
