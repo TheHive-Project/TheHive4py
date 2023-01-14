@@ -18,6 +18,7 @@ from thehive4py.types.case import (
 )
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
+from thehive4py.types.procedure import InputProcedure, OutputProcedure
 from thehive4py.types.share import InputShare, OutputShare
 from thehive4py.types.task import InputTask, OutputTask
 from thehive4py.types.timeline import OutputTimeline
@@ -235,6 +236,33 @@ class CaseEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "case-observables"},
+            json={"query": query},
+        )
+
+    def create_procedure(
+        self, case_id: str, procedure: InputProcedure
+    ) -> OutputProcedure:
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{case_id}/procedure", json=procedure
+        )
+
+    def find_procedures(
+        self,
+        case_id: str,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputProcedure]:
+        query: QueryExpr = [
+            {"_name": "getCase", "idOrName": case_id},
+            {"_name": "procedures"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "case-procedures"},
             json={"query": query},
         )
 
