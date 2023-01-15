@@ -4,6 +4,7 @@ from typing import List
 import pytest
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
+from thehive4py.helpers import now_to_ts
 from thehive4py.query.filters import Eq
 from thehive4py.query.sort import Asc
 from thehive4py.types.alert import InputBulkUpdateAlert, InputUpdateAlert, OutputAlert
@@ -218,3 +219,19 @@ class TestAlertEndpoint:
         alert_comments = thehive.alert.find_comments(alert_id=test_alert["_id"])
 
         assert [created_comment] == alert_comments
+
+    def test_create_and_find_procedure(
+        self, thehive: TheHiveApi, test_alert: OutputAlert
+    ):
+
+        created_procedure = thehive.alert.create_procedure(
+            alert_id=test_alert["_id"],
+            procedure={
+                "occurDate": now_to_ts(),
+                "patternId": "T1059.006",
+                "tactic": "execution",
+                "description": "...",
+            },
+        )
+        alert_procedures = thehive.alert.find_procedures(alert_id=test_alert["_id"])
+        assert [created_procedure] == alert_procedures
