@@ -243,7 +243,7 @@ class CaseEndpoint(EndpointBase):
         self, case_id: str, procedure: InputProcedure
     ) -> OutputProcedure:
         return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{case_id}/procedure", json=procedure
+            "POST", path=f"/api/v1/case/{case_id}/procedure", json=procedure
         )
 
     def find_procedures(
