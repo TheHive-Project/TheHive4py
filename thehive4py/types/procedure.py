@@ -25,8 +25,8 @@ class OutputProcedure(OutputProcedureRequired, total=False):
     _updatedAt: int
     _updatedBy: str
     description: str
-    patterId: str
-    patterName: str
+    patternId: str
+    patternName: str
 
 
 class InputUpdateProcedure(TypedDict, total=False):

@@ -16,6 +16,7 @@ from thehive4py.types.alert import (
 from thehive4py.types.case import OutputCase
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
+from thehive4py.types.procedure import InputProcedure, OutputProcedure
 
 
 class AlertEndpoint(EndpointBase):
@@ -162,5 +163,32 @@ class AlertEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "alert-comments"},
+            json={"query": query},
+        )
+
+    def create_procedure(
+        self, alert_id: str, procedure: InputProcedure
+    ) -> OutputProcedure:
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{alert_id}/procedure", json=procedure
+        )
+
+    def find_procedures(
+        self,
+        alert_id: str,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputProcedure]:
+        query: QueryExpr = [
+            {"_name": "getAlert", "idOrName": alert_id},
+            {"_name": "procedures"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "alert-procedures"},
             json={"query": query},
         )
