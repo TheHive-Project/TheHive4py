@@ -1,12 +1,13 @@
+import zipfile
 from pathlib import Path
 from typing import List
 
 import pytest
 from thehive4py import TheHiveApi
 from thehive4py.errors import TheHiveError
+from thehive4py.query.sort import Asc
 from thehive4py.types.alert import OutputAlert
 from thehive4py.types.case import OutputCase
-from thehive4py.query.sort import Asc
 from thehive4py.types.observable import (
     InputBulkUpdateObservable,
     InputUpdateObservable,
@@ -32,12 +33,14 @@ class TestObservableEndpoint:
         )
         assert created_observable == fetched_observable
 
-    def test_create_in_alert_from_file(
+    def test_create_in_alert_from_file_and_download_as_zip(
         self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
     ):
-        observable_path = str(tmp_path / "alert-observable.txt")
+        observable_content = "observable content"
+        observable_filename = "alert-observable.txt"
+        observable_path = str(tmp_path / observable_filename)
         with open(observable_path, "w") as observable_fp:
-            observable_fp.write("observable content")
+            observable_fp.write(observable_content)
 
         created_observable = thehive.observable.create_in_alert(
             alert_id=test_alert["_id"],
@@ -48,13 +51,20 @@ class TestObservableEndpoint:
             observable_path=observable_path,
         )[0]
 
-        fetched_observable = thehive.observable.get(
-            observable_id=created_observable["_id"]
-        )
-        assert created_observable == fetched_observable
+        created_attachment = created_observable.get("attachment")
+        assert created_attachment
 
-        attachment = fetched_observable.get("attachment")
-        assert attachment and attachment["name"] in observable_path
+        observable_archive = str(tmp_path / "downloaded-observable.zip")
+        thehive.observable.download_attachment(
+            observable_id=created_observable["_id"],
+            attachment_id=created_attachment["_id"],
+            observable_path=observable_archive,
+            as_zip=True,
+        )
+
+        with zipfile.ZipFile(observable_archive) as archive_fp:
+            with archive_fp.open(observable_filename, pwd=b"malware") as downloaded_fp:
+                assert downloaded_fp.read().decode() == observable_content
 
     def test_create_in_case_and_get(self, thehive: TheHiveApi, test_case: OutputCase):
         created_observable = thehive.observable.create_in_case(
@@ -71,12 +81,14 @@ class TestObservableEndpoint:
         )
         assert created_observable == fetched_observable
 
-    def test_create_in_case_from_file(
+    def test_create_in_case_from_file_and_download_as_is(
         self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
     ):
-        observable_path = str(tmp_path / "case-observable.txt")
+        observable_content = "observable content"
+        observable_filename = "case-observable.txt"
+        observable_path = str(tmp_path / observable_filename)
         with open(observable_path, "w") as observable_fp:
-            observable_fp.write("observable content")
+            observable_fp.write(observable_content)
 
         created_observable = thehive.observable.create_in_case(
             case_id=test_case["_id"],
@@ -87,13 +99,19 @@ class TestObservableEndpoint:
             observable_path=observable_path,
         )[0]
 
-        fetched_observable = thehive.observable.get(
-            observable_id=created_observable["_id"]
-        )
-        assert created_observable == fetched_observable
+        created_attachment = created_observable.get("attachment")
+        assert created_attachment
 
-        attachment = fetched_observable.get("attachment")
-        assert attachment and attachment["name"] in observable_path
+        downloaded_observable_path = str(tmp_path / "downloaded-observable.zip")
+        thehive.observable.download_attachment(
+            observable_id=created_observable["_id"],
+            attachment_id=created_attachment["_id"],
+            observable_path=downloaded_observable_path,
+            as_zip=False,
+        )
+
+        with open(downloaded_observable_path) as downloaded_fp:
+            assert downloaded_fp.read() == observable_content
 
     def test_delete(self, thehive: TheHiveApi, test_observable: OutputObservable):
         observable_id = test_observable["_id"]
