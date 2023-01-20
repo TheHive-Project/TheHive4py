@@ -33,3 +33,6 @@ dev = ["thehive4py[audit, lint, test, build]"]
 
 [tool.setuptools.packages.find]
 include = ["thehive4py*"]
+
+[tool.setuptools.package-data]
+thehive4py = ["py.typed"]
