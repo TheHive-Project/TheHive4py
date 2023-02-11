@@ -1,3 +1,4 @@
+import logging
 from typing import List
 
 import pytest
@@ -17,30 +18,43 @@ from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 from thehive4py.types.timeline import OutputCustomEvent
 from thehive4py.types.user import OutputUser
 
-from tests.utils import reinit_hive_container, spawn_hive_container
+from tests.utils import TestConfig, reinit_hive_container, spawn_hive_container
+
+
+@pytest.fixture(scope="session")
+def test_config():
+    return TestConfig(
+        image_name="thehive4py-integrator:thehive-5.0.25-1",
+        container_name="thehive4py-itegration-tests",
+        user="admin@thehive.local",
+        password="secret",
+        admin_org="admin",
+        test_org="test-org",
+        share_org="share-org",
+    )
 
 
 @pytest.fixture(scope="function", autouse=True)
-def init_hive_container(thehive: TheHiveApi):
-    reinit_hive_container(thehive)
+def init_hive_container(test_config: TestConfig):
+    reinit_hive_container(test_config=test_config)
 
 
-@pytest.fixture(scope="function")
-def thehive():
-    hive_container = spawn_hive_container()
+@pytest.fixture(scope="session")
+def thehive(test_config: TestConfig):
+    hive_url = spawn_hive_container(test_config=test_config)
     client = TheHiveApi(
-        url=hive_container.url,
-        username="admin@thehive.local",
-        password="secret",
-        organisation="test-org",
+        url=hive_url,
+        username=test_config.user,
+        password=test_config.password,
+        organisation=test_config.test_org,
     )
     return client
 
 
 @pytest.fixture
-def thehive_admin(thehive: TheHiveApi):
+def thehive_admin(test_config: TestConfig, thehive: TheHiveApi):
     default_organisation = thehive.session_organisation
-    thehive.session_organisation = "admin"
+    thehive.session_organisation = test_config.admin_org
     yield thehive
     thehive.session_organisation = default_organisation
 
