@@ -1,0 +1,23 @@
+name: Tests
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      thehive:
+        image: redis
+        ports:
+          - 9000/tcp
+        options: --name thehive4py-integration-tests
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Docker checks
+        run: docker ps
+      # - name: Install dependencies
+      #   run: pip install --no-cache-dir -U pip .['dev']
+      # - name: Run integration tests
+      #   run: pytest -vvvv
