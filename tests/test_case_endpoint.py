@@ -365,3 +365,8 @@ class TestCaseEndpoint:
 
         for key, value in update_page.items():
             assert updated_case_page.get(key) == value
+
+        thehive.case.delete_page(
+            case_id=test_case["_id"], page_id=test_case_page["_id"]
+        )
+        assert len(thehive.case.find_pages(case_id=test_case["_id"])) == 0
