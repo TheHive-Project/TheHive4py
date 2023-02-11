@@ -9,6 +9,7 @@ from thehive4py.types.comment import OutputComment
 from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.observable_type import OutputObservableType
+from thehive4py.types.page import OutputCasePage
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.profile import OutputProfile
 from thehive4py.types.task import InputTask, OutputTask
@@ -198,6 +199,18 @@ def test_procedure(thehive: TheHiveApi, test_case: OutputCase) -> OutputProcedur
             "patternId": "T1059.006",
             "tactic": "execution",
             "description": "...",
+        },
+    )
+
+
+@pytest.fixture
+def test_case_page(thehive: TheHiveApi, test_case: OutputCase) -> OutputCasePage:
+    return thehive.case.create_page(
+        case_id=test_case["_id"],
+        page={
+            "title": "my case page",
+            "category": "testing",
+            "content": "...",
         },
     )
 

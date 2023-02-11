@@ -16,6 +16,7 @@ from thehive4py.types.case import (
     OutputCase,
 )
 from thehive4py.types.observable import InputObservable
+from thehive4py.types.page import InputUpdateCasePage, OutputCasePage
 from thehive4py.types.share import InputShare
 
 
@@ -338,3 +339,29 @@ class TestCaseEndpoint:
         )
         case_procedures = thehive.case.find_procedures(case_id=test_case["_id"])
         assert [created_procedure] == case_procedures
+
+    def test_create_and_find_page(self, thehive: TheHiveApi, test_case: OutputCase):
+        created_page = thehive.case.create_page(
+            case_id=test_case["_id"],
+            page={"title": "my case page", "category": "testing", "content": "..."},
+        )
+
+        case_pages = thehive.case.find_pages(case_id=test_case["_id"])
+        assert [created_page] == case_pages
+
+    def test_update_and_delete_page(
+        self, thehive: TheHiveApi, test_case: OutputCase, test_case_page: OutputCasePage
+    ):
+        update_page: InputUpdateCasePage = {"title": "my updated case page"}
+        thehive.case.update_page(
+            case_id=test_case["_id"],
+            page_id=test_case_page["_id"],
+            page=update_page,
+        )
+
+        updated_case_page = thehive.case.find_pages(
+            case_id=test_case["_id"], filters=Eq("_id", test_case_page["_id"])
+        )[0]
+
+        for key, value in update_page.items():
+            assert updated_case_page.get(key) == value
