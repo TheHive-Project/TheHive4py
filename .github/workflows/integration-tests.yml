@@ -21,3 +21,5 @@ jobs:
         run: pip install --no-cache-dir -U pip .['dev']
       - name: Run integration tests
         run: pytest -vx
+      - name: Docker checks again 
+        run: docker ps -a 

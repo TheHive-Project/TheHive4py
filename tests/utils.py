@@ -24,7 +24,7 @@ class TestConfig:
 
 def _is_container_responsive(container_url: str) -> bool:
     COOLDOWN = 1.0
-    TIMEOUT = 30.0
+    TIMEOUT = 60.0
 
     now = time.time()
     end = now + TIMEOUT
