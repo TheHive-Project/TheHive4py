@@ -23,7 +23,7 @@ from tests.utils import TestConfig, reinit_hive_container, spawn_hive_container
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="thehive4py-integrator:thehive-5.0.25-1",
+        image_name="kamforka/thehive4py-integrator:thehive-5.0.25-1",
         container_name="thehive4py-itegration-tests",
         user="admin@thehive.local",
         password="secret",
