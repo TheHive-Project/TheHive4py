@@ -9,14 +9,14 @@ jobs:
         credentials:
           username: kamforka
           password: ${{ secrets.DOCKER_TOKEN }}
+        ports:
+          - 9000/tcp
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-      - name: Docker checks
-        run: docker run -d  --rm --name thehive4py-integration-tests -p 9000 kamforka/thehive4py-integrator:thehive-5.0.25-1 
       - name: Docker checks
         run: docker ps -a 
       - name: Install dependencies
