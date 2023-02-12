@@ -1,4 +1,4 @@
-name: Tests
+name: integration-tests
 on: [pull_request]
 jobs:
   build:
@@ -17,13 +17,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-      - name: Docker checks
-        run: docker ps -a 
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
-      - name: Docker checks
-        run: docker ps -a 
       - name: Run integration tests
         run: pytest -vx
-      - name: Docker checks again 
-        run: docker ps -a 
