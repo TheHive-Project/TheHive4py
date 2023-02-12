@@ -21,6 +21,8 @@ jobs:
         run: docker ps -a 
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
+      - name: Docker checks
+        run: docker ps -a 
       - name: Run integration tests
         run: pytest -vx
       - name: Docker checks again 
