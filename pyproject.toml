@@ -36,3 +36,6 @@ include = ["thehive4py*"]
 
 [tool.setuptools.package-data]
 thehive4py = ["py.typed"]
+
+[tool.coverage.run]
+omit = ["tests/*", "thehive4py/types/*"]

@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
       - name: Run integration tests
-        run: pytest -vx
+        run: pytest -vx --cov
