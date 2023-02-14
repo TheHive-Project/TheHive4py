@@ -28,7 +28,7 @@ authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
 lint = ["black", "flake8", "mypy", "pre-commit"]
-test = ["pytest"]
+test = ["pytest", "pytest-cov"]
 dev = ["thehive4py[audit, lint, test, build]"]
 
 [tool.setuptools.packages.find]
