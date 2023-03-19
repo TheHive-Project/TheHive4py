@@ -27,14 +27,18 @@ class TheHiveApi:
         username: Optional[str] = None,
         password: Optional[str] = None,
         organisation: Optional[str] = None,
+        proxies={},
         verify=None,
+        cert=None
     ):
         self.session = TheHiveSession(
             url=url,
             apikey=apikey,
             username=username,
             password=password,
+            proxies=proxies,
             verify=verify,
+            cert=cert
         )
         self.session_organisation = organisation
 
