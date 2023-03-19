@@ -29,6 +29,7 @@ Rebooted version of thehive4py for TheHive5! Stay tuned, more to come!
 
 ## Development
 
+
 ### Setting up a virtual environment (optional)
 
 You can setup a venv (see the [official docs for this](https://docs.python.org/3/tutorial/venv.html):
