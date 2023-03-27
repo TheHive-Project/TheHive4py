@@ -1,4 +1,4 @@
-name: CI
+name: static-checks
 on: [pull_request]
 jobs:
   build:
