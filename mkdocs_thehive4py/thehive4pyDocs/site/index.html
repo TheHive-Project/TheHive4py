@@ -1,0 +1,1349 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://thehive-project.github.io/thehive4py/">
+      
+      
+      
+        <link rel="next" href="code_of_conduct/">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>TheHive4py Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="custom.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#thehive4py" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="TheHive4py Documentation" class="md-header__button md-logo" aria-label="TheHive4py Documentation" data-md-component="logo">
+      
+  <img src="images/thehive.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TheHive4py Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TheHive4py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="TheHive4py Documentation" class="md-nav__button md-logo" aria-label="TheHive4py Documentation" data-md-component="logo">
+      
+  <img src="images/thehive.png" alt="logo">
+
+    </a>
+    TheHive4py Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          TheHive4py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        TheHive4py
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updates" class="md-nav__link">
+    Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community-discussions" class="md-nav__link">
+    Community Discussions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#website" class="md-nav__link">
+    Website
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_of_conduct/" class="md-nav__link">
+        Contributor Convenant Code of Conduct
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Alert_operations/" class="md-nav__link">
+        Alert operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Case_operations/" class="md-nav__link">
+        Case operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Comment_operations/" class="md-nav__link">
+        Comment operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/CustomField_operations/" class="md-nav__link">
+        Custom field operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/ObservableType_operations/" class="md-nav__link">
+        Observable type operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Observable_operations/" class="md-nav__link">
+        Observable operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Procedure_operations/" class="md-nav__link">
+        Procedure operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Profile_operations/" class="md-nav__link">
+        Profile operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/TaskLog_opeartions/" class="md-nav__link">
+        TaskLog operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Task_operations/" class="md-nav__link">
+        Task operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/Timeline_operations/" class="md-nav__link">
+        Timeline operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/User_operations/" class="md-nav__link">
+        User operations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          Endpoints
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Endpoints
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/AlertEndpoint/" class="md-nav__link">
+        AlertEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/CaseEndpoint/" class="md-nav__link">
+        CaseEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/CommentEndpoint/" class="md-nav__link">
+        CommentEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/CustomFieldEndpoint/" class="md-nav__link">
+        CustomFieldEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/ObservableEndpoint/" class="md-nav__link">
+        ObservableEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/ObservableTypeEndpoint/" class="md-nav__link">
+        ObservableTypeEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/OrganisationEndpoint/" class="md-nav__link">
+        OrganisationEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/ProcedureEndpoint/" class="md-nav__link">
+        ProcedureEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/ProfileEndpoint/" class="md-nav__link">
+        ProfileEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/TaskEndpoint/" class="md-nav__link">
+        TaskEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/TaskLogEndpoint/" class="md-nav__link">
+        TaskLogEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/TimelineEndpoint/" class="md-nav__link">
+        TimelineEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/endpoints/UserEndpoint/" class="md-nav__link">
+        UserEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Alert/" class="md-nav__link">
+        Alert
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Attachment/" class="md-nav__link">
+        Attachment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Case/" class="md-nav__link">
+        Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/CustomField/" class="md-nav__link">
+        Custom Field
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Observable/" class="md-nav__link">
+        Observable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/ObservableType/" class="md-nav__link">
+        ObservableType
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Organisation/" class="md-nav__link">
+        Organisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Procedure/" class="md-nav__link">
+        Procedure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Profile/" class="md-nav__link">
+        Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Share/" class="md-nav__link">
+        Share
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/Task/" class="md-nav__link">
+        Task
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/TaskLog/" class="md-nav__link">
+        TaskLog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/timeline/" class="md-nav__link">
+        CustomEvent
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/models/user/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updates" class="md-nav__link">
+    Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community-discussions" class="md-nav__link">
+    Community Discussions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#website" class="md-nav__link">
+    Website
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="thehive4py">TheHive4py<a class="headerlink" href="#thehive4py" title="Permanent link">#</a></h1>
+<p>TheHive4py is a Python API client for <a href="https://thehive-project.org/">TheHive</a>, a scalable 3-in-1 open source and free security incident response platform designed to make life easier for SOCs, CSIRTs, CERTs and any information security practitioner dealing with security incidents that need to be investigated and acted upon swiftly.</p>
+<p>TheHive4py allows analysts to send alerts to TheHive out of different sources. Those alerts can then be previewed and imported into cases using pre-defined templates.</p>
+<p>For example, a SOC may ask its constituency to send suspicious email reports to a specific mailbox that a script polls at regular intervals. When a new email is received, the script parses it then calls TheHive4py to create a corresponding alert in TheHive. Once the alert is raised, SOC analysts will get a notification thanks to TheHive's live stream so they can preview it and import it if deemed worth investigating using a specific template.</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">#</a></h2>
+<p>TheHive4py allows the following features:</p>
+<div class="tabbed-set" data-tabs="1:13"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Alerts</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#createself-alert-attachment_map">Create alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#getself-alert_id">Get an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#updateself-alert_id-fields">Update an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#deleteself-alert_id">Delete an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#bulk_deleteself-ids">Bulk update alerts</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#promote_to_caseself-alert_id-fields">Bulk delete alerts</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#followself-alert_id">Follow an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#unfollowself-alert_id">Unfollow an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#promote_to_caseself-alert_id-fields">Promote an alert to a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#create_observableself-alert_id-observable-observable_path">Create an observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#merge_into_caseself-alert-case_id">Merge an alert into a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#bulk_merge_into_caseself-case_id-alert_ids">Bulk merge alerts into a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#findself-filters-sortby-paginate">Find alerts</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#countself-filters">Count alerts</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#find_observablesself-alert_id-filters-sortby-paginate">Find observables</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#find_commentsself-alert_id-filters-sortby-paginate">Find comments</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#create_procedureself-alert_id-procedure">Create procedure</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/AlertEndpoint/#find_procedureself-alert_id-filters-sortby-paginate">Find procedure</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Cases</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#createself-case">Create a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#getself-case_id">Get a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#deleteself-case_id">Delete a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#updateself-case_id-case">Update a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#bulk_updateselffields">Bulk update cases</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#mergeself-case_ids">Merge cases</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#unlink_alertself-case_id-alert_id">Unlink case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#merge_similar_observablesself-case_id">Merge similar observables</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#get_linked_casesself-case_id">Get linked cases</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#delete_custom_fieldself-custom_field_id">Delete custom field</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#import_from_fileself-import_case-import_path">Import a case from a file</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#export_to_fileself-case_id-password-export_path">Export a case to a file</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#get_timelineself-case_id">Get the timeline</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#add_attachmentself-case_id-attachment_paths">Add attachment</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#download_attachmentself-case_id-attachment_id-attachment_paths">Download attachment</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#delete_attachmentself-case_id-attachment_id">Delete attachment</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#list_sharesself-case_id">List the shares</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#shareself-case_id-shares">Share a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#unshareself-case_id-organisation_ids">Unshare a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#set_shareself-case_id-shares">Set a share</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#remove_shareself-share_id">Remove a share</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#update_shareself-share_id-profile">Update a share</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#findself-filters-sortby-paginate">Find case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#countself-filters">Count cases</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#create_taskself-case_id-task">Create a task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#find_tasksself-case_id-filters-sortby-paginate">Fins tasks</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#create_observableself-case_id-observable-observable_path">Create observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#find_observablesself-case_id-filters-sortby-paginate">Find observables</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#create_procedureself-case_id-procedure">Create a procedure</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#find_proceduresself-case_id-filters-sortby-paginate">Find procedures</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#find_attachmentsself-case_id-filters-sortby-paginate">Find attachments</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#find_commentsself-case_id-filters-sortby-paginate">Find comments</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#closeself-case_id-status-summary-impact_status">Close a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CaseEndpoint/#openself-case_id-status-summary-impact_status">Open a case</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Comments</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CommentEndpoint/#create_in_alertself-alert_id-comment">Create in alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CommentEndpoint/#create_in_caseself-case_id-comment">Create in case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CommentEndpoint/#getself-comment_id">Get a comment</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CommentEndpoint/#deleteself-comment_id">Delete a comment</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CommentEndpoint/#updateself-comment_id-fields">Update a comment</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Custom field</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CustomFieldEndpoint/#createself-custom_field">Create a custom field</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CustomFieldEndpoint/#listself">List custom fields</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CustomFieldEndpoint/#deleteself-custom_field_id">Delete a custom field</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/CustomFieldEndpoint/#updateself-custom_field_id-fields">Update a custom field</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Observable</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#create_in_alertself-alert_id-observable-observable_path">Create in alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#create_in_caseself-case_id-observable-observable_path">Create in case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#getself-observable_id">Get observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#deleteself-observable_id">Delete observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#updateself-observable_id-fields">Update an observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#bulk_updateself-fields">Bulk update</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#shareself-observable_id-organisations">Share observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#unshareself-observable_id-organisations">Unshare observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#list_sharesself-observable_id">List observables</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#findself-filters-sortby-paginate">Find observable</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#countself-filters">Count observables</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableEndpoint/#download_attachmentself-observable_id-attachment_id-observable_path-as_zip">Download atachment</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">Observable type</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableTypeEndpoint/#createself-observable_type">Create an observable type</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableTypeEndpoint/#getself-observable_type_id">Get an observable type</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableTypeEndpoint/#deleteself-observable_type_id">Delete an observable type</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ObservableTypeEndpoint/#findself-filters-sortby-paginate">Find an observable type</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><label for="__tabbed_1_7">Organisation</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#createself-organisation">Create an organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#getself-org_id">Get an organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#updateself-org_id-fields">Update an organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#deleteself-org_id">Delete an organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#linkself-org_id-other_org_id-link">Link organisations</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#unlinkself-org_id-other_org_id">Unlink organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#list_linksself-org_id">List links</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#bulk_linkself-org_id-links">Bulk link</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#list_sharing_profilesself">List sharing profiles</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#findself-filters-sortby-paginate">Find organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/OrganisationEndpoint/#countself-filters">Count organisations</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><label for="__tabbed_1_8">Procedure</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#create_in_alertself-alert_id-procedure">Create a procedure in an alert</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#create_in_caseself-case_id-procedure">Create a procedure in a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#getself-procedure_id">Get a procedure</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#deleteself-procedure_id">Delete a procedure</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#updateself-procedure_id-fields">Update a procedure</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProcedureEndpoint/#findself-filters-sortby-paginate">Find a procedure</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><label for="__tabbed_1_9">Profile</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#createself-profile">Create a profile</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#getself-profile_id">Get an existing profile</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#deleteself-profile_id">Delete a profile</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#updateself-profile_id-fields">Update a profile</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#findself-filters-sortby-paginate">Find a profile</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/ProfileEndpoint/#countself-filters">Count profiles</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_10" name="__tabbed_1" type="radio" /><label for="__tabbed_1_10">Task</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#createself-case_id-task">Create a task in a case</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#getself-task_id">Get a task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#deleteself-task_id">Delete a task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#updateself-task_id-fields">Update a task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#bulk_updateself-fields">Bulk update</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#get_required_actionsself-task_id">Get required actions</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#set_as_requiredself-task_id-org_id">Set as required</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#set_as_doneself-task_id-org_id">Set as done</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#findself-filters-sortby-paginate">Find task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#countself-filters">Count task</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#create_logself-task_id-task_log">Create log</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskEndpoint/#find_logsself-task_id-filters-sortby-paginate">Find log</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_11" name="__tabbed_1" type="radio" /><label for="__tabbed_1_11">Task log</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#createself-task_id-task_log">Create a task log</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#getself-task_log_id">Get an existing log</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#deleteself-task_log_id">Delete a log</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#updateself-task_log_id-fields">Update a log</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#add_attachmentsself-task_log_id-attachment_paths">Add attachments</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TaskLogEndpoint/#delete_attachmentself-task_log_id-attachment_id">Delete an attachment</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_12" name="__tabbed_1" type="radio" /><label for="__tabbed_1_12">Timeline</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TimelineEndpoint/#getself-case_id">Get a case timeline</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TimelineEndpoint/#create_eventself-case_id-event">Create an event</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TimelineEndpoint/#delete_eventself-event_id">Delete an event</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/TimelineEndpoint/#update_eventself-event_id-fields">Update an event</a></li>
+</ul>
+</div>
+<input id="__tabbed_1_13" name="__tabbed_1" type="radio" /><label for="__tabbed_1_13">User</label><div class="tabbed-content">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#createselfuser">Create user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#getself-user_id">Get user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#get_currentself">Get current user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#deleteself-user_id-organisation">Delete user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#updateself-user_id-fields">Update user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#lockself-user_id">Lock user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#unlockself-user_id">Unlock user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#set_organisationsself-user_id-organisation">Set organisation</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#set_passwordself-user_id-password">Set password</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#get_apikeyself-user_id">Get api key</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#remove_apikeyself-user_id">Remove api key</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#renew_apikeyself-user_id">Renew apikey</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#findself-filters-sortby-paginate">Find user</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a href="reference/endpoints/UserEndpoint/#countself-filters">Count users</a></li>
+</ul>
+</div>
+</div>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h2>
+<p>On macOS and Linux, type:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>thehive4py
+</code></pre></div>
+<p>or if you already installed it, update it by typing</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>thehive4py
+</code></pre></div>
+<p>If you are using Python on a Windows operating system, please forgo the <code>sudo</code> command.</p>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">#</a></h2>
+<p>TheHive4py is an open source and free software released under the <a href="https://github.com/TheHive-Project/TheHive/blob/master/LICENSE">AGPL</a> (Affero General Public License). We, TheHive Project, are committed to ensure that TheHive4py will remain a free and open source project on the long-run.</p>
+<h2 id="updates">Updates<a class="headerlink" href="#updates" title="Permanent link">#</a></h2>
+<p>Information, news and updates are regularly posted on <a href="https://twitter.com/thehive_project">TheHive Project Twitter account</a> and on <a href="https://blog.thehive-project.org/">the blog</a>.</p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h2>
+<p>We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests using <a href="https://github.com/TheHive-Project/TheHive4py/issues">issues</a>.</p>
+<p>We do have a <a href="code_of_conduct/">Code of conduct</a>. Make sure to check it out before contributing.</p>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">#</a></h2>
+<p>Please <a href="https://github.com/TheHive-Project/TheHive4py/issues/new">open an issue on GitHub</a> if you'd like to report a bug or request a feature. We are also available on <a href="https://gitter.im/TheHive-Project/TheHive">Gitter</a> to help you out.</p>
+<p>If you need to contact the project team, send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#116;&#104;&#101;&#104;&#105;&#118;&#101;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#116;&#104;&#101;&#104;&#105;&#118;&#101;&#45;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#46;&#111;&#114;&#103;</a>.</p>
+<h2 id="community-discussions">Community Discussions<a class="headerlink" href="#community-discussions" title="Permanent link">#</a></h2>
+<p>We have set up a Google forum at <a href="https://groups.google.com/a/thehive-project.org/d/forum/users">https://groups.google.com/a/thehive-project.org/d/forum/users</a>. To request access, you need a Google account. You may create one <a href="https://accounts.google.com/SignUp?hl=en">using a Gmail address</a> or <a href="https://accounts.google.com/SignUpWithoutGmail?hl=en">without one</a>.</p>
+<h2 id="website">Website<a class="headerlink" href="#website" title="Permanent link">#</a></h2>
+<p><a href="https://thehive-project.org">https://thehive-project.org/</a></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>
