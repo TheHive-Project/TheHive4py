@@ -228,6 +228,7 @@ class ObservableEndpoint(EndpointBase):
         observable_path: str,
         as_zip=False,
     ) -> None:
+
         """
         Downloads an attachment associated with a given observable.
 
@@ -240,6 +241,7 @@ class ObservableEndpoint(EndpointBase):
             None
 
         """
+
         return self._session.make_request(
             "GET",
             path=(

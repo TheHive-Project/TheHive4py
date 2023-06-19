@@ -29,11 +29,13 @@ class ObservableTypeEndpoint(EndpointBase):
         Returns:
             - OutputObservableType: An object containing the created observable type data.
         """
+
         return self._session.make_request(
             "POST", path="/api/v1/observable/type", json=observable_type
         )
 
     def get(self, observable_type_id: str) -> OutputObservableType:
+
         """
         Gets the specified observable type.
 
@@ -43,11 +45,13 @@ class ObservableTypeEndpoint(EndpointBase):
         Returns:
             - OutputObservableType: An object containing the observable type data.
         """
+
         return self._session.make_request(
             "GET", path=f"/api/v1/observable/type/{observable_type_id}"
         )
 
     def delete(self, observable_type_id: str) -> None:
+
         """
         Deletes the specified observable type.
 
@@ -67,6 +71,7 @@ class ObservableTypeEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputObservableType]:
+
         """
         Gets a list of observable types based on the provided filters, sort expression, and pagination parameters.
 
@@ -78,6 +83,7 @@ class ObservableTypeEndpoint(EndpointBase):
         Returns:
             - List[OutputObservableType]: A list of objects containing the observable type data.
         """
+
         query: QueryExpr = [
             {"_name": "listObservableType"},
             *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),

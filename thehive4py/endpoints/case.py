@@ -529,6 +529,7 @@ class CaseEndpoint(EndpointBase):
     def create_procedure(
         self, case_id: str, procedure: InputProcedure
     ) -> OutputProcedure:
+
         """
         Create a new procedure associated with the specified case.
 
@@ -539,6 +540,7 @@ class CaseEndpoint(EndpointBase):
         Returns:
             - OutputProcedure: The procedure that was created.
         """
+
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/procedure", json=procedure
         )
@@ -550,6 +552,7 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputProcedure]:
+
         """
         Finds procedures associated with a given case.
 
@@ -562,6 +565,7 @@ class CaseEndpoint(EndpointBase):
         Returns:
             - List[OutputProcedure]: A list of procedures associated with the given case.
         """
+
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "procedures"},

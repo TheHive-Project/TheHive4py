@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thehive4py"
+description = "Python client for TheHive5"
+version = "2.0.0b4"
+requires-python = ">=3.8"
+dependencies = ["requests>=2.27"]
+readme = "README.md"
+keywords = ["thehive5", "api", "client"]
+license = { text = "AGPL-V3" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+]
+authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
+
+[project.optional-dependencies]
+audit = ["bandit", "pip-audit"]
+build = ["build", "twine"]
+lint = ["black", "flake8", "mypy", "pre-commit"]
+test = ["pytest"]
+dev = ["thehive4py[audit, lint, test, build]"]
+
+[tool.setuptools.packages.find]
+include = ["thehive4py*"]
+
+[tool.setuptools.package-data]
+thehive4py = ["py.typed"]

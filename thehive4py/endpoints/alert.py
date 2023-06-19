@@ -361,6 +361,7 @@ class AlertEndpoint(EndpointBase):
         Returns:
             - OutputProcedure: The created procedure.
         """
+
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/procedure", json=procedure
         )
@@ -384,6 +385,7 @@ class AlertEndpoint(EndpointBase):
         Returns:
             - List[OutputProcedure]: A list of procedures for the given alert.
         """
+
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "procedures"},

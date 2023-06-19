@@ -104,6 +104,7 @@ class ProcedureEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputProcedure]:
+
         """
         Finds procedures based on filters, sort experssions and pagination.
 
@@ -115,6 +116,7 @@ class ProcedureEndpoint(EndpointBase):
         Returns:
             - List[OutputProcedure]: A list of procedures associated with the given case.
         """
+
         query: QueryExpr = [
             {"_name": "listProcedure"},
             *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
