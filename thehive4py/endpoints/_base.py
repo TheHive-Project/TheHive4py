@@ -17,7 +17,7 @@ class EndpointBase:
 
     def _fileinfo_from_filepath(self, filepath: str) -> tuple:
         filename = os.path.split(filepath)[1]
-        mimetype = mimetypes.guess_type(filepath)
+        mimetype = mimetypes.guess_type(filepath)[0]
         filestream = open(filepath, "rb")
 
         return (filename, filestream, mimetype)
