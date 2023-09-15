@@ -16,8 +16,8 @@ class Container:
 
 
 def is_hive_container_responsive(container_url: str) -> bool:
-    COOLDOWN = 1.0
-    TIMEOUT = 30.0
+    COOLDOWN = 5.0
+    TIMEOUT = 60.0
 
     now = time.time()
     end = now + TIMEOUT
@@ -44,9 +44,9 @@ def is_hive_container_exist(container_name: str) -> bool:
     return bool(exist_cmd.stdout.strip())
 
 
-def generate_container_name() -> str:
-    CONTAINER_PREFIX = "thehive4py-integration-tests"
-    return CONTAINER_PREFIX
+def generate_stack_name() -> str:
+    STACK_PREFIX = "thehive4py-integration-tests"
+    return STACK_PREFIX
 
 
 def get_container_port(container_name: str) -> str:
@@ -62,37 +62,46 @@ def build_container_url(container_name: str) -> str:
     return f"http://localhost:{port}"
 
 
-def run_hive_container(
-    container_name: str, container_image: str = "thehive4py-thehive:5.0.23"
+def run_hive_stack(
+    stack_name: str
 ):
     subprocess.run(
         shlex.split(
-            f"docker run -d --rm -p 9000 --name {container_name} {container_image}"
+            f"docker compose -p {stack_name} up -d"
         ),
         capture_output=True,
         text=True,
     )
 
-
-def cleanup_hive_container(container_name: str):
+def cleanup_hive_container(stack_name: str):
     subprocess.run(
-        shlex.split(f"docker rm -f {container_name}"),
+        shlex.split(f"docker compose -p {stack_name} stop"),
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        shlex.split(f"docker compose -p {stack_name} rm -f"),
         capture_output=True,
         text=True,
     )
 
 
 def spawn_hive_container() -> Container:
-    name = generate_container_name()
+    name = generate_stack_name()
+    container_name = name+"-thehive-1"
 
-    if not is_hive_container_exist(container_name=name):
-        run_hive_container(container_name=name)
-    url = build_container_url(container_name=name)
+    if not is_hive_container_exist(container_name=container_name):
+        run_hive_stack(stack_name=name)
+    url = build_container_url(container_name=container_name)
 
     if not is_hive_container_responsive(container_url=url):
-        cleanup_hive_container(container_name=name)
+        cleanup_hive_container(stack_name=name)
         raise RuntimeError("Unable to startup test container for TheHive")
 
+    return Container(url=url, name=name)
+
+def get_hive_container(name: str) -> Container:
+    url = build_container_url(container_name=name)
     return Container(url=url, name=name)
 
 
