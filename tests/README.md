@@ -19,9 +19,9 @@ This will initialize the development environment for the first time, especially 
 
 4. Once you are connected, go on the settings to activate your development licence
 
-5. Create two new organizations named respectively "test-org" and "share-org" (description is free)
+5. Create two new organisations named respectively "test-org" and "share-org" (description is free)
 
-6. Add the user `admin@thehive.local` as `org-admin` of both organizations
+6. Add the user `admin@thehive.local` as `org-admin` for both organisations
 
 ## How can I run the tests?
 
