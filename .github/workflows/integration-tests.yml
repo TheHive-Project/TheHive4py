@@ -4,14 +4,6 @@ jobs:
   integration_tests:
     runs-on: ubuntu-latest
     continue-on-error: true
-    services:
-      thehive:
-        image: kamforka/thehive4py-integrator:thehive-5.2.4
-        credentials:
-          username: kamforka
-          password: ${{ secrets.DOCKER_TOKEN }}
-        ports:
-          - 9000/tcp
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -20,5 +12,7 @@ jobs:
           python-version: 3.11
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
+      - name: Docker login
+        run: docker login -u kamforka -p ${{ secrets.DOCKER_TOKEN }}
       - name: Run integration tests
         run: python scripts/ci.py test
