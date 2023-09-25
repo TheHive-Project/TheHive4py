@@ -4,28 +4,30 @@ import subprocess
 
 
 def _run_subprocess(
-    args: str,
+    command: str,
     init_message: str,
     success_message: str,
-    error_message: str,
-    verbose=False,
+    quiet=False,
 ):
     print(init_message)
-    proc = subprocess.run(args, shell=True, capture_output=not verbose)
 
-    process_output = proc.stdout.decode() or proc.stderr.decode()
-    indented_process_output = "\n".join(
-        [f"\t{output_line}" for output_line in process_output.splitlines()]
-    )
+    if not quiet:
+        stdout = stderr = None
+    else:
+        stdout = stderr = subprocess.DEVNULL
 
-    if proc.returncode != 0:
-        exit_message = "\n".join([error_message, indented_process_output])
-        exit(exit_message)
+    import shlex
 
-    if verbose:
-        print(indented_process_output)
-
-    print(success_message)
+    try:
+        subprocess.run(shlex.split(command), stdout=stdout, stderr=stderr, check=True)
+    except subprocess.CalledProcessError as err:
+        error_output = (
+            f"ERROR: Execution of command '{command}' returned: {err.returncode}\n"
+        )
+        print(error_output)
+        exit(err.returncode)
+    else:
+        print(success_message, end="\n\n")
 
 
 def check_all(verbose=False):
@@ -40,61 +42,55 @@ def check_all(verbose=False):
 
 def check_lint(verbose=False):
     _run_subprocess(
-        args="flake8 thehive4py/ tests/",
+        command="flake8 thehive4py/ tests/",
         init_message="Run lint checks with flake8...",
         success_message="Lint checks succeeded!",
-        error_message="Lint checks failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
 def check_format(verbose=False):
     _run_subprocess(
-        args="black --diff thehive4py/ tests/",
+        command="black --check thehive4py/ tests/",
         init_message="Run format checks with black...",
         success_message="Format checks succeeded!",
-        error_message="Lint checks failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
 def check_type(verbose=False):
     _run_subprocess(
-        args="mypy --install-types --non-interactive thehive4py/",
+        command="mypy --install-types --non-interactive thehive4py/",
         init_message="Run type checks with mypy...",
         success_message="Type checks succeeded!",
-        error_message="Type checks failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
 def check_cve(verbose=False):
     _run_subprocess(
-        args="pip-audit .",
+        command="pip-audit .",
         init_message="Run CVE checks with pip-audit...",
         success_message="CVE checks succeeded!",
-        error_message="CVE checks failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
 def check_security(verbose=False):
     _run_subprocess(
-        args="bandit -r thehive4py/",
+        command="bandit -r thehive4py/",
         init_message="Run security checks with bandit...",
         success_message="Security checks succeeded!",
-        error_message="Security checks failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
 def run_test(verbose=False):
     _run_subprocess(
-        args="pytest -v --cov",
+        command="pytest -v --cov",
         init_message="Run integration tests with pytest...",
         success_message="Integration tests succeeded!",
-        error_message="Integration tests failed due to:",
-        verbose=verbose,
+        quiet=verbose,
     )
 
 
@@ -106,11 +102,11 @@ def parse_arguments():
         ),
     )
     main_parser.add_argument(
-        "-v",
-        "--verbose",
+        "-q",
+        "--quiet",
         action="store_true",
         default=False,
-        help="generate verbose output",
+        help="silence verbose output",
     )
     main_parser.set_defaults(func=check_all)
 
@@ -150,7 +146,7 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    args.func(verbose=args.verbose)
+    args.func(verbose=args.quiet)
 
 
 if __name__ == "__main__":
