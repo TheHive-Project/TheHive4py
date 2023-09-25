@@ -1,3 +1,4 @@
+import json as jsonlib
 from typing import List, Optional, Sequence, Union
 
 from thehive4py.endpoints._base import EndpointBase
@@ -77,10 +78,8 @@ class CaseEndpoint(EndpointBase):
         return self._session.make_request(
             "POST",
             path="/api/v1/case/import",
-            data=import_case,
-            files={
-                "file": self._fileinfo_from_filepath(import_path),
-            },
+            data={"_json": jsonlib.dumps(import_case)},
+            files={"file": self._fileinfo_from_filepath(import_path)},
         )
 
     def export_to_file(self, case_id: CaseId, password: str, export_path: str) -> None:

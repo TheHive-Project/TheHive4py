@@ -53,10 +53,10 @@ class TestTaskEndpoint:
             for key, value in expected_fields.items():
                 assert updated_task.get(key) == value
 
-    def test_set_as_required_and_done(self, thehive: TheHiveApi, test_task: OutputTask):
-        # TODO: instead of hardcoding the organisation here
-        # create a global config from which it can be derived
-        organisation = "test-org"
+    def test_set_as_required_and_done(
+        self, test_config: TestConfig, thehive: TheHiveApi, test_task: OutputTask
+    ):
+        organisation = test_config.main_org
 
         thehive.task.set_as_required(task_id=test_task["_id"], org_id=organisation)
         actions = thehive.task.get_required_actions(task_id=test_task["_id"])

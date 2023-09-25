@@ -24,7 +24,7 @@ class TestProfileEndpoint:
     def test_update(self, thehive_admin: TheHiveApi, test_profile: OutputProfile):
         update_fields: InputUpdateProfile = {
             "name": "updated-test-profile",
-            "permissions": ["manageAlert", "manageCase"],
+            "permissions": ["manageAlert/create", "manageCase/create"],
         }
         thehive_admin.profile.update(
             profile_id=test_profile["_id"], fields=update_fields

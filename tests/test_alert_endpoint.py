@@ -179,6 +179,10 @@ class TestAlertEndpoint:
         )
 
         fetched_alert = thehive.alert.get(created_alert["_id"])
+        # TODO: for some reason alert creation doesn't return _updatedAt and _updatedBy
+        # ask backend team  what's the matter
+        fetched_alert.pop("_updatedAt")
+        fetched_alert.pop("_updatedBy")
         assert created_alert == fetched_alert
         assert created_alert["observableCount"] == 2
 

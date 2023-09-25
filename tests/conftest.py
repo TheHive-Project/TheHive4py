@@ -23,12 +23,12 @@ from thehive4py.types.user import OutputUser
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="kamforka/thehive4py-integrator:thehive-5.0.25-1",
-        container_name="thehive4py-itegration-tests",
+        image_name="kamforka/thehive4py-integrator:thehive-5.2.4",
+        container_name="thehive4py-integration-tests",
         user="admin@thehive.local",
         password="secret",
         admin_org="admin",
-        test_org="test-org",
+        main_org="main-org",
         share_org="share-org",
     )
 
@@ -45,7 +45,7 @@ def thehive(test_config: TestConfig):
         url=hive_url,
         username=test_config.user,
         password=test_config.password,
-        organisation=test_config.test_org,
+        organisation=test_config.main_org,
     )
     return client
 
@@ -244,14 +244,14 @@ def test_timeline_event(
 
 
 @pytest.fixture
-def test_user(thehive: TheHiveApi) -> OutputUser:
+def test_user(test_config: TestConfig, thehive: TheHiveApi) -> OutputUser:
     return thehive.user.create(
         user={
             "email": "user@example.com",
             "name": "test user",
             "login": "user@example.com",
             "profile": "analyst",
-            "organisation": "test-org",
+            "organisation": test_config.main_org,
         }
     )
 

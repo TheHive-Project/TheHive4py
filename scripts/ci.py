@@ -11,7 +11,7 @@ def _run_subprocess(
     verbose=False,
 ):
     print(init_message)
-    proc = subprocess.run(args, shell=True, capture_output=True)
+    proc = subprocess.run(args, shell=True, capture_output=not verbose)
 
     process_output = proc.stdout.decode() or proc.stderr.decode()
     indented_process_output = "\n".join(
@@ -88,6 +88,16 @@ def check_security(verbose=False):
     )
 
 
+def run_test(verbose=False):
+    _run_subprocess(
+        args="pytest -v --cov",
+        init_message="Run integration tests with pytest...",
+        success_message="Integration tests succeeded!",
+        error_message="Integration tests failed due to:",
+        verbose=verbose,
+    )
+
+
 def parse_arguments():
     main_parser = argparse.ArgumentParser(
         prog="thehive4py-ci",
@@ -118,6 +128,11 @@ def parse_arguments():
             "name": "security",
             "help": "run security checks",
             "default_func": check_security,
+        },
+        {
+            "name": "test",
+            "help": "run integration tests",
+            "default_func": run_test,
         },
     ]
 

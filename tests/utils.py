@@ -12,6 +12,8 @@ from thehive4py.query.filters import Eq
 
 @dataclass
 class TestConfig:
+    __test__ = False
+
     image_name: str
     container_name: str
 
@@ -19,7 +21,7 @@ class TestConfig:
     password: str
 
     admin_org: str
-    test_org: str
+    main_org: str
     share_org: str
 
 
@@ -93,12 +95,10 @@ def _reinit_hive_org(hive_url: str, test_config: TestConfig, organisation: str) 
 
     alerts = client.alert.find()
     cases = client.case.find()
-    users = client.user.find(filters=~Eq("_createdBy", "system@thehive.local"))
 
     with ThreadPoolExecutor() as executor:
         executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
         executor.map(client.case.delete, [case["_id"] for case in cases])
-        executor.map(client.user.delete, [user["_id"] for user in users])
 
 
 def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
@@ -109,6 +109,7 @@ def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
         organisation=test_config.admin_org,
     )
 
+    users = client.user.find(filters=~Eq("_createdBy", "system@thehive.local"))
     profiles = client.profile.find(filters=~Eq("_createdBy", "system@thehive.local"))
     observable_types = client.observable_type.find(
         filters=~Eq("_createdBy", "system@thehive.local")
@@ -116,6 +117,7 @@ def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
     custom_fields = client.custom_field.list()
 
     with ThreadPoolExecutor() as executor:
+        executor.map(client.user.delete, [user["_id"] for user in users])
         executor.map(client.profile.delete, [profile["_id"] for profile in profiles])
         executor.map(
             client.custom_field.delete,
@@ -146,7 +148,7 @@ def reinit_hive_container(test_config: TestConfig) -> None:
     hive_url = spawn_hive_container(test_config=test_config)
     with ThreadPoolExecutor() as executor:
         for organisation in [
-            test_config.test_org,
+            test_config.main_org,
             test_config.share_org,
         ]:
             executor.submit(_reinit_hive_org, hive_url, test_config, organisation)
