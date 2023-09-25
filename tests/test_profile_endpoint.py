@@ -1,4 +1,5 @@
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.filters import Eq

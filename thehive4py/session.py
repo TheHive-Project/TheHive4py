@@ -60,7 +60,6 @@ class TheHiveSession(requests.Session):
         files=None,
         download_path: Union[str, PathLike, None] = None,
     ) -> Any:
-
         endpoint_url = f"{self.hive_url}{path}"
 
         headers = {**self.headers}
@@ -86,7 +85,6 @@ class TheHiveSession(requests.Session):
         response: requests.Response,
         download_path: Union[str, PathLike, None] = None,
     ):
-
         if response.ok:
             if download_path is None:
                 return self._process_text_response(response)

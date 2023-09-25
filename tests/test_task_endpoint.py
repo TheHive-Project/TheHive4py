@@ -1,6 +1,8 @@
 from typing import List
 
 import pytest
+
+from tests.utils import TestConfig
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.filters import Eq
@@ -35,7 +37,6 @@ class TestTaskEndpoint:
             assert updated_task.get(key) == value
 
     def test_bulk_update(self, thehive: TheHiveApi, test_tasks: List[OutputTask]):
-
         task_ids = [task["_id"] for task in test_tasks]
         update_fields: InputBulkUpdateTask = {
             "ids": task_ids,
@@ -86,7 +87,6 @@ class TestTaskEndpoint:
         assert len(test_tasks) == task_count
 
     def test_create_and_get_logs(self, thehive: TheHiveApi, test_task: OutputTask):
-
         created_task = thehive.task.create_log(
             task_id=test_task["_id"], task_log={"message": "my test log"}
         )

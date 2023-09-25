@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List
 
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.helpers import now_to_ts
@@ -31,7 +32,6 @@ class TestAlertEndpoint:
         assert created_alert == fetched_alert
 
     def test_update(self, thehive: TheHiveApi, test_alert: OutputAlert):
-
         alert_id = test_alert["_id"]
         update_fields: InputUpdateAlert = {
             "title": "my updated alert",
@@ -44,7 +44,6 @@ class TestAlertEndpoint:
         assert updated_alert["description"] == update_fields["description"]
 
     def test_bulk_update(self, thehive: TheHiveApi, test_alerts: List[OutputAlert]):
-
         alert_ids = [alert["_id"] for alert in test_alerts]
         update_fields: InputBulkUpdateAlert = {
             "ids": alert_ids,
@@ -131,7 +130,6 @@ class TestAlertEndpoint:
     def test_create_and_get_observable(
         self, thehive: TheHiveApi, test_alert: OutputAlert
     ):
-
         created_observables = thehive.alert.create_observable(
             test_alert["_id"], {"dataType": "domain", "data": "example.com"}
         )
@@ -210,7 +208,6 @@ class TestAlertEndpoint:
         assert created_alert["observableCount"] == len(alert_observables)
 
     def test_find_comments(self, thehive: TheHiveApi, test_alert: OutputAlert):
-
         created_comment = thehive.comment.create_in_alert(
             alert_id=test_alert["_id"],
             comment={"message": "my first comment"},
@@ -223,7 +220,6 @@ class TestAlertEndpoint:
     def test_create_and_find_procedure(
         self, thehive: TheHiveApi, test_alert: OutputAlert
     ):
-
         created_procedure = thehive.alert.create_procedure(
             alert_id=test_alert["_id"],
             procedure={

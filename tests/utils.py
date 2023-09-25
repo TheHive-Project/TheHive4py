@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 
 import requests
+
 from thehive4py.client import TheHiveApi
 from thehive4py.query.filters import Eq
 
@@ -101,7 +102,6 @@ def _reinit_hive_org(hive_url: str, test_config: TestConfig, organisation: str) 
 
 
 def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
-
     client = TheHiveApi(
         url=hive_url,
         username=test_config.user,
@@ -128,7 +128,6 @@ def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
 
 
 def spawn_hive_container(test_config: TestConfig) -> str:
-
     if not _is_container_exist(container_name=test_config.container_name):
         _run_container(
             container_name=test_config.container_name,
@@ -144,7 +143,6 @@ def spawn_hive_container(test_config: TestConfig) -> str:
 
 
 def reinit_hive_container(test_config: TestConfig) -> None:
-
     hive_url = spawn_hive_container(test_config=test_config)
     with ThreadPoolExecutor() as executor:
         for organisation in [

@@ -1,6 +1,8 @@
 from typing import List
 
 import pytest
+
+from tests.utils import TestConfig
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.filters import Eq
@@ -53,7 +55,6 @@ class TestUserEndpoint:
         assert unlocked_user["locked"] is False
 
     def test_delete(self, thehive: TheHiveApi, test_user: OutputUser):
-        print(test_user)
         user_id = test_user["_id"]
         thehive.user.delete(user_id=user_id, organisation=test_user["organisation"])
         with pytest.raises(TheHiveError):

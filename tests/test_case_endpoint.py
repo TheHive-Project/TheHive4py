@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List
 
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.helpers import now_to_ts
@@ -30,7 +31,6 @@ class TestCaseEndpoint:
         assert created_case == fetched_case
 
     def test_update(self, thehive: TheHiveApi, test_case: OutputCase):
-
         case_id = test_case["_id"]
         update_fields: InputUpdateCase = {
             "title": "my updated case",
@@ -43,7 +43,6 @@ class TestCaseEndpoint:
             assert updated_case.get(key) == value
 
     def test_bulk_update(self, thehive: TheHiveApi, test_cases: List[OutputCase]):
-
         case_ids = [case["_id"] for case in test_cases]
         update_fields: InputBulkUpdateCase = {
             "ids": case_ids,
@@ -252,7 +251,6 @@ class TestCaseEndpoint:
     def test_create_and_get_observable(
         self, thehive: TheHiveApi, test_case: OutputCase
     ):
-
         created_observables = thehive.case.create_observable(
             test_case["_id"], {"dataType": "domain", "data": "example.com"}
         )
@@ -284,7 +282,6 @@ class TestCaseEndpoint:
         assert attachment and attachment["name"] in observable_path
 
     def test_create_and_get_task(self, thehive: TheHiveApi, test_case: OutputCase):
-
         created_task = thehive.case.create_task(
             case_id=test_case["_id"], task={"title": "my task"}
         )
@@ -314,7 +311,6 @@ class TestCaseEndpoint:
         assert reopened_case["status"] == open_status
 
     def test_find_comments(self, thehive: TheHiveApi, test_case: OutputCase):
-
         created_comment = thehive.comment.create_in_case(
             case_id=test_case["_id"],
             comment={"message": "my first comment"},
@@ -327,7 +323,6 @@ class TestCaseEndpoint:
     def test_create_and_find_procedure(
         self, thehive: TheHiveApi, test_case: OutputCase
     ):
-
         created_procedure = thehive.case.create_procedure(
             case_id=test_case["_id"],
             procedure={
