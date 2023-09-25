@@ -27,7 +27,6 @@ class TestTimelineEndpoint:
     def test_update_event(
         self, thehive: TheHiveApi, test_timeline_event: OutputCustomEvent
     ):
-
         event_id = test_timeline_event["_id"]
         update_fields: InputUpdateCustomEvent = {
             "date": now_to_ts(),

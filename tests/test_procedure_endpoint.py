@@ -45,7 +45,6 @@ class TestProcedureEndpoint:
             thehive.procedure.get(procedure_id=procedure_id)
 
     def test_update(self, thehive: TheHiveApi, test_procedure: OutputProcedure):
-
         procedure_id = test_procedure["_id"]
         update_fields: InputUpdateProcedure = {
             "description": "updated procedure",

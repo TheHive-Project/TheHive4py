@@ -38,7 +38,6 @@ class TestCommentEndpoint:
             thehive.comment.get(comment_id=comment_id)
 
     def test_update(self, thehive: TheHiveApi, test_comment: OutputComment):
-
         comment_id = test_comment["_id"]
         update_fields: InputUpdateComment = {
             "message": "updated comment",
