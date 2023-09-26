@@ -30,123 +30,124 @@ def _run_subprocess(
         print(success_message, end="\n\n")
 
 
-def check_all(verbose=False):
+def check_all(quiet=False):
     print("Run all checks...")
-    check_lint(verbose=verbose)
-    check_format(verbose=verbose)
-    check_type(verbose=verbose)
-    check_cve(verbose=verbose)
-    check_security(verbose=verbose)
+    check_lint(quiet=quiet)
+    check_format(quiet=quiet)
+    check_type(quiet=quiet)
+    check_cve(quiet=quiet)
+    check_security(quiet=quiet)
     print("All checks succeeded!")
 
 
-def check_lint(verbose=False):
+def check_lint(quiet=False):
     _run_subprocess(
         command="flake8 thehive4py/ tests/",
         init_message="Run lint checks with flake8...",
         success_message="Lint checks succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def check_format(verbose=False):
+def check_format(quiet=False):
     _run_subprocess(
         command="black --check thehive4py/ tests/",
         init_message="Run format checks with black...",
         success_message="Format checks succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def check_type(verbose=False):
+def check_type(quiet=False):
     _run_subprocess(
         command="mypy --install-types --non-interactive thehive4py/",
         init_message="Run type checks with mypy...",
         success_message="Type checks succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def check_cve(verbose=False):
+def check_cve(quiet=False):
     _run_subprocess(
         command="pip-audit .",
         init_message="Run CVE checks with pip-audit...",
         success_message="CVE checks succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def check_security(verbose=False):
+def check_security(quiet=False):
     _run_subprocess(
         command="bandit -r thehive4py/",
         init_message="Run security checks with bandit...",
         success_message="Security checks succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def run_test(verbose=False):
+def check_test(quiet=False):
     _run_subprocess(
         command="pytest -v --cov",
         init_message="Run integration tests with pytest...",
         success_message="Integration tests succeeded!",
-        quiet=verbose,
+        quiet=quiet,
     )
 
 
-def parse_arguments():
-    main_parser = argparse.ArgumentParser(
+def build_check_options() -> list[dict]:
+    return [
+        {"name": "lint", "help": "run lint checks", "check": check_lint},
+        {"name": "format", "help": "run format checks", "check": check_format},
+        {"name": "type", "help": "run type checks", "check": check_type},
+        {"name": "cve", "help": "run cve checks", "check": check_cve},
+        {"name": "security", "help": "run security checks", "check": check_security},
+        {"name": "test", "help": "run integration tests", "check": check_test},
+    ]
+
+
+def parse_arguments(check_options: list[dict]):
+    parser = argparse.ArgumentParser(
         prog="thehive4py-ci",
         description=(
-            "run all ci checks or use sub commands to run ci checks individually"
+            "run all ci checks except tests by default, "
+            "use options to run ci checks selectively"
         ),
     )
-    main_parser.add_argument(
+    parser.add_argument(
         "-q",
         "--quiet",
         action="store_true",
         default=False,
         help="silence verbose output",
     )
-    main_parser.set_defaults(func=check_all)
-
-    subparsers = main_parser.add_subparsers(help="commands")
-    subparser_options = [
-        {"name": "lint", "help": "run lint checks only", "default_func": check_lint},
-        {
-            "name": "format",
-            "help": "run format checks only",
-            "default_func": check_format,
-        },
-        {"name": "type", "help": "run type checks only", "default_func": check_type},
-        {"name": "cve", "help": "run cve checks only", "default_func": check_cve},
-        {
-            "name": "security",
-            "help": "run security checks",
-            "default_func": check_security,
-        },
-        {
-            "name": "test",
-            "help": "run integration tests",
-            "default_func": run_test,
-        },
-    ]
-
-    for subparser_option in subparser_options:
-        _subparser = subparsers.add_parser(
-            name=subparser_option["name"],
-            help=subparser_option["help"],
-            parents=[main_parser],
-            add_help=False,
+    for check_option in check_options:
+        parser.add_argument(
+            f"--{check_option['name']}",
+            help=check_option["help"],
+            action="store_true",
         )
-        _subparser.set_defaults(func=subparser_option["default_func"])
 
-    return main_parser.parse_args()
+    return parser.parse_args()
 
 
 def main():
-    args = parse_arguments()
-    args.func(verbose=args.quiet)
+    check_options = build_check_options()
+    args = parse_arguments(check_options=check_options)
+
+    quiet = args.quiet
+
+    selective_checks = [
+        check_option["check"]
+        for check_option in check_options
+        if getattr(args, check_option["name"])
+    ]
+
+    if selective_checks:
+        for check in selective_checks:
+            check(quiet=quiet)
+    else:
+        check_all(quiet=quiet)
+    print()
 
 
 if __name__ == "__main__":

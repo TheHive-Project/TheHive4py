@@ -11,8 +11,8 @@ jobs:
         with:
           python-version: 3.11
       - name: Install dependencies
-        run: pip install --no-cache-dir -U pip .['dev']
+        run: pip install --no-cache-dir -U pip .['test']
       - name: Docker login
         run: docker login -u kamforka -p ${{ secrets.DOCKER_TOKEN }}
       - name: Run integration tests
-        run: python scripts/ci.py test
+        run: scripts/ci.py --test
