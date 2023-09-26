@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import subprocess
+from typing import List
 
 
 def _run_subprocess(
@@ -94,7 +95,7 @@ def check_test(quiet=False):
     )
 
 
-def build_check_options() -> list[dict]:
+def build_check_options() -> List[dict]:
     return [
         {"name": "lint", "help": "run lint checks", "check": check_lint},
         {"name": "format", "help": "run format checks", "check": check_format},
@@ -105,7 +106,7 @@ def build_check_options() -> list[dict]:
     ]
 
 
-def parse_arguments(check_options: list[dict]):
+def parse_arguments(check_options: List[dict]):
     parser = argparse.ArgumentParser(
         prog="thehive4py-ci",
         description=(
