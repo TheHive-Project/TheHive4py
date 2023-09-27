@@ -1,0 +1,29 @@
+name: build-and-upload
+on: 
+  push:
+    tags:
+      - "*"
+  # TODO: remove pull request hook
+  pull_request:
+jobs:
+  build-upload:
+    name: Build and upload to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with: 
+          python-version: 3.11
+
+      - name: Install build dependencies
+        run: pip install --no-cache-dir -U pip .['build']
+      - name: Build package
+        run: rm -rf build/ dist/ && python -m build --sdist --wheel
+      - name: Upload to PyPI
+        # if: ${{ github.ref == 'refs/heads/main' }}
+        run: twine upload dist/*
+        env:
+          TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
