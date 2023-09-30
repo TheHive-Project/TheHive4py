@@ -41,7 +41,6 @@ class EndpointBase:
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> QueryExpr:
-
         subquery: QueryExpr = []
         if filters:
             subquery = [*subquery, {"_name": "filter", **filters}]

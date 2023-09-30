@@ -31,7 +31,6 @@ class TestCustomeFieldEndpoint:
     def test_update(
         self, thehive_admin: TheHiveApi, test_custom_field: OutputCustomField
     ):
-
         custom_field_id = test_custom_field["_id"]
         update_fields: InputUpdateCustomField = {
             "displayName": "something else ...",
