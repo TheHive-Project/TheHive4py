@@ -1,4 +1,0 @@
-[run]
-omit = 
-    tests/*
-    thehive4py/types/*

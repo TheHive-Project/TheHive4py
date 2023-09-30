@@ -120,7 +120,6 @@ class TestObservableEndpoint:
             thehive.observable.get(observable_id=observable_id)
 
     def test_update(self, thehive: TheHiveApi, test_observable: OutputObservable):
-
         observable_id = test_observable["_id"]
         update_fields: InputUpdateObservable = {
             "dataType": "fqdn",
@@ -137,7 +136,6 @@ class TestObservableEndpoint:
     def test_bulk_update(
         self, thehive: TheHiveApi, test_observables: List[OutputObservable]
     ):
-
         observable_ids = [observable["_id"] for observable in test_observables]
         update_fields: InputBulkUpdateObservable = {
             "ids": observable_ids,

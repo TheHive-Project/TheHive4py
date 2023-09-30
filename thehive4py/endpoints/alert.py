@@ -114,7 +114,6 @@ class AlertEndpoint(EndpointBase):
         )
 
     def count(self, filters: Optional[FilterExpr] = None) -> int:
-
         query: QueryExpr = [
             {"_name": "listAlert"},
             *self._build_subquery(filters=filters),

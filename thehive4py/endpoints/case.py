@@ -1,3 +1,4 @@
+import json as jsonlib
 from typing import List, Optional, Sequence, Union
 
 from thehive4py.endpoints._base import EndpointBase
@@ -18,6 +19,7 @@ from thehive4py.types.case import (
 )
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
+from thehive4py.types.page import InputCasePage, InputUpdateCasePage, OutputCasePage
 from thehive4py.types.procedure import InputProcedure, OutputProcedure
 from thehive4py.types.share import InputShare, OutputShare
 from thehive4py.types.task import InputTask, OutputTask
@@ -76,10 +78,8 @@ class CaseEndpoint(EndpointBase):
         return self._session.make_request(
             "POST",
             path="/api/v1/case/import",
-            data=import_case,
-            files={
-                "file": self._fileinfo_from_filepath(import_path),
-            },
+            data={"_json": jsonlib.dumps(import_case)},
+            files={"file": self._fileinfo_from_filepath(import_path)},
         )
 
     def export_to_file(self, case_id: CaseId, password: str, export_path: str) -> None:
@@ -263,6 +263,43 @@ class CaseEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "case-procedures"},
+            json={"query": query},
+        )
+
+    def create_page(self, case_id: str, page: InputCasePage) -> OutputCasePage:
+        return self._session.make_request(
+            "POST", path=f"/api/v1/case/{case_id}/page", json=page
+        )
+
+    def delete_page(self, case_id: str, page_id: str) -> None:
+        return self._session.make_request(
+            "DELETE", path=f"/api/v1/case/{case_id}/page/{page_id}"
+        )
+
+    def update_page(
+        self, case_id: str, page_id: str, page: InputUpdateCasePage
+    ) -> None:
+        return self._session.make_request(
+            "PATCH", path=f"/api/v1/case/{case_id}/page/{page_id}", json=page
+        )
+
+    def find_pages(
+        self,
+        case_id: str,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputProcedure]:
+        query: QueryExpr = [
+            {"_name": "getCase", "idOrName": case_id},
+            {"_name": "pages"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "case-pages"},
             json={"query": query},
         )
 

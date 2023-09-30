@@ -1,6 +1,8 @@
 from typing import List
 
 import pytest
+
+from tests.utils import TestConfig, reinit_hive_container, spawn_hive_container
 from thehive4py.client import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
@@ -9,6 +11,7 @@ from thehive4py.types.comment import OutputComment
 from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.observable_type import OutputObservableType
+from thehive4py.types.page import OutputCasePage
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.profile import OutputProfile
 from thehive4py.types.task import InputTask, OutputTask
@@ -16,30 +19,41 @@ from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 from thehive4py.types.timeline import OutputCustomEvent
 from thehive4py.types.user import OutputUser
 
-from tests.utils import reinit_hive_container, spawn_hive_container
+
+@pytest.fixture(scope="session")
+def test_config():
+    return TestConfig(
+        image_name="kamforka/thehive4py-integrator:thehive-5.2.4",
+        container_name="thehive4py-integration-tests",
+        user="admin@thehive.local",
+        password="secret",
+        admin_org="admin",
+        main_org="main-org",
+        share_org="share-org",
+    )
 
 
 @pytest.fixture(scope="function", autouse=True)
-def init_hive_container(thehive: TheHiveApi):
-    reinit_hive_container(thehive)
+def init_hive_container(test_config: TestConfig):
+    reinit_hive_container(test_config=test_config)
 
 
-@pytest.fixture(scope="function")
-def thehive():
-    hive_container = spawn_hive_container()
+@pytest.fixture(scope="session")
+def thehive(test_config: TestConfig):
+    hive_url = spawn_hive_container(test_config=test_config)
     client = TheHiveApi(
-        url=hive_container.url,
-        username="admin@thehive.local",
-        password="secret",
-        organisation="test-org",
+        url=hive_url,
+        username=test_config.user,
+        password=test_config.password,
+        organisation=test_config.main_org,
     )
     return client
 
 
 @pytest.fixture
-def thehive_admin(thehive: TheHiveApi):
+def thehive_admin(test_config: TestConfig, thehive: TheHiveApi):
     default_organisation = thehive.session_organisation
-    thehive.session_organisation = "admin"
+    thehive.session_organisation = test_config.admin_org
     yield thehive
     thehive.session_organisation = default_organisation
 
@@ -203,6 +217,18 @@ def test_procedure(thehive: TheHiveApi, test_case: OutputCase) -> OutputProcedur
 
 
 @pytest.fixture
+def test_case_page(thehive: TheHiveApi, test_case: OutputCase) -> OutputCasePage:
+    return thehive.case.create_page(
+        case_id=test_case["_id"],
+        page={
+            "title": "my case page",
+            "category": "testing",
+            "content": "...",
+        },
+    )
+
+
+@pytest.fixture
 def test_timeline_event(
     thehive: TheHiveApi, test_case: OutputCase
 ) -> OutputCustomEvent:
@@ -218,14 +244,14 @@ def test_timeline_event(
 
 
 @pytest.fixture
-def test_user(thehive: TheHiveApi) -> OutputUser:
+def test_user(test_config: TestConfig, thehive: TheHiveApi) -> OutputUser:
     return thehive.user.create(
         user={
             "email": "user@example.com",
             "name": "test user",
             "login": "user@example.com",
             "profile": "analyst",
-            "organisation": "test-org",
+            "organisation": test_config.main_org,
         }
     )
 

@@ -1,0 +1,18 @@
+name: integration-tests [experimental]
+on: [pull_request]
+jobs:
+  integration_tests:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: pip install --no-cache-dir -U pip .['test']
+      - name: Docker login
+        run: docker login -u kamforka -p ${{ secrets.DOCKER_TOKEN }}
+      - name: Run integration tests
+        run: scripts/ci.py --test

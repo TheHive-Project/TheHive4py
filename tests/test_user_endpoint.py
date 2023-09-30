@@ -1,6 +1,8 @@
 from typing import List
 
 import pytest
+
+from tests.utils import TestConfig
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.filters import Eq
@@ -26,14 +28,15 @@ class TestUserEndpoint:
         fetched_user = thehive.user.get(created_user["_id"])
         assert created_user == fetched_user
 
-    def test_update(self, thehive: TheHiveApi, test_user: OutputUser):
-
+    def test_update(
+        self, test_config: TestConfig, thehive: TheHiveApi, test_user: OutputUser
+    ):
         user_id = test_user["_id"]
         update_fields: InputUpdateUser = {
             "name": "Updated user",
             "profile": "read-only",
             "email": "whatever@example.com",
-            "organisation": "test-org",
+            "organisation": test_config.main_org,
         }
         thehive.user.update(user_id=user_id, fields=update_fields)
         updated_user = thehive.user.get(user_id=user_id)
@@ -53,13 +56,14 @@ class TestUserEndpoint:
         assert unlocked_user["locked"] is False
 
     def test_delete(self, thehive: TheHiveApi, test_user: OutputUser):
-        print(test_user)
         user_id = test_user["_id"]
         thehive.user.delete(user_id=user_id, organisation=test_user["organisation"])
         with pytest.raises(TheHiveError):
             thehive.user.get(user_id=user_id)
 
-    def test_set_organisations(self, thehive: TheHiveApi, test_user: OutputUser):
+    def test_set_organisations(
+        self, test_config: TestConfig, thehive: TheHiveApi, test_user: OutputUser
+    ):
         organisations: List[InputUserOrganisation] = [
             {
                 "default": True,
@@ -68,7 +72,7 @@ class TestUserEndpoint:
             },
             {
                 "default": False,
-                "organisation": "share-org",
+                "organisation": test_config.share_org,
                 "profile": "read-only",
             },
         ]
