@@ -3,7 +3,8 @@
 [![Discord](https://img.shields.io/discord/779945042039144498)](https://chat.thehive-project.org)
 [![License](https://img.shields.io/github/license/TheHive-Project/TheHive4py)](./LICENSE)
 [![Pypi Page](https://img.shields.io/pypi/dm/thehive4py)](https://pypi.org/project/thehive4py)
-[![CI Action Badge](https://github.com/TheHive-Project/TheHive4py/actions/workflows/ci.yml/badge.svg)](https://github.com/TheHive-Project/TheHive4py/actions/workflows/ci.yml)
+[![Static-Checks Action Badge](https://github.com/TheHive-Project/TheHive4py/actions/workflows/static-checks.yml/badge.svg)](https://github.com/TheHive-Project/TheHive4py/actions/workflows/static-checks.yml)
+[![Integration-Tests Action Badge](https://github.com/TheHive-Project/TheHive4py/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/TheHive-Project/TheHive4py/actions/workflows/integration-tests.yml)
 
 # thehive4py
 
