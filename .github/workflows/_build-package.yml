@@ -1,0 +1,22 @@
+name: build-package
+on: 
+  workflow_call:
+jobs:
+  build:
+    name: Build wheel and sdist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: 3.11
+      - name: Install build dependencies
+        run: pip install --no-cache-dir -U pip .['build']
+      - name: Build package
+        run: ./scripts/cd.py --build
+      - name: Upload built distributions
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist

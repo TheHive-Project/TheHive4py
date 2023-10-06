@@ -6,29 +6,21 @@ from typing import List
 
 def _run_subprocess(
     command: str,
-    init_message: str,
-    success_message: str,
     quiet=False,
 ):
-    print(init_message)
-
     if not quiet:
         stdout = stderr = None
     else:
         stdout = stderr = subprocess.DEVNULL
 
-    import shlex
-
     try:
-        subprocess.run(shlex.split(command), stdout=stdout, stderr=stderr, check=True)
+        subprocess.run(str.split(command), stdout=stdout, stderr=stderr, check=True)
     except subprocess.CalledProcessError as err:
         error_output = (
             f"ERROR: Execution of command '{command}' returned: {err.returncode}\n"
         )
         print(error_output)
         exit(err.returncode)
-    else:
-        print(success_message, end="\n\n")
 
 
 def check_all(quiet=False):
@@ -42,57 +34,57 @@ def check_all(quiet=False):
 
 
 def check_lint(quiet=False):
+    print("Run lint checks with flake8...")
     _run_subprocess(
         command="flake8 thehive4py/ tests/",
-        init_message="Run lint checks with flake8...",
-        success_message="Lint checks succeeded!",
         quiet=quiet,
     )
+    print("Lint checks succeeded!")
 
 
 def check_format(quiet=False):
+    print("Run format checks with black...")
     _run_subprocess(
         command="black --check thehive4py/ tests/",
-        init_message="Run format checks with black...",
-        success_message="Format checks succeeded!",
         quiet=quiet,
     )
+    print("Format checks succeeded!")
 
 
 def check_type(quiet=False):
+    print("Run type checks with mypy...")
     _run_subprocess(
         command="mypy --install-types --non-interactive thehive4py/",
-        init_message="Run type checks with mypy...",
-        success_message="Type checks succeeded!",
         quiet=quiet,
     )
+    print("Type checks succeeded!")
 
 
 def check_cve(quiet=False):
+    print("Run CVE checks with pip-audit...")
     _run_subprocess(
         command="pip-audit .",
-        init_message="Run CVE checks with pip-audit...",
-        success_message="CVE checks succeeded!",
         quiet=quiet,
     )
+    print("CVE checks succeeded!")
 
 
 def check_security(quiet=False):
+    print("Run security checks with bandit...")
     _run_subprocess(
         command="bandit -r thehive4py/",
-        init_message="Run security checks with bandit...",
-        success_message="Security checks succeeded!",
         quiet=quiet,
     )
+    print("Security checks succeeded!")
 
 
 def check_test(quiet=False):
+    print("Run integration tests with pytest...")
     _run_subprocess(
         command="pytest -v --cov",
-        init_message="Run integration tests with pytest...",
-        success_message="Integration tests succeeded!",
         quiet=quiet,
     )
+    print("Integration tests succeeded!")
 
 
 def build_check_options() -> List[dict]:
@@ -148,7 +140,6 @@ def main():
             check(quiet=quiet)
     else:
         check_all(quiet=quiet)
-    print()
 
 
 if __name__ == "__main__":

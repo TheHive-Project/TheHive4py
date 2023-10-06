@@ -1,7 +1,9 @@
 name: static-checks
-on: [pull_request]
+on: 
+  workflow_call:
 jobs:
-  build:
+  static-checks:
+    name: Run static checks
     runs-on: ubuntu-latest
     strategy:
       matrix:
