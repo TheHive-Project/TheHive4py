@@ -1,103 +1,104 @@
 #!/usr/bin/env python
 import argparse
 import subprocess
+from typing import List
 
 
 def _run_subprocess(
-    args: str,
-    init_message: str,
-    success_message: str,
-    error_message: str,
-    verbose=False,
+    command: str,
+    quiet=False,
 ):
-    print(init_message)
-    proc = subprocess.run(args, shell=True, capture_output=True)
+    if not quiet:
+        stdout = stderr = None
+    else:
+        stdout = stderr = subprocess.DEVNULL
 
-    process_output = proc.stdout.decode() or proc.stderr.decode()
-    indented_process_output = "\n".join(
-        [f"\t{output_line}" for output_line in process_output.splitlines()]
-    )
-
-    if proc.returncode != 0:
-        exit_message = "\n".join([error_message, indented_process_output])
-        exit(exit_message)
-
-    if verbose:
-        print(indented_process_output)
-
-    print(success_message)
+    try:
+        subprocess.run(str.split(command), stdout=stdout, stderr=stderr, check=True)
+    except subprocess.CalledProcessError as err:
+        error_output = (
+            f"ERROR: Execution of command '{command}' returned: {err.returncode}\n"
+        )
+        print(error_output)
+        exit(err.returncode)
 
 
-def run_all(verbose=False):
+def run_all(quiet=False):
     print("Run all deployment tasks...")
-    run_build(verbose=verbose)
-    run_publish(verbose=verbose)
+    run_build(quiet=quiet)
+    run_upload(quiet=quiet)
     print("All tasks succeeded!")
 
 
-def run_build(verbose: bool):
+def run_build(quiet: bool):
+    print("Building thehive4py with the build module...")
     _run_subprocess(
-        args=("rm -rf build/ dist/ && python -m build --sdist --wheel"),
-        init_message="Building the package with the build module...",
-        success_message="Package build succeeded!",
-        error_message="Package build failed due to:",
-        verbose=verbose,
+        command="rm -rf build/ dist/",
+        quiet=quiet,
     )
-
-
-def run_publish(verbose: bool):
     _run_subprocess(
-        args=("echo 'Publish command is not implemented yet...' && exit 1 "),
-        init_message="Publishing the package with twine...",
-        success_message="Publish succeeded!",
-        error_message="Publish failed due to:",
-        verbose=verbose,
+        command="python -m build --sdist --wheel",
+        quiet=quiet,
     )
+    print("Successfully built thehive4py!")
 
 
-def parse_arguments():
-    main_parser = argparse.ArgumentParser(
-        prog="thehive4py-cd",
-        description="run all cd tasks or use sub commands to run cd tasks individually",
+def run_upload(quiet: bool):
+    print("Publishing thehive4py with twine...")
+    _run_subprocess(
+        command="twine upload dist/*",
+        quiet=quiet,
     )
-    main_parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        default=False,
-        help="generate verbose output",
-    )
-    main_parser.set_defaults(func=run_all)
+    print("Successfully published thehive4py!")
 
-    subparsers = main_parser.add_subparsers(help="commands")
-    subparser_options = [
-        {
-            "name": "build",
-            "help": "task to build the package",
-            "default_func": run_build,
-        },
-        {
-            "name": "publish",
-            "help": "task to publish the package",
-            "default_func": run_publish,
-        },
+
+def build_run_options() -> List[dict]:
+    return [
+        {"name": "build", "help": "run build step", "func": run_build},
+        {"name": "upload", "help": "run upload step", "func": run_upload},
     ]
 
-    for subparser_option in subparser_options:
-        _subparser = subparsers.add_parser(
-            name=subparser_option["name"],
-            help=subparser_option["help"],
-            parents=[main_parser],
-            add_help=False,
-        )
-        _subparser.set_defaults(func=subparser_option["default_func"])
 
-    return main_parser.parse_args()
+def parse_arguments(run_options: List[dict]):
+    parser = argparse.ArgumentParser(
+        prog="thehive4py-cd",
+        description="run all cd steps or use options to run cd steps selectively",
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        default=False,
+        help="silence verbose output",
+    )
+
+    for run_option in run_options:
+        parser.add_argument(
+            f"--{run_option['name']}",
+            help=run_option["help"],
+            action="store_true",
+        )
+
+    return parser.parse_args()
 
 
 def main():
-    args = parse_arguments()
-    args.func(verbose=args.verbose)
+    run_options = build_run_options()
+    args = parse_arguments(run_options=run_options)
+
+    quiet = args.quiet
+
+    selective_runs = [
+        run_option["func"]
+        for run_option in run_options
+        if getattr(args, run_option["name"])
+    ]
+
+    if selective_runs:
+        for run in selective_runs:
+            run(quiet=quiet)
+    else:
+        run_all(quiet=quiet)
 
 
 if __name__ == "__main__":

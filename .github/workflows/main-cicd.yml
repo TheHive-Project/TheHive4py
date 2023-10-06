@@ -1,0 +1,22 @@
+name: cicd
+on: 
+  push:
+    tags:
+      - "*"
+  pull_request:
+  
+jobs:
+  static-checks:
+    uses: ./.github/workflows/_static-checks.yml
+  integration-tests:
+    uses: ./.github/workflows/_integration-tests.yml
+    secrets:
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+  build-package:
+    uses: ./.github/workflows/_build-package.yml
+  upload-package:
+    uses: ./.github/workflows/_upload-package.yml
+    if: startsWith(github.ref, 'refs/tags/') 
+    needs: [static-checks, integration-tests, build-package]
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

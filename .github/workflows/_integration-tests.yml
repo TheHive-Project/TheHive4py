@@ -1,9 +1,13 @@
-name: integration-tests [experimental]
-on: [pull_request]
+name: integration-tests
+on: 
+  workflow_call:
+    secrets:
+      DOCKER_TOKEN:
+        required: true
 jobs:
-  integration_tests:
+  integration-tests:
+    name: Run integration tests
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
