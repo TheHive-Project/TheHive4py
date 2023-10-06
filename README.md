@@ -8,7 +8,7 @@
 
 # thehive4py
 
-> **IMPORTANT:** This library is currently in active development and is in the beta phase. Please use it with caution and be prepared for potential breaking changes until the first stable release!
+> **IMPORTANT:** Version 1.x is not maintained anymore as TheHive v3 and v4 are end of life. Version 2.x is targeting TheHive v5 exclusively and currently in beta phase. Please use it with caution and be prepared for potential breaking changes until the first stable release!
 
 **What's New:** This is a rebooted version of `thehive4py` designed specifically for TheHive 5. Stay tuned, as we have more exciting updates in store!
 
@@ -197,6 +197,54 @@ hive.alert.merge_into_case(alert_id=my_alert["_id"], case_id=my_case["_id"])
 ```
 
 By choosing the method that suits your workflow, you can efficiently manage cases and alerts within TheHive using `thehive4py`.
+
+## Query Case Observables
+
+To retrieve observables from a case, you can use the `case.find_observables` method provided by `thehive4py`. This method supports various filtering and querying options, allowing you to retrieve specific observables or all observables associated with a case.
+
+### Retrieve All Observables of a Case
+
+To retrieve all the observables of a case, use the following code:
+
+```python
+case_observables = hive.case.find_observables(case_id=my_case["_id"])
+```
+
+### Retrieve Specific Observables of a Case
+If you want to retrieve specific observables based on criteria, you can leverage TheHive's powerful query capabilities. You can refer to the official Query API documentation for more details.
+
+Here's an example of how to retrieve IP observables from a case:
+
+```python
+ip_observable = hive.case.find_observables(
+    case_id=my_case["_id"], filters=Eq("dataType", "ip") & Like("data", "93.184.216.34")
+)
+```
+
+
+In this example, we use the `Eq`, `Like` and the `&` operators filters to specify the criteria for the query. You can also achieve the same result using a dict-based approach for filtering:
+
+```python
+ip_observable = hive.case.find_observables(
+    case_id=my_case["_id"],
+    filters={
+        "_and": [
+            {"_field": "dataType", "_value": "ip"},
+            {"_like": {"_field": "data", "_value": "93.184.216.34"}},
+        ]
+    }
+)
+```
+
+The dict-based approach is possible, but we recommend using the built-in filter classes for building query expressions due to their ease of use.
+
+Currently, the filter classes support the following operators:
+
+- `&`: Used for the Query API's `_and` construct.
+- `|`: Used for the Query API's `_or` construct.
+- `~`: Used for the Query API's `_not` construct.
+
+These operators provide a convenient and intuitive way to construct complex queries.
 
 # Development
 
