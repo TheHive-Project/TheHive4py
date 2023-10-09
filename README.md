@@ -7,7 +7,7 @@
 
 # thehive4py
 
-> **IMPORTANT:** Version 1.x is not maintained anymore as TheHive v3 and v4 are end of life. Version 2.x is targeting TheHive v5 exclusively and currently in beta phase. Please use it with caution and be prepared for potential breaking changes until the first stable release!
+> **IMPORTANT:** thehive4py v1.x is not maintained anymore as TheHive v3 and v4 are end of life. thehive4py v2.x is a complete rewrite and is not compatible with thehive4py v1.x. The library is still in beta phase.
 
 **What's New:** This is a rebooted version of `thehive4py` designed specifically for TheHive 5. Stay tuned, as we have more exciting updates in store!
 
