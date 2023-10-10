@@ -210,7 +210,7 @@ case_observables = hive.case.find_observables(case_id=my_case["_id"])
 ```
 
 ### Retrieve Specific Observables of a Case
-If you want to retrieve specific observables based on criteria, you can leverage TheHive's powerful query capabilities. You can refer to the official Query API documentation for more details.
+If you want to retrieve specific observables based on criteria, you can leverage TheHive's powerful query capabilities. You can refer to the official [Query API][query-api-docs] documentation for more details.
 
 Here's an example of how to retrieve IP observables from a case:
 
@@ -313,3 +313,5 @@ To ensure code quality and prevent broken code from being merged, a private imag
 The project is actively working on a solution to enable developers to run integration tests locally, providing a more accessible and comprehensive testing experience.
 
 While local testing is in development, relying on the automated PR checks ensures the reliability and quality of the `thehive4py` library.
+
+[query-api-docs]: https://docs.strangebee.com/thehive/api-docs/#operation/Query%20API
