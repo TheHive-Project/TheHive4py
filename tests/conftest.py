@@ -23,7 +23,7 @@ from thehive4py.types.user import OutputUser
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="kamforka/thehive4py-integrator:thehive-5.2.4",
+        image_name="kamforka/thehive4py-integrator:thehive-5.2.5",
         container_name="thehive4py-integration-tests",
         user="admin@thehive.local",
         password="secret",
