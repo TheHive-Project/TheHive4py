@@ -15,6 +15,7 @@ class InputTask(InputTaskRequired, total=False):
     order: int
     dueDate: int
     assignee: str
+    mandatory: bool
 
 
 class OutputTaskRequired(TypedDict):
