@@ -1,5 +1,6 @@
 import json as jsonlib
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
+rom thehive4py.types.attachment import OutputAttachment
 
 from thehive4py.endpoints._base import EndpointBase
 from thehive4py.query import QueryExpr
@@ -82,6 +83,17 @@ class AlertEndpoint(EndpointBase):
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/observable", **kwargs
         )
+
+    def add_attachment(
+        self, alert_id: str, attachment_paths: List[str]
+    ) -> List[OutputAttachment]:
+        files = [
+            ("attachments", self._fileinfo_from_filepath(attachment_path))
+            for attachment_path in attachment_paths
+        ]
+        return self._session.make_request(
+            "POST", f"/api/v1/alert/{alert_id}/attachments", files=files
+        )["attachments"]
 
     def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
         return self._session.make_request(
