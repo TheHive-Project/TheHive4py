@@ -9,10 +9,11 @@ from thehive4py.query.sort import SortExpr
 from thehive4py.types.alert import (
     InputAlert,
     InputBulkUpdateAlert,
-    InputUpdateAlert,
     InputPromoteAlert,
+    InputUpdateAlert,
     OutputAlert,
 )
+from thehive4py.types.attachment import OutputAttachment
 from thehive4py.types.case import OutputCase
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
@@ -81,6 +82,31 @@ class AlertEndpoint(EndpointBase):
         )
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/observable", **kwargs
+        )
+
+    def add_attachment(
+        self, alert_id: str, attachment_paths: List[str]
+    ) -> List[OutputAttachment]:
+        files = [
+            ("attachments", self._fileinfo_from_filepath(attachment_path))
+            for attachment_path in attachment_paths
+        ]
+        return self._session.make_request(
+            "POST", f"/api/v1/alert/{alert_id}/attachments", files=files
+        )["attachments"]
+
+    def download_attachment(
+        self, alert_id: str, attachment_id: str, attachment_path: str
+    ) -> None:
+        return self._session.make_request(
+            "GET",
+            path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}/download",
+            download_path=attachment_path,
+        )
+
+    def delete_attachment(self, alert_id: str, attachment_id: str) -> None:
+        return self._session.make_request(
+            "DELETE", path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}"
         )
 
     def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
@@ -189,5 +215,24 @@ class AlertEndpoint(EndpointBase):
             "POST",
             path="/api/v1/query",
             params={"name": "alert-procedures"},
+            json={"query": query},
+        )
+
+    def find_attachments(
+        self,
+        alert_id: str,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputAttachment]:
+        query: QueryExpr = [
+            {"_name": "getAlert", "idOrName": alert_id},
+            {"_name": "attachments"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "alert-attachments"},
             json={"query": query},
         )
