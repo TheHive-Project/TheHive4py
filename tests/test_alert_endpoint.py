@@ -235,3 +235,48 @@ class TestAlertEndpoint:
         )
         alert_procedures = thehive.alert.find_procedures(alert_id=test_alert["_id"])
         assert [created_procedure] == alert_procedures
+
+    def test_add_and_download_attachment(
+        self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
+    ):
+        attachment_paths = [str(tmp_path / f"attachment-{i}.txt") for i in range(2)]
+        download_attachment_paths = [
+            str(tmp_path / f"dl-attachment-{i}.txt") for i in range(2)
+        ]
+
+        for path in attachment_paths:
+            with open(path, "w") as attachment_fp:
+                attachment_fp.write(f"content of {path}")
+
+        added_attachments = thehive.alert.add_attachment(
+            alert_id=test_alert["_id"], attachment_paths=attachment_paths
+        )
+
+        for attachment, path in zip(added_attachments, download_attachment_paths):
+            thehive.alert.download_attachment(
+                alert_id=test_alert["_id"],
+                attachment_id=attachment["_id"],
+                attachment_path=path,
+            )
+
+        for original, downloaded in zip(attachment_paths, download_attachment_paths):
+            with open(original) as original_fp, open(downloaded) as downloaded_fp:
+                assert original_fp.read() == downloaded_fp.read()
+
+    def test_add_and_delete_attachment(
+        self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
+    ):
+        attachment_path = str(tmp_path / "my-attachment.txt")
+        with open(attachment_path, "w") as attachment_fp:
+            attachment_fp.write("some content...")
+
+        added_attachments = thehive.alert.add_attachment(
+            alert_id=test_alert["_id"], attachment_paths=[attachment_path]
+        )
+
+        for attachment in added_attachments:
+            thehive.alert.delete_attachment(
+                alert_id=test_alert["_id"], attachment_id=attachment["_id"]
+            )
+
+        assert thehive.alert.find_attachments(alert_id=test_alert["_id"]) == []
