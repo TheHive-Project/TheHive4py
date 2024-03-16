@@ -1,0 +1,2956 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://thehive-project.github.io/thehive4py/reference/endpoints/CaseEndpoint/">
+      
+      
+        <link rel="prev" href="../AlertEndpoint/">
+      
+      
+        <link rel="next" href="../CommentEndpoint/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>CaseEndpoint - TheHive4py Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#caseendpoint" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="TheHive4py Documentation" class="md-header__button md-logo" aria-label="TheHive4py Documentation" data-md-component="logo">
+      
+  <img src="../../../images/thehive.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TheHive4py Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CaseEndpoint
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="TheHive4py Documentation" class="md-nav__button md-logo" aria-label="TheHive4py Documentation" data-md-component="logo">
+      
+  <img src="../../../images/thehive.png" alt="logo">
+
+    </a>
+    TheHive4py Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        TheHive4py
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_of_conduct/" class="md-nav__link">
+        Contributor Convenant Code of Conduct
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Alert_operations/" class="md-nav__link">
+        Alert operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Case_operations/" class="md-nav__link">
+        Case operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Comment_operations/" class="md-nav__link">
+        Comment operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/CustomField_operations/" class="md-nav__link">
+        Custom field operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/ObservableType_operations/" class="md-nav__link">
+        Observable type operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Observable_operations/" class="md-nav__link">
+        Observable operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Procedure_operations/" class="md-nav__link">
+        Procedure operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Profile_operations/" class="md-nav__link">
+        Profile operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/TaskLog_opeartions/" class="md-nav__link">
+        TaskLog operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Task_operations/" class="md-nav__link">
+        Task operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/Timeline_operations/" class="md-nav__link">
+        Timeline operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/User_operations/" class="md-nav__link">
+        User operations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+          Endpoints
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Endpoints
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AlertEndpoint/" class="md-nav__link">
+        AlertEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          CaseEndpoint
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        CaseEndpoint
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#createself-case" class="md-nav__link">
+    create(self, case)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getself-case_id" class="md-nav__link">
+    get(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleteself-case_id" class="md-nav__link">
+    delete(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updateself-case_id-case" class="md-nav__link">
+    update(self, case_id, case)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bulk_updateselffields" class="md-nav__link">
+    bulk_update(self,fields)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mergeself-case_ids" class="md-nav__link">
+    merge(self, case_ids)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unlink_alertself-case_id-alert_id" class="md-nav__link">
+    unlink_alert(self, case_id, alert_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge_similar_observablesself-case_id" class="md-nav__link">
+    merge_similar_observables(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_linked_casesself-case_id" class="md-nav__link">
+    get_linked_cases(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_custom_fieldself-custom_field_id" class="md-nav__link">
+    delete_custom_field(self, custom_field_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import_from_fileself-import_case-import_path" class="md-nav__link">
+    import_from_file(self, import_case, import_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_to_fileself-case_id-password-export_path" class="md-nav__link">
+    export_to_file(self, case_id, password, export_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_timelineself-case_id" class="md-nav__link">
+    get_timeline(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add_attachmentself-case_id-attachment_paths" class="md-nav__link">
+    add_attachment(self, case_id, attachment_paths)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download_attachmentself-case_id-attachment_id-attachment_paths" class="md-nav__link">
+    download_attachment(self, case_id, attachment_id, attachment_paths)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_attachmentself-case_id-attachment_id" class="md-nav__link">
+    delete_attachment(self, case_id, attachment_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_sharesself-case_id" class="md-nav__link">
+    list_shares(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareself-case_id-shares" class="md-nav__link">
+    share(self, case_id, shares)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unshareself-case_id-organisation_ids" class="md-nav__link">
+    unshare(self, case_id, organisation_ids)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_shareself-case_id-shares" class="md-nav__link">
+    set_share(self, case_id, shares)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove_shareself-share_id" class="md-nav__link">
+    remove_share(self, share_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update_shareself-share_id-profile" class="md-nav__link">
+    update_share(self, share_id, profile)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findself-filters-sortby-paginate" class="md-nav__link">
+    find(self, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#countself-filters" class="md-nav__link">
+    count(self, filters)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_taskself-case_id-task" class="md-nav__link">
+    create_task(self, case_id, task)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_tasksself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_tasks(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_observableself-case_id-observable-observable_path" class="md-nav__link">
+    create_observable(self, case_id, observable, observable_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_observablesself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_observables(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_procedureself-case_id-procedure" class="md-nav__link">
+    create_procedure(self, case_id, procedure)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_proceduresself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_procedures(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_attachmentsself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_attachments(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_commentsself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_comments(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closeself-case_id-status-summary-impact_status" class="md-nav__link">
+    close(self, case_id, status, summary, impact_status)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openself-case_id-status-summary-impact_status" class="md-nav__link">
+    open(self, case_id, status, summary, impact_status)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommentEndpoint/" class="md-nav__link">
+        CommentEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CustomFieldEndpoint/" class="md-nav__link">
+        CustomFieldEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ObservableEndpoint/" class="md-nav__link">
+        ObservableEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ObservableTypeEndpoint/" class="md-nav__link">
+        ObservableTypeEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OrganisationEndpoint/" class="md-nav__link">
+        OrganisationEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ProcedureEndpoint/" class="md-nav__link">
+        ProcedureEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ProfileEndpoint/" class="md-nav__link">
+        ProfileEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TaskEndpoint/" class="md-nav__link">
+        TaskEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TaskLogEndpoint/" class="md-nav__link">
+        TaskLogEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TimelineEndpoint/" class="md-nav__link">
+        TimelineEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UserEndpoint/" class="md-nav__link">
+        UserEndpoint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Alert/" class="md-nav__link">
+        Alert
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Attachment/" class="md-nav__link">
+        Attachment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Case/" class="md-nav__link">
+        Case
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/CustomField/" class="md-nav__link">
+        Custom Field
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Observable/" class="md-nav__link">
+        Observable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/ObservableType/" class="md-nav__link">
+        ObservableType
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Organisation/" class="md-nav__link">
+        Organisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Procedure/" class="md-nav__link">
+        Procedure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Profile/" class="md-nav__link">
+        Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Share/" class="md-nav__link">
+        Share
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/Task/" class="md-nav__link">
+        Task
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/TaskLog/" class="md-nav__link">
+        TaskLog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/timeline/" class="md-nav__link">
+        CustomEvent
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/user/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#createself-case" class="md-nav__link">
+    create(self, case)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getself-case_id" class="md-nav__link">
+    get(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleteself-case_id" class="md-nav__link">
+    delete(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updateself-case_id-case" class="md-nav__link">
+    update(self, case_id, case)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bulk_updateselffields" class="md-nav__link">
+    bulk_update(self,fields)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mergeself-case_ids" class="md-nav__link">
+    merge(self, case_ids)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unlink_alertself-case_id-alert_id" class="md-nav__link">
+    unlink_alert(self, case_id, alert_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge_similar_observablesself-case_id" class="md-nav__link">
+    merge_similar_observables(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_linked_casesself-case_id" class="md-nav__link">
+    get_linked_cases(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_custom_fieldself-custom_field_id" class="md-nav__link">
+    delete_custom_field(self, custom_field_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import_from_fileself-import_case-import_path" class="md-nav__link">
+    import_from_file(self, import_case, import_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_to_fileself-case_id-password-export_path" class="md-nav__link">
+    export_to_file(self, case_id, password, export_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_timelineself-case_id" class="md-nav__link">
+    get_timeline(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add_attachmentself-case_id-attachment_paths" class="md-nav__link">
+    add_attachment(self, case_id, attachment_paths)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download_attachmentself-case_id-attachment_id-attachment_paths" class="md-nav__link">
+    download_attachment(self, case_id, attachment_id, attachment_paths)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_attachmentself-case_id-attachment_id" class="md-nav__link">
+    delete_attachment(self, case_id, attachment_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_sharesself-case_id" class="md-nav__link">
+    list_shares(self, case_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareself-case_id-shares" class="md-nav__link">
+    share(self, case_id, shares)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unshareself-case_id-organisation_ids" class="md-nav__link">
+    unshare(self, case_id, organisation_ids)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_shareself-case_id-shares" class="md-nav__link">
+    set_share(self, case_id, shares)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remove_shareself-share_id" class="md-nav__link">
+    remove_share(self, share_id)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update_shareself-share_id-profile" class="md-nav__link">
+    update_share(self, share_id, profile)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findself-filters-sortby-paginate" class="md-nav__link">
+    find(self, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#countself-filters" class="md-nav__link">
+    count(self, filters)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_taskself-case_id-task" class="md-nav__link">
+    create_task(self, case_id, task)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_tasksself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_tasks(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_observableself-case_id-observable-observable_path" class="md-nav__link">
+    create_observable(self, case_id, observable, observable_path)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_observablesself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_observables(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_procedureself-case_id-procedure" class="md-nav__link">
+    create_procedure(self, case_id, procedure)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_proceduresself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_procedures(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_attachmentsself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_attachments(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find_commentsself-case_id-filters-sortby-paginate" class="md-nav__link">
+    find_comments(self, case_id, filters, sortby, paginate)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closeself-case_id-status-summary-impact_status" class="md-nav__link">
+    close(self, case_id, status, summary, impact_status)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openself-case_id-status-summary-impact_status" class="md-nav__link">
+    open(self, case_id, status, summary, impact_status)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="caseendpoint">CaseEndpoint<a class="headerlink" href="#caseendpoint" title="Permanent link">#</a></h1>
+<p><strong>CaseId: Union[str, int]</strong></p>
+<h4 id="createself-case">create(self, case)<a class="headerlink" href="#createself-case" title="Permanent link">#</a></h4>
+<p>Create a new case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case</code></td>
+<td><code>InputCase</code></td>
+<td>The case to create</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputCase</code></td>
+<td>The created case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="getself-case_id">get(self, case_id)<a class="headerlink" href="#getself-case_id" title="Permanent link">#</a></h4>
+<p>Get an existing case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to retrieve</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputCase</code></td>
+<td>The retrieved case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="deleteself-case_id">delete(self, case_id)<a class="headerlink" href="#deleteself-case_id" title="Permanent link">#</a></h4>
+<p>Delete an existing case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to delete</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="updateself-case_id-case">update(self, case_id, case)<a class="headerlink" href="#updateself-case_id-case" title="Permanent link">#</a></h4>
+<p>Update an existing case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to update</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>case</code></td>
+<td><code>InputUpdateCase</code></td>
+<td>The updated case</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="bulk_updateselffields">bulk_update(self,fields)<a class="headerlink" href="#bulk_updateselffields" title="Permanent link">#</a></h4>
+<p>Update multiple cases at once.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fields</code>        </td>
+<td><code>InputBulkUpdateCase</code></td>
+<td>The updates to apply</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="mergeself-case_ids">merge(self, case_ids)<a class="headerlink" href="#mergeself-case_ids" title="Permanent link">#</a></h4>
+<p>Merge multiple cases at once.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_ids</code></td>
+<td><code>Sequence[CaseId]</code></td>
+<td>The IDs of the cases to merge</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputCase</code></td>
+<td>The merged case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unlink_alertself-case_id-alert_id">unlink_alert(self, case_id, alert_id)<a class="headerlink" href="#unlink_alertself-case_id-alert_id" title="Permanent link">#</a></h4>
+<p>Remove a link between a case and an alert.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to unlink the alert from</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>alert_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the alert to unlink from the case</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="merge_similar_observablesself-case_id">merge_similar_observables(self, case_id)<a class="headerlink" href="#merge_similar_observablesself-case_id" title="Permanent link">#</a></h4>
+<p>Merge similar observables in a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to merge similar observables in</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dict</code></td>
+<td>A dictionary containing information about the merged observables</td>
+</tr>
+</tbody>
+</table>
+<h4 id="get_linked_casesself-case_id">get_linked_cases(self, case_id)<a class="headerlink" href="#get_linked_casesself-case_id" title="Permanent link">#</a></h4>
+<p>Get a list of cases linked to the specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to get linked cases for</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputCase]</code></td>
+<td>A list of OutputCase objects representing the linked cases</td>
+</tr>
+</tbody>
+</table>
+<h4 id="delete_custom_fieldself-custom_field_id">delete_custom_field(self, custom_field_id)<a class="headerlink" href="#delete_custom_fieldself-custom_field_id" title="Permanent link">#</a></h4>
+<p>Delete a custom field.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>custom_field_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the custom field to delete</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="import_from_fileself-import_case-import_path">import_from_file(self, import_case, import_path)<a class="headerlink" href="#import_from_fileself-import_case-import_path" title="Permanent link">#</a></h4>
+<p>Import a case from a file.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>import_case</code></td>
+<td><code>InputImportCase</code></td>
+<td>The ID of the alert to merge into the case</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>import_path</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to merge the alert into</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dict</code></td>
+<td>A dictionary containing information about the imported case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="export_to_fileself-case_id-password-export_path">export_to_file(self, case_id, password, export_path)<a class="headerlink" href="#export_to_fileself-case_id-password-export_path" title="Permanent link">#</a></h4>
+<p>Export a case to a file.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to export</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td><code>str</code></td>
+<td>The password to encrypt the exported file with</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>export_path</code></td>
+<td><code>str</code></td>
+<td>The path to save the exported file to</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="get_timelineself-case_id">get_timeline(self, case_id)<a class="headerlink" href="#get_timelineself-case_id" title="Permanent link">#</a></h4>
+<p>Retrieve the timeline of a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputTimeline</code></td>
+<td>The timeline of the case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="add_attachmentself-case_id-attachment_paths">add_attachment(self, case_id, attachment_paths)<a class="headerlink" href="#add_attachmentself-case_id-attachment_paths" title="Permanent link">#</a></h4>
+<p>Add one or more attachments to a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to add the attachments to</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>attachment_paths</code></td>
+<td><code>List[str]</code></td>
+<td>A list of file paths for the attachments to add</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputAttachment]</code></td>
+<td>A list of OutputAttachment objects representing the added attachments</td>
+</tr>
+</tbody>
+</table>
+<h4 id="download_attachmentself-case_id-attachment_id-attachment_paths">download_attachment(self, case_id, attachment_id, attachment_paths)<a class="headerlink" href="#download_attachmentself-case_id-attachment_id-attachment_paths" title="Permanent link">#</a></h4>
+<p>Download an attachment from a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The case's id</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>attachment_id</code></td>
+<td><code>str</code></td>
+<td>The attachment's id</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>attachment_paths</code></td>
+<td><code>str</code></td>
+<td>The attachment's path</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="delete_attachmentself-case_id-attachment_id">delete_attachment(self, case_id, attachment_id)<a class="headerlink" href="#delete_attachmentself-case_id-attachment_id" title="Permanent link">#</a></h4>
+<p>Delete an attachment from a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The case's id</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>attachment_id</code></td>
+<td><code>str</code></td>
+<td>The attachment's id</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="list_sharesself-case_id">list_shares(self, case_id)<a class="headerlink" href="#list_sharesself-case_id" title="Permanent link">#</a></h4>
+<p>List the shares of the specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to list the shares of</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputShare]</code></td>
+<td>A list of <code>OutputShare</code> objects representing the shares of the specified case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="shareself-case_id-shares">share(self, case_id, shares)<a class="headerlink" href="#shareself-case_id-shares" title="Permanent link">#</a></h4>
+<p>Share a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to share</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>shares</code></td>
+<td><code>List[InputShare]</code></td>
+<td>A list of <code>InputShare</code> objects representing the organisations to share the case with</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputShare]</code></td>
+<td>A list of <code>OutputShare</code> objects representing the shares that were created by the operation</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unshareself-case_id-organisation_ids">unshare(self, case_id, organisation_ids)<a class="headerlink" href="#unshareself-case_id-organisation_ids" title="Permanent link">#</a></h4>
+<p>Unshare a case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to unshare</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>organisation_ids</code></td>
+<td><code>List[str]</code></td>
+<td>A list of organisation IDs representing the organisations to unshare the case from</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>A list of <code>OutputShare</code> objects representing the shares that were created by the operation</td>
+</tr>
+</tbody>
+</table>
+<h4 id="set_shareself-case_id-shares">set_share(self, case_id, shares)<a class="headerlink" href="#set_shareself-case_id-shares" title="Permanent link">#</a></h4>
+<p>Set a share.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to set the shares of</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>shares</code></td>
+<td><code>List[InputShare]</code></td>
+<td>A list of <code>InputShare</code> objects representing the organisations to share the case with</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputShare]</code></td>
+<td>A list of <code>OutputShare</code> objects representing the shares that were created</td>
+</tr>
+</tbody>
+</table>
+<h4 id="remove_shareself-share_id">remove_share(self, share_id)<a class="headerlink" href="#remove_shareself-share_id" title="Permanent link">#</a></h4>
+<p>Remove the specified share.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>share_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the share to remove</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="update_shareself-share_id-profile">update_share(self, share_id, profile)<a class="headerlink" href="#update_shareself-share_id-profile" title="Permanent link">#</a></h4>
+<p>Update the profile of a shared case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>share_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the share to update</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td><code>str</code></td>
+<td>The new profile to set</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="findself-filters-sortby-paginate">find(self, filters, sortby, paginate)<a class="headerlink" href="#findself-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Find cases based on the specified filters, sort order, and pagination.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>The filters to apply to the query</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>The sort order to apply to the results</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>The pagination parameters to apply to the query</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputCase]</code></td>
+<td>A list of matching cases</td>
+</tr>
+</tbody>
+</table>
+<h4 id="countself-filters">count(self, filters)<a class="headerlink" href="#countself-filters" title="Permanent link">#</a></h4>
+<p>Count cases based on the specified filters.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>The filters to apply to the query</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputCase]</code></td>
+<td>A list of matching cases</td>
+</tr>
+</tbody>
+</table>
+<h4 id="create_taskself-case_id-task">create_task(self, case_id, task)<a class="headerlink" href="#create_taskself-case_id-task" title="Permanent link">#</a></h4>
+<p>Create a task in a specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to create the task for</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td><code>InputTask</code></td>
+<td>The task to create</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputTask</code></td>
+<td>The created task</td>
+</tr>
+</tbody>
+</table>
+<h4 id="find_tasksself-case_id-filters-sortby-paginate">find_tasks(self, case_id, filters, sortby, paginate)<a class="headerlink" href="#find_tasksself-case_id-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Find tasks in a specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to search for tasks in</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>The filters to apply to the query</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>The sort order to apply to the results</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>The pagination parameters to apply to the query</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputTask]</code></td>
+<td>A list of tasks associated with the specified case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="create_observableself-case_id-observable-observable_path">create_observable(self, case_id, observable, observable_path)<a class="headerlink" href="#create_observableself-case_id-observable-observable_path" title="Permanent link">#</a></h4>
+<p>Create one or more observables associated with the specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to create observables for</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>observable</code></td>
+<td><code>InputObservable]</code></td>
+<td>The observable to create</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>observable_path</code></td>
+<td><code>Optional[str]</code></td>
+<td>Optional path to a file containing additional data related to the observable</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputObservable]</code></td>
+<td>A list of observables that were created</td>
+</tr>
+</tbody>
+</table>
+<h4 id="find_observablesself-case_id-filters-sortby-paginate">find_observables(self, case_id, filters, sortby, paginate)<a class="headerlink" href="#find_observablesself-case_id-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Find observables associated with the specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to search for observables in</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>The filters to apply to the query</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>The sort order to apply to the results</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>The pagination parameters to apply to the query</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputObservable]</code></td>
+<td>A list of observables associated with the specified case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="create_procedureself-case_id-procedure">create_procedure(self, case_id, procedure)<a class="headerlink" href="#create_procedureself-case_id-procedure" title="Permanent link">#</a></h4>
+<p>Create a new procedure associated with the specified case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to create the procedure for</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>procedure</code></td>
+<td><code>InputProcedure</code></td>
+<td>The procedure to create</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OutputProcedure</code></td>
+<td>The procedure that was created</td>
+</tr>
+</tbody>
+</table>
+<h4 id="find_proceduresself-case_id-filters-sortby-paginate">find_procedures(self, case_id, filters, sortby, paginate)<a class="headerlink" href="#find_proceduresself-case_id-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Finds procedures associated with a given case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to search for procedures</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>A filter expression to filter the procedures by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>A sort expression to sort the procedures by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>A pagination object to limit and offset the results</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputProcedure]</code></td>
+<td>A list of procedures associated with the given case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="find_attachmentsself-case_id-filters-sortby-paginate">find_attachments(self, case_id, filters, sortby, paginate)<a class="headerlink" href="#find_attachmentsself-case_id-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Finds attachments associated with a given case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to search for attachments</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>A filter expression to filter the attachments by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>A sort expression to sort the attachments by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>A pagination object to limit and offset the results</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputAttachment]</code></td>
+<td>A list of attachments associated with the given case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="find_commentsself-case_id-filters-sortby-paginate">find_comments(self, case_id, filters, sortby, paginate)<a class="headerlink" href="#find_commentsself-case_id-filters-sortby-paginate" title="Permanent link">#</a></h4>
+<p>Finds comments associated with a given case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>str</code></td>
+<td>The ID of the case to search for comments</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td><code>Optional[FilterExpr]</code></td>
+<td>A filter expression to filter the comments by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sortby</code></td>
+<td><code>Optional[SortExpr]</code></td>
+<td>A sort expression to sort the comments by</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>paginate</code></td>
+<td><code>Optional[Paginate]</code></td>
+<td>A pagination object to limit and offset the results</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[OutputComment]</code></td>
+<td>A list of comments associated with the given case</td>
+</tr>
+</tbody>
+</table>
+<h4 id="closeself-case_id-status-summary-impact_status">close(self, case_id, status, summary, impact_status)<a class="headerlink" href="#closeself-case_id-status-summary-impact_status" title="Permanent link">#</a></h4>
+<p>Close a given case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to close</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>CaseStatusValue</code></td>
+<td>The status of the case after closing</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>str</code></td>
+<td>A summary of the case</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>impact_status</code></td>
+<td><code>ImpactStatusValue</code></td>
+<td>The impact status of the case after closing</td>
+<td>"NotApplicable"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="openself-case_id-status-summary-impact_status">open(self, case_id, status, summary, impact_status)<a class="headerlink" href="#openself-case_id-status-summary-impact_status" title="Permanent link">#</a></h4>
+<p>Open a given case.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td><code>CaseId</code></td>
+<td>The ID of the case to open</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>CaseStatusValue</code></td>
+<td>The status of the case after opening. Default is CaseStatus.InProgress</td>
+<td>CaseStatus.InProgress</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,61 @@
+site_name: TheHive4py Documentation 
+
+# mkdocs.yml
+site_url: https://thehive-project.github.io/thehive4py
+theme:
+  name: "material"
+  logo: 'images/thehive.png'
+  palette:
+    primary: 'blue'
+    accent: blue
+
+# nav:
+#   - Home: index.md
+#   - Reference: 
+#       Models: reference/models
+#       API: reference/endpoints
+#                           
+#   - Examples:
+#       Alert operations: examples/Alert_operations.md
+#       Case operations: examples/Case_operations.md     
+#       Comment operations : examples/Comment_operations.md
+#       CustomField operations : examples/CustomField_operations.md
+#       Observable operations: examples/Observable_operations.md
+#       ObservableType operations : examples/ObservableType_operations.md
+#       Procedure operations : examples/Procedure_operations.md
+#       Profile operations : examples/Profile_operations.md
+#       Task operations: examples/Task_operations.md
+#       TaskLog operations: examples/Task_operations.md
+#       Timeline operations: examples/Timeline_operations.md
+#       User operations: examples/User_operations.md
+#   - Code of Conduct: code_of_conduct.md
+
+
+plugins:
+  - search
+
+  - awesome-pages
+
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: false
+
+
+
+
+extra_css:
+  - custom.css
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
+    - codehilite
+    - admonition
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    - pymdownx.details
+    - pymdownx.tasklist:
+        custom_checkbox: true
