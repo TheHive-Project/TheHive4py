@@ -258,7 +258,7 @@ If you are a first time contributor to github projects please make yourself comf
 Navigate to the cloned repository's directory and install the package with development extras using pip:
     
 ```
-pip install -e '.[dev]'
+pip install -e .[dev]
 ```
     
 This command installs the package in editable mode (`-e`) and includes additional development dependencies.
@@ -304,14 +304,33 @@ With pre-commit hooks in place, your changes will be automatically validated for
 
 ## Testing
 
+> IMPORTANT NOTE: Since TheHive 5.3 the licensing constraints has been partially lifted therefore a public integrator image is available for running tests both locally and in github.
+
 `thehive4py` primarily relies on integration tests, which are designed to execute against a live TheHive 5.x instance. These tests ensure that the library functions correctly in an environment closely resembling real-world usage.
 
-However, due to licensing constraints with TheHive 5.x, the integration tests are currently not available for public or local use.
+### Test requirements
 
-To ensure code quality and prevent broken code from being merged, a private image is available for the integration-test workflow. This means that any issues should be detected and addressed during the PR phase.
+Since the test suite relies on the existence of a live TheHive docker container a local docker engine installation is a must.
+If you are unfamiliar with docker please check out the [official documentation][get-docker].
 
-The project is actively working on a solution to enable developers to run integration tests locally, providing a more accessible and comprehensive testing experience.
+### Test setup
 
-While local testing is in development, relying on the automated PR checks ensures the reliability and quality of the `thehive4py` library.
+The test suite relies on the official [thehive-image] to create a container locally with the predefined name `thehive4py-integration-tester` which will act as a unique id.  
+The container will expose TheHive on a random port to make sure it causes no conflicts for any other containers which expose ports.  
+The suite can identify this random port by querying the container info based on the predefined name.
+Once TheHive is responsive the suite will initialize the instance with a setup required by the tests (e.g.: test users, organisations, etc.).  
+Please note that due to this initial setup the very first test run will idle for some time to make sure everything is up and running. Any other subsequent runs' statup time should be significantly faster.  
 
+### Testing locally
+To execute the whole test suite locally one can use the `scripts/ci.py` utility script like:
+
+    ./scripts/ci.py --test
+
+Note however that the above will execute the entire test suite which can take several minutes to complete.
+In case one wants to execute only a portion of the test suite then the easiest workaround is to use `pytest` and pass the path to the specific test module. For example to only execute tests for the alert endpoints one can do:
+
+    pytest -v tests/test_alert_endpoint.py
+
+[get-docker]: https://docs.docker.com/get-docker/
 [query-api-docs]: https://docs.strangebee.com/thehive/api-docs/#operation/Query%20API
+[thehive-image]: https://hub.docker.com/r/strangebee/thehive

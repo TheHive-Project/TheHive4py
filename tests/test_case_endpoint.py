@@ -197,6 +197,7 @@ class TestCaseEndpoint:
         thehive.case.unshare(case_id=test_case["_id"], organisation_ids=[organisation])
         assert len(thehive.case.list_shares(case_id=test_case["_id"])) == 1
 
+    @pytest.mark.skip(reason="integrator container only supports a single org ")
     def test_share_and_remove_share(self, thehive: TheHiveApi, test_case: OutputCase):
         organisation = "share-org"
         share: InputShare = {"organisation": organisation}
@@ -220,6 +221,7 @@ class TestCaseEndpoint:
         updated_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
         assert updated_share["profileName"] == update_profile
 
+    @pytest.mark.skip(reason="integrator container only supports a single org ")
     def test_share_and_set_share(self, thehive: TheHiveApi, test_case: OutputCase):
         organisation = "share-org"
         share: InputShare = {"organisation": organisation}

@@ -1,10 +1,11 @@
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.types.custom_field import InputUpdateCustomField, OutputCustomField
 
 
-class TestCustomeFieldEndpoint:
+class TestCustomFieldEndpoint:
     def test_create_and_list(self, thehive_admin: TheHiveApi):
         created_custom_field = thehive_admin.custom_field.create(
             custom_field={

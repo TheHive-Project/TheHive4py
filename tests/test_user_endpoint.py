@@ -61,6 +61,7 @@ class TestUserEndpoint:
         with pytest.raises(TheHiveError):
             thehive.user.get(user_id=user_id)
 
+    @pytest.mark.skip(reason="integrator container only supports a single org ")
     def test_set_organisations(
         self, test_config: TestConfig, thehive: TheHiveApi, test_user: OutputUser
     ):
