@@ -2,7 +2,7 @@ from typing import List
 
 import pytest
 
-from tests.utils import TestConfig, reinit_hive_container, spawn_hive_container
+from tests.utils import TestConfig, reset_hive_instance, spawn_hive_container
 from thehive4py.client import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
@@ -23,8 +23,8 @@ from thehive4py.types.user import OutputUser
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="kamforka/thehive4py-integrator:thehive-5.2.11",
-        container_name="thehive4py-integration-tests",
+        image_name="strangebee/thehive:5.3.0",
+        container_name="thehive4py-integration-tester",
         user="admin@thehive.local",
         password="secret",
         admin_org="admin",
@@ -34,8 +34,8 @@ def test_config():
 
 
 @pytest.fixture(scope="function", autouse=True)
-def init_hive_container(test_config: TestConfig):
-    reinit_hive_container(test_config=test_config)
+def auto_reset_hive_instance(thehive: TheHiveApi, test_config: TestConfig):
+    reset_hive_instance(hive_url=thehive.session.hive_url, test_config=test_config)
 
 
 @pytest.fixture(scope="session")

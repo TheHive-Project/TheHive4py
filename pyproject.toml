@@ -20,6 +20,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: GNU Affero General Public License v3",
 ]
 authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
@@ -27,7 +28,7 @@ authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 [project.optional-dependencies]
 audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
-lint = ["black", "flake8", "flake8-pyproject", "mypy", "pre-commit"]
+lint = ["black",  "flake8-pyproject", "mypy", "pre-commit"]
 test = ["pytest", "pytest-cov"]
 dev = ["thehive4py[audit, lint, test, build]"]
 

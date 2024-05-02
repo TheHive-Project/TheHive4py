@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import requests
 
 from thehive4py.client import TheHiveApi
+from thehive4py.helpers import now_to_ts
 from thehive4py.query.filters import Eq
 
 
@@ -27,7 +28,7 @@ class TestConfig:
 
 def _is_container_responsive(container_url: str) -> bool:
     COOLDOWN = 1.0
-    TIMEOUT = 60.0
+    TIMEOUT = 120.0
 
     now = time.time()
     end = now + TIMEOUT
@@ -85,7 +86,7 @@ def _destroy_container(container_name: str):
     )
 
 
-def _reinit_hive_org(hive_url: str, test_config: TestConfig, organisation: str) -> None:
+def _reset_hive_org(hive_url: str, test_config: TestConfig, organisation: str) -> None:
     client = TheHiveApi(
         url=hive_url,
         username=test_config.user,
@@ -101,7 +102,7 @@ def _reinit_hive_org(hive_url: str, test_config: TestConfig, organisation: str) 
         executor.map(client.case.delete, [case["_id"] for case in cases])
 
 
-def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
+def _reset_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
     client = TheHiveApi(
         url=hive_url,
         username=test_config.user,
@@ -129,6 +130,45 @@ def _reinit_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:
         )
 
 
+def init_hive_instance(url: str, test_config: TestConfig):
+    hive = TheHiveApi(
+        url=url,
+        username=test_config.user,
+        password=test_config.password,
+        organisation="admin",
+    )
+
+    current_user = hive.user.get_current()
+
+    current_license = hive.session.make_request("GET", "/api/v1/license/current")
+    if current_license["fallback"]["expiresAt"] < now_to_ts():
+        _destroy_container(container_name=test_config.container_name)
+        spawn_hive_container(test_config=test_config)
+
+    if not len(hive.organisation.find(filters=Eq("name", test_config.main_org))):
+        hive.organisation.create(
+            organisation={
+                "name": test_config.main_org,
+                "description": "main organisation for testing",
+            }
+        )
+
+    hive.user.set_organisations(
+        user_id=current_user["_id"],
+        organisations=[
+            {
+                "organisation": test_config.main_org,
+                "profile": "org-admin",
+                "default": True,
+            },
+            {
+                "organisation": "admin",
+                "profile": "admin",
+            },
+        ],
+    )
+
+
 def spawn_hive_container(test_config: TestConfig) -> str:
     if not _is_container_exist(container_name=test_config.container_name):
         _run_container(
@@ -141,15 +181,17 @@ def spawn_hive_container(test_config: TestConfig) -> str:
         _destroy_container(container_name=test_config.container_name)
         raise RuntimeError("Unable to startup test container for TheHive")
 
+    init_hive_instance(url=url, test_config=test_config)
+
     return url
 
 
-def reinit_hive_container(test_config: TestConfig) -> None:
-    hive_url = spawn_hive_container(test_config=test_config)
+def reset_hive_instance(hive_url: str, test_config: TestConfig) -> None:
+    # TODO: add back share config reinitialization once the license allows it
     with ThreadPoolExecutor() as executor:
-        for organisation in [
+        for org in [
             test_config.main_org,
-            test_config.share_org,
+            # test_config.share_org,
         ]:
-            executor.submit(_reinit_hive_org, hive_url, test_config, organisation)
-        executor.submit(_reinit_hive_admin_org, hive_url, test_config)
+            executor.submit(_reset_hive_org, hive_url, test_config, org)
+        executor.submit(_reset_hive_admin_org, hive_url, test_config)
