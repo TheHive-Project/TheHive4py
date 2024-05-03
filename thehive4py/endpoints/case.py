@@ -6,6 +6,7 @@ from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
 from thehive4py.query.page import Paginate
 from thehive4py.query.sort import SortExpr
+from thehive4py.types._common import PathOrBuffer, BufferOrNone
 from thehive4py.types.attachment import OutputAttachment
 from thehive4py.types.case import (
     CaseStatus,
@@ -82,7 +83,9 @@ class CaseEndpoint(EndpointBase):
             files={"file": self._fileinfo_from_filepath(import_path)},
         )
 
-    def export_to_file(self, case_id: CaseId, password: str, export_path: str) -> None:
+    def export_to_file(
+        self, case_id: CaseId, password: str, export_path: PathOrBuffer
+    ) -> BufferOrNone:
         return self._session.make_request(
             "GET",
             path=f"/api/v1/case/{case_id}/export",
@@ -105,8 +108,8 @@ class CaseEndpoint(EndpointBase):
         )["attachments"]
 
     def download_attachment(
-        self, case_id: CaseId, attachment_id: str, attachment_path: str
-    ) -> None:
+        self, case_id: CaseId, attachment_id: str, attachment_path: PathOrBuffer
+    ) -> BufferOrNone:
         return self._session.make_request(
             "GET",
             path=f"/api/v1/case/{case_id}/attachment/{attachment_id}/download",

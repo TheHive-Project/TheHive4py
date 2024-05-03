@@ -5,6 +5,7 @@ from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
 from thehive4py.query.page import Paginate
 from thehive4py.query.sort import SortExpr
+from thehive4py.types._common import PathOrBuffer, BufferOrNone
 from thehive4py.types.observable import (
     InputBulkUpdateObservable,
     InputObservable,
@@ -116,9 +117,9 @@ class ObservableEndpoint(EndpointBase):
         self,
         observable_id: str,
         attachment_id: str,
-        observable_path: str,
+        observable_path: PathOrBuffer,
         as_zip=False,
-    ) -> None:
+    ) -> BufferOrNone:
         return self._session.make_request(
             "GET",
             path=(
