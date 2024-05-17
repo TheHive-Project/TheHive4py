@@ -1407,3 +1407,129 @@ class TheHiveApi:
             return requests.patch(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
         except requests.exceptions.RequestException as e:
             raise CaseObservableException("Case observable update error: {}".format(e))
+        
+        
+    def create_case_share(self, case_id, case_share):
+
+        """
+        Create a case share
+
+        Arguments:
+            case_id (str): Case identifier
+            case_share: Instance of [CaseShare][thehive4py.models.CaseShare]
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of a case share
+
+        Raises:
+            CaseSharingException: An error occured during the case share creation
+
+        """
+
+        req = self.url + "/api/case/{}/shares".format(case_id)
+        data = {"shares": [case_share.jsonify(excludes=['id'])]}
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseSharingException("Case share creation error: {}".format(e))
+        
+    def delete_case_share(self, case_id, organisation):
+
+        """
+        Delete a case share
+
+        Arguments:
+            case_id (str): Case identifier
+            organisation (str): Name of the organization from which the share should be deleted
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of a case share
+
+        Raises:
+            CaseSharingException: An error occured during the case share deletion
+
+        """
+
+        req = self.url + "/api/case/{}/shares".format(case_id)
+        data = {"organisations": [organisation]}
+
+        try:
+            return requests.delete(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseSharingException("Case share deletion error: {}".format(e))
+        
+    def list_case_shares(self, case_id):
+
+        """
+        List all organizations a case is shared with
+
+        Arguments:
+            case_id (str): Case identifier
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of all organizations a case is shared with
+
+        Raises:
+            CaseSharingException: An error occured while retrieving the sharing information
+
+        """
+
+        req = self.url + "/api/case/{}/shares".format(case_id)
+
+        try:
+            return requests.get(req, headers={'Content-Type': 'application/json'}, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseSharingException("Case share retrieving error: {}".format(e))
+        
+def create_case_task_share(self, task_id, organisation):
+
+        """
+        Share a specific case task
+        !! Note: To successfully create the share the case has to be already shared with the specified organisation
+
+        Arguments:
+            task_id (str): Id of the task to share
+            organisation (str): Name of the organization to share the task with
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of a case task share
+
+        Raises:
+            CaseTaskException: An error occured during case task sharing
+
+        """
+
+        req = self.url + "/api/case/task/{}/shares".format(task_id)
+        data = {"organisations": [organisation]}
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case task share creation error: {}".format(e))
+        
+def create_case_observable_share(self, observable_id, organisation):
+
+        """
+        Share a specific case observable
+        !! Note: To successfully create the share the case has to be already shared with the specified organisation
+
+        Arguments:
+            observable_id (str): Id of the observable to share
+            organisation (str): Name of the organization to share the observable with
+
+        Returns:
+            response (requests.Response): Response object including a JSON description of a case observable share
+
+        Raises:
+            CaseTaskException: An error occured during case observable sharing
+
+        """
+
+        req = self.url + "/api/case/artifact/{}/shares".format(observable_id)
+        data = {"organisations": [organisation]}
+
+        try:
+            return requests.post(req, headers={'Content-Type': 'application/json'}, json=data, proxies=self.proxies, auth=self.auth, verify=self.cert)
+        except requests.exceptions.RequestException as e:
+            raise CaseTaskException("Case observable share creation error: {}".format(e))        

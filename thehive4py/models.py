@@ -594,7 +594,29 @@ class CaseObservable(JSONSerializable):
             self.data = [{'attachment': (filename, file_object, mime)}]
         else:
             self.data = data
+        
+            
+class CaseShare(JSONSerializable):
+    """
+    Model class describing a case share as defined in TheHive
 
+    Arguments:
+        organisationName (str): Name of the organization to share with or delete share from. Default: None
+        profile (str): Sharing profile. Default: read_only
+        tasks (str): Tasks to be shared. Default: None
+        observables (str): Observables to be shared. Default: None
+        json (JSON): If the field is not equal to None, the Task is instantiated using the JSON value instead of the arguements
+    """
+
+    def __init__(self, **attributes):
+        if attributes.get('json', False):
+            attributes = attributes['json']
+
+        self.organisationName = attributes.get('organisationName', None)
+        self.profile = attributes.get('profile', None)
+        self.tasks = attributes.get('tasks', None)
+        self.observables = attributes.get('observables', None)
+        
 
 class Alert(JSONSerializable):
     """

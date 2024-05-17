@@ -32,6 +32,11 @@ class CaseObservableException(CaseException):
     """
     pass
 
+class CaseSharingException(CaseException):
+    """
+    Exception raised by failure of API calls related to `Case Sharing` handling
+    """
+    pass
 
 class ObservableException(TheHiveException):
     """
