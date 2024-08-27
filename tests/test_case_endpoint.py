@@ -40,11 +40,38 @@ class TestCaseEndpoint:
             "title": "my updated case",
             "description": "my updated description",
         }
-        thehive.case.update(case_id=case_id, case=update_fields)
+        thehive.case.update(case_id=case_id, fields=update_fields)
         updated_case = thehive.case.get(case_id=case_id)
 
         for key, value in update_fields.items():
             assert updated_case.get(key) == value
+
+    def test_update_with_deprecation_warning(
+        self, thehive: TheHiveApi, test_case: OutputCase
+    ):
+        case_id = test_case["_id"]
+        update_fields: InputUpdateCase = {
+            "title": "my updated case",
+            "description": "my updated description",
+        }
+        with pytest.deprecated_call():
+            thehive.case.update(case_id=case_id, case=update_fields)
+        updated_case = thehive.case.get(case_id=case_id)
+
+        for key, value in update_fields.items():
+            assert updated_case.get(key) == value
+
+    def test_update_with_wrong_argument_error(
+        self, thehive: TheHiveApi, test_case: OutputCase
+    ):
+        case_id = test_case["_id"]
+        update_fields: InputUpdateCase = {
+            "title": "my updated case",
+            "description": "my updated description",
+        }
+        wrong_kwargs = {"case_fields": update_fields, "what": "ever"}
+        with pytest.raises(TheHiveError, match=rf".*{list(wrong_kwargs.keys())}.*"):
+            thehive.case.update(case_id=case_id, **wrong_kwargs)  # type:ignore
 
     def test_bulk_update(self, thehive: TheHiveApi, test_cases: List[OutputCase]):
         case_ids = [case["_id"] for case in test_cases]

@@ -1,7 +1,9 @@
 import json as jsonlib
+import warnings
 from typing import List, Optional, Sequence, Union
 
 from thehive4py.endpoints._base import EndpointBase
+from thehive4py.errors import TheHiveError
 from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
 from thehive4py.query.page import Paginate
@@ -38,9 +40,26 @@ class CaseEndpoint(EndpointBase):
     def delete(self, case_id: CaseId) -> None:
         self._session.make_request("DELETE", path=f"/api/v1/case/{case_id}")
 
-    def update(self, case_id: CaseId, case: InputUpdateCase) -> None:
+    def update(
+        self, case_id: CaseId, fields: Optional[InputUpdateCase] = {}, **kwargs
+    ) -> None:
+
+        if not fields:
+            if "case" not in kwargs:
+                raise TheHiveError(
+                    f"Unrecognized keyword arguments: {list(kwargs.keys())}. "
+                    "Please use the `fields` argument to supply case update values."
+                )
+            warnings.warn(
+                message="The `case` argument has been deprecated to follow the same "
+                "convention like other update methods. Please use the `fields` "
+                "argument to prevent breaking changes in the future.",
+                category=DeprecationWarning,
+            )
+            fields = kwargs["case"]
+
         return self._session.make_request(
-            "PATCH", path=f"/api/v1/case/{case_id}", json=case
+            "PATCH", path=f"/api/v1/case/{case_id}", json=fields
         )
 
     def bulk_update(self, fields: InputBulkUpdateCase) -> None:
