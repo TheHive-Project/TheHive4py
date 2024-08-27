@@ -1,9 +1,23 @@
-![TheHive Logo](https://strangebee.com/wp-content/uploads/2024/07/Icon4Nav_TheHive.png)
-
-[![Discord](https://img.shields.io/discord/779945042039144498)](https://chat.thehive-project.org)
-[![License](https://img.shields.io/github/license/TheHive-Project/TheHive4py)](./LICENSE)
-[![Pypi Page](https://img.shields.io/pypi/dm/thehive4py)](https://pypi.org/project/thehive4py)
-[![CICD Action Badge](https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml/badge.svg)](https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml)
+<p align="center">
+    <a href="https://github.com/TheHive-Project/TheHive4py"><img src="https://strangebee.com/wp-content/uploads/2024/07/Icon4Nav_TheHive.png" alt="TheHive Logo"></a>
+</p>
+<p align="center">
+    <em>thehive4py - the de facto Python API client of <a href="https://strangebee.com/thehive/">TheHive</a></em>
+</p>
+<p align="center">
+    <a href="https://discord.com/invite/XhxG3vzM44" target="_blank">
+        <img src="https://img.shields.io/discord/779945042039144498" alt="Discord">
+    </a>
+    <a href="./LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/TheHive-Project/TheHive4py" alt="License">
+    </a>
+    <a href="https://pypi.org/project/thehive4py" target="_blank">
+        <img src="https://img.shields.io/pypi/dm/thehive4py" alt="PyPI">
+    </a>
+    <a href="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml" target="_blank">
+        <img src="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml/badge.svg" alt="CICD">
+    </a>
+</p>
 
 # thehive4py
 
@@ -93,7 +107,7 @@ The above snippet will create a new alert with the minimally required fields and
 
 ## Add alert observables
 
-To make your alerts more informative and actionable, you can add observables to them. Observables are specific pieces of data related to an alert. In this example, we'll enhance the previous alert with two observables: an IP address (`93.184.216.34`) and a domain (`example.com`).
+To make your alerts more informative and actionable, you can add observables to them. Observables are specific pieces of data related to an alert. In this example, we'll enhance the previous alert with two observables: an IP address `93.184.216.34` and a domain `example.com`.
 
 **Method 1: Adding observables individually**
 
@@ -115,9 +129,6 @@ This method is useful when you want to add observables to an alert after its ini
 **Method 2: Adding observables during alert creation**
 
 Alternatively, if you already know the observables when creating the alert, you can use the `observables` field within the alert creation method for a more concise approach:
-
-
-Alternatively in case the observables are known during alert time we can use the `alert.create` method's `observables` field as a shortcut:
 
 ```python
 my_alert = hive.alert.create(
@@ -141,7 +152,7 @@ By incorporating observables into your alerts, you provide valuable context and 
 
 ## Update an alert
 
-If you need to add or modify fields in an existing alert, you can easily update it using client's `alert.update` method. In this example, we'll add a tag (`my-tag`) and change the alert's title:
+If you need to add or modify fields in an existing alert, you can easily update it using client's `alert.update` method. In this example, we'll add a tag `my-tag` and change the alert's title:
 
 ```python
 hive.alert.update(
@@ -273,7 +284,6 @@ To contribute to `thehive4py`, follow these steps:
     
 2.  **Create a branch:** Once you have an issue, create a branch for your work. Use the following naming convention: `<issue-no>-title-of-branch`. For example, if you're working on issue #1 and updating the readme, name the branch `1-update-readme`.
     
-3.  **Commit prefix:** When making commits, prefix them with `#<issue-no> - commit message`. This practice helps in easy navigation and tracking of commits back to the corresponding issue. For instance, use `#1 - update readme` as the commit message.
     
 
 ## Run CI checks before pushing changes
