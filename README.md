@@ -1,4 +1,4 @@
-![TheHive Logo](https://thehive-project.org/img/logo.png)
+![TheHive Logo](https://strangebee.com/wp-content/uploads/2024/07/Icon4Nav_TheHive.png)
 
 [![Discord](https://img.shields.io/discord/779945042039144498)](https://chat.thehive-project.org)
 [![License](https://img.shields.io/github/license/TheHive-Project/TheHive4py)](./LICENSE)
