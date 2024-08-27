@@ -16,6 +16,7 @@ from thehive4py.endpoints import (
 from thehive4py.endpoints.cortex import CortexEndpoint
 from thehive4py.endpoints.custom_field import CustomFieldEndpoint
 from thehive4py.endpoints.observable_type import ObservableTypeEndpoint
+from thehive4py.endpoints.query import QueryEndpoint
 from thehive4py.session import TheHiveSession
 
 
@@ -59,6 +60,9 @@ class TheHiveApi:
 
         # connector endpoints
         self.cortex = CortexEndpoint(self.session)
+
+        # standard endpoints
+        self.query = QueryEndpoint(self.session)
 
     @property
     def session_organisation(self) -> Optional[str]:
