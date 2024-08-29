@@ -1,11 +1,12 @@
 import json as jsonlib
 from collections import UserDict
-from os import PathLike
+from io import BytesIO
 from typing import Any, Optional, Union
 
 import requests
 import requests.auth
 
+from thehive4py.types._common import PathOrBuffer
 from thehive4py.__version__ import __version__
 from thehive4py.errors import TheHiveError
 
@@ -58,7 +59,7 @@ class TheHiveSession(requests.Session):
         data=None,
         json=None,
         files=None,
-        download_path: Union[str, PathLike, None] = None,
+        download_path: Union[PathOrBuffer, None] = None,
     ) -> Any:
         endpoint_url = f"{self.hive_url}{path}"
 
@@ -83,7 +84,7 @@ class TheHiveSession(requests.Session):
     def _process_response(
         self,
         response: requests.Response,
-        download_path: Union[str, PathLike, None] = None,
+        download_path: Union[PathOrBuffer, None] = None,
     ):
         if response.ok:
             if download_path is None:
@@ -107,11 +108,16 @@ class TheHiveSession(requests.Session):
         return json_data
 
     def _process_stream_response(
-        self, response: requests.Response, download_path: Union[str, PathLike]
+        self, response: requests.Response, download_path: PathOrBuffer
     ):
-        with open(download_path, "wb") as download_fp:
+        if isinstance(download_path, BytesIO):
             for chunk in response.iter_content(chunk_size=4096):
-                download_fp.write(chunk)
+                download_path.write(chunk)
+            return download_path
+        else:
+            with open(download_path, "wb") as download_fp:
+                for chunk in response.iter_content(chunk_size=4096):
+                    download_fp.write(chunk)
 
     def _process_error_response(self, response: requests.Response):
         try:
