@@ -21,7 +21,8 @@
 
 # thehive4py
 
-> **IMPORTANT:** thehive4py v1.x is not maintained anymore as TheHive v3 and v4 are end of life. thehive4py v2.x is a complete rewrite and is not compatible with thehive4py v1.x. The library is still in beta phase.
+> [!IMPORTANT]
+> thehive4py v1.x is not maintained anymore as TheHive v3 and v4 are end of life. thehive4py v2.x is a complete rewrite and is not compatible with thehive4py v1.x. The library is still in beta phase.
 
 **What's New:** This is a rebooted version of `thehive4py` designed specifically for TheHive 5. Stay tuned, as we have more exciting updates in store!
 
@@ -41,7 +42,8 @@ The `thehive4py` can be installed with pip like:
 pip install "thehive4py>=2.0.0b"
 ```
 
-**Important Note**: Since `thehive4py` 2.x is still in beta it is necessary to specify the beta version number during pip install, otherwise the latest version of 1.x would be installed.
+> [!WARNING]
+> Since `thehive4py` 2.x is still in beta it is necessary to specify the beta version number during pip install, otherwise the latest version of 1.x would be installed.
 
 ## Create a client
 
@@ -103,7 +105,8 @@ my_alert = hive.alert.create(
 The above snippet will create a new alert with the minimally required fields and will store the output alert response in the `my_alert` variable.
 
 
-**Important Note**: Attempting to create another alert with the same values for `type`, `source`, and `sourceRef` will not be accepted by the backend as the combination of the three fields should be unique per alert.
+> [!NOTE]
+> Attempting to create another alert with the same values for `type`, `source`, and `sourceRef` will not be accepted by the backend as the combination of the three fields should be unique per alert.
 
 ## Add alert observables
 
@@ -166,7 +169,8 @@ hive.alert.update(
 
 The code above updates the alert's title and adds a new tag to the alert in TheHive.
 
-**Important Note**: It's essential to understand that the `my_alert` object in your Python code will not automatically reflect these changes. `thehive4py` doesn't provide object relationship mapping features. To get the latest version of the alert after making modifications, you need to fetch it again:
+> [!NOTE]
+> It's essential to understand that the `my_alert` object in your Python code will not automatically reflect these changes. `thehive4py` doesn't provide object relationship mapping features. To get the latest version of the alert after making modifications, you need to fetch it again:
 
 ```python
 my_alert = hive.alert.get(alert_id=my_alert["_id"])
@@ -302,7 +306,8 @@ This command will trigger the CI checks and provide feedback on any issues that 
 
 **Method 2: Automatic checks with pre-commit hooks [experimental]**
 
-**Important Note**: The pre-commit hooks are not thoroughly tested at the moment and probably broken
+> [!NOTE]
+> The pre-commit hooks are not thoroughly tested at the moment and probably broken
 
 For a more streamlined workflow, you can install pre-commit hooks provided by the repository. These hooks will automatically execute checks before each commit. To install them, run:
 
@@ -314,7 +319,8 @@ With pre-commit hooks in place, your changes will be automatically validated for
 
 ## Testing
 
-> IMPORTANT NOTE: Since TheHive 5.3 the licensing constraints has been partially lifted therefore a public integrator image is available for running tests both locally and in github.
+> [!NOTE]
+> Since TheHive 5.3 the licensing constraints has been partially lifted therefore a public integrator image is available for running tests both locally and in github.
 
 `thehive4py` primarily relies on integration tests, which are designed to execute against a live TheHive 5.x instance. These tests ensure that the library functions correctly in an environment closely resembling real-world usage.
 
