@@ -169,8 +169,7 @@ hive.alert.update(
 
 The code above updates the alert's title and adds a new tag to the alert in TheHive.
 
-> [!NOTE]
-> It's essential to understand that the `my_alert` object in your Python code will not automatically reflect these changes. `thehive4py` doesn't provide object relationship mapping features. To get the latest version of the alert after making modifications, you need to fetch it again:
+It's essential to understand that the `my_alert` object in your Python code will not automatically reflect these changes. `thehive4py` doesn't provide object relationship mapping features. To get the latest version of the alert after making modifications, you need to fetch it again:
 
 ```python
 my_alert = hive.alert.get(alert_id=my_alert["_id"])
