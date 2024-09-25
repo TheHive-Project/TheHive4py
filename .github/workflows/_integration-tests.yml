@@ -15,3 +15,7 @@ jobs:
         run: pip install --no-cache-dir -U pip .['test']
       - name: Run integration tests
         run: scripts/ci.py --test
+      - name: Upload coverage results
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
