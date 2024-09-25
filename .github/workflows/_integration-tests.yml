@@ -1,6 +1,9 @@
 name: integration-tests
 on: 
   workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
 jobs:
   integration-tests:
     name: Run integration tests
@@ -15,3 +18,7 @@ jobs:
         run: pip install --no-cache-dir -U pip .['test']
       - name: Run integration tests
         run: scripts/ci.py --test
+      - name: Upload coverage results
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

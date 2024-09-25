@@ -5,17 +5,20 @@
     <em>thehive4py - the de facto Python API client of <a href="https://strangebee.com/thehive/">TheHive</a></em>
 </p>
 <p align="center">
-    <a href="https://discord.com/invite/XhxG3vzM44" target="_blank">
-        <img src="https://img.shields.io/discord/779945042039144498" alt="Discord">
+    <a href="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml" target="_blank">
+        <img src="https://img.shields.io/github/actions/workflow/status/TheHive-Project/TheHive4py/main-cicd.yml?logo=github&logoColor=FFC72C&labelColor=0049D4" alt="cicd">
     </a>
-    <a href="./LICENSE" target="_blank">
-        <img src="https://img.shields.io/github/license/TheHive-Project/TheHive4py" alt="License">
+    <a href="https://app.codecov.io/github/TheHive-Project/TheHive4py" target="_blank">
+        <img src="https://img.shields.io/codecov/c/gh/TheHive-Project/TheHive4py?logo=codecov&logoColor=FFC72C&labelColor=0049D4" alt="codecov">
     </a>
     <a href="https://pypi.org/project/thehive4py" target="_blank">
-        <img src="https://img.shields.io/pypi/dm/thehive4py" alt="PyPI">
+        <img src="https://img.shields.io/pypi/dm/thehive4py?logo=python&logoColor=FFC72C&labelColor=0049D4" alt="pypi">
     </a>
-    <a href="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml" target="_blank">
-        <img src="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml/badge.svg" alt="CICD">
+    <a href="./LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/TheHive-Project/TheHive4py?logo=unlicense&logoColor=FFC72C&labelColor=0049D4" alt="license">
+    </a>
+    <a href="https://discord.com/invite/XhxG3vzM44" target="_blank">
+        <img src="https://img.shields.io/discord/779945042039144498?logo=discord&logoColor=FFC72C&labelColor=0049D4" alt="discord">
     </a>
 </p>
 
