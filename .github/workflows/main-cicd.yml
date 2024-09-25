@@ -1,6 +1,8 @@
 name: cicd
 on: 
   push:
+    branches:
+      - main
     tags:
       - "*"
   pull_request:
