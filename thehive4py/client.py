@@ -17,7 +17,7 @@ from thehive4py.endpoints.cortex import CortexEndpoint
 from thehive4py.endpoints.custom_field import CustomFieldEndpoint
 from thehive4py.endpoints.observable_type import ObservableTypeEndpoint
 from thehive4py.endpoints.query import QueryEndpoint
-from thehive4py.session import TheHiveSession
+from thehive4py.session import DEFAULT_RETRY, RetryValue, TheHiveSession
 
 
 class TheHiveApi:
@@ -29,6 +29,7 @@ class TheHiveApi:
         password: Optional[str] = None,
         organisation: Optional[str] = None,
         verify=None,
+        max_retries: RetryValue = DEFAULT_RETRY,
     ):
         self.session = TheHiveSession(
             url=url,
@@ -36,6 +37,7 @@ class TheHiveApi:
             username=username,
             password=password,
             verify=verify,
+            max_retries=max_retries,
         )
         self.session_organisation = organisation
 
