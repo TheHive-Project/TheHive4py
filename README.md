@@ -5,8 +5,11 @@
     <em>thehive4py - the de facto Python API client of <a href="https://strangebee.com/thehive/">TheHive</a></em>
 </p>
 <p align="center">
+    <a href="https://github.com/TheHive-Project/TheHive4py/releases" target="_blank">
+        <img src="https://img.shields.io/github/v/release/Thehive-project/thehive4py?logo=github&logoColor=FFC72C&labelColor=0049D4" alt="release">
+    </a>
     <a href="https://github.com/TheHive-Project/TheHive4py/actions/workflows/main-cicd.yml" target="_blank">
-        <img src="https://img.shields.io/github/actions/workflow/status/TheHive-Project/TheHive4py/main-cicd.yml?logo=github&logoColor=FFC72C&labelColor=0049D4" alt="cicd">
+        <img src="https://img.shields.io/github/actions/workflow/status/TheHive-Project/TheHive4py/main-cicd.yml?logo=github&logoColor=FFC72C&labelColor=0049D4" alt="build">
     </a>
     <a href="https://app.codecov.io/github/TheHive-Project/TheHive4py" target="_blank">
         <img src="https://img.shields.io/codecov/c/gh/TheHive-Project/TheHive4py?logo=codecov&logoColor=FFC72C&labelColor=0049D4" alt="codecov">

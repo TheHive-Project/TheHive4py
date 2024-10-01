@@ -1,0 +1,49 @@
+site_name: TheHive4py
+theme:
+  name: material
+  favicon: img/strangebee.png
+  logo: img/strangebee.png
+  features:
+    - navigation.footer
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/lightbulb-auto
+        name: Switch to light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle: 
+        icon: material/lightbulb-outline
+        name: Switch to system preference
+extra_css: 
+  - styles/extra.css
+repo_name: TheHive-Project/TheHive4py
+repo_url: https://github.com/TheHive-Project/TheHive4py
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+extra:
+  social:
+    - icon: simple/discord
+      link: https://discord.com/invite/XhxG3vzM44
+      name: Discord
+    - icon: simple/github
+      link: https://github.com/TheHive-Project/TheHive4py
+      name: GitHub
+    - icon: simple/python
+      link: https://pypi.org/project/thehive4py/
+      name: PyPI
+    
+

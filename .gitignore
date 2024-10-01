@@ -1,10 +1,15 @@
+# generic
 __pycache__/
 thehive4py.egg-info/
 build/
 dist/
-venv/
-tmp/
 
-# local garbage yet
-tests/resources/
-examples/
+# pytest
+.coverage
+coverage.xml
+
+# mkdocs
+site/
+
+# misc
+tmp/
