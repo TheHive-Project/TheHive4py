@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import subprocess
-from typing import List
+from typing import Dict
 
 
 def _run_subprocess(
@@ -21,13 +21,6 @@ def _run_subprocess(
         )
         print(error_output)
         exit(err.returncode)
-
-
-def run_all(quiet=False):
-    print("Run all deployment tasks...")
-    run_build(quiet=quiet)
-    run_upload(quiet=quiet)
-    print("All tasks succeeded!")
 
 
 def run_build(quiet: bool):
@@ -52,14 +45,34 @@ def run_upload(quiet: bool):
     print("Successfully published thehive4py!")
 
 
-def build_run_options() -> List[dict]:
-    return [
-        {"name": "build", "help": "run build step", "func": run_build},
-        {"name": "upload", "help": "run upload step", "func": run_upload},
-    ]
+def run_build_docs(quiet: bool):
+    print("Building thehive4py docs...")
+    _run_subprocess(
+        command="mkdocs build --clean --strict",
+        quiet=quiet,
+    )
+    print("Successfully built thehive4py docs!")
 
 
-def parse_arguments(run_options: List[dict]):
+def run_deploy_docs(quiet: bool):
+    print("Deploying thehive4py docs to gh-pages...")
+    _run_subprocess(
+        command="mkdocs gh-deploy --force",
+        quiet=quiet,
+    )
+    print("Successfully deployed thehive4py docs to gh-pages!")
+
+
+def build_run_options() -> Dict[str, dict]:
+    return {
+        "build": {"help": "build the package locally", "func": run_build},
+        "upload": {"help": "upload the package to pypi", "func": run_upload},
+        "build-docs": {"help": "build the docs locally", "func": run_build_docs},
+        "deploy-docs": {"help": "deploy the docs to gh-pages", "func": run_deploy_docs},
+    }
+
+
+def parse_arguments(run_options: Dict[str, dict]):
     parser = argparse.ArgumentParser(
         prog="thehive4py-cd",
         description="run all cd steps or use options to run cd steps selectively",
@@ -72,14 +85,21 @@ def parse_arguments(run_options: List[dict]):
         help="silence verbose output",
     )
 
-    for run_option in run_options:
+    for run_option_name, run_option_attributes in run_options.items():
         parser.add_argument(
-            f"--{run_option['name']}",
-            help=run_option["help"],
+            f"--{run_option_name.replace('_', '-')}",
+            help=run_option_attributes["help"],
             action="store_true",
         )
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if not any(
+        getattr(args, run_option.replace("-", "_")) for run_option in run_options
+    ):
+        parser.error(f"provide at least one option from: {list(run_options)}")
+
+    return args
 
 
 def main():
@@ -88,17 +108,17 @@ def main():
 
     quiet = args.quiet
 
-    selective_runs = [
-        run_option["func"]
-        for run_option in run_options
-        if getattr(args, run_option["name"])
+    selected_run_funcs = [
+        run_option_attributes["func"]
+        for run_option_name, run_option_attributes in run_options.items()
+        if getattr(args, run_option_name.replace("-", "_"))
     ]
 
-    if selective_runs:
-        for run in selective_runs:
-            run(quiet=quiet)
-    else:
-        run_all(quiet=quiet)
+    for run_func in selected_run_funcs:
+        run_func(quiet=quiet)
+        print()
+
+    print("Done!")
 
 
 if __name__ == "__main__":

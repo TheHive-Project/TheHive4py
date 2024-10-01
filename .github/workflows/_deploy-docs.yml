@@ -1,0 +1,25 @@
+name: deploy-docs
+on: 
+  workflow_call:
+jobs:
+  upload:
+    name: Deploy docs to github pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare tag and package version
+        run: |
+          TAG=${GITHUB_REF#refs/*/}
+          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag value and package version are different: ${TAG} != ${VERSION}"
+            exit 1
+          fi
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: 3.12
+      - name: Install build dependencies
+        run: pip install --no-cache-dir -U pip .['docs']
+      - name: Deploy to github pages
+        run: ./scripts/cd.py --deploy-docs
