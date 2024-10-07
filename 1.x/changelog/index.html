@@ -1,0 +1,950 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://thehive-project.github.io/thehive4py/changelog/" rel="canonical"/>
+<link href="../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.2.2" name="generator"/>
+<title>Change Log - TheHive4py Documentation</title>
+<link href="../assets/stylesheets/main.a2408e81.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
+<meta content="#2196f3" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+<link href="../custom.css" rel="stylesheet"/>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#change-log">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header-nav md-grid">
+<a aria-label="TheHive4py Documentation" class="md-header-nav__button md-logo" href="https://thehive-project.github.io/thehive4py" title="TheHive4py Documentation">
+<img alt="logo" src="../images/thehive.png"/>
+</a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            TheHive4py Documentation
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Change Log
+            
+          </span>
+</div>
+</div>
+<label class="md-header-nav__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header-nav__source">
+<a class="md-source" href="https://github.com/TheHive-Project/TheHive4py/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    TheHive-Project/TheHive4py
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="TheHive4py Documentation" class="md-nav__button md-logo" href="https://thehive-project.github.io/thehive4py" title="TheHive4py Documentation">
+<img alt="logo" src="../images/thehive.png"/>
+</a>
+    TheHive4py Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" href="https://github.com/TheHive-Project/TheHive4py/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    TheHive-Project/TheHive4py
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="TheHive4py">
+      TheHive4py
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-2">
+      Reference
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-2">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Reference
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/models/" title="Models">
+      Models
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/auth/" title="Auth">
+      Auth
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/api/" title="API">
+      API
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/query/" title="Query">
+      Query
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/exceptions/" title="Exceptions">
+      Exceptions
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+      Examples
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Examples" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Examples
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../samples/alert-operations/" title="Alert operations">
+      Alert operations
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../samples/case-operations/" title="Case operations">
+      Case operations
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../samples/task-operations/" title="Task operations">
+      Task operations
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../samples/observable-operations/" title="Observable operations">
+      Observable operations
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../samples/admin-operations/" title="Admin operations">
+      Admin operations
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Change Log
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
+</span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Change Log">
+      Change Log
+    </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#unreleased">
+    Unreleased
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#180-2020-11-27">
+    1.8.0 (2020-11-27)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#172-2020-06-24">
+    1.7.2 (2020-06-24)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#171-2020-06-04">
+    1.7.1 (2020-06-04)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#170-2020-05-29">
+    1.7.0 (2020-05-29)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#160-2018-12-17">
+    1.6.0 (2018-12-17)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#153-2018-11-16">
+    1.5.3 (2018-11-16)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#152-2018-11-12">
+    1.5.2 (2018-11-12)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#151-2018-10-10">
+    1.5.1 (2018-10-10)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#150-2018-09-25">
+    1.5.0 (2018-09-25)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#144-2018-07-02">
+    1.4.4 (2018-07-02)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#143-2018-02-07">
+    1.4.3 (2018-02-07)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#142-2017-12-27">
+    1.4.2 (2017-12-27)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#141-2017-12-19">
+    1.4.1 (2017-12-19)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#140-2017-12-05">
+    1.4.0 (2017-12-05)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#131-2017-09-17">
+    1.3.1 (2017-09-17)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#130-2017-09-15">
+    1.3.0 (2017-09-15)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#123-2017-07-20">
+    1.2.3 (2017-07-20)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#122-2017-07-06">
+    1.2.2 (2017-07-06)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#121-2017-06-29">
+    1.2.1 (2017-06-29)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#120-2017-05-12">
+    1.2.0 (2017-05-12)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#111-2017-05-11">
+    1.1.1 (2017-05-11)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#110-2017-03-23">
+    1.1.0 (2017-03-23)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#101-2017-03-08">
+    1.0.1 (2017-03-08)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#100-2017-03-08">
+    1.0.0 (2017-03-08)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../code_of_conduct/" title="Contributor Covenant Code of Conduct">
+      Contributor Covenant Code of Conduct
+    </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#unreleased">
+    Unreleased
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#180-2020-11-27">
+    1.8.0 (2020-11-27)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#172-2020-06-24">
+    1.7.2 (2020-06-24)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#171-2020-06-04">
+    1.7.1 (2020-06-04)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#170-2020-05-29">
+    1.7.0 (2020-05-29)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#160-2018-12-17">
+    1.6.0 (2018-12-17)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#153-2018-11-16">
+    1.5.3 (2018-11-16)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#152-2018-11-12">
+    1.5.2 (2018-11-12)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#151-2018-10-10">
+    1.5.1 (2018-10-10)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#150-2018-09-25">
+    1.5.0 (2018-09-25)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#144-2018-07-02">
+    1.4.4 (2018-07-02)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#143-2018-02-07">
+    1.4.3 (2018-02-07)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#142-2017-12-27">
+    1.4.2 (2017-12-27)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#141-2017-12-19">
+    1.4.1 (2017-12-19)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#140-2017-12-05">
+    1.4.0 (2017-12-05)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#131-2017-09-17">
+    1.3.1 (2017-09-17)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#130-2017-09-15">
+    1.3.0 (2017-09-15)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#123-2017-07-20">
+    1.2.3 (2017-07-20)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#122-2017-07-06">
+    1.2.2 (2017-07-06)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#121-2017-06-29">
+    1.2.1 (2017-06-29)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#120-2017-05-12">
+    1.2.0 (2017-05-12)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#111-2017-05-11">
+    1.1.1 (2017-05-11)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#110-2017-03-23">
+    1.1.0 (2017-03-23)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#101-2017-03-08">
+    1.0.1 (2017-03-08)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#100-2017-03-08">
+    1.0.0 (2017-03-08)
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/TheHive-Project/TheHive4py/edit/master/docs/changelog.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="change-log">Change Log<a class="headerlink" href="#change-log" title="Permanent link">#</a></h1>
+<h2 id="unreleased"><a href="https://github.com/TheHive-Project/TheHive4py/tree/HEAD">Unreleased</a><a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.8.0...HEAD">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>[BUG] Unable to create Alert <a href="https://github.com/TheHive-Project/TheHive4py/issues/207">#207</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>[Feature Request] Add alert artifact methods, for TheHive 4 only <a href="https://github.com/TheHive-Project/TheHive4py/issues/208">#208</a></li>
+</ul>
+<h2 id="180-2020-11-27"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.8.0">1.8.0</a> (2020-11-27)<a class="headerlink" href="#180-2020-11-27" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.7.2...1.8.0">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>[Bug] With TheHive 4.0.1 thehive4py api.get_case_observables() fails <a href="https://github.com/TheHive-Project/TheHive4py/issues/198">#198</a></li>
+<li>Error updating alert artifact <a href="https://github.com/TheHive-Project/TheHive4py/issues/195">#195</a></li>
+<li>typo error on api.py line 658 <a href="https://github.com/TheHive-Project/TheHive4py/issues/173">#173</a></li>
+<li>Documentation mismatch on function return <a href="https://github.com/TheHive-Project/TheHive4py/issues/165">#165</a></li>
+<li>Fix exception handling for merge_alert_into_case <a href="https://github.com/TheHive-Project/TheHive4py/pull/203">#203</a> (<a href="https://github.com/haam3r">haam3r</a>)</li>
+<li>Issue #173: corrected typo 'custom_field.madatory' to 'custom_field.mandatory' <a href="https://github.com/TheHive-Project/TheHive4py/pull/188">#188</a> (<a href="https://github.com/fwalloe">fwalloe</a>)</li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Query ContainsString not working <a href="https://github.com/TheHive-Project/TheHive4py/issues/193">#193</a></li>
+<li>[Bug] Cannot create Case Observable on TheHive4 despite manageObservable Permission <a href="https://github.com/TheHive-Project/TheHive4py/issues/179">#179</a></li>
+<li>Querying for Cases that Contain Substring in Custom Field <a href="https://github.com/TheHive-Project/TheHive4py/issues/128">#128</a></li>
+<li>FR: Download file from task log <a href="https://github.com/TheHive-Project/TheHive4py/issues/112">#112</a></li>
+<li>Add attachment download support <a href="https://github.com/TheHive-Project/TheHive4py/issues/204">#204</a></li>
+<li>Add method to merge an alert into a case <a href="https://github.com/TheHive-Project/TheHive4py/issues/197">#197</a></li>
+<li>Add support to ignoreSimilarity attribute <a href="https://github.com/TheHive-Project/TheHive4py/issues/194">#194</a></li>
+<li>Missing function delete_case_task <a href="https://github.com/TheHive-Project/TheHive4py/issues/190">#190</a></li>
+<li>[Bug] Get_Case_Template broken in TheHive 4 <a href="https://github.com/TheHive-Project/TheHive4py/issues/183">#183</a></li>
+<li>Add support to alert.externalLink attribute <a href="https://github.com/TheHive-Project/TheHive4py/issues/169">#169</a></li>
+<li>Create enumerations for enumerated data <a href="https://github.com/TheHive-Project/TheHive4py/issues/161">#161</a></li>
+<li>Add find_task_logs function <a href="https://github.com/TheHive-Project/TheHive4py/issues/160">#160</a></li>
+<li>Add PAP field to alert <a href="https://github.com/TheHive-Project/TheHive4py/issues/159">#159</a></li>
+<li>Add find_observables method <a href="https://github.com/TheHive-Project/TheHive4py/issues/157">#157</a></li>
+<li>Allow passing in file-like objects to alert artifacts <a href="https://github.com/TheHive-Project/TheHive4py/issues/136">#136</a></li>
+<li>Allow file observable creation from memory <a href="https://github.com/TheHive-Project/TheHive4py/issues/35">#35</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Fixed typo in explanation part of some functions in query.py <a href="https://github.com/TheHive-Project/TheHive4py/pull/199">#199</a> (<a href="https://github.com/fwalloe">fwalloe</a>)</li>
+<li>Get case observable function <a href="https://github.com/TheHive-Project/TheHive4py/pull/206">#206</a> (<a href="https://github.com/jeffrey-e">jeffrey-e</a>)</li>
+<li>Add method to delete alert <a href="https://github.com/TheHive-Project/TheHive4py/pull/202">#202</a> (<a href="https://github.com/haam3r">haam3r</a>)</li>
+<li>Make get_task_logs() use 'api/case/task/log/_search/'  <a href="https://github.com/TheHive-Project/TheHive4py/pull/200">#200</a> (<a href="https://github.com/jnahorny">jnahorny</a>)</li>
+<li>Use dict key lookup instead of hasattr <a href="https://github.com/TheHive-Project/TheHive4py/pull/196">#196</a> (<a href="https://github.com/Kamforka">Kamforka</a>)</li>
+<li>Implement case task deletion via patch request <a href="https://github.com/TheHive-Project/TheHive4py/pull/191">#191</a> (<a href="https://github.com/gelim">gelim</a>)</li>
+<li>Add delete_case_observable method to api <a href="https://github.com/TheHive-Project/TheHive4py/pull/189">#189</a> (<a href="https://github.com/p-tekh">p-tekh</a>)</li>
+<li>Added MISP export functionality <a href="https://github.com/TheHive-Project/TheHive4py/pull/187">#187</a> (<a href="https://github.com/emalderson">emalderson</a>)</li>
+<li>Adding externalLink to Alert model <a href="https://github.com/TheHive-Project/TheHive4py/pull/181">#181</a> (<a href="https://github.com/milesflo">milesflo</a>)</li>
+<li>Get alert with similarities <a href="https://github.com/TheHive-Project/TheHive4py/pull/172">#172</a> (<a href="https://github.com/dainok">dainok</a>)</li>
+<li>Add find_observables <a href="https://github.com/TheHive-Project/TheHive4py/pull/171">#171</a> (<a href="https://github.com/dainok">dainok</a>)</li>
+<li>Fix documentation mismatch on api.find_first TheHive-Project/TheHive4py#165 <a href="https://github.com/TheHive-Project/TheHive4py/pull/166">#166</a> (<a href="https://github.com/haam3r">haam3r</a>)</li>
+<li>Merge alert to case <a href="https://github.com/TheHive-Project/TheHive4py/pull/164">#164</a> (<a href="https://github.com/haam3r">haam3r</a>)</li>
+<li>Pass in file-like objects for case observables <a href="https://github.com/TheHive-Project/TheHive4py/pull/135">#135</a> (<a href="https://github.com/jaredjennings">jaredjennings</a>)</li>
+</ul>
+<h2 id="172-2020-06-24"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.7.2">1.7.2</a> (2020-06-24)<a class="headerlink" href="#172-2020-06-24" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.7.1...1.7.2">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Fix the constructor of TheHiveApi class <a href="https://github.com/TheHive-Project/TheHive4py/issues/170">#170</a></li>
+<li>NameError: name 'requests' is not defined <a href="https://github.com/TheHive-Project/TheHive4py/issues/163">#163</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Importing requests module <a href="https://github.com/TheHive-Project/TheHive4py/pull/168">#168</a> (<a href="https://github.com/gaglimax">gaglimax</a>)</li>
+</ul>
+<h2 id="171-2020-06-04"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.7.1">1.7.1</a> (2020-06-04)<a class="headerlink" href="#171-2020-06-04" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.7.0...1.7.1">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Not able to create Case Observable <a href="https://github.com/TheHive-Project/TheHive4py/issues/162">#162</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Add id for case template <a href="https://github.com/TheHive-Project/TheHive4py/pull/140">#140</a> (<a href="https://github.com/golaso">golaso</a>)</li>
+</ul>
+<h2 id="170-2020-05-29"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.7.0">1.7.0</a> (2020-05-29)<a class="headerlink" href="#170-2020-05-29" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.6.0...1.7.0">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Add custom field support for new types <a href="https://github.com/TheHive-Project/TheHive4py/issues/152">#152</a></li>
+<li>Return type is not correctly filled <a href="https://github.com/TheHive-Project/TheHive4py/issues/150">#150</a></li>
+<li>Models Case and CaseTemplate don't have PAP attribute <a href="https://github.com/TheHive-Project/TheHive4py/issues/127">#127</a></li>
+<li>Improve jsonify function to allow excluding attributes <a href="https://github.com/TheHive-Project/TheHive4py/issues/125">#125</a></li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Add support to datetime for "date" CustomFields <a href="https://github.com/TheHive-Project/TheHive4py/issues/138">#138</a></li>
+<li>Update alert using 'fields' is not working <a href="https://github.com/TheHive-Project/TheHive4py/issues/130">#130</a></li>
+<li>Models should have the attribute 'id' <a href="https://github.com/TheHive-Project/TheHive4py/issues/120">#120</a></li>
+<li>promote_alert_to_case() doesn't apply caseTemplate <a href="https://github.com/TheHive-Project/TheHive4py/issues/114">#114</a></li>
+<li>PAP flag missing when creating a case from a retrieved Case object <a href="https://github.com/TheHive-Project/TheHive4py/issues/111">#111</a></li>
+<li>Specify an optional case template parameter to promote_alert_to_case <a href="https://github.com/TheHive-Project/TheHive4py/pull/115">#115</a> (<a href="https://github.com/agix">agix</a>)</li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>FR: Allow specifying a custom <code>date</code> value for Alerts <a href="https://github.com/TheHive-Project/TheHive4py/issues/151">#151</a></li>
+<li>FR: Get "task name" in an "case_task_log" event <a href="https://github.com/TheHive-Project/TheHive4py/issues/148">#148</a></li>
+<li>Create case with the hive 4 rc1 <a href="https://github.com/TheHive-Project/TheHive4py/issues/144">#144</a></li>
+<li>Is TheHive4py still alive? <a href="https://github.com/TheHive-Project/TheHive4py/issues/141">#141</a></li>
+<li>support for case template deletion/creation <a href="https://github.com/TheHive-Project/TheHive4py/issues/124">#124</a></li>
+<li>Example python create case with observables <a href="https://github.com/TheHive-Project/TheHive4py/issues/113">#113</a></li>
+<li>Unable to create new case from existing case data <a href="https://github.com/TheHive-Project/TheHive4py/issues/110">#110</a></li>
+<li>Alert create error: ('Connection aborted.', error(104, 'Connection reset by peer') <a href="https://github.com/TheHive-Project/TheHive4py/issues/109">#109</a></li>
+<li>Requesting analyzer report from cortex with thehive4py <a href="https://github.com/TheHive-Project/TheHive4py/issues/107">#107</a></li>
+<li>Update_Case not updating Case Severity <a href="https://github.com/TheHive-Project/TheHive4py/issues/100">#100</a></li>
+<li>Add support to multi tenancy <a href="https://github.com/TheHive-Project/TheHive4py/issues/154">#154</a></li>
+<li>Add support to like and wildcard operators <a href="https://github.com/TheHive-Project/TheHive4py/issues/149">#149</a></li>
+<li>Add ioc and sighted attributes to case and alert artifacts <a href="https://github.com/TheHive-Project/TheHive4py/issues/126">#126</a></li>
+<li>Create update_case_observable <a href="https://github.com/TheHive-Project/TheHive4py/issues/121">#121</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Add support for case delete, creating custom fields and create case templates <a href="https://github.com/TheHive-Project/TheHive4py/pull/146">#146</a> (<a href="https://github.com/aurelienhess">aurelienhess</a>)</li>
+<li>Support for json datetime <a href="https://github.com/TheHive-Project/TheHive4py/pull/139">#139</a> (<a href="https://github.com/ehooo">ehooo</a>)</li>
+<li>Added IDs in all models <a href="https://github.com/TheHive-Project/TheHive4py/pull/123">#123</a> (<a href="https://github.com/mgabriel-silva">mgabriel-silva</a>)</li>
+<li>Added update_case_observable <a href="https://github.com/TheHive-Project/TheHive4py/pull/122">#122</a> (<a href="https://github.com/mgabriel-silva">mgabriel-silva</a>)</li>
+<li>Added support for custom owner on Case creation <a href="https://github.com/TheHive-Project/TheHive4py/pull/118">#118</a> (<a href="https://github.com/victorvillar">victorvillar</a>)</li>
+</ul>
+<h2 id="160-2018-12-17"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.6.0">1.6.0</a> (2018-12-17)<a class="headerlink" href="#160-2018-12-17" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.5.3...1.6.0">Full Changelog</a></p>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Implement some more functions <a href="https://github.com/TheHive-Project/TheHive4py/pull/96">#96</a> (<a href="https://github.com/jojoob">jojoob</a>)</li>
+<li>Create new sample bulk-alert-merge-to-case.py <a href="https://github.com/TheHive-Project/TheHive4py/pull/95">#95</a> (<a href="https://github.com/david-burkett">david-burkett</a>)</li>
+<li>Update observable <a href="https://github.com/TheHive-Project/TheHive4py/pull/94">#94</a> (<a href="https://github.com/joseluratm">joseluratm</a>)</li>
+</ul>
+<h2 id="153-2018-11-16"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.5.3">1.5.3</a> (2018-11-16)<a class="headerlink" href="#153-2018-11-16" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.5.2...1.5.3">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Unable to close case as TruePositive WithImpact <a href="https://github.com/TheHive-Project/TheHive4py/issues/93">#93</a></li>
+</ul>
+<h2 id="152-2018-11-12"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.5.2">1.5.2</a> (2018-11-12)<a class="headerlink" href="#152-2018-11-12" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.5.1...1.5.2">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Support task-groups for tasks (e.g. creation of Cases) <a href="https://github.com/TheHive-Project/TheHive4py/issues/91">#91</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Unknown attribute alert.customFields when creating alert in version 1.5.1 <a href="https://github.com/TheHive-Project/TheHive4py/issues/88">#88</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>support for task group names <a href="https://github.com/TheHive-Project/TheHive4py/pull/92">#92</a> (<a href="https://github.com/crackytsi">crackytsi</a>)</li>
+</ul>
+<h2 id="151-2018-10-10"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.5.1">1.5.1</a> (2018-10-10)<a class="headerlink" href="#151-2018-10-10" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.5.0...1.5.1">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Add customFields to Alert <a href="https://github.com/TheHive-Project/TheHive4py/pull/87">#87</a> (<a href="https://github.com/zpriddy">zpriddy</a>)</li>
+</ul>
+<h2 id="150-2018-09-25"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.5.0">1.5.0</a> (2018-09-25)<a class="headerlink" href="#150-2018-09-25" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.4.4...1.5.0">Full Changelog</a></p>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Update observable <a href="https://github.com/TheHive-Project/TheHive4py/issues/7">#7</a></li>
+<li>Update task <a href="https://github.com/TheHive-Project/TheHive4py/issues/6">#6</a></li>
+<li>Add a simple template search method <a href="https://github.com/TheHive-Project/TheHive4py/issues/83">#83</a></li>
+<li>Max recursion depth exceeded error <a href="https://github.com/TheHive-Project/TheHive4py/issues/82">#82</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Feature/promote alert to case <a href="https://github.com/TheHive-Project/TheHive4py/pull/86">#86</a> (<a href="https://github.com/uplateandonline">uplateandonline</a>)</li>
+<li>Feature/search templates <a href="https://github.com/TheHive-Project/TheHive4py/pull/84">#84</a> (<a href="https://github.com/uplateandonline">uplateandonline</a>)</li>
+<li>Prevent max recursion depth exceeded error <a href="https://github.com/TheHive-Project/TheHive4py/pull/80">#80</a> (<a href="https://github.com/Psynbiotik">Psynbiotik</a>)</li>
+<li>added search support for tasks <a href="https://github.com/TheHive-Project/TheHive4py/pull/79">#79</a> (<a href="https://github.com/neok0">neok0</a>)</li>
+</ul>
+<h2 id="144-2018-07-02"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.4.4">1.4.4</a> (2018-07-02)<a class="headerlink" href="#144-2018-07-02" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.4.3...1.4.4">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Missing parameter _field in Between function <a href="https://github.com/TheHive-Project/TheHive4py/pull/71">#71</a> (<a href="https://github.com/tagashy">tagashy</a>)</li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>xsrf-token in theHive4py <a href="https://github.com/TheHive-Project/TheHive4py/issues/76">#76</a></li>
+<li>Retrieve analyzer report after analysis [question] <a href="https://github.com/TheHive-Project/TheHive4py/issues/75">#75</a></li>
+<li>Keep analyzer reports when merging a case <a href="https://github.com/TheHive-Project/TheHive4py/issues/73">#73</a></li>
+<li>find_cases query on custom field (for template cases) <a href="https://github.com/TheHive-Project/TheHive4py/issues/72">#72</a></li>
+<li>Unify the naming of statuses and filters <a href="https://github.com/TheHive-Project/TheHive4py/issues/70">#70</a></li>
+<li>How can I automate case creation using email? <a href="https://github.com/TheHive-Project/TheHive4py/issues/68">#68</a></li>
+<li>Searching For Cases <a href="https://github.com/TheHive-Project/TheHive4py/issues/78">#78</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Add support for alert markAsRead/Unread <a href="https://github.com/TheHive-Project/TheHive4py/pull/74">#74</a> (<a href="https://github.com/itsnotapt">itsnotapt</a>)</li>
+<li>Add Support for update_case_tasks method <a href="https://github.com/TheHive-Project/TheHive4py/pull/63">#63</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+</ul>
+<h2 id="143-2018-02-07"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.4.3">1.4.3</a> (2018-02-07)<a class="headerlink" href="#143-2018-02-07" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.4.2...1.4.3">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>add update_alert to allow updating an alert <a href="https://github.com/TheHive-Project/TheHive4py/pull/61">#61</a> (<a href="https://github.com/Rolinh">Rolinh</a>)</li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>How to close a case via API <a href="https://github.com/TheHive-Project/TheHive4py/issues/67">#67</a></li>
+<li>CustomFields are not updated in update_case <a href="https://github.com/TheHive-Project/TheHive4py/issues/66">#66</a></li>
+<li>Correction in update_case usage <a href="https://github.com/TheHive-Project/TheHive4py/issues/57">#57</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>is there any method for create automatic alert when there's incoming email  <a href="https://github.com/TheHive-Project/TheHive4py/issues/65">#65</a></li>
+<li>Query for creating alert  <a href="https://github.com/TheHive-Project/TheHive4py/issues/56">#56</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>fix spelling of exception <a href="https://github.com/TheHive-Project/TheHive4py/pull/58">#58</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+<li>created get_linked_cases method in api <a href="https://github.com/TheHive-Project/TheHive4py/pull/60">#60</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+</ul>
+<h2 id="142-2017-12-27"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.4.2">1.4.2</a> (2017-12-27)<a class="headerlink" href="#142-2017-12-27" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.4.1...1.4.2">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Raise custom exceptions from api methods instead of calling sys.exit <a href="https://github.com/TheHive-Project/TheHive4py/issues/55">#55</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Support several small functions in TheHive4py <a href="https://github.com/TheHive-Project/TheHive4py/issues/47">#47</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Add Sighted Support to the Observable Model <a href="https://github.com/TheHive-Project/TheHive4py/pull/54">#54</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+</ul>
+<h2 id="141-2017-12-19"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.4.1">1.4.1</a> (2017-12-19)<a class="headerlink" href="#141-2017-12-19" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.4.0...1.4.1">Full Changelog</a></p>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>fix get_case_observables method <a href="https://github.com/TheHive-Project/TheHive4py/pull/53">#53</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+</ul>
+<h2 id="140-2017-12-05"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.4.0">1.4.0</a> (2017-12-05)<a class="headerlink" href="#140-2017-12-05" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.3.1...1.4.0">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Provide just the template name when creating a case from a template <a href="https://github.com/TheHive-Project/TheHive4py/issues/45">#45</a></li>
+<li>Add support of custom fields to the case model <a href="https://github.com/TheHive-Project/TheHive4py/issues/39">#39</a></li>
+<li>Case helper <a href="https://github.com/TheHive-Project/TheHive4py/pull/37">#37</a> (<a href="https://github.com/npratley">npratley</a>)</li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Error updating case <a href="https://github.com/TheHive-Project/TheHive4py/issues/51">#51</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Add a query builder capabilities <a href="https://github.com/TheHive-Project/TheHive4py/issues/49">#49</a></li>
+<li>Run Cortex analyzer through api <a href="https://github.com/TheHive-Project/TheHive4py/issues/40">#40</a></li>
+<li>Update case <a href="https://github.com/TheHive-Project/TheHive4py/issues/5">#5</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Added missing attributes to the Case class. <a href="https://github.com/TheHive-Project/TheHive4py/pull/50">#50</a> (<a href="https://github.com/npratley">npratley</a>)</li>
+<li>Added the functionality to run a Cortex analyzer on an observable <a href="https://github.com/TheHive-Project/TheHive4py/pull/44">#44</a> (<a href="https://github.com/alexgoedeke">alexgoedeke</a>)</li>
+<li>Added get_task_logs method <a href="https://github.com/TheHive-Project/TheHive4py/pull/42">#42</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+<li>Added a method to update a case. <a href="https://github.com/TheHive-Project/TheHive4py/pull/41">#41</a> (<a href="https://github.com/npratley">npratley</a>)</li>
+</ul>
+<h2 id="131-2017-09-17"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.3.1">1.3.1</a> (2017-09-17)<a class="headerlink" href="#131-2017-09-17" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.3.0...1.3.1">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Basic auth doesn't work with version 1.3.0 <a href="https://github.com/TheHive-Project/TheHive4py/issues/38">#38</a></li>
+</ul>
+<h2 id="130-2017-09-15"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.3.0">1.3.0</a> (2017-09-15)<a class="headerlink" href="#130-2017-09-15" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.2.3...1.3.0">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Allow specifying range to return &gt; 10 cases, observables, etc., <a href="https://github.com/TheHive-Project/TheHive4py/issues/30">#30</a></li>
+<li>fix two cases of bad indentation in exception handling code <a href="https://github.com/TheHive-Project/TheHive4py/pull/26">#26</a> (<a href="https://github.com/Rolinh">Rolinh</a>)</li>
+<li>fix default severity level of an alert <a href="https://github.com/TheHive-Project/TheHive4py/pull/25">#25</a> (<a href="https://github.com/Rolinh">Rolinh</a>)</li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>certificate verify option not included in create_case_task <a href="https://github.com/TheHive-Project/TheHive4py/issues/27">#27</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Add an API method to create users <a href="https://github.com/TheHive-Project/TheHive4py/issues/33">#33</a></li>
+<li>Feature Request - Task Log Template/Boilerplate Text <a href="https://github.com/TheHive-Project/TheHive4py/issues/32">#32</a></li>
+<li>Case model is missing the required <code>status</code> attribute <a href="https://github.com/TheHive-Project/TheHive4py/issues/29">#29</a></li>
+<li>Add support to authentication by API key <a href="https://github.com/TheHive-Project/TheHive4py/issues/36">#36</a></li>
+<li>Add a find_alerts method to search for alerts <a href="https://github.com/TheHive-Project/TheHive4py/issues/31">#31</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Added verify parameter to calls <a href="https://github.com/TheHive-Project/TheHive4py/pull/28">#28</a> (<a href="https://github.com/billmurrin">billmurrin</a>)</li>
+</ul>
+<h2 id="123-2017-07-20"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.2.3">1.2.3</a> (2017-07-20)<a class="headerlink" href="#123-2017-07-20" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.2.2...1.2.3">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Adding option for an Internal CA  <a href="https://github.com/TheHive-Project/TheHive4py/issues/24">#24</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Find first <a href="https://github.com/TheHive-Project/TheHive4py/pull/23">#23</a> (<a href="https://github.com/3c7">3c7</a>)</li>
+</ul>
+<h2 id="122-2017-07-06"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.2.2">1.2.2</a> (2017-07-06)<a class="headerlink" href="#122-2017-07-06" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.2.1...1.2.2">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Remove print calls from TheHiveApi.find_cases method <a href="https://github.com/TheHive-Project/TheHive4py/issues/22">#22</a></li>
+</ul>
+<h2 id="121-2017-06-29"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.2.1">1.2.1</a> (2017-06-29)<a class="headerlink" href="#121-2017-06-29" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.2.0...1.2.1">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Fix the issue related to wrong base64 decoding when creating alerts <a href="https://github.com/TheHive-Project/TheHive4py/issues/20">#20</a></li>
+<li>python-magic dependency not in setup.py <a href="https://github.com/TheHive-Project/TheHive4py/issues/19">#19</a></li>
+<li>"future" dependency not documented in requirements.txt <a href="https://github.com/TheHive-Project/TheHive4py/issues/18">#18</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Install python-magic package on setup <a href="https://github.com/TheHive-Project/TheHive4py/pull/16">#16</a> (<a href="https://github.com/ilyaglow">ilyaglow</a>)</li>
+</ul>
+<h2 id="120-2017-05-12"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.2.0">1.2.0</a> (2017-05-12)<a class="headerlink" href="#120-2017-05-12" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.1.1...1.2.0">Full Changelog</a></p>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Add the ability to create a TheHive alert <a href="https://github.com/TheHive-Project/TheHive4py/issues/13">#13</a></li>
+</ul>
+<p><strong>Merged pull requests:</strong></p>
+<ul>
+<li>Added ability to find tasks by caseId <a href="https://github.com/TheHive-Project/TheHive4py/pull/11">#11</a> (<a href="https://github.com/AverageS">AverageS</a>)</li>
+</ul>
+<h2 id="111-2017-05-11"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.1.1">1.1.1</a> (2017-05-11)<a class="headerlink" href="#111-2017-05-11" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.1.0...1.1.1">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Use basic auth when calling TheHive apis <a href="https://github.com/TheHive-Project/TheHive4py/issues/14">#14</a></li>
+</ul>
+<h2 id="110-2017-03-23"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.1.0">1.1.0</a> (2017-03-23)<a class="headerlink" href="#110-2017-03-23" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.0.1...1.1.0">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Search for cases <a href="https://github.com/TheHive-Project/TheHive4py/issues/4">#4</a></li>
+<li>Add observables to a case <a href="https://github.com/TheHive-Project/TheHive4py/issues/3">#3</a></li>
+</ul>
+<h2 id="101-2017-03-08"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.0.1">1.0.1</a> (2017-03-08)<a class="headerlink" href="#101-2017-03-08" title="Permanent link">#</a></h2>
+<p><a href="https://github.com/TheHive-Project/TheHive4py/compare/1.0.0...1.0.1">Full Changelog</a></p>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Issue creating a cases without metrics and without case template <a href="https://github.com/TheHive-Project/TheHive4py/issues/8">#8</a></li>
+</ul>
+<h2 id="100-2017-03-08"><a href="https://github.com/TheHive-Project/TheHive4py/tree/1.0.0">1.0.0</a> (2017-03-08)<a class="headerlink" href="#100-2017-03-08" title="Permanent link">#</a></h2>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>2nd typo in setup.py <a href="https://github.com/TheHive-Project/TheHive4py/issues/2">#2</a></li>
+<li>Typo in setup.py <a href="https://github.com/TheHive-Project/TheHive4py/issues/1">#1</a></li>
+</ul>
+<p>* <em>This Change Log was automatically generated by <a href="https://github.com/skywinder/Github-Changelog-Generator">github_changelog_generator</a></em></p>
+<hr/>
+<div class="md-source-date">
+<small>
+    
+      Last update: January 13, 2021 07:06:32
+    
+  </small>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../samples/admin-operations/" rel="prev" title="Admin operations">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Admin operations
+              </div>
+</div>
+</a>
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../code_of_conduct/" rel="next" title="Contributor Covenant Code of Conduct">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contributor Covenant Code of Conduct
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+<div class="md-footer-social">
+<a class="md-footer-social__link" href="https://www.thehive-project.org" rel="noopener" target="_blank" title="www.thehive-project.org">
+<svg viewbox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="M280.37 148.26L96 300.11V464a16 16 0 0016 16l112.06-.29a16 16 0 0015.92-16V368a16 16 0 0116-16h64a16 16 0 0116 16v95.64a16 16 0 0016 16.05L464 480a16 16 0 0016-16V300L295.67 148.26a12.19 12.19 0 00-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 00-12-12h-56a12 12 0 00-12 12v72.61L318.47 43a48 48 0 00-61 0L4.34 251.47a12 12 0 00-1.6 16.9l25.5 31A12 12 0 0045.15 301l235.22-193.74a12.19 12.19 0 0115.3 0L530.9 301a12 12 0 0016.9-1.6l25.5-31a12 12 0 00-1.7-16.93z"></path></svg>
+</a>
+<a class="md-footer-social__link" href="https://blog.thehive-project.org" rel="noopener" target="_blank" title="blog.thehive-project.org">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M61.7 169.4l101.5 278C92.2 413 43.3 340.2 43.3 256c0-30.9 6.6-60.1 18.4-86.6zm337.9 75.9c0-26.3-9.4-44.5-17.5-58.7-10.8-17.5-20.9-32.4-20.9-49.9 0-19.6 14.8-37.8 35.7-37.8.9 0 1.8.1 2.8.2-37.9-34.7-88.3-55.9-143.7-55.9-74.3 0-139.7 38.1-177.8 95.9 5 .2 9.7.3 13.7.3 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l77.5 230.4L249.8 247l-33.1-90.8c-11.5-.7-22.3-2-22.3-2-11.5-.7-10.1-18.2 1.3-17.5 0 0 35.1 2.7 56 2.7 22.2 0 56.7-2.7 56.7-2.7 11.5-.7 12.8 16.2 1.4 17.5 0 0-11.5 1.3-24.3 2l76.9 228.7 21.2-70.9c9-29.4 16-50.5 16-68.7zm-139.9 29.3l-63.8 185.5c19.1 5.6 39.2 8.7 60.1 8.7 24.8 0 48.5-4.3 70.6-12.1-.6-.9-1.1-1.9-1.5-2.9l-65.4-179.2zm183-120.7c.9 6.8 1.4 14 1.4 21.9 0 21.6-4 45.8-16.2 76.2l-65 187.9C426.2 403 468.7 334.5 468.7 256c0-37-9.4-71.8-26-102.1zM504 256c0 136.8-111.3 248-248 248C119.2 504 8 392.7 8 256 8 119.2 119.2 8 256 8c136.7 0 248 111.2 248 248zm-11.4 0c0-130.5-106.2-236.6-236.6-236.6C125.5 19.4 19.4 125.5 19.4 256S125.6 492.6 256 492.6c130.5 0 236.6-106.1 236.6-236.6z"></path></svg>
+</a>
+<a class="md-footer-social__link" href="https://twitter.com/TheHive_Project" rel="noopener" target="_blank" title="twitter.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-footer-social__link" href="https://github.com/TheHive-Project" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+<a class="md-footer-social__link" href="https://gitter.im/TheHive-Project/TheHive" rel="noopener" target="_blank" title="gitter.im">
+<svg viewbox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M66.4 322.5H16V0h50.4v322.5zM166.9 76.1h-50.4V512h50.4V76.1zm100.6 0h-50.4V512h50.4V76.1zM368 76h-50.4v247H368V76z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+<script src="../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.27c6a5e6.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+</body>
+</html>
