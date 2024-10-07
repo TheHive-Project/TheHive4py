@@ -21,9 +21,10 @@ DEFAULT_RETRY = Retry(
 
 
 RetryValue = Union[Retry, int, None]
+VerifyValue = Union[bool, str]
 
 
-class SessionJSONEncoder(jsonlib.JSONEncoder):
+class _SessionJSONEncoder(jsonlib.JSONEncoder):
     """Custom JSON encoder class for TheHive session."""
 
     def default(self, o: Any):
@@ -39,7 +40,7 @@ class TheHiveSession(requests.Session):
         apikey: Optional[str] = None,
         username: Optional[str] = None,
         password: Optional[str] = None,
-        verify=None,
+        verify: VerifyValue = True,
         max_retries: RetryValue = DEFAULT_RETRY,
     ):
         super().__init__()
@@ -85,7 +86,7 @@ class TheHiveSession(requests.Session):
 
         headers = {**self.headers}
         if json:
-            data = jsonlib.dumps(json, cls=SessionJSONEncoder)
+            data = jsonlib.dumps(json, cls=_SessionJSONEncoder)
             headers = {**headers, "Content-Type": "application/json"}
 
         response = self.request(
