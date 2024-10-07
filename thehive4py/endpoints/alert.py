@@ -24,6 +24,15 @@ class AlertEndpoint(EndpointBase):
     def create(
         self, alert: InputAlert, attachment_map: Optional[Dict[str, str]] = None
     ) -> OutputAlert:
+        """Create an alert.
+
+        Args:
+            alert: The body of the alert.
+            attachment_map: An optional mapping of observable attachment keys and paths.
+
+        Returns:
+            The created alert.
+        """
         if attachment_map:
             files: Dict[str, Any] = {
                 key: self._fileinfo_from_filepath(path)
@@ -36,35 +45,102 @@ class AlertEndpoint(EndpointBase):
         return self._session.make_request("POST", path="/api/v1/alert", **kwargs)
 
     def get(self, alert_id: str) -> OutputAlert:
+        """Get an alert by id.
+
+        Args:
+            alert_id: The id of the alert.
+
+        Returns:
+            The alert specified by the id.
+        """
+
         return self._session.make_request("GET", path=f"/api/v1/alert/{alert_id}")
 
     def update(self, alert_id: str, fields: InputUpdateAlert) -> None:
+        """Update an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            fields: The fields of the alert to update.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "PATCH", path=f"/api/v1/alert/{alert_id}", json=fields
         )
 
     def delete(self, alert_id: str) -> None:
+        """Delete an alert.
+
+        Args:
+            alert_id: The id of the alert.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request("DELETE", path=f"/api/v1/alert/{alert_id}")
 
     def bulk_update(self, fields: InputBulkUpdateAlert) -> None:
+        """Update multiple alerts with the same values.
+
+        Args:
+            fields: The ids and the fields of the alerts to update.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "PATCH", path="/api/v1/alert/_bulk", json=fields
         )
 
     def bulk_delete(self, ids: List[str]) -> None:
+        """Delete multiple alerts.
+
+        Args:
+            ids: The ids of the alerts to delete.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "POST", path="/api/v1/alert/delete/_bulk", json={"ids": ids}
         )
 
     def follow(self, alert_id: str) -> None:
+        """Follow an alert.
+
+        Args:
+            alert_id: The id of the alert.
+
+        Returns:
+            N/A
+        """
         self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/follow")
 
     def unfollow(self, alert_id: str) -> None:
+        """Unfollow an alert.
+
+        Args:
+            alert_id: The id of the alert.
+
+        Returns:
+            N/A
+        """
         self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/unfollow")
 
     def promote_to_case(
         self, alert_id: str, fields: InputPromoteAlert = {}
     ) -> OutputCase:
+        """Promote an alert into a case.
+
+        Args:
+            alert_id: The id of the alert.
+            fields: Override for the fields of the case created from the alert.
+
+        Returns:
+            The case from the promoted alert.
+        """
         return self._session.make_request(
             "POST",
             path=f"/api/v1/alert/{alert_id}/case",
@@ -77,6 +153,17 @@ class AlertEndpoint(EndpointBase):
         observable: InputObservable,
         observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
+        """Create an observable in an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            observable: The fields of the observable to create.
+            observable_path: Optional path in case of a file based observable.
+
+        Returns:
+            The created alert observables.
+        """
+
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
         )
@@ -87,6 +174,15 @@ class AlertEndpoint(EndpointBase):
     def add_attachment(
         self, alert_id: str, attachment_paths: List[str]
     ) -> List[OutputAttachment]:
+        """Create an observable in an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_paths: List of paths to the attachments to create.
+
+        Returns:
+            The created alert attachments.
+        """
         files = [
             ("attachments", self._fileinfo_from_filepath(attachment_path))
             for attachment_path in attachment_paths
@@ -98,6 +194,16 @@ class AlertEndpoint(EndpointBase):
     def download_attachment(
         self, alert_id: str, attachment_id: str, attachment_path: str
     ) -> None:
+        """Download an alert attachment.
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_id: The id of the alert attachment.
+            attachment_path: The local path to download the attachment to.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "GET",
             path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}/download",
@@ -105,16 +211,44 @@ class AlertEndpoint(EndpointBase):
         )
 
     def delete_attachment(self, alert_id: str, attachment_id: str) -> None:
+        """Delete an alert attachment.
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_id: The id of the alert attachment.
+
+        Returns:
+            N/A
+        """
+
         return self._session.make_request(
             "DELETE", path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}"
         )
 
     def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
+        """Merge an alert into an existing case.
+
+        Args:
+            alert_id: The id of the alert to merge.
+            case_id: The id of the case to merge the alert into.
+
+        Returns:
+            The case into which the alert was merged.
+        """
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/merge/{case_id}"
         )
 
     def bulk_merge_into_case(self, case_id: str, alert_ids: List[str]) -> OutputCase:
+        """Merge an alert into an existing case.
+
+        Args:
+            case_id: The id of the case to merge the alerts into.
+            alert_ids: The list of alert ids to merge.
+
+        Returns:
+            The case into which the alerts were merged.
+        """
         return self._session.make_request(
             "POST",
             path="/api/v1/alert/merge/_bulk",
@@ -127,6 +261,16 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputAlert]:
+        """Find multiple alerts.
+
+        Args:
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of alerts matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "listAlert"},
             *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
@@ -140,6 +284,15 @@ class AlertEndpoint(EndpointBase):
         )
 
     def count(self, filters: Optional[FilterExpr] = None) -> int:
+        """Count alerts.
+
+        Args:
+            filters: The filter expressions to apply in the query.
+
+        Returns:
+            The count of alerts matched by the query.
+        """
+
         query: QueryExpr = [
             {"_name": "listAlert"},
             *self._build_subquery(filters=filters),
@@ -160,6 +313,17 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
+        """Find observable related to an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of alert observables matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "observables"},
@@ -179,6 +343,17 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputComment]:
+        """Find comments related to an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of alert comments matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "comments"},
@@ -194,6 +369,15 @@ class AlertEndpoint(EndpointBase):
     def create_procedure(
         self, alert_id: str, procedure: InputProcedure
     ) -> OutputProcedure:
+        """Create an alert procedure.
+
+        Args:
+            alert_id: The id of the alert.
+            procedure: The fields of the procedure to create.
+
+        Returns:
+            The created alert procedure.
+        """
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/procedure", json=procedure
         )
@@ -205,6 +389,17 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputProcedure]:
+        """Find procedures related to an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of alert procedures matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "procedures"},
@@ -225,6 +420,17 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputAttachment]:
+        """Find attachments related to an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of alert attachments matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getAlert", "idOrName": alert_id},
             {"_name": "attachments"},
