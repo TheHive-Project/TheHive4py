@@ -1,0 +1,64 @@
+:root {
+  --md-primary-fg-color: #0049d4;
+  --md-accent-fg-color: #ffc72c;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  }
+
+
+.coming-soon {
+  color: var(--md-primary-fg-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: 0.75s;
+}
+
+.coming-soon:hover{
+  color: var(--md-accent-fg-color);
+  transition: 0.75s;
+}
+
+.upleftbee {
+  rotate: -90deg;
+}
+
+.upbee {
+  rotate: -45deg;
+}
+
+.uprightbee{
+  rotate: 0deg;
+}
+
+.downleftbee {
+  rotate: 180deg;
+}
+
+.downbee {
+  rotate: 135deg;
+}
+
+.downrightbee{
+  rotate: 90deg;
+}
+
+.yellowbee {
+  color: var(--md-accent-fg-color)
+}
+
+.bluebee {
+  color: var(--md-primary-fg-color)
+}
+
+.strangebee {
+  animation: pulse 2s infinite;
+  font-size: 1.5rem;
+  vertical-align: top !important;
+}
