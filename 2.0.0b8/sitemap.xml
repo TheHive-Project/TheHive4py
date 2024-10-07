@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://thehive-project.github.io/TheHive4py/2.0.0b8/</loc>
+         <lastmod>2024-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://thehive-project.github.io/TheHive4py/2.0.0b8/reference/</loc>
+         <lastmod>2024-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://thehive-project.github.io/TheHive4py/2.0.0b8/examples/alert/</loc>
+         <lastmod>2024-10-07</lastmod>
+    </url>
+    <url>
+         <loc>https://thehive-project.github.io/TheHive4py/2.0.0b8/examples/client/</loc>
+         <lastmod>2024-10-07</lastmod>
+    </url>
+</urlset>
