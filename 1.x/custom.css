@@ -1,3 +1,9 @@
+div[data-md-component="announce"] {
+  font-size: 1rem;
+  color: crimson;
+}
+
+
 div.doc-class > div.doc-contents {
   border-left: 0px !important;
   padding-left: 0 !important;
