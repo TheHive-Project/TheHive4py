@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.8.2](https://github.com/TheHive-Project/TheHive4py/tree/1.8.2) (2024-10-17)
+[Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.8.1...1.8.2)
+
+**Deprecation:**
+
+Add an overall warning about the deprecation and retirement of thehive4py 1.x library
+
 ## [1.8.1](https://github.com/TheHive-Project/TheHive4py/tree/1.8.1) (2021-01-13)
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/1.8.0...1.8.1)
 
