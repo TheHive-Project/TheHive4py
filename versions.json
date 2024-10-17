@@ -7,11 +7,6 @@
     ]
   },
   {
-    "version": "2.0.0b6",
-    "title": "2.0.0b6",
-    "aliases": []
-  },
-  {
     "version": "1.x",
     "title": "1.x (legacy)",
     "aliases": []
