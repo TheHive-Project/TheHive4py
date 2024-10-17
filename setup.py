@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='thehive4py',
-    version='1.8.1',
+    version='1.8.2',
     description='Python API client for TheHive.',
     long_description=long_description,
     long_description_content_type="text/markdown",
