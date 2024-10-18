@@ -7,19 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compare tag and package version
-        run: |
-          TAG=${GITHUB_REF#refs/*/}
-          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
-          if [ "$TAG" != "$VERSION" ]; then
-            echo "Tag value and package version are different: ${TAG} != ${VERSION}"
-            exit 1
-          fi
       - name: Set up Python
         uses: actions/setup-python@v4
         with: 
           python-version: 3.13
       - name: Install build dependencies
         run: pip install --no-cache-dir -U pip .['docs']
+      - name: Configure git
+        run: |
+          git fetch origin gh-pages --depth=1
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
       - name: Deploy to github pages
         run: ./scripts/cd.py --deploy-docs

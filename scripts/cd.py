@@ -57,7 +57,7 @@ def run_build_docs(quiet: bool):
 def run_deploy_docs(quiet: bool):
     print("Deploying thehive4py docs to gh-pages...")
     _run_subprocess(
-        command="mkdocs gh-deploy --force",
+        command="mike deploy main latest -u -p --allow-empty",
         quiet=quiet,
     )
     print("Successfully deployed thehive4py docs to gh-pages!")
