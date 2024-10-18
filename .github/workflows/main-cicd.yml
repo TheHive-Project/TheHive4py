@@ -17,12 +17,13 @@ jobs:
     uses: ./.github/workflows/_build-package.yml
   build-docs:
     uses: ./.github/workflows/_build-docs.yml
+  deploy-docs:
+    if: startsWith(github.ref, 'refs/heads/main')
+    uses: ./.github/workflows/_deploy-docs.yml
+    needs: [build-docs, build-package, integration-tests, static-checks]
   upload-package:
     if: startsWith(github.ref, 'refs/tags/') 
     uses: ./.github/workflows/_upload-package.yml
-    needs: [static-checks, integration-tests, build-package, build-docs]
+    needs: [build-docs, build-package, integration-tests, static-checks]
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-  deploy-docs:
-    uses: ./.github/workflows/_deploy-docs.yml
-    needs: [upload-package]
