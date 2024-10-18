@@ -2,9 +2,7 @@
   <p>
    <a href="https://github.com/TheHive-Project/TheHive4py" target="_blank"><img src="https://strangebee.com/wp-content/uploads/2024/07/Icon4Nav_TheHive.png" alt="TheHive Logo"></a>
   </p>
-  <p>
-   <b style="font-size: 2rem">TheHive4py</b>
-  </p>
+  <h1>thehive4py</h1>
   <p>
    <em>the de facto Python API client of <a href="https://strangebee.com/thehive/">TheHive</a></em>
   </p>
