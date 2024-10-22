@@ -55,6 +55,7 @@ class CaseEndpoint(EndpointBase):
                 "convention like other update methods. Please use the `fields` "
                 "argument to prevent breaking changes in the future.",
                 category=DeprecationWarning,
+                stacklevel=2,
             )
             fields = kwargs["case"]
 
