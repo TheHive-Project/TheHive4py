@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../img/strangebee.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -919,18 +919,22 @@ With a more advanced example this can become complicated and hard to read.
 Fortunately we can use <code>thehive4py</code>'s type hints to the rescue and specify more complex input alerts outside of the method call. </p>
 <p>Here's how:
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<span class="kn">from</span> <span class="nn">thehive4py.types.alert</span> <span class="kn">import</span> <span class="n">InputAlert</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
 
-<span class="n">simple_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-    <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="s2">&quot;should-be-unique&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;a simple alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a bit too simple&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">)</span>
+<span class="n">input_alert</span><span class="p">:</span> <span class="n">InputAlert</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;advanced&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="s2">&quot;should-be-unique&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;an advanced alert&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a bit more advanced&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;advanced&quot;</span><span class="p">,</span> <span class="s2">&quot;example&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;caseTemplate&quot;</span><span class="p">:</span> <span class="s2">&quot;my-template&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">output_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">alert</span><span class="o">=</span><span class="n">input_alert</span><span class="p">)</span>
 </code></pre></div></p>
 <p>In the above snippet <code>input_alert</code> is created before the create call and later passed to the <code>alert</code> argument.
 Finally after the creation of the alert we saved the response in the <code>output_alert</code> to be able to use it later.</p>
@@ -1034,7 +1038,7 @@ In case you want to see the what the Alert API offers please check out the <a hr
 <p>This way TheHive will know which attachment to pair with which observable behind the scenes.</p>
 <p>In our example <code>attachment_key</code> is used to specify the relationship between the observable and the actual file. In this case its value is a uuid, however it can be any arbitrary value, though it's important that it should uniquely identify the attachment and the observable we would like to pair in TheHive.</p>
 <h2 id="update-single-and-bulk">Update single and bulk</h2>
-<p>Sometimes an existing alert needs to be updated. TheHive offers multiple ways to accomplish this task either with a single alert or multiple ones.</p>
+<p>Sometimes an existing alert needs to be updated. <code>thehive4py</code> offers multiple ways to accomplish this task either with a single alert or multiple ones.</p>
 <h3 id="update-single">Update single</h3>
 <p>A single alert can be updated using <a class="autorefs autorefs-internal" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.update">alert.update</a> method. The method requires the <code>alert_id</code> of the alert to be updated and the <code>fields</code> to update.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">uuid</span>
