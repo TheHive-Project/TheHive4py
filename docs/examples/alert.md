@@ -77,7 +77,7 @@ In our example `attachment_key` is used to specify the relationship between the 
 
 ## Update single and bulk 
 
-Sometimes an existing alert needs to be updated. TheHive offers multiple ways to accomplish this task either with a single alert or multiple ones.
+Sometimes an existing alert needs to be updated. `thehive4py` offers multiple ways to accomplish this task either with a single alert or multiple ones.
 
 ### Update single
 
