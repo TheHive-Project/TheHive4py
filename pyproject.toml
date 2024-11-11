@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "thehive4py"
 description = "Python client for TheHive5"
-version = "2.0.0b6"
+version = "2.0.0b7"
 requires-python = ">=3.8"
 dependencies = ["requests~=2.27"]
 readme = "README.md"
