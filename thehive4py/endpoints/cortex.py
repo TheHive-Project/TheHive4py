@@ -27,3 +27,26 @@ class CortexEndpoint(EndpointBase):
                 "responderId": responder_id,
             },
         )
+
+    def list_analyzers(self) -> dict:
+        return self._session.make_request("GET", path="/api/connector/cortex/analyzer")
+
+    def list_analyzers_by_type(self, data_type: str) -> dict:
+        return self._session.make_request(
+            "GET", path=f"/api/connector/cortex/analyzer/type/{data_type}"
+        )
+
+    def get_analyzer(self, object_id: str) -> dict:
+        return self._session.make_request(
+            "GET", path=f"/api/connector/cortex/analyzer/{object_id}"
+        )
+
+    def get_analyzer_job(self, job_id: str) -> dict:
+        return self._session.make_request(
+            "GET", path=f"/api/connector/cortex/analyzer/{job_id}"
+        )
+
+    def list_responders(self, entity_type: str, entity_id: str) -> dict:
+        return self._session.make_request(
+            "GET", f"/api/connector/cortex/responder/{entity_type}/{entity_id}"
+        )
