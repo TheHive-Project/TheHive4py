@@ -1,5 +1,4 @@
-# thehive4py/types/cortex.py
-from typing import Any, TypedDict
+from typing import Any, TypedDict, List, Dict
 
 
 class OutputAnalyzerRequired(TypedDict):
@@ -10,8 +9,8 @@ class OutputAnalyzerRequired(TypedDict):
 
 
 class OutputAnalyzer(OutputAnalyzerRequired, total=False):
-    dataTypeList: list[str]
-    cortexIds: list[str]
+    dataTypeList: List[str]
+    cortexIds: List[str]
 
 
 class OutputResponderRequired(TypedDict):
@@ -22,8 +21,8 @@ class OutputResponderRequired(TypedDict):
 
 
 class OutputResponder(OutputResponderRequired, total=False):
-    dataTypeList: list[str]
-    cortexIds: list[str]
+    dataTypeList: List[str]
+    cortexIds: List[str]
 
 
 class OutputAnalyzerJobRequired(TypedDict):
@@ -46,8 +45,8 @@ class OutputAnalyzerJob(TypedDict, total=False):
     _updatedBy: str
     _updatedAt: str
     endDate: str
-    report: dict[str, Any]
-    case_artifact: dict[str, Any]
+    report: Dict[str, Any]
+    case_artifact: Dict[str, Any]
 
 
 class OutputResponderActionRequired(TypedDict):
@@ -68,6 +67,27 @@ class OutputResponderAction(OutputResponderActionRequired, total=False):
     _updatedBy: str
     _updatedAt: str
     endDate: str
-    report: dict[str, Any]
+    report: Dict[str, Any]
     responderName: str
     responderDefinition: str
+
+
+class InputResponderActionRequired(TypedDict):
+    objectId: str
+    objectType: str
+    responderId: str
+
+
+class InputResponderAction(InputResponderActionRequired, total=False):
+    parameters: Dict[str, Any]
+    tlp: int
+
+
+class InputAnalyzerJobRequired(TypedDict):
+    analyzerId: str
+    cortexId: str
+    observableId: str
+
+
+class InputAnalyzerJob(InputAnalyzerJobRequired, total=False):
+    parameters: Dict[str, Any]
