@@ -15,4 +15,4 @@ class TestCortexEndpoint:
         responders = thehive.cortex.list_responders(
             entity_type="case", entity_id=test_case["_id"]
         )
-        assert isinstance(responders, list)
+        assert responders == []
