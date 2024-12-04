@@ -1,6 +1,7 @@
 from thehive4py.client import TheHiveApi
 from thehive4py.types.case import OutputCase
 
+
 class TestCortexEndpoint:
     def test_list_analyzers(self, thehive: TheHiveApi):
         analyzers = thehive.cortex.list_analyzers()
