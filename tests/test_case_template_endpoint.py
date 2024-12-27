@@ -43,7 +43,9 @@ class TestCaseTemplateEndpoint:
         }
         wrong_kwargs = {"template_fields": update_fields, "wrong_arg": "value"}
         with pytest.raises(TheHiveError, match=rf".*{list(wrong_kwargs.keys())}.*"):
-            thehive.case_template.update(case_template_id=case_template_id, **wrong_kwargs)  # type: ignore
+            thehive.case_template.update(
+                case_template_id=case_template_id, **wrong_kwargs
+            )
 
     def test_delete(self, thehive: TheHiveApi, test_case_template: OutputCaseTemplate):
         case_template_id = test_case_template["_id"]

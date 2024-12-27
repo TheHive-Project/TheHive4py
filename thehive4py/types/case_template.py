@@ -1,7 +1,7 @@
 from typing import List, Literal, TypedDict, Union
 
 from .custom_field import InputCustomFieldValue
-from .task import InputCreateTask
+from .task import InputTask, OutputTask
 
 SeverityValue = Literal[1, 2, 3, 4]
 TlpValue = Literal[0, 1, 2, 3, 4]
@@ -22,7 +22,7 @@ class InputCaseTemplate(InputCaseTemplateRequired, total=False):
     tlp: TlpValue
     pap: PapValue
     summary: str
-    tasks: List[InputCreateTask]
+    tasks: List[InputTask]
     pageTemplateIds: List[str]
     customFields: Union[dict, List[InputCustomFieldValue]]
 
@@ -47,6 +47,6 @@ class OutputCaseTemplate(OutputCaseTemplateRequired, total=False):
     tlp: TlpValue
     pap: PapValue
     summary: str
-    tasks: List[InputCreateTask]
+    tasks: List[OutputTask]
     pageTemplateIds: List[str]
     customFields: Union[dict, List[InputCustomFieldValue]]
