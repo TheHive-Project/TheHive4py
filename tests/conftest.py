@@ -7,6 +7,7 @@ from thehive4py.client import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
+from thehive4py.types.case_template import InputCaseTemplate, OutputCaseTemplate
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
@@ -105,12 +106,35 @@ def test_case(thehive: TheHiveApi) -> OutputCase:
 
 
 @pytest.fixture
+def test_case_template(thehive: TheHiveApi) -> OutputCaseTemplate:
+    return thehive.case_template.create(
+        case_template={
+            "name": "my first case template",
+            "description": "...",
+            "tags": ["whatever"],
+        }
+    )
+
+
+@pytest.fixture
 def test_cases(thehive: TheHiveApi) -> List[OutputCase]:
     cases: List[InputCase] = [
         {"title": "my first case", "description": "...", "tags": ["whatever"]},
         {"title": "my second case", "description": "...", "tags": ["whatever"]},
     ]
     return [thehive.case.create(case=case) for case in cases]
+
+
+@pytest.fixture
+def test_case_templates(thehive: TheHiveApi) -> List[OutputCaseTemplate]:
+    case_templates: List[InputCaseTemplate] = [
+        {"name": "my first case template", "description": "..."},
+        {"name": "my second case template", "description": "..."},
+    ]
+    return [
+        thehive.case_template.create(case_template=case_template)
+        for case_template in case_templates
+    ]
 
 
 @pytest.fixture

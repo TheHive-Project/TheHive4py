@@ -3,6 +3,7 @@ from typing import Optional
 from thehive4py.endpoints import (
     AlertEndpoint,
     CaseEndpoint,
+    CaseTemplateEndpoint,
     CommentEndpoint,
     ObservableEndpoint,
     OrganisationEndpoint,
@@ -62,6 +63,7 @@ class TheHiveApi:
         # case management endpoints
         self.alert = AlertEndpoint(self.session)
         self.case = CaseEndpoint(self.session)
+        self.case_template = CaseTemplateEndpoint(self.session)
         self.comment = CommentEndpoint(self.session)
         self.observable = ObservableEndpoint(self.session)
         self.procedure = ProcedureEndpoint(self.session)
