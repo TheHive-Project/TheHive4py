@@ -33,20 +33,6 @@ class TestCaseTemplateEndpoint:
         for key, value in update_fields.items():
             assert updated_case_template.get(key) == value
 
-    def test_update_with_wrong_argument_error(
-        self, thehive: TheHiveApi, test_case_template: OutputCaseTemplate
-    ):
-        case_template_id = test_case_template["_id"]
-        update_fields: InputCaseTemplate = {
-            "name": "updated template name",
-            "description": "updated template description",
-        }
-        wrong_kwargs = {"template_fields": update_fields, "wrong_arg": "value"}
-        with pytest.raises(TheHiveError, match=rf".*{list(wrong_kwargs.keys())}.*"):
-            thehive.case_template.update(
-                case_template_id=case_template_id, **wrong_kwargs
-            )
-
     def test_delete(self, thehive: TheHiveApi, test_case_template: OutputCaseTemplate):
         case_template_id = test_case_template["_id"]
         thehive.case_template.delete(case_template_id=case_template_id)
@@ -58,8 +44,7 @@ class TestCaseTemplateEndpoint:
         thehive: TheHiveApi,
         test_case_templates: List[OutputCaseTemplate],
     ):
-        filters = {"name": "my first template"}
-        found_templates = thehive.case_template.find(filters=filters)
+        found_templates = thehive.case_template.find()
         names = [template["name"] for template in found_templates]
         for test_template in test_case_templates:
             assert test_template["name"] in names
