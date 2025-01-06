@@ -1,6 +1,7 @@
 from collections import UserDict as _UserDict
 from typing import Any as _Any
 from typing import Union as _Union
+import warnings
 
 FilterExpr = _Union["_FilterBase", dict]
 
@@ -34,28 +35,28 @@ class Lt(_FilterBase):
     """Field less than value."""
 
     def __init__(self, field: str, value: _Any):
-        super().__init__(_lt={field: value})
+        super().__init__(_lt={"_field": field, "_value": value})
 
 
 class Gt(_FilterBase):
     """Field greater than value."""
 
     def __init__(self, field: str, value: _Any):
-        super().__init__(_gt={field: value})
+        super().__init__(_gt={"_field": field, "_value": value})
 
 
 class Lte(_FilterBase):
     """Field less than or equal value."""
 
     def __init__(self, field: str, value: _Any):
-        super().__init__(_lte={field: value})
+        super().__init__(_lte={"_field": field, "_value": value})
 
 
 class Gte(_FilterBase):
     """Field less than or equal value."""
 
     def __init__(self, field: str, value: _Any):
-        super().__init__(_gte={field: value})
+        super().__init__(_gte={"_field": field, "_value": value})
 
 
 class Ne(_FilterBase):
@@ -111,7 +112,21 @@ class Contains(_FilterBase):
     """Object contains the field."""
 
     def __init__(self, field: str):
+        warnings.warn(
+            message="The `Contains` filter has been deprecated. "
+            "Please use the `Has` filter to prevent breaking "
+            "changes in the future.",
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
         super().__init__(_contains=field)
+
+
+class Has(_FilterBase):
+    """Object contains the field."""
+
+    def __init__(self, field: str):
+        super().__init__(_has=field)
 
 
 class Like(_FilterBase):

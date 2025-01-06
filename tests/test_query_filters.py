@@ -1,3 +1,4 @@
+import pytest
 from thehive4py import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.query.filters import (
@@ -7,6 +8,7 @@ from thehive4py.query.filters import (
     Eq,
     Gt,
     Gte,
+    Has,
     Id,
     In,
     Like,
@@ -24,7 +26,9 @@ class TestQueryFilters:
         assert thehive.user.find(
             filters=Between(field="_createdAt", start=0, end=now_to_ts())
         )
-        assert thehive.user.find(filters=Contains(field="login"))
+        with pytest.deprecated_call():
+            assert thehive.user.find(filters=Contains(field="login"))
+        assert thehive.user.find(filters=Has(field="login"))
         assert thehive.user.find(
             filters=In(field="login", values=["...", "xyz", test_user["login"]])
         )
