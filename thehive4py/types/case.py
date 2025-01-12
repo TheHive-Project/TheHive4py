@@ -1,5 +1,6 @@
 from typing import List, Literal, TypedDict
 
+from thehive4py.types.page import InputCasePage
 from thehive4py.types.share import InputShare
 
 from .custom_field import InputCustomFieldValue, OutputCustomFieldValue
@@ -54,6 +55,7 @@ class InputCase(InputCaseRequired, total=False):
     customFields: List[InputCustomFieldValue]
     caseTemplate: str
     tasks: List[InputTask]
+    pages: List[InputCasePage]
     sharingParameters: List[InputShare]
     taskRule: str
     observableRule: str
@@ -68,10 +70,13 @@ class OutputCaseRequired(TypedDict):
     title: str
     description: str
     severity: int
+    severityLabel: str
     startDate: int
     flag: bool
     tlp: int
+    tlpLabel: str
     pap: int
+    papLabel: str
     status: CaseStatusValue
     stage: str
     extraData: dict
@@ -119,6 +124,8 @@ class InputUpdateCase(TypedDict, total=False):
     customFields: List[InputCustomFieldValue]
     taskRule: str
     observableRule: str
+    addTags: List[str]
+    removeTags: List[str]
 
 
 class InputBulkUpdateCase(InputUpdateCase):
