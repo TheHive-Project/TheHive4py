@@ -1,0 +1,26 @@
+changelog:
+  exclude:
+    labels:
+      - changelog:ignore
+  categories:
+    - title: Added
+      labels:
+        - changelog:added
+    - title: Changed
+      labels:
+        - changelog:changed
+    - title: Removed
+      labels:
+        - changelog:removed
+    - title: Deprecated
+      labels:
+        - changelog:deprecated
+    - title: Fixed
+      labels:
+        - changelog:fixed
+    - title: Security
+      labels:
+        - changelog:security
+    - title: Other
+      labels:
+        - "*"
