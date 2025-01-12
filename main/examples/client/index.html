@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../img/strangebee.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -680,7 +680,7 @@
 <li>username and password auth</li>
 </ul>
 <h3 id="auth-with-apikey">Auth with apikey</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span>
@@ -688,7 +688,7 @@
 <span class="p">)</span>
 </code></pre></div>
 <h3 id="auth-with-username-and-password">Auth with username and password</h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span>
@@ -700,7 +700,7 @@
 <p>The client will use the default organisation of the user. However in case the user belongs to multiple organisation the client also provides options to specify which organisation to use.</p>
 <h3 id="specify-the-organisation-during-init">Specify the organisation during init</h3>
 <p>In this example we will instaniate a client with the <code>admin</code> organisation explicitly:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">client_with_organisation</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span>
@@ -710,7 +710,7 @@
 </code></pre></div>
 <h3 id="switch-organisations-during-runtime">Switch organisations during runtime</h3>
 <p>In this example we will instantiate a client without explicitly specifying an organisation and switch to another organisation using the <a class="autorefs autorefs-internal" href="../../reference/#thehive4py.client.TheHiveApi.session_organisation">session_organisation</a> property:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span>
@@ -726,7 +726,7 @@
 <h2 id="ssl-verification">SSL Verification</h2>
 <p>By default the client verifies if the connection is going through SSL.
 In case one needs to pass a custom certificate bundle or directory it's possible via the <code>verify</code> argument like:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span>
@@ -743,9 +743,9 @@ However this is greatly discouraged as it's a security bad practice.</p>
 <p>The client comes with a sensible retry mechanism by default that will try to cover the most common use cases.
 However it's also possible to configure a tailored retry mechanism via the <code>max_retries</code> argument.</p>
 <p>The below example will configure a custom retry mechanism with 5 total attempts, a backoff factor of 0.3 seconds on GET methods and 500 status codes: </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">urllib3</span> <span class="kn">import</span> <span class="n">Retry</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">urllib3</span><span class="w"> </span><span class="kn">import</span> <span class="n">Retry</span>
 
-<span class="kn">from</span> <span class="nn">thehive4py</span> <span class="kn">import</span> <span class="n">TheHiveApi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">simple_retries</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span>
     <span class="n">total</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -878,7 +878,7 @@ However it's also possible to configure a tailored retry mechanism via the <code
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "toc.follow"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
     
   </body>
