@@ -1,4 +1,5 @@
 import pytest
+
 from thehive4py import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.query.filters import (
@@ -22,7 +23,7 @@ from thehive4py.types.user import OutputUser
 
 
 class TestQueryFilters:
-    def test_between_contains_in(self, thehive: TheHiveApi, test_user: OutputUser):
+    def test_between_contains_has_in(self, thehive: TheHiveApi, test_user: OutputUser):
         assert thehive.user.find(
             filters=Between(field="_createdAt", start=0, end=now_to_ts())
         )
