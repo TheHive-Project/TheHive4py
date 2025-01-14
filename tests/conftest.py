@@ -1,6 +1,5 @@
 from typing import List
 
-import uuid
 import pytest
 
 from tests.utils import TestConfig, reset_hive_instance, spawn_hive_container
@@ -117,7 +116,7 @@ def test_cases(thehive: TheHiveApi) -> List[OutputCase]:
 
 @pytest.fixture
 def test_case_template(thehive: TheHiveApi) -> OutputCaseTemplate:
-    name = f"my first case template {uuid.uuid4()}"
+    name = "my first case template"
     return thehive.case_template.create(
         case_template={
             "name": name,
@@ -130,8 +129,8 @@ def test_case_template(thehive: TheHiveApi) -> OutputCaseTemplate:
 @pytest.fixture
 def test_case_templates(thehive: TheHiveApi) -> List[OutputCaseTemplate]:
     case_templates: List[InputCaseTemplate] = [
-        {"name": f"my first case template {uuid.uuid4()}", "description": "..."},
-        {"name": f"my second case template {uuid.uuid4()}", "description": "..."},
+        {"name": "my first case template", "description": "..."},
+        {"name": "my second case template", "description": "..."},
     ]
     return [
         thehive.case_template.create(case_template=case_template)
