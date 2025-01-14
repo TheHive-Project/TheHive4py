@@ -45,6 +45,6 @@ class TestCaseTemplateEndpoint:
         test_case_templates: List[OutputCaseTemplate],
     ):
         found_templates = thehive.case_template.find()
-        names = [template["name"] for template in found_templates]
-        for test_template in test_case_templates:
-            assert test_template["name"] in names
+        original_ids = [template["_id"] for template in test_case_templates]
+        found_ids = [template["_id"] for template in found_templates]
+        assert sorted(found_ids) == sorted(original_ids)
