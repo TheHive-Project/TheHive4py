@@ -96,10 +96,15 @@ def _reset_hive_org(hive_url: str, test_config: TestConfig, organisation: str) -
 
     alerts = client.alert.find()
     cases = client.case.find()
+    case_templates = client.case_template.find()
 
     with ThreadPoolExecutor() as executor:
         executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
         executor.map(client.case.delete, [case["_id"] for case in cases])
+        executor.map(
+            client.case_template.delete,
+            [case_template["_id"] for case_template in case_templates],
+        )
 
 
 def _reset_hive_admin_org(hive_url: str, test_config: TestConfig) -> None:

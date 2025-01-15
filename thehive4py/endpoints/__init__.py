@@ -1,5 +1,6 @@
 from .alert import AlertEndpoint
 from .case import CaseEndpoint
+from .case_template import CaseTemplateEndpoint
 from .comment import CommentEndpoint
 from .cortex import CortexEndpoint
 from .custom_field import CustomFieldEndpoint
