@@ -37,7 +37,7 @@ class CaseTemplateEndpoint(EndpointBase):
         )
 
     def delete(self, case_template_id: str) -> None:
-        self._session.make_request(
+        return self._session.make_request(
             "DELETE", path=f"/api/v1/caseTemplate/{case_template_id}"
         )
 
