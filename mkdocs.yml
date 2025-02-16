@@ -6,6 +6,7 @@ nav:
   - Examples: 
     - Client: examples/client.md
     - Alert: examples/alert.md
+    - Case: examples/case.md
   - Reference: reference.md
 theme:
   name: material
