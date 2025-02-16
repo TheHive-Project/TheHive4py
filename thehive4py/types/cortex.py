@@ -1,4 +1,4 @@
-from typing import Any, TypedDict, List, Dict
+from typing import Any, Dict, List, TypedDict
 
 
 class OutputAnalyzerRequired(TypedDict):
@@ -41,7 +41,7 @@ class OutputAnalyzerJobRequired(TypedDict):
     operations: str
 
 
-class OutputAnalyzerJob(TypedDict, total=False):
+class OutputAnalyzerJob(OutputAnalyzerJobRequired, total=False):
     _updatedBy: str
     _updatedAt: str
     endDate: str
