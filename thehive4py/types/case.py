@@ -140,3 +140,21 @@ class InputImportCase(InputImportCaseRequired, total=False):
     sharingParameters: List[InputShare]
     taskRule: str
     observableRule: str
+
+
+class InputApplyCaseTemplateRequired(TypedDict):
+    ids: List[str]
+    caseTemplate: str
+
+
+class InputApplyCaseTemplate(InputApplyCaseTemplateRequired, total=False):
+    updateTitlePrefix: bool
+    updateDescription: bool
+    updateTags: bool
+    updateSeverity: bool
+    updateFlag: bool
+    updateTlp: bool
+    updatePap: bool
+    updateCustomFields: bool
+    importTasks: List[str]
+    importPages: List[str]

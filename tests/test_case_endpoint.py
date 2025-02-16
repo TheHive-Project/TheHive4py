@@ -16,6 +16,7 @@ from thehive4py.types.case import (
     InputUpdateCase,
     OutputCase,
 )
+from thehive4py.types.case_template import OutputCaseTemplate
 from thehive4py.types.observable import InputObservable
 from thehive4py.types.page import InputUpdateCasePage, OutputCasePage
 from thehive4py.types.share import InputShare
@@ -167,6 +168,37 @@ class TestCaseEndpoint:
     def test_get_timeline(self, thehive: TheHiveApi, test_case: OutputCase):
         timeline = thehive.case.get_timeline(case_id=test_case["_id"])
         assert timeline["events"]
+
+    def test_apply_case_template(
+        self,
+        thehive: TheHiveApi,
+        test_case: OutputCase,
+        test_case_template: OutputCaseTemplate,
+    ):
+
+        assert (
+            set(test_case_template.get("tags", [])).issubset(
+                set(test_case.get("tags", []))
+            )
+            is False
+        )
+
+        thehive.case.apply_case_template(
+            fields={
+                "ids": [test_case["_id"]],
+                "caseTemplate": test_case_template["name"],
+                "updateTags": True,
+            }
+        )
+
+        updated_case = thehive.case.get(case_id=test_case["_id"])
+
+        assert (
+            set(test_case_template.get("tags", [])).issubset(
+                set(updated_case.get("tags", []))
+            )
+            is True
+        )
 
     def test_add_and_download_attachment(
         self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path

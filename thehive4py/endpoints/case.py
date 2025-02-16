@@ -13,6 +13,7 @@ from thehive4py.types.case import (
     CaseStatus,
     CaseStatusValue,
     ImpactStatusValue,
+    InputApplyCaseTemplate,
     InputBulkUpdateCase,
     InputCase,
     InputImportCase,
@@ -112,6 +113,11 @@ class CaseEndpoint(EndpointBase):
 
     def get_timeline(self, case_id: CaseId) -> OutputTimeline:
         return self._session.make_request("GET", f"/api/v1/case/{case_id}/timeline")
+
+    def apply_case_template(self, fields: InputApplyCaseTemplate) -> None:
+        return self._session.make_request(
+            "POST", "/api/v1/case/_bulk/caseTemplate", json=fields
+        )
 
     def add_attachment(
         self, case_id: CaseId, attachment_paths: List[str]
