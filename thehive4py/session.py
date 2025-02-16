@@ -141,8 +141,13 @@ class TheHiveSession(requests.Session):
         except requests.exceptions.JSONDecodeError:
             json_data = None
 
-        if json_data is None:
-            error_text = response.text
-        else:
+        if isinstance(json_data, dict) and all(
+            [
+                "type" in json_data,
+                "message" in json_data,
+            ]
+        ):
             error_text = f"{json_data['type']} - {json_data['message']}"
+        else:
+            error_text = response.text
         raise TheHiveError(message=error_text, response=response)
