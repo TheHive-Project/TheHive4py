@@ -86,7 +86,7 @@ class InputResponderAction(InputResponderActionRequired, total=False):
 class InputAnalyzerJobRequired(TypedDict):
     analyzerId: str
     cortexId: str
-    observableId: str
+    artifactId: str
 
 
 class InputAnalyzerJob(InputAnalyzerJobRequired, total=False):

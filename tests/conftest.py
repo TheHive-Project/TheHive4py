@@ -121,7 +121,7 @@ def test_case_template(thehive: TheHiveApi) -> OutputCaseTemplate:
         case_template={
             "name": name,
             "description": "...",
-            "tags": ["whatever"],
+            "tags": ["template-tag"],
         }
     )
 
@@ -129,8 +129,16 @@ def test_case_template(thehive: TheHiveApi) -> OutputCaseTemplate:
 @pytest.fixture
 def test_case_templates(thehive: TheHiveApi) -> List[OutputCaseTemplate]:
     case_templates: List[InputCaseTemplate] = [
-        {"name": "my first case template", "description": "..."},
-        {"name": "my second case template", "description": "..."},
+        {
+            "name": "my first case template",
+            "description": "...",
+            "tags": ["template-tag-1"],
+        },
+        {
+            "name": "my second case template",
+            "description": "...",
+            "tags": ["template-tag-2"],
+        },
     ]
     return [
         thehive.case_template.create(case_template=case_template)
