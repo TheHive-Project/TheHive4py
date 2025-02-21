@@ -33,17 +33,50 @@ CaseId = Union[str, int]
 
 class CaseEndpoint(EndpointBase):
     def create(self, case: InputCase) -> OutputCase:
+        """Create a case.
+
+        Args:
+            case: The body of the case.
+
+        Returns:
+            The created case.
+        """
         return self._session.make_request("POST", path="/api/v1/case", json=case)
 
     def get(self, case_id: CaseId) -> OutputCase:
+        """Get a case by id.
+
+        Args:
+            case_id: The id of the case.
+
+        Returns:
+            The case specified by the id.
+        """
         return self._session.make_request("GET", path=f"/api/v1/case/{case_id}")
 
     def delete(self, case_id: CaseId) -> None:
+        """Delete a case.
+
+        Args:
+            case_id: The id of the case.
+
+        Returns:
+            N/A
+        """
         self._session.make_request("DELETE", path=f"/api/v1/case/{case_id}")
 
     def update(
         self, case_id: CaseId, fields: Optional[InputUpdateCase] = {}, **kwargs
     ) -> None:
+        """Update a case.
+
+        Args:
+            case_id: The id of the case.
+            fields: The fields of the case to update.
+
+        Returns:
+            N/A
+        """
 
         if not fields:
             if "case" not in kwargs:
@@ -65,36 +98,94 @@ class CaseEndpoint(EndpointBase):
         )
 
     def bulk_update(self, fields: InputBulkUpdateCase) -> None:
+        """Update multiple cases with the same values.
+
+        Args:
+            fields: The ids and the fields of the cases to update.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "PATCH", path="/api/v1/case/_bulk", json=fields
         )
 
     def merge(self, case_ids: Sequence[CaseId]) -> OutputCase:
+        """Merge multiple cases into one final case.
+
+        Args:
+            case_ids: The ids of the cases to merge.
+
+        Returns:
+            The merged case.
+        """
         case_id_subpath = ",".join([str(case_id) for case_id in case_ids])
         return self._session.make_request(
             "POST", path=f"/api/v1/case/_merge/{case_id_subpath}"
         )
 
     def unlink_alert(self, case_id: str, alert_id: str) -> None:
+        """Unlink an alert from a case.
+
+        Args:
+            case_id: The id of the case to unlink the alert from.
+            alert_id: The id of the alert to unlink.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/{case_id}/alert/{alert_id}"
         )
 
     def merge_similar_observables(self, case_id: CaseId) -> dict:
+        """Merge similar observables of a case.
+
+        Args:
+            case_id: The id of the case to merge similar observables for.
+
+        Returns:
+            The metadata of the observable merge operation.
+        """
         # TODO: add better return value type hint
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/observable/_merge"
         )
 
     def get_linked_cases(self, case_id: CaseId) -> List[OutputCase]:
+        """Get other cases linked to a case.
+
+        Args:
+            case_id: The id of the case to get linked cases for.
+
+        Returns:
+            The list of linked cases.
+        """
         return self._session.make_request("GET", path=f"/api/v1/case/{case_id}/links")
 
     def delete_custom_field(self, custom_field_id: str) -> None:
+        """Delete a custom field from a case.
+
+        Args:
+            custom_field_id: The id of the specific custom field to delete from a case.
+
+        Retruns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/customField/{custom_field_id}"
         )
 
     def import_from_file(self, import_case: InputImportCase, import_path: str) -> dict:
+        """Import a case from a .thar archive file.
+
+        Args:
+            import_case: The metadata of the case import.
+            import_path: The filepath to the .thar archive.
+
+        Returns:
+            The metadata of the case import operation.
+        """
         # TODO: add better return type hints
         return self._session.make_request(
             "POST",
@@ -104,6 +195,18 @@ class CaseEndpoint(EndpointBase):
         )
 
     def export_to_file(self, case_id: CaseId, password: str, export_path: str) -> None:
+        """Export a case to a .thar archive file.
+
+        The file can be used to import the case in an other TheHive instance
+
+        Args:
+            case_id: The id of the case to export.
+            password: The password to encrypt the .thar file with.
+            export_path: The filepath to save the case export to.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "GET",
             path=f"/api/v1/case/{case_id}/export",
@@ -112,9 +215,25 @@ class CaseEndpoint(EndpointBase):
         )
 
     def get_timeline(self, case_id: CaseId) -> OutputTimeline:
+        """Get the timeline of a case.
+
+        Args:
+            case_id: The id of the case with the timeline.
+
+        Returns:
+            The case timeline.
+        """
         return self._session.make_request("GET", f"/api/v1/case/{case_id}/timeline")
 
     def apply_case_template(self, fields: InputApplyCaseTemplate) -> None:
+        """Retroactively apply a case template on a case.
+
+        Args:
+            fields: The metadata of the case template apply operation.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "POST", "/api/v1/case/_bulk/caseTemplate", json=fields
         )
@@ -122,6 +241,16 @@ class CaseEndpoint(EndpointBase):
     def add_attachment(
         self, case_id: CaseId, attachment_paths: List[str]
     ) -> List[OutputAttachment]:
+        """Create an attachment in a case.
+
+        Args:
+            case_id: The id of the case.
+            attachment_paths: List of paths to the attachments to create.
+
+        Returns:
+            The created case attachments.
+        """
+
         files = [
             ("attachments", self._fileinfo_from_filepath(attachment_path))
             for attachment_path in attachment_paths
@@ -133,6 +262,16 @@ class CaseEndpoint(EndpointBase):
     def download_attachment(
         self, case_id: CaseId, attachment_id: str, attachment_path: str
     ) -> None:
+        """Download a case attachment.
+
+        Args:
+            case_id: The id of the case.
+            attachment_id: The id of the case attachment.
+            attachment_path: The local path to download the attachment to.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "GET",
             path=f"/api/v1/case/{case_id}/attachment/{attachment_id}/download",
@@ -140,19 +279,58 @@ class CaseEndpoint(EndpointBase):
         )
 
     def delete_attachment(self, case_id: CaseId, attachment_id: str) -> None:
+        """Delete a case attachment.
+
+        Args:
+            case_id: The id of the case.
+            attachment_id: The id of the case attachment.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/{case_id}/attachment/{attachment_id}"
         )
 
     def list_shares(self, case_id: CaseId) -> List[OutputShare]:
+        """List all organisation shares of a case.
+
+        Args:
+            case_id: The id of the case.
+
+        Returns:
+            The list of organisation shares of the case.
+        """
         return self._session.make_request("GET", path=f"/api/v1/case/{case_id}/shares")
 
     def share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
+        """Share the case with other organisations.
+
+        For each organisation, you can define a profile (level of access) that the org
+        will receive. This request will only create new shares and will not update or
+        delete existing shares.
+
+        Args:
+            case_id: The id of the case.
+            shares: The list of organisational share rules.
+
+        Returns:
+            The list of organisation shares of the case.
+        """
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/shares", json={"shares": shares}
         )
 
     def unshare(self, case_id: CaseId, organisation_ids: List[str]) -> None:
+        """Unshare a case from other organisations.
+
+        Args:
+            case_id: The id of the case.
+            organisation_ids: The ids of the organisations to unshare from.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE",
             path=f"/api/v1/case/{case_id}/shares",
@@ -160,11 +338,31 @@ class CaseEndpoint(EndpointBase):
         )
 
     def set_share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
+        """Set the share for a case with other organisations.
+
+        For each organisation, you can define a profile (level of access) that the org
+        will receive. This request can delete and update already existing shares.
+
+        Args:
+            case_id: The id of the case.
+            shares: The list of organisational share rules.
+
+        Returns:
+            The list of organisation shares of the case.
+        """
         return self._session.make_request(
             "PUT", path=f"/api/v1/case/{case_id}/shares", json={"shares": shares}
         )
 
     def remove_share(self, share_id: str) -> None:
+        """Remove a specific organisation share from a case.
+
+        Args:
+            share_id: The id of the share to remove.
+
+        Returns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/share/{share_id}"
         )
@@ -180,6 +378,16 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputCase]:
+        """Find multiple cases.
+
+        Args:
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of cases matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "listCase"},
             *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
@@ -193,6 +401,14 @@ class CaseEndpoint(EndpointBase):
         )
 
     def count(self, filters: Optional[FilterExpr] = None) -> int:
+        """Count cases.
+
+        Args:
+            filters: The filter expressions to apply in the query.
+
+        Returns:
+            The count of cases matched by the query.
+        """
         query: QueryExpr = [
             {"_name": "listCase"},
             *self._build_subquery(filters=filters),
@@ -207,6 +423,15 @@ class CaseEndpoint(EndpointBase):
         )
 
     def create_task(self, case_id: CaseId, task: InputTask) -> OutputTask:
+        """Create a case task.
+
+        Args:
+            case_id: The id of the case.
+            task: The fields of the task to create.
+
+        Returns:
+            The created case task.
+        """
         return self._session.make_request(
             "POST",
             path=f"/api/v1/case/{case_id}/task",
@@ -220,6 +445,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputTask]:
+        """Find tasks related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case tasks matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "tasks"},
@@ -239,6 +475,16 @@ class CaseEndpoint(EndpointBase):
         observable: InputObservable,
         observable_path: Optional[str] = None,
     ) -> List[OutputObservable]:
+        """Create an observable in an case.
+
+        Args:
+            case_id: The id of the case.
+            observable: The fields of the observable to create.
+            observable_path: Optional path in case of a file based observable.
+
+        Returns:
+            The created case observables.
+        """
         kwargs = self._build_observable_kwargs(
             observable=observable, observable_path=observable_path
         )
@@ -253,6 +499,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
+        """Find observables related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case observables matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "observables"},
@@ -268,6 +525,15 @@ class CaseEndpoint(EndpointBase):
     def create_procedure(
         self, case_id: str, procedure: InputProcedure
     ) -> OutputProcedure:
+        """Create a case procedure.
+
+        Args:
+            case_id: The id of the case.
+            procedure: The fields of the procedure to create.
+
+        Returns:
+            The created case procedure.
+        """
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/procedure", json=procedure
         )
@@ -279,6 +545,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputProcedure]:
+        """Find procedures related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case procedures matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "procedures"},
@@ -293,11 +570,29 @@ class CaseEndpoint(EndpointBase):
         )
 
     def create_page(self, case_id: str, page: InputCasePage) -> OutputCasePage:
+        """Create a page in a case.
+
+        Args:
+            case_id: The id of the case.
+            page: The fields of the page to create.
+
+        Returns:
+            The created case page.
+        """
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/page", json=page
         )
 
     def delete_page(self, case_id: str, page_id: str) -> None:
+        """Delete a page from a case.
+
+        Args:
+            case_id: The id of the case.
+            page_id: The id of the page to delete.
+
+        Retruns:
+            N/A
+        """
         return self._session.make_request(
             "DELETE", path=f"/api/v1/case/{case_id}/page/{page_id}"
         )
@@ -305,6 +600,16 @@ class CaseEndpoint(EndpointBase):
     def update_page(
         self, case_id: str, page_id: str, page: InputUpdateCasePage
     ) -> None:
+        """Update a page of a case.
+
+        Args:
+            case_id: The id of the case.
+            page_id: The id of the page to update.
+            page: The fields of the page to update.
+
+        Retruns:
+            N/A
+        """
         return self._session.make_request(
             "PATCH", path=f"/api/v1/case/{case_id}/page/{page_id}", json=page
         )
@@ -316,6 +621,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputProcedure]:
+        """Find pages related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case pages matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "pages"},
@@ -336,6 +652,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputAttachment]:
+        """Find attachments related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case attachments matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "attachments"},
@@ -355,6 +682,17 @@ class CaseEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputComment]:
+        """Find comments related to a case.
+
+        Args:
+            case_id: The id of the case.
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of case comments matched by the query or an empty list.
+        """
         query: QueryExpr = [
             {"_name": "getCase", "idOrName": case_id},
             {"_name": "comments"},
@@ -374,6 +712,17 @@ class CaseEndpoint(EndpointBase):
         summary: str,
         impact_status: ImpactStatusValue = "NotApplicable",
     ) -> None:
+        """Close a case.
+
+        Args:
+            case_id: The id of the case.
+            status: The status to close the case with.
+            summary: The closure summary of the case.
+            impact_status: The impact status of the case.
+
+        Returns:
+            N/A
+        """
         case: InputUpdateCase = {
             "status": status,
             "impactStatus": impact_status,
@@ -387,5 +736,14 @@ class CaseEndpoint(EndpointBase):
     def open(
         self, case_id: CaseId, status: CaseStatusValue = CaseStatus.InProgress
     ) -> None:
+        """Open a closed case.
+
+        Args:
+            case_id: The id of the case.
+            status: The status to re-open the case with.
+
+        Returns:
+            N/A
+        """
         case: InputUpdateCase = {"status": status}
         return self.update(case_id, case)
