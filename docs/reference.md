@@ -18,3 +18,4 @@
             - types
             - query
             - errors
+            - helpers
