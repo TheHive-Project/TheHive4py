@@ -8,6 +8,7 @@ nav:
     - Alert: examples/alert.md
     - Case: examples/case.md
   - Reference: reference.md
+  - Release Notes: release-notes.md
 theme:
   name: material
   favicon: img/strangebee.png
