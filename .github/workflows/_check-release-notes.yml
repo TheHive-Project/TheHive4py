@@ -1,0 +1,22 @@
+name: check-release-notes
+on: 
+  workflow_call:
+jobs:
+  build:
+    name: Check release notes 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: 3.13
+      - name: Check release notes
+        run: ./scripts/linkify_release_notes.py --check
+      - name: Lookup version in release notes 
+        run: |
+          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
+          if ! grep -qF "## $VERSION " "docs/release-notes.md"; then
+            echo "No release notes found for version '$VERSION'"
+            exit 1
+          fi

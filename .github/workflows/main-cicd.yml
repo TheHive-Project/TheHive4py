@@ -17,6 +17,8 @@ jobs:
     uses: ./.github/workflows/_build-package.yml
   build-docs:
     uses: ./.github/workflows/_build-docs.yml
+  check-release-notes:
+    uses: ./.github/workflows/_check-release-notes.yml
   deploy-docs:
     if: startsWith(github.ref, 'refs/heads/main')
     uses: ./.github/workflows/_deploy-docs.yml
