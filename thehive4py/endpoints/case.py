@@ -367,11 +367,6 @@ class CaseEndpoint(EndpointBase):
             "DELETE", path=f"/api/v1/case/share/{share_id}"
         )
 
-    def update_share(self, share_id: str, profile: str) -> None:
-        return self._session.make_request(
-            "PATCH", path=f"/api/v1/case/share/{share_id}", json={"profile": profile}
-        )
-
     def find(
         self,
         filters: Optional[FilterExpr] = None,

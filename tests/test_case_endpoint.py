@@ -267,19 +267,6 @@ class TestCaseEndpoint:
         thehive.case.remove_share(share_id=shares[0]["_id"])
         assert len(thehive.case.list_shares(case_id=test_case["_id"])) == 0
 
-    @pytest.mark.skip(reason="patch endpoint errors out")
-    def test_update_share(self, thehive: TheHiveApi, test_case: OutputCase):
-        organisation = "share-org"
-        share: InputShare = {"organisation": organisation, "profile": "read-only"}
-
-        created_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
-
-        update_profile = "read-only"
-        thehive.case.update_share(share_id=created_share["_id"], profile=update_profile)
-
-        updated_share = thehive.case.share(case_id=test_case["_id"], shares=[share])[0]
-        assert updated_share["profileName"] == update_profile
-
     @pytest.mark.skip(reason="integrator container only supports a single org ")
     def test_share_and_set_share(self, thehive: TheHiveApi, test_case: OutputCase):
         organisation = "share-org"
