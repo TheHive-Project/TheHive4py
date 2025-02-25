@@ -6,27 +6,45 @@
   }
 </style>
 
+## 2.0.0b9 (2025-02-25)
+### Added
+* [#390](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Extend CaseEndpoint with apply_case_template method by [@Kamforka](https://github.com/Kamforka) in [#391](https://github.com/TheHive-Project/TheHive4py/pull/391)
+* [#354](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Add case endpoint docstrings by [@Kamforka](https://github.com/Kamforka) in [#399](https://github.com/TheHive-Project/TheHive4py/pull/399)
+* [#355](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Add changelog to docs by [@Kamforka](https://github.com/Kamforka) in [#400](https://github.com/TheHive-Project/TheHive4py/pull/400)
+### Removed
+* [#398](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Remove `update_share` method from case endpoint by [@Kamforka](https://github.com/Kamforka) in [#402](https://github.com/TheHive-Project/TheHive4py/pull/402)
+### Fixed
+* [#388](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Enhance session's error parse method by [@Kamforka](https://github.com/Kamforka) in [#393](https://github.com/TheHive-Project/TheHive4py/pull/393)
+* [#389](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Fix types.cortex.OutputAnalyzerJob by [@Kamforka](https://github.com/Kamforka) in [#392](https://github.com/TheHive-Project/TheHive4py/pull/392)
+* [#395](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Fix InputAnalyzerJob type and add regression test by [@JuanTecedor](https://github.com/JuanTecedor) in [#397](https://github.com/TheHive-Project/TheHive4py/pull/397)
+### Other
+* [#386](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Use TheHive 5.4.7 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#387](https://github.com/TheHive-Project/TheHive4py/pull/387)
+* [#354](https://github.com/TheHive-Project/TheHive4py/pull/{pr_number}) - Add case endpoint docs by [@Kamforka](https://github.com/Kamforka) in [#394](https://github.com/TheHive-Project/TheHive4py/pull/394)
+
+
+**Full Changelog**: [2.0.0b8...2.0.0b9](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b8...2.0.0b9)
+
 ## 2.0.0b8 (2025-01-15)
 
-#### Added
+### Added
 * [#376](https://github.com/TheHive-Project/TheHive4py/pull/376) - Add `Has` query filter and fix deprecations, add warning for `Contains` filter by [@JuanTecedor](https://github.com/JuanTecedor) in [#377](https://github.com/TheHive-Project/TheHive4py/pull/377)
 * [#374](https://github.com/TheHive-Project/TheHive4py/pull/374)  - Add new endpoint to be able to manage case templates by [@Anko59](https://github.com/Anko59) in [#375](https://github.com/TheHive-Project/TheHive4py/pull/375)
 
-#### Changed
+### Changed
 * [#370](https://github.com/TheHive-Project/TheHive4py/pull/370) - Enhance cortex endpoint with additional methods and types by [@Anko59](https://github.com/Anko59) in [#371](https://github.com/TheHive-Project/TheHive4py/pull/371)
 * [#376](https://github.com/TheHive-Project/TheHive4py/pull/376) - Fix outdated query filters to address corresponding TheHive warnings by [@JuanTecedor](https://github.com/JuanTecedor) in [#377](https://github.com/TheHive-Project/TheHive4py/pull/377)
 * [#380](https://github.com/TheHive-Project/TheHive4py/pull/380) - Update case and alert endpoint types by [@Kamforka](https://github.com/Kamforka) in [#383](https://github.com/TheHive-Project/TheHive4py/pull/383)
 
-#### Deprecated
+### Deprecated
 * [#361](https://github.com/TheHive-Project/TheHive4py/pull/361) - Add deprecation warning for python 3.8 by [@Kamforka](https://github.com/Kamforka) in [#384](https://github.com/TheHive-Project/TheHive4py/pull/384)
 * [#376](https://github.com/TheHive-Project/TheHive4py/pull/376) - Deprecate `Contains` query filter in favour of `Has` by [@JuanTecedor](https://github.com/JuanTecedor) in [#377](https://github.com/TheHive-Project/TheHive4py/pull/377)
 
-#### Other
+### Other
 * [#362](https://github.com/TheHive-Project/TheHive4py/pull/362) - Add release.yml to better control auto generated release notes by [@Kamforka](https://github.com/Kamforka) in [#379](https://github.com/TheHive-Project/TheHive4py/pull/379)
 * [#372](https://github.com/TheHive-Project/TheHive4py/pull/372) - Use TheHive 5.4.5 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#373](https://github.com/TheHive-Project/TheHive4py/pull/373)
 * [#381](https://github.com/TheHive-Project/TheHive4py/pull/381) - Use TheHive 5.4.6 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#382](https://github.com/TheHive-Project/TheHive4py/pull/382)
 
-#### New Contributors
+### New Contributors
 * [@Anko59](https://github.com/Anko59) made their first contribution in [#371](https://github.com/TheHive-Project/TheHive4py/pull/371)
 * [@JuanTecedor](https://github.com/JuanTecedor) made their first contribution in [#377](https://github.com/TheHive-Project/TheHive4py/pull/377)
 
@@ -34,17 +52,17 @@
 
 ## 2.0.0b7 (2024-11-24)
 
-#### Breaking changes
+### Breaking changes
 * `TheHiveApi` client's `verify` argument was improperly set to the default value of `None`, which only raised a warning when the client was connecting to a TheHive instance with an `https://` base url. From now on `verify` will default to `True` that might lead to an SSL verification error, so to fix that one can:
   
     - pass the path to the cert bundle to be used by the client, e.g.: `verify=/path/to/cert/bundle.crt`
     - export the `REQUESTS_CA_BUNDLE` with the cert bundle path, e.g.: `REQUESTS_CA_BUNDLE=/path/to/cert/bundle.crt`
     - disable SSL verification like before - not recommended - e.g.: `verify=None`
  
-#### Deprecated
+### Deprecated
 * [TheHiveApi.case.update](https://github.com/TheHive-Project/TheHive4py/blob/b3162f695368aefe200740acebd157dfba503e23/thehive4py/endpoints/case.py#L43) method's `case` argument is going to be retired in favor of the `fields` argument to conform with other endpoints update methods.
 
-#### Added
+### Added
 * [#339](https://github.com/TheHive-Project/TheHive4py/pull/339) - add codecov action by [@Kamforka](https://github.com/Kamforka) in [#342](https://github.com/TheHive-Project/TheHive4py/pull/342)
 * [#339](https://github.com/TheHive-Project/TheHive4py/pull/339) - add workflow trigger on merge to main by [@Kamforka](https://github.com/Kamforka) in [#343](https://github.com/TheHive-Project/TheHive4py/pull/343)
 * [#347](https://github.com/TheHive-Project/TheHive4py/pull/347) - Add support for Python 3.13 by [@Kamforka](https://github.com/Kamforka) in [#349](https://github.com/TheHive-Project/TheHive4py/pull/349)
@@ -52,20 +70,20 @@
 * [#301](https://github.com/TheHive-Project/TheHive4py/pull/301) - Add client, alert and api reference docs by [@Kamforka](https://github.com/Kamforka) in [#350](https://github.com/TheHive-Project/TheHive4py/pull/350)
 * [#340](https://github.com/TheHive-Project/TheHive4py/pull/340) - Add retry mechanism by [@Kamforka](https://github.com/Kamforka) in [#344](https://github.com/TheHive-Project/TheHive4py/pull/344)
  
-#### Changed 
+### Changed 
 * Patch important note sections in README by [@Kamforka](https://github.com/Kamforka) in [#337](https://github.com/TheHive-Project/TheHive4py/pull/337)
 * Bump actions/download-artifact from 3 to 4.1.7 in /.github/workflows by [@dependabot](https://github.com/dependabot) in [#338](https://github.com/TheHive-Project/TheHive4py/pull/338)
 * [#301](https://github.com/TheHive-Project/TheHive4py/pull/301) - Adjust thehive4py title's font size by [@Kamforka](https://github.com/Kamforka) in [#357](https://github.com/TheHive-Project/TheHive4py/pull/357)
 * [#359](https://github.com/TheHive-Project/TheHive4py/pull/359) - Upgrade test integrator to use v5.4.2 by [@Kamforka](https://github.com/Kamforka) in [#360](https://github.com/TheHive-Project/TheHive4py/pull/360)
 
-#### New Contributors
+### New Contributors
 * [@dependabot](https://github.com/dependabot) made their first contribution in [#338](https://github.com/TheHive-Project/TheHive4py/pull/338)
 
 **Full Changelog**: [2.0.0b6...2.0.0b7](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b6...2.0.0b7)
 
 ## 2.0.0b6 (2024-08-28)
 
-#### What's Changed
+### What's Changed
 * Review task type hints by [@Kamforka](https://github.com/Kamforka) in [#318](https://github.com/TheHive-Project/TheHive4py/pull/318)
 * Extend alert endpoint with attachment methods by [@Kamforka](https://github.com/Kamforka) in [#321](https://github.com/TheHive-Project/TheHive4py/pull/321)
 * Rework test container by [@Kamforka](https://github.com/Kamforka) in [#326](https://github.com/TheHive-Project/TheHive4py/pull/326)
@@ -73,7 +91,7 @@
 * Update TheHive icon link in README.md by [@Kamforka](https://github.com/Kamforka) in [#331](https://github.com/TheHive-Project/TheHive4py/pull/331)
 * Add a generic query endpoint and align case update fields with other update methods by [@Kamforka](https://github.com/Kamforka) in [#334](https://github.com/TheHive-Project/TheHive4py/pull/334)
 
-#### New Contributors
+### New Contributors
 * [@jamesmckibbenathrb](https://github.com/jamesmckibbenathrb) made their first contribution in [#330](https://github.com/TheHive-Project/TheHive4py/pull/330)
 
 **Full Changelog**: [2.0.0b5...2.0.0b6](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b5...2.0.0b6)
@@ -81,7 +99,7 @@
 
 ## 2.0.0b5 (2023-10-13)
 
-#### What's Changed
+### What's Changed
 Merged Pull Requests
 * Delete unused setup.py by [@Kamforka](https://github.com/Kamforka) in [#298](https://github.com/TheHive-Project/TheHive4py/pull/298)
 * Actualize main with develop by [@Kamforka](https://github.com/Kamforka) in [#297](https://github.com/TheHive-Project/TheHive4py/pull/297)
@@ -98,7 +116,7 @@ Merged Pull Requests
 
 ## 2.0.0b4 (2023-01-20)
 
-#### What's Changed
+### What's Changed
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b3...2.0.0b4)
 
 **Closed issues:**
@@ -122,7 +140,7 @@ Merged Pull Requests
 
 ## 2.0.0b3 (2022-10-24)
 
-#### What's Changed
+### What's Changed
 [Full Changelog](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b2...2.0.0b3)
 
 **Closed issues:**
@@ -139,7 +157,7 @@ Merged Pull Requests
 
 ## 2.0.0b2 (2022-08-20)
 
-#### What's Changed
+### What's Changed
 * [#250](https://github.com/TheHive-Project/TheHive4py/pull/250) - Implement list comment methods for alerts and cases by [@Kamforka](https://github.com/Kamforka) in [#251](https://github.com/TheHive-Project/TheHive4py/pull/251)
 * [fr] ability to manage multi valued customfields by [@Kamforka](https://github.com/Kamforka) in [#253](https://github.com/TheHive-Project/TheHive4py/pull/253)
 
@@ -149,7 +167,7 @@ Merged Pull Requests
 
 ## 2.0.0b1 (2022-08-05)
 
-#### What's Changed
+### What's Changed
 * [#250](https://github.com/TheHive-Project/TheHive4py/pull/250) - Implement list comment methods for alerts and cases by [@Kamforka](https://github.com/Kamforka) in [#251](https://github.com/TheHive-Project/TheHive4py/pull/251)
 
 
@@ -157,11 +175,11 @@ Merged Pull Requests
 
 ## 2.0.0b0 (2022-08-05)
 
-#### What's Changed
+### What's Changed
 * Update for 5.0.1 by [@vdebergue](https://github.com/vdebergue) in [#241](https://github.com/TheHive-Project/TheHive4py/pull/241)
 * added case.set_share by [@migueldo](https://github.com/migueldo) in [#242](https://github.com/TheHive-Project/TheHive4py/pull/242)
 
-#### New Contributors
+### New Contributors
 * [@vdebergue](https://github.com/vdebergue) made their first contribution in [#241](https://github.com/TheHive-Project/TheHive4py/pull/241)
 * [@migueldo](https://github.com/migueldo) made their first contribution in [#242](https://github.com/TheHive-Project/TheHive4py/pull/242)
 
