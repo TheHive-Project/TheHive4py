@@ -3,16 +3,16 @@ import mimetypes
 import os
 from typing import Optional
 
+from thehive4py.base.session_base import TheHiveSessionBase
 from thehive4py.query import QueryExpr
 from thehive4py.query.filters import FilterExpr
 from thehive4py.query.page import Paginate
 from thehive4py.query.sort import SortExpr
-from thehive4py.session import TheHiveSession
 from thehive4py.types.observable import InputObservable
 
 
 class EndpointBase:
-    def __init__(self, session: TheHiveSession):
+    def __init__(self, session: TheHiveSessionBase):
         self._session = session
 
     def _fileinfo_from_filepath(self, filepath: str) -> tuple:

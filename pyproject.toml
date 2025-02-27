@@ -7,7 +7,7 @@ name = "thehive4py"
 description = "Python client for TheHive5"
 version = "2.0.0b9"
 requires-python = ">=3.8"
-dependencies = ["requests~=2.27"]
+dependencies = ["requests~=2.27", "aiohttp~=3.9.0"]
 readme = "README.md"
 keywords = ["thehive5", "api", "client"]
 license = { text = "MIT" }
@@ -31,7 +31,7 @@ audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
 docs = ["mkdocs", "mkdocs-material", "mkdocstrings-python", "mike"]
 lint = ["black",  "flake8-pyproject", "mypy", "pre-commit"]
-test = ["pytest", "pytest-cov"]
+test = ["pytest", "pytest-cov", "pytest-asyncio", "aioresponses"]
 dev = ["thehive4py[audit, lint, test, build, docs]"]
 
 [tool.setuptools.packages.find]
@@ -48,5 +48,6 @@ max-line-length=88
 per-file-ignores = [
     "thehive4py/__init__.py:F401",
     "thehive4py/endpoints/__init__.py:F401",
+    "thehive4py/async_api/__init__.py:F401",
     "thehive4py/query/__init__.py:F401",
 ]

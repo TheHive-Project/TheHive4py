@@ -72,3 +72,14 @@ The below example will configure a custom retry mechanism with 5 total attempts,
 To learn more about the `urllib3.Retry` object please consult the official documentation [here](https://urllib3.readthedocs.io/en/stable/reference/urllib3.util.html#urllib3.util.Retry).
 
 
+## Async Client
+
+TheHive4py provides an async client for asynchronous API operations.
+
+### Basic Usage
+
+```python
+--8<-- "examples/client/async_client.py"
+```
+
+!!! note
