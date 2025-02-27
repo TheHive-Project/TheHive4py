@@ -1,8 +1,10 @@
-from typing import List
+from typing import List, AsyncGenerator
 
 import pytest
+import pytest_asyncio
 
 from tests.utils import TestConfig, reset_hive_instance, spawn_hive_container
+from thehive4py.async_api import TheHiveAsyncApi
 from thehive4py.client import TheHiveApi
 from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
@@ -49,6 +51,20 @@ def thehive(test_config: TestConfig):
         organisation=test_config.main_org,
     )
     return client
+
+
+@pytest_asyncio.fixture
+async def async_client(
+    test_config: TestConfig,
+) -> AsyncGenerator[TheHiveAsyncApi, None]:
+    hive_url = spawn_hive_container(test_config=test_config)
+    client = TheHiveAsyncApi(
+        url=hive_url,
+        username=test_config.user,
+        password=test_config.password,
+        organisation=test_config.main_org,
+    )
+    yield client
 
 
 @pytest.fixture

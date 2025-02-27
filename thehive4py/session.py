@@ -1,15 +1,15 @@
-import json as jsonlib
-from collections import UserDict
-from os import PathLike
-from typing import Any, Optional, Union
+"""Sync session implementation for TheHive API."""
 
 import requests
 import requests.adapters
 import requests.auth
+from os import PathLike
+from typing import Any, Optional, Union
 from urllib3 import Retry
 
-from thehive4py.__version__ import __version__
 from thehive4py.errors import TheHiveError
+from thehive4py.base.session_base import TheHiveSessionBase, RetryValue, VerifyValue
+
 
 DEFAULT_RETRY = Retry(
     total=5,
@@ -20,20 +20,9 @@ DEFAULT_RETRY = Retry(
 )
 
 
-RetryValue = Union[Retry, int, None]
-VerifyValue = Union[bool, str]
+class TheHiveSession(TheHiveSessionBase, requests.Session):
+    """Sync session implementation using requests."""
 
-
-class _SessionJSONEncoder(jsonlib.JSONEncoder):
-    """Custom JSON encoder class for TheHive session."""
-
-    def default(self, o: Any):
-        if isinstance(o, UserDict):
-            return o.data
-        return super().default(o)
-
-
-class TheHiveSession(requests.Session):
     def __init__(
         self,
         url: str,
@@ -43,34 +32,29 @@ class TheHiveSession(requests.Session):
         verify: VerifyValue = True,
         max_retries: RetryValue = DEFAULT_RETRY,
     ):
-        super().__init__()
-        self.hive_url = self._sanitize_hive_url(url)
-        self.verify = verify
-        self.headers["User-Agent"] = f"thehive4py/{__version__}"
-        self._set_retries(max_retries=max_retries)
+        requests.Session.__init__(self)
+        TheHiveSessionBase.__init__(
+            self,
+            url=url,
+            apikey=apikey,
+            username=username,
+            password=password,
+            verify=verify,
+            max_retries=max_retries,
+        )
+        self._set_retries(max_retries)
 
-        if username and password:
-            self.headers["Authorization"] = requests.auth._basic_auth_str(
-                username, password
-            )
-        elif apikey:
-            self.headers["Authorization"] = f"Bearer {apikey}"
-        else:
-            raise TheHiveError(
-                "Either apikey or the username/password combination must be provided!"
-            )
+    def _set_basic_auth(self, username: str, password: str) -> None:
+        """Set basic auth header using requests auth."""
+        self.headers["Authorization"] = requests.auth._basic_auth_str(
+            username, password
+        )
 
     def _set_retries(self, max_retries: RetryValue):
         """Configure the session to retry."""
         retry_adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
         self.mount("http://", retry_adapter)
         self.mount("https://", retry_adapter)
-
-    def _sanitize_hive_url(self, hive_url: str) -> str:
-        """Sanitize the base url for the client."""
-        if hive_url.endswith("/"):
-            return hive_url[:-1]
-        return hive_url
 
     def make_request(
         self,
@@ -82,12 +66,13 @@ class TheHiveSession(requests.Session):
         files=None,
         download_path: Union[str, PathLike, None] = None,
     ) -> Any:
+        """Make a sync HTTP request."""
         endpoint_url = f"{self.hive_url}{path}"
-
         headers = {**self.headers}
+
         if json:
-            data = jsonlib.dumps(json, cls=_SessionJSONEncoder)
-            headers = {**headers, "Content-Type": "application/json"}
+            data = self._encode_json(json)
+            headers["Content-Type"] = "application/json"
 
         response = self.request(
             method,
@@ -107,6 +92,7 @@ class TheHiveSession(requests.Session):
         response: requests.Response,
         download_path: Union[str, PathLike, None] = None,
     ):
+        """Process the sync response."""
         if response.ok:
             if download_path is None:
                 return self._process_text_response(response)
@@ -119,6 +105,7 @@ class TheHiveSession(requests.Session):
             self._process_error_response(response=response)
 
     def _process_text_response(self, response: requests.Response):
+        """Process a text/json response."""
         try:
             json_data = response.json()
         except requests.exceptions.JSONDecodeError:
@@ -131,21 +118,20 @@ class TheHiveSession(requests.Session):
     def _process_stream_response(
         self, response: requests.Response, download_path: Union[str, PathLike]
     ):
+        """Process a streaming response."""
         with open(download_path, "wb") as download_fp:
             for chunk in response.iter_content(chunk_size=4096):
                 download_fp.write(chunk)
 
     def _process_error_response(self, response: requests.Response):
+        """Process an error response."""
         try:
             json_data = response.json()
         except requests.exceptions.JSONDecodeError:
             json_data = None
 
         if isinstance(json_data, dict) and all(
-            [
-                "type" in json_data,
-                "message" in json_data,
-            ]
+            key in json_data for key in ["type", "message"]
         ):
             error_text = f"{json_data['type']} - {json_data['message']}"
         else:
