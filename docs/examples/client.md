@@ -34,14 +34,14 @@ In this example we will instaniate a client with the `admin` organisation explic
 
 ### Switch organisations during runtime
 
-In this example we will instantiate a client without explicitly specifying an organisation and switch to another organisation using the [session_organisation][thehive4py.client.TheHiveApi.session_organisation] property:
+In this example we will instantiate a client without explicitly specifying an organisation and switch to another organisation using the [session_organisation][thehive4py.base.client_base.TheHiveApiBase.session_organisation] property:
 
 ```python
 --8<-- "examples/client/org_during_runtime.py"
 ```
 
 !!! warning
-    The [session_organisation][thehive4py.client.TheHiveApi.session_organisation] property is not thread-safe and it's almost always better to instantiate more clients if one wants to work with multiple organisations in parallel.
+    The [session_organisation][thehive4py.base.client_base.TheHiveApiBase.session_organisation] property is not thread-safe and it's almost always better to instantiate more clients if one wants to work with multiple organisations in parallel.
 
 
 ## SSL Verification
