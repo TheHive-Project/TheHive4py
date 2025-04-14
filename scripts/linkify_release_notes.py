@@ -3,21 +3,43 @@ import argparse
 import re
 
 
-def replace_pr_reference(match: re.Match) -> str:
-    pr_number = match.groups()[0]
-    pr_link = (
-        f" [#{pr_number}]"
-        "(https://github.com/TheHive-Project/TheHive4py/pull/{pr_number})"
+def replace_wrong_issue_link(match: re.Match) -> str:
+    issue_number = match.groups()[0]
+    issue_link = (
+        f" [#{issue_number}]"
+        f"(https://github.com/TheHive-Project/TheHive4py/issues/{issue_number}) -"
     )
-    print(f"Replace `{match.group()}` by `{pr_link}`")
-    return pr_link
+    print(f"Replace `{match.group()}` by `{issue_link}`")
+    return issue_link
 
 
-def linkify_pr_references(release_notes: str) -> str:
-    pr_ref_pattern = r" #(\d+)"
+def fix_issue_links(release_notes: str) -> str:
+    pattern = (
+        r"\[#(\d+)\]\(https://github\.com/TheHive-Project/TheHive4py/pull/\d+\)\s+-"
+    )
     linkified_release_notes = re.sub(
-        pattern=pr_ref_pattern,
-        repl=replace_pr_reference,
+        pattern=pattern,
+        repl=replace_wrong_issue_link,
+        string=release_notes,
+    )
+    return linkified_release_notes
+
+
+def replace_issue_reference(match: re.Match) -> str:
+    issue_number = match.groups()[0]
+    issue_link = (
+        f" [#{issue_number}]"
+        f"(https://github.com/TheHive-Project/TheHive4py/issues/{issue_number})"
+    )
+    print(f"Replace `{match.group()}` by `{issue_link}`")
+    return issue_link
+
+
+def linkify_issue_references(release_notes: str) -> str:
+    issue_ref_pattern = r" #(\d+)"
+    linkified_release_notes = re.sub(
+        pattern=issue_ref_pattern,
+        repl=replace_issue_reference,
         string=release_notes,
     )
     return linkified_release_notes
@@ -107,7 +129,7 @@ def main():
 
     print(f"Checking linkification in '{release_notes_path}'")
     linkified_release_notes = release_notes
-    linkified_release_notes = linkify_pr_references(
+    linkified_release_notes = linkify_issue_references(
         release_notes=linkified_release_notes
     )
     linkified_release_notes = linkify_pr_urls(release_notes=linkified_release_notes)
@@ -117,6 +139,8 @@ def main():
     linkified_release_notes = linkify_full_changelog_urls(
         release_notes=linkified_release_notes
     )
+
+    linkified_release_notes = fix_issue_links(release_notes)
 
     if linkified_release_notes == release_notes:
         print("Nothing to do, release notes are already linkified!")
