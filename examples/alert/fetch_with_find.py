@@ -31,7 +31,7 @@ phishing_alert = hive.alert.create(
 raw_filters = {
     "_or": [
         {"_eq": {"_field": "tags", "_value": "antivirus"}},
-        {"_eq": {"_field": "tags", "_value": "antivirus"}},
+        {"_eq": {"_field": "tags", "_value": "phishing"}},
     ]
 }
 all_alerts_with_raw_filters = hive.alert.find(filters=raw_filters)

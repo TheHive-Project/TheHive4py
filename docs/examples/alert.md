@@ -18,7 +18,7 @@ Here's an example that demonstrates how to create the most simplistic alert poss
 
 ## An advanced alert
 
-In the previous example we really kept things simple and only specified the required alert fields inline in the create method call.
+The previous example was as simple as it gets and only specified the required alert fields inline in the create method call.
 With a more advanced example this can become complicated and hard to read. 
 Fortunately we can use `thehive4py`'s type hints to the rescue and specify more complex input alerts outside of the method call. 
 
@@ -37,11 +37,13 @@ Finally after the creation of the alert we saved the response in the `output_ale
 
 ## Alert observables
 
-TheHive API provides multiple ways to add observables to alerts, let them be textual or file based observables.
+In TheHive an observable is a piece of data or evidence (e.g., an IP address, domain, etc.) associated with a security incident, used to provide context and aid in the investigation and response process.
+
+Let's take a look at different ways of populating alerts with observables, let them be textual or file based observables.
 
 ### Add observables during alert creation
 
-We can add observables already during alert creation. This is a great way to combine alert and observable creation in a simple and atomic way:
+We can add observables already during alert creation. This is a great way to combine alert and observable creation in an atomic way:
 
 Let's create an alert with an `ip` and a `domain` observable:
 
@@ -51,7 +53,7 @@ Let's create an alert with an `ip` and a `domain` observable:
 
 ### Add observables to an existing alert
 
-While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time.
+While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.
 
 Fortunately TheHive API supports alert observable creation on already existing alerts. Let's repeat the previous example, but this time add the two observables to an existing alert using the [alert.create_observable][thehive4py.endpoints.alert.AlertEndpoint.create_observable] method:
 
@@ -62,7 +64,7 @@ Fortunately TheHive API supports alert observable creation on already existing a
 
 ### Add file based observables
 
-In the previous examples we've seen how to handle simple observables without attachments. Next we will create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:
+In the previous examples we've seen how to handle observables without attachments. However sometimes we also want to add attachments to an observable not only textual data. Fortunately that is supported by TheHive. So in the next example let's create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:
 
 
 ```python
@@ -77,11 +79,11 @@ In our example `attachment_key` is used to specify the relationship between the 
 
 ## Update single and bulk 
 
-Sometimes an existing alert needs to be updated. `thehive4py` offers multiple ways to accomplish this task either with a single alert or multiple ones.
+Creating alerts is fun but sometimes an existing alert also needs to be updated. As expected `thehive4py` offers multiple ways to accomplish this task either on a single alert or multiple ones.
 
 ### Update single
 
-A single alert can be updated using [alert.update][thehive4py.endpoints.alert.AlertEndpoint.update] method. The method requires the `alert_id` of the alert to be updated and the `fields` to update.
+A single alert can be updated using the [alert.update][thehive4py.endpoints.alert.AlertEndpoint.update] method. The method requires the `alert_id` of the alert to be updated and the `fields` to update.
 
 ```python
 --8<-- "examples/alert/update_single.py"
@@ -89,9 +91,9 @@ A single alert can be updated using [alert.update][thehive4py.endpoints.alert.Al
 
 In the above example we've updated the `title` and the `tags` fields.
 
-Be mindful though, `thehive4py` is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the original `original_alert` won't reflect the changes of the update.
+Be mindful though, `thehive4py` is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the `original_alert` won't reflect the changes of the update.
 
-To work with the updated alert we fetched the latest version using the [alert.get][thehive4py.endpoints.alert.AlertEndpoint.get] method and stored it in the `updated_alert` variable.
+In order to work with the updated alert we had to fetch the latest version using the [alert.get][thehive4py.endpoints.alert.AlertEndpoint.get] method and store it in the `updated_alert` variable.
 
 Now the content of `updated_alert` should reflect the changes we made with our update request.
 
@@ -100,8 +102,8 @@ Now the content of `updated_alert` should reflect the changes we made with our u
 
 ### Update bulk
 
-To update the **same fields** with the **same values** on multiple alerts at the same time, one can use [alert.bulk_update][thehive4py.endpoints.alert.AlertEndpoint.bulk_update] method. 
-The method accepts the same `fields` dictionary with an additional `ids` field on it, which should contain the list of ids of the alerts to be bulk updated.
+It is also possible to update many alerts at the same time, however there's a constraint: the content of the `fields` property will be applied to all the specified alerts uniformly. With all that said one can use [alert.bulk_update][thehive4py.endpoints.alert.AlertEndpoint.bulk_update] method for bulk updates. 
+The method accepts the same `fields` dictionary as before but with an additional `ids` field on it, which should contain the list of ids of the alerts to be bulk updated.
 
 ```python
 --8<-- "examples/alert/update_bulk.py"
@@ -112,7 +114,7 @@ Then we update the fields `title` and `tags` on both alerts using the bulk updat
 
 ## Get and find
 
-There are multiple ways to retrieve already existing alerts:
+There are multiple ways to retrieve already existing alerts, we can fetch them one by one or many at once!
 
 ### Get a single alert
 
@@ -128,7 +130,7 @@ To fetch multiple alerts based on arbitrary conditions one can use the [alert.fi
 
 In the next example we will create two alerts with different tags. The first alert will get the `antivirus` tag while the second one will get the `phishing` tag.
 
-Then we will construct a query filter that will look for alerts with these tags on them:
+Then we will construct query filters in different ways to look for alerts with these tags on them:
 
 ```python
 --8<-- "examples/alert/fetch_with_find.py"
@@ -175,7 +177,7 @@ Oftentimes new alerts correspond to an already existing case. Fortunately we hav
 --8<-- "examples/alert/case_merge.py"
 ```
 
-In the above example we prepared a `parent_case` to which we merge the `new_alert` using their ids and finally save the updated case in the `updated_parent_case` variable.
+In the above example we prepared a `parent_case` to which we merge the `new_alert` using its id and finally save the updated case in the `updated_parent_case` variable.
 
 !!! tip
     It can happen that multiple new alerts belong to the same parent case. In such situation we can use the [alert.bulk_merge_into_case][thehive4py.endpoints.alert.AlertEndpoint.bulk_merge_into_case] method for a more convenient merge process.
@@ -205,4 +207,4 @@ To delete multiple alerts via a single request one can use the [alert.bulk_delet
 --8<-- "examples/alert/delete_bulk.py"
 ```
 
-In the above example we created two alerts and saved their ids in the `alert_ids_to_delete` variable just to pass it in the bulk deletion method.
+In the above example we created two alerts and saved their ids in the `alert_ids_to_delete` variable just to pass it to the bulk deletion method.
