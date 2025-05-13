@@ -174,7 +174,7 @@ class AlertEndpoint(EndpointBase):
     def add_attachment(
         self, alert_id: str, attachment_paths: List[str]
     ) -> List[OutputAttachment]:
-        """Create an observable in an alert.
+        """Create an attachment in an alert.
 
         Args:
             alert_id: The id of the alert.
@@ -313,7 +313,7 @@ class AlertEndpoint(EndpointBase):
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
     ) -> List[OutputObservable]:
-        """Find observable related to an alert.
+        """Find observables related to an alert.
 
         Args:
             alert_id: The id of the alert.
