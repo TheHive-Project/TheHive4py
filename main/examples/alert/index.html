@@ -998,7 +998,7 @@
 <span class="p">)</span>
 </code></pre></div>
 <h2 id="an-advanced-alert">An advanced alert</h2>
-<p>In the previous example we really kept things simple and only specified the required alert fields inline in the create method call.
+<p>The previous example was as simple as it gets and only specified the required alert fields inline in the create method call.
 With a more advanced example this can become complicated and hard to read. 
 Fortunately we can use <code>thehive4py</code>'s type hints to the rescue and specify more complex input alerts outside of the method call. </p>
 <p>Here's how:
@@ -1028,9 +1028,10 @@ Finally after the creation of the alert we saved the response in the <code>outpu
 In case you want to see the what the Alert API offers please check out the <a href="https://docs.strangebee.com/thehive/api-docs/#tag/Alert">official alert docs</a>.</p>
 </div>
 <h2 id="alert-observables">Alert observables</h2>
-<p>TheHive API provides multiple ways to add observables to alerts, let them be textual or file based observables.</p>
+<p>In TheHive an observable is a piece of data or evidence (e.g., an IP address, domain, etc.) associated with a security incident, used to provide context and aid in the investigation and response process.</p>
+<p>Let's take a look at different ways of populating alerts with observables, let them be textual or file based observables.</p>
 <h3 id="add-observables-during-alert-creation">Add observables during alert creation</h3>
-<p>We can add observables already during alert creation. This is a great way to combine alert and observable creation in a simple and atomic way:</p>
+<p>We can add observables already during alert creation. This is a great way to combine alert and observable creation in an atomic way:</p>
 <p>Let's create an alert with an <code>ip</code> and a <code>domain</code> observable:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
@@ -1054,7 +1055,7 @@ In case you want to see the what the Alert API offers please check out the <a hr
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">alert</span><span class="o">=</span><span class="n">input_alert</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="add-observables-to-an-existing-alert">Add observables to an existing alert</h3>
-<p>While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time.</p>
+<p>While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.</p>
 <p>Fortunately TheHive API supports alert observable creation on already existing alerts. Let's repeat the previous example, but this time add the two observables to an existing alert using the <a class="autorefs autorefs-internal" title="            create_observable(alert_id, observable, observable_path=None)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.create_observable">alert.create_observable</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
@@ -1087,7 +1088,7 @@ In case you want to see the what the Alert API offers please check out the <a hr
     <span class="p">)</span>
 </code></pre></div>
 <h3 id="add-file-based-observables">Add file based observables</h3>
-<p>In the previous examples we've seen how to handle simple observables without attachments. Next we will create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:</p>
+<p>In the previous examples we've seen how to handle observables without attachments. However sometimes we also want to add attachments to an observable not only textual data. Fortunately that is supported by TheHive. So in the next example let's create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
@@ -1100,7 +1101,7 @@ In case you want to see the what the Alert API offers please check out the <a hr
 <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
 
     <span class="n">observable_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;my-observable.txt&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
         <span class="n">observable_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;some observable content&quot;</span><span class="p">)</span>
 
     <span class="n">attachment_key</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
@@ -1122,9 +1123,9 @@ In case you want to see the what the Alert API offers please check out the <a hr
 <p>This way TheHive will know which attachment to pair with which observable behind the scenes.</p>
 <p>In our example <code>attachment_key</code> is used to specify the relationship between the observable and the actual file. In this case its value is a uuid, however it can be any arbitrary value, though it's important that it should uniquely identify the attachment and the observable we would like to pair in TheHive.</p>
 <h2 id="update-single-and-bulk">Update single and bulk</h2>
-<p>Sometimes an existing alert needs to be updated. <code>thehive4py</code> offers multiple ways to accomplish this task either with a single alert or multiple ones.</p>
+<p>Creating alerts is fun but sometimes an existing alert also needs to be updated. As expected <code>thehive4py</code> offers multiple ways to accomplish this task either on a single alert or multiple ones.</p>
 <h3 id="update-single">Update single</h3>
-<p>A single alert can be updated using <a class="autorefs autorefs-internal" title="            update(alert_id, fields)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.update">alert.update</a> method. The method requires the <code>alert_id</code> of the alert to be updated and the <code>fields</code> to update.</p>
+<p>A single alert can be updated using the <a class="autorefs autorefs-internal" title="            update(alert_id, fields)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.update">alert.update</a> method. The method requires the <code>alert_id</code> of the alert to be updated and the <code>fields</code> to update.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
@@ -1153,16 +1154,16 @@ In case you want to see the what the Alert API offers please check out the <a hr
 <span class="n">updated_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
 </code></pre></div>
 <p>In the above example we've updated the <code>title</code> and the <code>tags</code> fields.</p>
-<p>Be mindful though, <code>thehive4py</code> is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the original <code>original_alert</code> won't reflect the changes of the update.</p>
-<p>To work with the updated alert we fetched the latest version using the <a class="autorefs autorefs-internal" title="            get(alert_id)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.get">alert.get</a> method and stored it in the <code>updated_alert</code> variable.</p>
+<p>Be mindful though, <code>thehive4py</code> is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the <code>original_alert</code> won't reflect the changes of the update.</p>
+<p>In order to work with the updated alert we had to fetch the latest version using the <a class="autorefs autorefs-internal" title="            get(alert_id)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.get">alert.get</a> method and store it in the <code>updated_alert</code> variable.</p>
 <p>Now the content of <code>updated_alert</code> should reflect the changes we made with our update request.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To see the full list of supported update fields please consult the <a href="https://docs.strangebee.com/thehive/api-docs/#tag/Alert/operation/Update%20Alert">official docs</a>.</p>
 </div>
 <h3 id="update-bulk">Update bulk</h3>
-<p>To update the <strong>same fields</strong> with the <strong>same values</strong> on multiple alerts at the same time, one can use <a class="autorefs autorefs-internal" title="            bulk_update(fields)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.bulk_update">alert.bulk_update</a> method. 
-The method accepts the same <code>fields</code> dictionary with an additional <code>ids</code> field on it, which should contain the list of ids of the alerts to be bulk updated.</p>
+<p>It is also possible to update many alerts at the same time, however there's a constraint: the content of the <code>fields</code> property will be applied to all the specified alerts uniformly. With all that said one can use <a class="autorefs autorefs-internal" title="            bulk_update(fields)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.bulk_update">alert.bulk_update</a> method for bulk updates. 
+The method accepts the same <code>fields</code> dictionary as before but with an additional <code>ids</code> field on it, which should contain the list of ids of the alerts to be bulk updated.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
@@ -1195,7 +1196,7 @@ The method accepts the same <code>fields</code> dictionary with an additional <c
 <p>In the example we prepare two alerts for the bulk update, and collect their ids in the <code>original_alert_ids</code> list.
 Then we update the fields <code>title</code> and <code>tags</code> on both alerts using the bulk update method.</p>
 <h2 id="get-and-find">Get and find</h2>
-<p>There are multiple ways to retrieve already existing alerts:</p>
+<p>There are multiple ways to retrieve already existing alerts, we can fetch them one by one or many at once!</p>
 <h3 id="get-a-single-alert">Get a single alert</h3>
 <p>To get a single alert one can use the <a class="autorefs autorefs-internal" title="            get(alert_id)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.get">alert.get</a> method with the alert's id as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
@@ -1220,7 +1221,7 @@ Then we update the fields <code>title</code> and <code>tags</code> on both alert
 <h3 id="find-multiple-alerts">Find multiple alerts</h3>
 <p>To fetch multiple alerts based on arbitrary conditions one can use the <a class="autorefs autorefs-internal" title="            find(filters=None, sortby=None, paginate=None)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.find">alert.find</a> method which is an abstraction on top of TheHive's Query API.</p>
 <p>In the next example we will create two alerts with different tags. The first alert will get the <code>antivirus</code> tag while the second one will get the <code>phishing</code> tag.</p>
-<p>Then we will construct a query filter that will look for alerts with these tags on them:</p>
+<p>Then we will construct query filters in different ways to look for alerts with these tags on them:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
@@ -1254,7 +1255,7 @@ Then we update the fields <code>title</code> and <code>tags</code> on both alert
 <span class="n">raw_filters</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;_or&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span><span class="s2">&quot;_eq&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_field&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;_value&quot;</span><span class="p">:</span> <span class="s2">&quot;antivirus&quot;</span><span class="p">}},</span>
-        <span class="p">{</span><span class="s2">&quot;_eq&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_field&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;_value&quot;</span><span class="p">:</span> <span class="s2">&quot;antivirus&quot;</span><span class="p">}},</span>
+        <span class="p">{</span><span class="s2">&quot;_eq&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_field&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;_value&quot;</span><span class="p">:</span> <span class="s2">&quot;phishing&quot;</span><span class="p">}},</span>
     <span class="p">]</span>
 <span class="p">}</span>
 <span class="n">all_alerts_with_raw_filters</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">raw_filters</span><span class="p">)</span>
@@ -1328,7 +1329,7 @@ To see all available options please consult the <a href="https://docs.strangebee
     <span class="n">alert_id</span><span class="o">=</span><span class="n">new_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">case_id</span><span class="o">=</span><span class="n">parent_case</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>In the above example we prepared a <code>parent_case</code> to which we merge the <code>new_alert</code> using their ids and finally save the updated case in the <code>updated_parent_case</code> variable.</p>
+<p>In the above example we prepared a <code>parent_case</code> to which we merge the <code>new_alert</code> using its id and finally save the updated case in the <code>updated_parent_case</code> variable.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>It can happen that multiple new alerts belong to the same parent case. In such situation we can use the <a class="autorefs autorefs-internal" title="            bulk_merge_into_case(case_id, alert_ids)" href="../../reference/#thehive4py.endpoints.alert.AlertEndpoint.bulk_merge_into_case">alert.bulk_merge_into_case</a> method for a more convenient merge process.</p>
@@ -1385,7 +1386,7 @@ To see all available options please consult the <a href="https://docs.strangebee
 
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">bulk_delete</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="n">alert_ids_to_delete</span><span class="p">)</span>
 </code></pre></div>
-<p>In the above example we created two alerts and saved their ids in the <code>alert_ids_to_delete</code> variable just to pass it in the bulk deletion method.</p>
+<p>In the above example we created two alerts and saved their ids in the <code>alert_ids_to_delete</code> variable just to pass it to the bulk deletion method.</p>
 
 
 
