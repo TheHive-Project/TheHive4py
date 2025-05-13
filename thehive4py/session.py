@@ -85,7 +85,7 @@ class TheHiveSession(requests.Session):
         endpoint_url = f"{self.hive_url}{path}"
 
         headers = {**self.headers}
-        if json:
+        if json is not None:
             data = jsonlib.dumps(json, cls=_SessionJSONEncoder)
             headers = {**headers, "Content-Type": "application/json"}
 
