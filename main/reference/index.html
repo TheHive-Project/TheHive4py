@@ -20311,7 +20311,7 @@ or a <code>Retry</code> object.</p>
     <span class="n">endpoint_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hive_url</span><span class="si">}{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">}</span>
-    <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">json</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">jsonlib</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">_SessionJSONEncoder</span><span class="p">)</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">headers</span><span class="p">,</span> <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
 
