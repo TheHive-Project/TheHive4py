@@ -6,6 +6,21 @@
   }
 </style>
 
+## 2.0.0b10 (2025-05-13)
+### Removed
+* [#401](https://github.com/TheHive-Project/TheHive4py/issues/401) - Remove support for python 3.8 by [@Kamforka](https://github.com/Kamforka) in [#407](https://github.com/TheHive-Project/TheHive4py/pull/407)
+### Fixed
+* [#410](https://github.com/TheHive-Project/TheHive4py/issues/410) - Review and fix alert docs by [@Kamforka](https://github.com/Kamforka) in [#412](https://github.com/TheHive-Project/TheHive4py/pull/412)
+* [#417](https://github.com/TheHive-Project/TheHive4py/issues/417) - consider empty dicts in json requests by [@Kamforka](https://github.com/Kamforka) in [#418](https://github.com/TheHive-Project/TheHive4py/pull/418)
+### Other
+* [#411](https://github.com/TheHive-Project/TheHive4py/issues/411) - Fix changelog linkification script by [@Kamforka](https://github.com/Kamforka) in [#413](https://github.com/TheHive-Project/TheHive4py/pull/413)
+* [#408](https://github.com/TheHive-Project/TheHive4py/issues/408) - Use TheHive 5.4.8 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#409](https://github.com/TheHive-Project/TheHive4py/pull/409)
+* [#414](https://github.com/TheHive-Project/TheHive4py/issues/414) - Use TheHive v5.4.9 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#415](https://github.com/TheHive-Project/TheHive4py/pull/415)
+* [#419](https://github.com/TheHive-Project/TheHive4py/issues/419) - Use TheHive v5.5.1 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#421](https://github.com/TheHive-Project/TheHive4py/pull/421)
+
+
+**Full Changelog**: [2.0.0b9...2.0.0b10](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b9...2.0.0b10)
+
 ## 2.0.0b9 (2025-02-25)
 ### Added
 * [#390](https://github.com/TheHive-Project/TheHive4py/issues/390) - Extend CaseEndpoint with apply_case_template method by [@Kamforka](https://github.com/Kamforka) in [#391](https://github.com/TheHive-Project/TheHive4py/pull/391)
