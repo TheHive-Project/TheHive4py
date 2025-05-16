@@ -31,7 +31,9 @@ class OutputObservableRequired(TypedDict):
     dataType: str
     startDate: int
     tlp: int
+    tlpLabel: str
     pap: int
+    papLabel: str
     ioc: bool
     sighted: bool
     reports: dict
