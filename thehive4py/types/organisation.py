@@ -6,10 +6,14 @@ class InputOrganisationLink(TypedDict, total=False):
     otherLinkType: str
 
 
-class InputBulkOrganisationLink(TypedDict):
+class InputBulkOrganisationLinkRequired(TypedDict):
     toOrganisation: str
     linkType: str
     otherLinkType: str
+
+
+class InputBulkOrganisationLink(InputBulkOrganisationLinkRequired, total=False):
+    avatar: str
 
 
 class OutputSharingProfile(TypedDict):
@@ -60,3 +64,9 @@ class InputUpdateOrganisation(TypedDict, total=False):
     observableRule: str
     locked: bool
     avatar: str
+
+
+class OutputOrganisationLink(TypedDict):
+    linkType: str
+    otherLinkType: str
+    organisation: OutputOrganisation
