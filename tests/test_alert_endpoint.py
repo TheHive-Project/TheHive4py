@@ -99,6 +99,19 @@ class TestAlertEndpoint:
         merged_alert = thehive.alert.get(alert_id=alert_id)
         assert merged_alert.get("caseId") == merged_case["_id"]
 
+    def test_import_into_case(
+        self, thehive: TheHiveApi, test_alert: OutputAlert, test_case: OutputCase
+    ):
+        alert_id = test_alert["_id"]
+        case_id = test_case["_id"]
+
+        imported_case = thehive.alert.import_into_case(
+            alert_id=alert_id, case_id=case_id
+        )
+        imported_alert = thehive.alert.get(alert_id=alert_id)
+
+        assert imported_alert.get("caseId") == imported_case["_id"]
+
     def test_bulk_merge_into_case(
         self, thehive: TheHiveApi, test_alerts: List[OutputAlert], test_case: OutputCase
     ):
@@ -135,6 +148,16 @@ class TestAlertEndpoint:
         for alert_id in alert_ids:
             with pytest.raises(TheHiveError):
                 thehive.alert.get(alert_id)
+
+    def test_get_similar_observables(
+        self, thehive: TheHiveApi, test_alerts: List[OutputAlert]
+    ):
+
+        similar_observables = thehive.alert.get_similar_observables(
+            alert_id=test_alerts[0]["_id"], alert_or_case_id=test_alerts[1]["_id"]
+        )
+
+        assert similar_observables == []
 
     def test_create_and_get_observable(
         self, thehive: TheHiveApi, test_alert: OutputAlert
@@ -262,11 +285,12 @@ class TestAlertEndpoint:
         )
 
         for attachment, path in zip(added_attachments, download_attachment_paths):
-            thehive.alert.download_attachment(
-                alert_id=test_alert["_id"],
-                attachment_id=attachment["_id"],
-                attachment_path=path,
-            )
+            with pytest.deprecated_call():
+                thehive.alert.download_attachment(
+                    alert_id=test_alert["_id"],
+                    attachment_id=attachment["_id"],
+                    attachment_path=path,
+                )
 
         for original, downloaded in zip(attachment_paths, download_attachment_paths):
             with open(original) as original_fp, open(downloaded) as downloaded_fp:

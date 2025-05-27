@@ -1,4 +1,5 @@
 import json as jsonlib
+import warnings
 from typing import Any, Dict, List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
@@ -56,6 +57,17 @@ class AlertEndpoint(EndpointBase):
 
         return self._session.make_request("GET", path=f"/api/v1/alert/{alert_id}")
 
+    def delete(self, alert_id: str) -> None:
+        """Delete an alert.
+
+        Args:
+            alert_id: The id of the alert.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request("DELETE", path=f"/api/v1/alert/{alert_id}")
+
     def update(self, alert_id: str, fields: InputUpdateAlert) -> None:
         """Update an alert.
 
@@ -70,17 +82,6 @@ class AlertEndpoint(EndpointBase):
             "PATCH", path=f"/api/v1/alert/{alert_id}", json=fields
         )
 
-    def delete(self, alert_id: str) -> None:
-        """Delete an alert.
-
-        Args:
-            alert_id: The id of the alert.
-
-        Returns:
-            N/A
-        """
-        return self._session.make_request("DELETE", path=f"/api/v1/alert/{alert_id}")
-
     def bulk_update(self, fields: InputBulkUpdateAlert) -> None:
         """Update multiple alerts with the same values.
 
@@ -94,17 +95,22 @@ class AlertEndpoint(EndpointBase):
             "PATCH", path="/api/v1/alert/_bulk", json=fields
         )
 
-    def bulk_delete(self, ids: List[str]) -> None:
-        """Delete multiple alerts.
+    def promote_to_case(
+        self, alert_id: str, fields: InputPromoteAlert = {}
+    ) -> OutputCase:
+        """Promote an alert into a case.
 
         Args:
-            ids: The ids of the alerts to delete.
+            alert_id: The id of the alert.
+            fields: Override for the fields of the case created from the alert.
 
         Returns:
-            N/A
+            The case from the promoted alert.
         """
         return self._session.make_request(
-            "POST", path="/api/v1/alert/delete/_bulk", json={"ids": ids}
+            "POST",
+            path=f"/api/v1/alert/{alert_id}/case",
+            json=fields,
         )
 
     def follow(self, alert_id: str) -> None:
@@ -129,22 +135,153 @@ class AlertEndpoint(EndpointBase):
         """
         self._session.make_request("POST", path=f"/api/v1/alert/{alert_id}/unfollow")
 
-    def promote_to_case(
-        self, alert_id: str, fields: InputPromoteAlert = {}
-    ) -> OutputCase:
-        """Promote an alert into a case.
+    def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
+        """Merge an alert into an existing case.
 
         Args:
-            alert_id: The id of the alert.
-            fields: Override for the fields of the case created from the alert.
+            alert_id: The id of the alert to merge.
+            case_id: The id of the case to merge the alert into.
 
         Returns:
-            The case from the promoted alert.
+            The case into which the alert was merged.
+        """
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{alert_id}/merge/{case_id}"
+        )
+
+    def import_into_case(self, alert_id: str, case_id: str) -> OutputCase:
+        """Import alert observables and procedures into an existing case.
+
+        Args:
+            alert_id: The id of the alert to merge.
+            case_id: The id of the case to merge the alert into.
+
+        Returns:
+            The case into which the alert observables/procedures were imported.
+        """
+        return self._session.make_request(
+            "POST", path=f"/api/v1/alert/{alert_id}/import/{case_id}"
+        )
+
+    def bulk_merge_into_case(self, case_id: str, alert_ids: List[str]) -> OutputCase:
+        """Merge an alert into an existing case.
+
+        Args:
+            case_id: The id of the case to merge the alerts into.
+            alert_ids: The list of alert ids to merge.
+
+        Returns:
+            The case into which the alerts were merged.
         """
         return self._session.make_request(
             "POST",
-            path=f"/api/v1/alert/{alert_id}/case",
-            json=fields,
+            path="/api/v1/alert/merge/_bulk",
+            json={"caseId": case_id, "alertIds": alert_ids},
+        )
+
+    def bulk_delete(self, ids: List[str]) -> None:
+        """Delete multiple alerts.
+
+        Args:
+            ids: The ids of the alerts to delete.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", path="/api/v1/alert/delete/_bulk", json={"ids": ids}
+        )
+
+    def get_similar_observables(
+        self, alert_id: str, alert_or_case_id: str
+    ) -> List[OutputObservable]:
+        """Get similar observables between an alert and another alert or case.
+
+        Args:
+            alert_id: The id of the alert to use as base for observable similarity.
+            alert_or_case_id: The id of the alert/case to get similar observables from.
+
+        Returns:
+            The list of similar observables.
+        """
+        return self._session.make_request(
+            "GET",
+            path=f"/api/v1/alert/{alert_id}/similar/{alert_or_case_id}/observables",
+        )
+
+    def add_attachment(
+        self,
+        alert_id: str,
+        attachment_paths: List[str],
+        can_rename: bool = True,
+    ) -> List[OutputAttachment]:
+        """Create an attachment in an alert.
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_paths: List of paths to the attachments to create.
+            can_rename: If set to True, the files can be renamed if they already exist
+                with the same name.
+
+        Returns:
+            The created alert attachments.
+        """
+        files = [
+            ("attachments", self._fileinfo_from_filepath(attachment_path))
+            for attachment_path in attachment_paths
+        ]
+        return self._session.make_request(
+            "POST",
+            f"/api/v1/alert/{alert_id}/attachments",
+            data={"canRename": can_rename},
+            files=files,
+        )["attachments"]
+
+    def delete_attachment(self, alert_id: str, attachment_id: str) -> None:
+        """Delete an alert attachment.
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_id: The id of the alert attachment.
+
+        Returns:
+            N/A
+        """
+
+        return self._session.make_request(
+            "DELETE", path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}"
+        )
+
+    def download_attachment(
+        self, alert_id: str, attachment_id: str, attachment_path: str
+    ) -> None:
+        """Download an alert attachment.
+
+        !!! warning
+            Deprecated: use [organisation.download_attachment]
+            [thehive4py.endpoints.organisation.OrganisationEndpoint.download_attachment]
+            instead
+
+        Args:
+            alert_id: The id of the alert.
+            attachment_id: The id of the alert attachment.
+            attachment_path: The local path to download the attachment to.
+
+        Returns:
+            N/A
+        """
+
+        warnings.warn(
+            message=(
+                "Deprecated: use the organisation.download_attachment method instead"
+            ),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+        return self._session.make_request(
+            "GET",
+            path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}/download",
+            download_path=attachment_path,
         )
 
     def create_observable(
@@ -169,90 +306,6 @@ class AlertEndpoint(EndpointBase):
         )
         return self._session.make_request(
             "POST", path=f"/api/v1/alert/{alert_id}/observable", **kwargs
-        )
-
-    def add_attachment(
-        self, alert_id: str, attachment_paths: List[str]
-    ) -> List[OutputAttachment]:
-        """Create an attachment in an alert.
-
-        Args:
-            alert_id: The id of the alert.
-            attachment_paths: List of paths to the attachments to create.
-
-        Returns:
-            The created alert attachments.
-        """
-        files = [
-            ("attachments", self._fileinfo_from_filepath(attachment_path))
-            for attachment_path in attachment_paths
-        ]
-        return self._session.make_request(
-            "POST", f"/api/v1/alert/{alert_id}/attachments", files=files
-        )["attachments"]
-
-    def download_attachment(
-        self, alert_id: str, attachment_id: str, attachment_path: str
-    ) -> None:
-        """Download an alert attachment.
-
-        Args:
-            alert_id: The id of the alert.
-            attachment_id: The id of the alert attachment.
-            attachment_path: The local path to download the attachment to.
-
-        Returns:
-            N/A
-        """
-        return self._session.make_request(
-            "GET",
-            path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}/download",
-            download_path=attachment_path,
-        )
-
-    def delete_attachment(self, alert_id: str, attachment_id: str) -> None:
-        """Delete an alert attachment.
-
-        Args:
-            alert_id: The id of the alert.
-            attachment_id: The id of the alert attachment.
-
-        Returns:
-            N/A
-        """
-
-        return self._session.make_request(
-            "DELETE", path=f"/api/v1/alert/{alert_id}/attachment/{attachment_id}"
-        )
-
-    def merge_into_case(self, alert_id: str, case_id: str) -> OutputCase:
-        """Merge an alert into an existing case.
-
-        Args:
-            alert_id: The id of the alert to merge.
-            case_id: The id of the case to merge the alert into.
-
-        Returns:
-            The case into which the alert was merged.
-        """
-        return self._session.make_request(
-            "POST", path=f"/api/v1/alert/{alert_id}/merge/{case_id}"
-        )
-
-    def bulk_merge_into_case(self, case_id: str, alert_ids: List[str]) -> OutputCase:
-        """Merge an alert into an existing case.
-
-        Args:
-            case_id: The id of the case to merge the alerts into.
-            alert_ids: The list of alert ids to merge.
-
-        Returns:
-            The case into which the alerts were merged.
-        """
-        return self._session.make_request(
-            "POST",
-            path="/api/v1/alert/merge/_bulk",
-            json={"caseId": case_id, "alertIds": alert_ids},
         )
 
     def find(
