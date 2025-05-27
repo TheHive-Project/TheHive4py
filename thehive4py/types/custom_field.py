@@ -13,7 +13,6 @@ class InputCustomFieldValue(InputCustomFieldValueRequired, total=False):
 class OutputCustomFieldValue(TypedDict):
     _id: str
     name: str
-    description: str
     type: str
     value: Any
     order: int

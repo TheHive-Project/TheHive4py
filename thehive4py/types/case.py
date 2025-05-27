@@ -1,5 +1,6 @@
-from typing import List, Literal, TypedDict
+from typing import Any, List, Literal, TypedDict, Union
 
+from thehive4py.types.observable import OutputObservable
 from thehive4py.types.page import InputCasePage
 from thehive4py.types.share import InputShare
 
@@ -52,7 +53,8 @@ class InputCase(InputCaseRequired, total=False):
     status: CaseStatusValue
     summary: str
     assignee: str
-    customFields: List[InputCustomFieldValue]
+    access: dict
+    customFields: Union[List[InputCustomFieldValue], dict]
     caseTemplate: str
     tasks: List[InputTask]
     pages: List[InputCasePage]
@@ -79,6 +81,7 @@ class OutputCaseRequired(TypedDict):
     papLabel: str
     status: CaseStatusValue
     stage: str
+    access: dict
     extraData: dict
     newDate: int
     timeToDetect: int
@@ -121,7 +124,7 @@ class InputUpdateCase(TypedDict, total=False):
     summary: str
     assignee: str
     impactStatus: str
-    customFields: List[InputCustomFieldValue]
+    customFields: Union[List[InputCustomFieldValue], dict]
     taskRule: str
     observableRule: str
     addTags: List[str]
@@ -158,3 +161,51 @@ class InputApplyCaseTemplate(InputApplyCaseTemplateRequired, total=False):
     updateCustomFields: bool
     importTasks: List[str]
     importPages: List[str]
+
+
+class OutputCaseObservableMerge(TypedDict):
+    untouched: int
+    updated: int
+    deleted: int
+
+
+class OutputCaseLinkRequired(TypedDict):
+    linksCount: int
+
+
+class OutputCaseLink(OutputCase, OutputCaseLinkRequired, total=False):
+    linkedWith: List[OutputObservable]
+
+
+class OutputImportCaseRequired(TypedDict):
+    case: OutputCase
+
+
+class OutputImportCase(OutputImportCaseRequired, total=False):
+    observables: List[OutputObservable]
+    procedures: List[OutputObservable]
+    errors: List[Any]
+
+
+class InputCaseOwnerOrganisationRequired(TypedDict):
+    organisation: str
+
+
+class InputCaseOwnerOrganisation(InputCaseOwnerOrganisationRequired, total=False):
+    keepProfile: str
+    taskRule: str
+    observableRule: str
+
+
+class InputCaseAccess(TypedDict):
+    access: dict  # TODO: refine type hint
+
+
+class InputCaseLink(TypedDict):
+    type: str
+    caseId: str
+
+
+class InputURLLink(TypedDict):
+    type: str
+    url: str

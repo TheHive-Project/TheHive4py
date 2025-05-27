@@ -3,17 +3,21 @@ from typing import List
 
 import pytest
 
+from tests.utils import TestConfig
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.helpers import now_to_ts
 from thehive4py.query.filters import Eq
+from thehive4py.query.page import Paginate
 from thehive4py.query.sort import Asc
 from thehive4py.types.alert import OutputAlert
 from thehive4py.types.case import (
     CaseStatus,
     ImpactStatus,
     InputBulkUpdateCase,
+    InputCaseLink,
     InputUpdateCase,
+    InputURLLink,
     OutputCase,
 )
 from thehive4py.types.case_template import OutputCaseTemplate
@@ -200,6 +204,88 @@ class TestCaseEndpoint:
             is True
         )
 
+    def test_change_owner_organisation(
+        self, thehive: TheHiveApi, test_case: OutputCase, test_config: TestConfig
+    ):
+        thehive.case.change_owner_organisation(
+            case_id=test_case["_id"], fields={"organisation": test_config.main_org}
+        )
+
+    def test_manage_access(self, thehive: TheHiveApi, test_case: OutputCase):
+
+        assert test_case["access"]["_kind"] == "OrganisationAccessKind"
+        thehive.case.manage_access(
+            case_id=test_case["_id"],
+            fields={
+                "access": {"_kind": "UserAccessKind", "users": ["admin@thehive.local"]}
+            },
+        )
+        restricted_case = thehive.case.get(case_id=test_case["_id"])
+        assert restricted_case["access"]["_kind"] == "UserAccessKind"
+
+    def test_get_similar_observables(
+        self, thehive: TheHiveApi, test_cases: List[OutputCase]
+    ):
+
+        similar_observables = thehive.case.get_similar_observables(
+            case_id=test_cases[0]["_id"], alert_or_case_id=test_cases[1]["_id"]
+        )
+
+        assert similar_observables == []
+
+    def test_link_and_unlink_case_with_case(
+        self, thehive: TheHiveApi, test_cases: List[OutputCase]
+    ):
+
+        case_link: InputCaseLink = {"type": "whatever", "caseId": test_cases[1]["_id"]}
+
+        thehive.case.link_case(
+            case_id=test_cases[0]["_id"],
+            fields=case_link,
+        )
+        linked_case = thehive.case.find(
+            filters=Eq("_id", test_cases[0]["_id"]),
+            paginate=Paginate(start=0, end=1, extra_data=["links"]),
+        )[0]
+        assert (
+            linked_case["extraData"]["links"]["caseLinks"][0]["caseId"]
+            == test_cases[1]["_id"]
+        )
+
+        thehive.case.delete_case_link(case_id=test_cases[0]["_id"], fields=case_link)
+        unlinked_case = thehive.case.find(
+            filters=Eq("_id", test_cases[0]["_id"]),
+            paginate=Paginate(start=0, end=1, extra_data=["links"]),
+        )[0]
+        assert unlinked_case["extraData"]["links"]["caseLinks"] == []
+
+    def test_link_and_unlink_case_with_url(
+        self, thehive: TheHiveApi, test_case: OutputCase
+    ):
+
+        external_url = "https://example.com"
+        url_link: InputURLLink = {"type": "whatever", "url": external_url}
+
+        thehive.case.link_url(case_id=test_case["_id"], fields=url_link)
+        linked_case = thehive.case.find(
+            filters=Eq("_id", test_case["_id"]),
+            paginate=Paginate(start=0, end=1, extra_data=["links"]),
+        )[0]
+        assert (
+            linked_case["extraData"]["links"]["externalLinks"][0]["url"] == external_url
+        )
+
+        thehive.case.delete_url_link(case_id=test_case["_id"], fields=url_link)
+        unlinked_case = thehive.case.find(
+            filters=Eq("_id", test_case["_id"]),
+            paginate=Paginate(start=0, end=1, extra_data=["links"]),
+        )[0]
+        assert unlinked_case["extraData"]["links"]["externalLinks"] == []
+
+    def test_link_types(self, thehive: TheHiveApi):
+
+        assert thehive.case.get_link_types() == []
+
     def test_add_and_download_attachment(
         self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
     ):
@@ -217,11 +303,12 @@ class TestCaseEndpoint:
         )
 
         for attachment, path in zip(added_attachments, download_attachment_paths):
-            thehive.case.download_attachment(
-                case_id=test_case["_id"],
-                attachment_id=attachment["_id"],
-                attachment_path=path,
-            )
+            with pytest.deprecated_call():
+                thehive.case.download_attachment(
+                    case_id=test_case["_id"],
+                    attachment_id=attachment["_id"],
+                    attachment_path=path,
+                )
 
         for original, downloaded in zip(attachment_paths, download_attachment_paths):
             with open(original) as original_fp, open(downloaded) as downloaded_fp:
