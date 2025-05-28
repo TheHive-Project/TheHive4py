@@ -16,9 +16,16 @@ from thehive4py.types.case import (
     InputApplyCaseTemplate,
     InputBulkUpdateCase,
     InputCase,
+    InputCaseAccess,
+    InputCaseLink,
+    InputCaseOwnerOrganisation,
     InputImportCase,
     InputUpdateCase,
+    InputURLLink,
     OutputCase,
+    OutputCaseLink,
+    OutputCaseObservableMerge,
+    OutputImportCase,
 )
 from thehive4py.types.comment import OutputComment
 from thehive4py.types.observable import InputObservable, OutputObservable
@@ -138,7 +145,7 @@ class CaseEndpoint(EndpointBase):
             "DELETE", path=f"/api/v1/case/{case_id}/alert/{alert_id}"
         )
 
-    def merge_similar_observables(self, case_id: CaseId) -> dict:
+    def merge_similar_observables(self, case_id: CaseId) -> OutputCaseObservableMerge:
         """Merge similar observables of a case.
 
         Args:
@@ -147,12 +154,11 @@ class CaseEndpoint(EndpointBase):
         Returns:
             The metadata of the observable merge operation.
         """
-        # TODO: add better return value type hint
         return self._session.make_request(
             "POST", path=f"/api/v1/case/{case_id}/observable/_merge"
         )
 
-    def get_linked_cases(self, case_id: CaseId) -> List[OutputCase]:
+    def get_linked_cases(self, case_id: CaseId) -> List[OutputCaseLink]:
         """Get other cases linked to a case.
 
         Args:
@@ -176,7 +182,9 @@ class CaseEndpoint(EndpointBase):
             "DELETE", path=f"/api/v1/case/customField/{custom_field_id}"
         )
 
-    def import_from_file(self, import_case: InputImportCase, import_path: str) -> dict:
+    def import_from_file(
+        self, import_case: InputImportCase, import_path: str
+    ) -> OutputImportCase:
         """Import a case from a .thar archive file.
 
         Args:
@@ -186,7 +194,6 @@ class CaseEndpoint(EndpointBase):
         Returns:
             The metadata of the case import operation.
         """
-        # TODO: add better return type hints
         return self._session.make_request(
             "POST",
             path="/api/v1/case/import",
@@ -214,17 +221,6 @@ class CaseEndpoint(EndpointBase):
             download_path=export_path,
         )
 
-    def get_timeline(self, case_id: CaseId) -> OutputTimeline:
-        """Get the timeline of a case.
-
-        Args:
-            case_id: The id of the case with the timeline.
-
-        Returns:
-            The case timeline.
-        """
-        return self._session.make_request("GET", f"/api/v1/case/{case_id}/timeline")
-
     def apply_case_template(self, fields: InputApplyCaseTemplate) -> None:
         """Retroactively apply a case template on a case.
 
@@ -237,6 +233,128 @@ class CaseEndpoint(EndpointBase):
         return self._session.make_request(
             "POST", "/api/v1/case/_bulk/caseTemplate", json=fields
         )
+
+    def change_owner_organisation(
+        self, case_id: CaseId, fields: InputCaseOwnerOrganisation
+    ) -> None:
+        """Update the current owner of the case.
+
+        Beware, the current organisation could lose access to the case
+        if no profile is set.
+
+        Args:
+            case_id: The id of the case.
+            fields: The metadata of the case owner organisation.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/owner", json=fields
+        )
+
+    def manage_access(self, case_id: CaseId, fields: InputCaseAccess) -> None:
+        """Make a case private or public and manage the selected users.
+
+        Args:
+            case_id: The id of the case.
+            fields: The metadata of the case access.
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/access", json=fields
+        )
+
+    def get_similar_observables(
+        self, case_id: CaseId, alert_or_case_id: str
+    ) -> List[OutputObservable]:
+        """Get similar observables between a case and another case or alert.
+
+        Args:
+            case_id: The id of the case to use as base for observable similarity.
+            alert_or_case_id: The id of the alert/case to get similar observables from.
+
+        Returns:
+            The list of similar observables.
+        """
+        return self._session.make_request(
+            "GET", path=f"/api/v1/case/{case_id}/similar/{alert_or_case_id}/observables"
+        )
+
+    def link_case(self, case_id: CaseId, fields: InputCaseLink) -> None:
+        """Add link with another case.
+
+        Args:
+            case_id: The id of the case to link.
+            fields: The metadata of the case link.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/link/case/add", json=fields
+        )
+
+    def link_url(self, case_id: CaseId, fields: InputURLLink) -> None:
+        """Add link with an external URL.
+
+        Args:
+            case_id: The id of the case to link.
+            fields: The metadata of the URL link.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/link/external/add", json=fields
+        )
+
+    def delete_case_link(self, case_id: CaseId, fields: InputCaseLink) -> None:
+        """Delete link with an another case.
+
+        Args:
+            case_id: The id of the case to unlink.
+            fields: The metadata of the existing case link.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/link/case/remove", json=fields
+        )
+
+    def delete_url_link(self, case_id: CaseId, fields: InputURLLink) -> None:
+        """Delete link with an external URL.
+
+        Args:
+            case_id: The id of the case to unlink.
+            fields: The metadata of the existing case link.
+
+        Returns:
+            N/A
+        """
+        return self._session.make_request(
+            "POST", f"/api/v1/case/{case_id}/link/external/remove", json=fields
+        )
+
+    def get_link_types(self) -> List[str]:
+        """Get all link types.
+
+        Returns:
+            The list of all link types.
+
+        """
+        return self._session.make_request("GET", "/api/v1/case/link/types")
+
+    def get_timeline(self, case_id: CaseId) -> OutputTimeline:
+        """Get the timeline of a case.
+
+        Args:
+            case_id: The id of the case with the timeline.
+
+        Returns:
+            The case timeline.
+        """
+        return self._session.make_request("GET", f"/api/v1/case/{case_id}/timeline")
 
     def add_attachment(
         self, case_id: CaseId, attachment_paths: List[str]
@@ -264,6 +382,11 @@ class CaseEndpoint(EndpointBase):
     ) -> None:
         """Download a case attachment.
 
+        !!! warning
+            Deprecated: use [organisation.download_attachment]
+            [thehive4py.endpoints.organisation.OrganisationEndpoint.download_attachment]
+            instead
+
         Args:
             case_id: The id of the case.
             attachment_id: The id of the case attachment.
@@ -272,6 +395,13 @@ class CaseEndpoint(EndpointBase):
         Returns:
             N/A
         """
+        warnings.warn(
+            message=(
+                "Deprecated: use the organisation.download_attachment method instead"
+            ),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
         return self._session.make_request(
             "GET",
             path=f"/api/v1/case/{case_id}/attachment/{attachment_id}/download",
@@ -303,11 +433,29 @@ class CaseEndpoint(EndpointBase):
         """
         return self._session.make_request("GET", path=f"/api/v1/case/{case_id}/shares")
 
+    def set_share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
+        """Set the share for a case with other organisations.
+
+        For each organisation, you can define a profile (level of access) that the org
+        will receive. Contrary to `share` this method can delete and update already
+        existing shares.
+
+        Args:
+            case_id: The id of the case.
+            shares: The list of organisational share rules.
+
+        Returns:
+            The list of organisation shares of the case.
+        """
+        return self._session.make_request(
+            "PUT", path=f"/api/v1/case/{case_id}/shares", json={"shares": shares}
+        )
+
     def share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
         """Share the case with other organisations.
 
         For each organisation, you can define a profile (level of access) that the org
-        will receive. This request will only create new shares and will not update or
+        will receive. This method will only create new shares and will not update or
         delete existing shares.
 
         Args:
@@ -335,23 +483,6 @@ class CaseEndpoint(EndpointBase):
             "DELETE",
             path=f"/api/v1/case/{case_id}/shares",
             json={"organisations": organisation_ids},
-        )
-
-    def set_share(self, case_id: CaseId, shares: List[InputShare]) -> List[OutputShare]:
-        """Set the share for a case with other organisations.
-
-        For each organisation, you can define a profile (level of access) that the org
-        will receive. This request can delete and update already existing shares.
-
-        Args:
-            case_id: The id of the case.
-            shares: The list of organisational share rules.
-
-        Returns:
-            The list of organisation shares of the case.
-        """
-        return self._session.make_request(
-            "PUT", path=f"/api/v1/case/{case_id}/shares", json={"shares": shares}
         )
 
     def remove_share(self, share_id: str) -> None:
