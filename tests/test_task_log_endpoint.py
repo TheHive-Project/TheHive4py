@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.helpers import now_to_ts
@@ -22,6 +23,29 @@ class TestTaskLogEndpoint:
         fetched_log = thehive.task_log.get(task_log_id=created_log["_id"])
 
         assert created_log == fetched_log
+
+    def test_create_with_attachment(
+        self, thehive: TheHiveApi, test_task: OutputTask, tmp_path: Path
+    ):
+
+        attachment_paths = [str(tmp_path / f"attachment-{i}.txt") for i in range(2)]
+
+        for path in attachment_paths:
+            with open(path, "w") as attachment_fp:
+                attachment_fp.write(f"content of {path}")
+
+        log_with_attachment = thehive.task_log.create(
+            task_id=test_task["_id"],
+            task_log={
+                "message": "My test log",
+                "includeInTimeline": now_to_ts(),
+                "startDate": now_to_ts(),
+                "attachments": attachment_paths,
+            },
+        )
+
+        assert "attachments" in log_with_attachment
+        assert len(log_with_attachment["attachments"]) == len(attachment_paths)
 
     def test_delete(self, thehive: TheHiveApi, test_task_log: OutputTaskLog):
         thehive.task_log.delete(task_log_id=test_task_log["_id"])
@@ -45,9 +69,36 @@ class TestTaskLogEndpoint:
         with open(attachment_path, "w") as attachment_fp:
             attachment_fp.write("some content...")
 
-        thehive.task_log.add_attachments(
+        thehive.task_log.add_attachment(
             task_log_id=test_task_log["_id"], attachment_paths=[attachment_path]
         )
+
+        attachments = thehive.task_log.get(task_log_id=test_task_log["_id"]).get(
+            "attachments", []
+        )
+
+        for attachment in attachments:
+            thehive.task_log.delete_attachment(
+                task_log_id=test_task_log["_id"], attachment_id=attachment["_id"]
+            )
+
+        attachments = thehive.task_log.get(task_log_id=test_task_log["_id"]).get(
+            "attachments", []
+        )
+
+        assert attachments == []
+
+    def test_add_and_delete_attachments(
+        self, thehive: TheHiveApi, test_task_log: OutputTaskLog, tmp_path: Path
+    ):
+        attachment_path = str(tmp_path / "my-attachment.txt")
+        with open(attachment_path, "w") as attachment_fp:
+            attachment_fp.write("some content...")
+
+        with pytest.deprecated_call():
+            thehive.task_log.add_attachments(
+                task_log_id=test_task_log["_id"], attachment_paths=[attachment_path]
+            )
 
         attachments = thehive.task_log.get(task_log_id=test_task_log["_id"]).get(
             "attachments", []
