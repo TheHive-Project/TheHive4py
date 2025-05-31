@@ -6,6 +6,35 @@
   }
 </style>
 
+## 2.0.0b11 (2025-05-31)
+### Added
+* [#302](https://github.com/TheHive-Project/TheHive4py/issues/302) - Add `organisation.add_attachment`, `organisation.delete_attachment`, `organisation.download_attachment` and `organisation.find_attachments` methods by [@Kamforka](https://github.com/Kamforka) in [#432](https://github.com/TheHive-Project/TheHive4py/pull/432)
+* [#434](https://github.com/TheHive-Project/TheHive4py/issues/434) - Add `alert.import_into_case` and `alert.get_similar_observables` methods by [@Kamforka](https://github.com/Kamforka) in [#439](https://github.com/TheHive-Project/TheHive4py/pull/439)
+* [#435](https://github.com/TheHive-Project/TheHive4py/issues/435) - Add `case.change_owner_organisation`, `case.manage_access`, `case.get_similar_observables`, `case.link_case`, `case.delete_case_link`, `case.link_url`, `case.delete_url_link` and `case.get_link_types` methods by [@Kamforka](https://github.com/Kamforka)  in [#450](https://github.com/TheHive-Project/TheHive4py/pull/450)
+* [#435](https://github.com/TheHive-Project/TheHive4py/issues/435) - Add `case.OutputCaseObservableMerge`, `case.OutputCaseLink`, `case.OutputImportCase`, `case.InputCaseOwnerOrganisation`, `case.InputCaseAccess`, `case.InputCaseLink` and `case.InputURLLink` types by [@Kamforka](https://github.com/Kamforka)  in [#450](https://github.com/TheHive-Project/TheHive4py/pull/450)
+* [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Introduce `task_log.add_attachment` method to comply with the naming convention in other endpoints by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
+### Changed
+* [#428](https://github.com/TheHive-Project/TheHive4py/issues/428) - Update `observable.OutputObservableRequired` type by [@3lina](https://github.com/3lina) in [#430](https://github.com/TheHive-Project/TheHive4py/pull/430)
+* [#302](https://github.com/TheHive-Project/TheHive4py/issues/302) - Update `organisation.InputBulkOrganisationLink` type by [@Kamforka](https://github.com/Kamforka) in [#432](https://github.com/TheHive-Project/TheHive4py/pull/432)
+* [#435](https://github.com/TheHive-Project/TheHive4py/issues/435) - Update `case.InputCase`, `case.OutputCase`, `case.InputUpdateCase` and `custom_field.OutputCustomFieldValue` types by [@Kamforka](https://github.com/Kamforka)  in [#450](https://github.com/TheHive-Project/TheHive4py/pull/450)
+* [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Update `task_log.create` method to support creation of logs with attachments by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
+* [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Update `task_log.InputTaskLog` and `task_log.OutputTaskLog` types by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
+
+### Deprecated
+* [#434](https://github.com/TheHive-Project/TheHive4py/issues/434) - Deprecate `alert.download_attachment` method in favour of `organisation.download_attachment` by [@Kamforka](https://github.com/Kamforka) in [#439](https://github.com/TheHive-Project/TheHive4py/pull/439)
+* [#435](https://github.com/TheHive-Project/TheHive4py/issues/435) - Deprecate `case.download_attachment` method in favour of `organisation.download_attachment` by [@Kamforka](https://github.com/Kamforka) in [#450](https://github.com/TheHive-Project/TheHive4py/pull/450)
+* [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Deprecate `task_log.add_attachments` method in favour of `task_log.add_attachment` (note the missing `s` at the end) to comply with the naming convention in other endpoints by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
+
+### Other
+* [#302](https://github.com/TheHive-Project/TheHive4py/issues/302) - Add docstrings to the `organisation` endpoints by [@Kamforka](https://github.com/Kamforka) in [#432](https://github.com/TheHive-Project/TheHive4py/pull/432)
+* [#425](https://github.com/TheHive-Project/TheHive4py/issues/425) - Use TheHive v5.5.2 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#433](https://github.com/TheHive-Project/TheHive4py/pull/433)
+* [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Add docstrings to the `task_log` endpoints by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
+
+## New Contributors
+* [@3lina](https://github.com/3lina) made their first contribution in [#430](https://github.com/TheHive-Project/TheHive4py/pull/430)
+
+**Full Changelog**: [2.0.0b10...2.0.0b11](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b10...2.0.0b11)
+
 ## 2.0.0b10 (2025-05-13)
 ### Removed
 * [#401](https://github.com/TheHive-Project/TheHive4py/issues/401) - Remove support for python 3.8 by [@Kamforka](https://github.com/Kamforka) in [#407](https://github.com/TheHive-Project/TheHive4py/pull/407)
