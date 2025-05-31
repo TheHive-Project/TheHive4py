@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "thehive4py"
 description = "Python client for TheHive5"
-version = "2.0.0b10"
+version = "2.0.0b11"
 requires-python = ">=3.9"
 dependencies = ["requests~=2.27"]
 readme = "README.md"
@@ -29,7 +29,7 @@ authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
 docs = ["mkdocs", "mkdocs-material", "mkdocstrings-python", "mike"]
-lint = ["black",  "flake8-pyproject", "mypy", "pre-commit"]
+lint = ["black", "flake8-pyproject", "mypy", "pre-commit"]
 test = ["pytest", "pytest-cov"]
 dev = ["thehive4py[audit, lint, test, build, docs]"]
 
@@ -43,7 +43,7 @@ thehive4py = ["py.typed"]
 omit = ["tests/*", "thehive4py/types/*"]
 
 [tool.flake8]
-max-line-length=88
+max-line-length = 88
 per-file-ignores = [
     "thehive4py/__init__.py:F401",
     "thehive4py/endpoints/__init__.py:F401",
