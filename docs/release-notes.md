@@ -30,7 +30,7 @@
 * [#425](https://github.com/TheHive-Project/TheHive4py/issues/425) - Use TheHive v5.5.2 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#433](https://github.com/TheHive-Project/TheHive4py/pull/433)
 * [#438](https://github.com/TheHive-Project/TheHive4py/issues/438) - Add docstrings to the `task_log` endpoints by [@Kamforka](https://github.com/Kamforka) in [#451](https://github.com/TheHive-Project/TheHive4py/pull/451)
 
-## New Contributors
+### New Contributors
 * [@3lina](https://github.com/3lina) made their first contribution in [#430](https://github.com/TheHive-Project/TheHive4py/pull/430)
 
 **Full Changelog**: [2.0.0b10...2.0.0b11](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b10...2.0.0b11)

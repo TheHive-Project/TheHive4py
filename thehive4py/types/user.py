@@ -1,4 +1,6 @@
-from typing import List, TypedDict
+from typing import List, Literal, TypedDict
+
+InputUserType = Literal["Normal", "Service"]
 
 
 class InputUserRequired(TypedDict):
@@ -11,13 +13,28 @@ class InputUser(InputUserRequired, total=False):
     email: str
     password: str
     organisation: str
-    type: str
+    type: InputUserType
 
 
-class OutputOrganisationProfile(TypedDict):
+class OrganisationLinkRequired(TypedDict):
+    toOrganisation: str
+    linkType: str
+    otherLinkType: str
+
+
+class OrganisationLink(OrganisationLinkRequired, total=False):
+    avatar: str
+
+
+class OutputOrganisationProfileRequired(TypedDict):
     organisationId: str
     organisation: str
     profile: str
+
+
+class OutputOrganisationProfile(OutputOrganisationProfileRequired, total=False):
+    avatar: str
+    links: List[OrganisationLink]
 
 
 class OutputUserRequired(TypedDict):
@@ -54,6 +71,7 @@ class InputUpdateUser(TypedDict, total=False):
     avatar: str
     email: str
     defaultOrganisation: str
+    type: InputUserType
 
 
 class InputUserOrganisationRequired(TypedDict):
