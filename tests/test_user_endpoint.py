@@ -10,10 +10,10 @@ from thehive4py.types.user import InputUpdateUser, InputUserOrganisation, Output
 
 
 class TestUserEndpoint:
-    def test_get_current(self, thehive: TheHiveApi):
-        # TODO: implement a better control for user checking
+
+    def test_get_current(self, thehive: TheHiveApi, test_config: TestConfig):
         current_user = thehive.user.get_current()
-        assert current_user["login"] == "admin@thehive.local"
+        assert current_user["login"] == test_config.user
 
     def test_create_and_get(self, thehive: TheHiveApi):
         created_user = thehive.user.create(
@@ -47,11 +47,13 @@ class TestUserEndpoint:
     def test_lock_and_unlock(self, thehive: TheHiveApi, test_user: OutputUser):
         user_id = test_user["_id"]
 
-        thehive.user.lock(user_id=user_id)
+        with pytest.deprecated_call():
+            thehive.user.lock(user_id=user_id)
         locked_user = thehive.user.get(user_id=user_id)
         assert locked_user["locked"] is True
 
-        thehive.user.unlock(user_id=user_id)
+        with pytest.deprecated_call():
+            thehive.user.unlock(user_id=user_id)
         unlocked_user = thehive.user.get(user_id=user_id)
         assert unlocked_user["locked"] is False
 
@@ -61,7 +63,6 @@ class TestUserEndpoint:
         with pytest.raises(TheHiveError):
             thehive.user.get(user_id=user_id)
 
-    @pytest.mark.skip(reason="integrator container only supports a single org ")
     def test_set_organisations(
         self, test_config: TestConfig, thehive: TheHiveApi, test_user: OutputUser
     ):
@@ -73,8 +74,8 @@ class TestUserEndpoint:
             },
             {
                 "default": False,
-                "organisation": test_config.share_org,
-                "profile": "read-only",
+                "organisation": test_config.admin_org,
+                "profile": "admin",
             },
         ]
         user_organisations = thehive.user.set_organisations(
@@ -82,15 +83,32 @@ class TestUserEndpoint:
         )
         assert organisations == user_organisations
 
-    def test_set_password(self, thehive: TheHiveApi, test_user: OutputUser):
+    def test_set_and_change_password(self, thehive: TheHiveApi, test_user: OutputUser):
+
         assert test_user["hasPassword"] is False
         user_id = test_user["_id"]
 
         password = "super-secruht!"
         thehive.user.set_password(user_id=user_id, password=password)
 
-        user_with_password = thehive.user.get(user_id=user_id)
-        assert user_with_password["hasPassword"] is True
+        # apparently the change_password endpoint only works for the current user
+        # meaning no other user can invoke a password change for other users
+        thehive_test_user = TheHiveApi(
+            url=thehive.session.hive_url, username=test_user["login"], password=password
+        )
+
+        user_with_password = thehive_test_user.user.get_current()
+        assert user_with_password
+
+        new_password = "l4m0u|2t0uj0u|25"
+        thehive_test_user.user.change_password(
+            user_id=user_with_password["login"],
+            password=new_password,
+            current_password=password,
+        )
+
+        with pytest.raises(TheHiveError, match="AuthenticationError"):
+            thehive_test_user.user.get_current()
 
     def test_renew_get_and_remove_apikey(
         self, thehive: TheHiveApi, test_user: OutputUser
