@@ -3,6 +3,8 @@ from pathlib import Path
 from typing import List
 
 import pytest
+
+from tests.utils import TestConfig
 from thehive4py import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.sort import Asc
@@ -16,7 +18,7 @@ from thehive4py.types.observable import (
 
 
 class TestObservableEndpoint:
-    def test_create_in_alert_and_get(
+    def test_create_single_in_alert_and_get(
         self, thehive: TheHiveApi, test_alert: OutputAlert
     ):
         created_observable = thehive.observable.create_in_alert(
@@ -32,6 +34,25 @@ class TestObservableEndpoint:
             observable_id=created_observable["_id"]
         )
         assert created_observable == fetched_observable
+
+    def test_create_multiple_in_alert(
+        self, thehive: TheHiveApi, test_alert: OutputAlert
+    ):
+
+        observable_count = 3
+        created_observables = thehive.observable.create_in_alert(
+            alert_id=test_alert["_id"],
+            observable={
+                "dataType": "domain",
+                "data": [f"{i}.example.com" for i in range(observable_count)],
+                "message": "test observable",
+            },
+        )
+
+        fetched_observables = thehive.alert.find_observables(alert_id=test_alert["_id"])
+
+        for created_observable in created_observables:
+            assert created_observable in fetched_observables
 
     def test_create_in_alert_from_file_and_download_as_zip(
         self, thehive: TheHiveApi, test_alert: OutputAlert, tmp_path: Path
@@ -66,7 +87,9 @@ class TestObservableEndpoint:
             with archive_fp.open(observable_filename, pwd=b"malware") as downloaded_fp:
                 assert downloaded_fp.read().decode() == observable_content
 
-    def test_create_in_case_and_get(self, thehive: TheHiveApi, test_case: OutputCase):
+    def test_create_single_in_case_and_get(
+        self, thehive: TheHiveApi, test_case: OutputCase
+    ):
         created_observable = thehive.observable.create_in_case(
             case_id=test_case["_id"],
             observable={
@@ -80,6 +103,23 @@ class TestObservableEndpoint:
             observable_id=created_observable["_id"]
         )
         assert created_observable == fetched_observable
+
+    def test_create_multiple_in_case(self, thehive: TheHiveApi, test_case: OutputCase):
+
+        observable_count = 3
+        created_observables = thehive.observable.create_in_case(
+            case_id=test_case["_id"],
+            observable={
+                "dataType": "domain",
+                "data": [f"{i}.example.com" for i in range(observable_count)],
+                "message": "test observable",
+            },
+        )
+
+        fetched_observables = thehive.case.find_observables(case_id=test_case["_id"])
+
+        for created_observable in created_observables:
+            assert created_observable in fetched_observables
 
     def test_create_in_case_from_file_and_download_as_is(
         self, thehive: TheHiveApi, test_case: OutputCase, tmp_path: Path
@@ -153,25 +193,25 @@ class TestObservableEndpoint:
             for key, value in expected_fields.items():
                 assert updated_task.get(key) == value
 
-    @pytest.mark.skip(
-        reason="documentation is unclear and implementation might be changed"
-    )
     def test_share_and_unshare(
-        self, thehive: TheHiveApi, test_observable: OutputObservable
+        self,
+        thehive: TheHiveApi,
+        test_observable: OutputObservable,
+        test_config: TestConfig,
     ):
-        organisation = "share-org"
 
         thehive.observable.share(
-            observable_id=test_observable["_id"], organisations=[organisation]
-        )
-        assert (
-            len(thehive.observable.list_shares(observable_id=test_observable["_id"]))
-            == 1
+            observable_id=test_observable["_id"], organisations=[test_config.main_org]
         )
 
-        thehive.observable.unshare(
-            observable_id=test_observable["_id"], organisations=[organisation]
-        )
+        # TODO: test `unshare` once a second organisation is allowed by the license
+        # thehive.observable.unshare(
+        #     observable_id=test_observable["_id"], organisations=[test_config.main_org]
+        # )
+
+        # TODO: test `list_shares` better once a second organisation is
+        # allowed by the license
+
         assert (
             len(thehive.observable.list_shares(observable_id=test_observable["_id"]))
             == 0

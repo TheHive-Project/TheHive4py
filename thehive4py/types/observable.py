@@ -1,6 +1,6 @@
-from typing import List, TypedDict
+from typing import List, TypedDict, Union
 
-from thehive4py.types.attachment import OutputAttachment
+from thehive4py.types.attachment import InputAttachment, OutputAttachment
 
 
 class InputObservableRequired(TypedDict):
@@ -8,9 +8,10 @@ class InputObservableRequired(TypedDict):
 
 
 class InputObservable(InputObservableRequired, total=False):
-    data: str
+    data: Union[str, List[str]]
     message: str
     startDate: int
+    attachment: Union[List[InputAttachment], List[str], InputAttachment, str]
     tlp: int
     pap: int
     tags: List[str]
@@ -19,8 +20,7 @@ class InputObservable(InputObservableRequired, total=False):
     sightedAt: int
     ignoreSimilarity: bool
     isZip: bool
-    zipPassword: bool
-    attachment: str
+    zipPassword: str
 
 
 class OutputObservableRequired(TypedDict):
@@ -61,6 +61,8 @@ class InputUpdateObservable(TypedDict, total=False):
     sighted: bool
     sightedAt: int
     ignoreSimilarity: bool
+    addTags: List[str]
+    removeTags: List[str]
 
 
 class InputBulkUpdateObservable(InputUpdateObservable):
