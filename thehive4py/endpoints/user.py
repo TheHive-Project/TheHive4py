@@ -113,7 +113,7 @@ class UserEndpoint(EndpointBase):
 
         Args:
             user_id: The id of the user.
-            organisation: The organisation from which to delete the user from. Optional.
+            organisation: The organisation from which the user should be deleted.
 
         Returns:
             N/A
