@@ -49,7 +49,7 @@ Feel free to explore the library's capabilities and contribute to its developmen
 # Quickstart
 
 ## Requirements
-`thehive4py` works with all currently supported python versions, at the time of writing `py>=3.8`. One can check the official version support and end of life status [here](https://devguide.python.org/versions/).
+`thehive4py` works with all currently supported python versions. One can check the official version support and end of life status [here](https://devguide.python.org/versions/).
 
 ## Installation
 The `thehive4py` can be installed with pip like:
