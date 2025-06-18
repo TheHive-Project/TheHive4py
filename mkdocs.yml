@@ -7,7 +7,15 @@ nav:
     - Client: examples/client.md
     - Alert: examples/alert.md
     - Case: examples/case.md
-  - Reference: reference.md
+  - Reference: 
+    - Client: reference/client.md
+    - Endpoints: reference/endpoints.md
+    - Errors: reference/errors.md
+    - Query: reference/query.md
+    - Session: reference/session.md
+    - Types: reference/types.md
+    - Helpers: reference/helpers.md
+
   - Release Notes: release-notes.md
 theme:
   name: material
