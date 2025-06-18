@@ -66,11 +66,22 @@ class TestTaskEndpoint:
         actions = thehive.task.get_required_actions(task_id=test_task["_id"])
         assert actions[organisation] is False
 
-    @pytest.mark.skip(
-        reason="documentation is unclear and implementation might be changed"
-    )
-    def test_share_and_unshare(self, thehive: TheHiveApi, test_task: OutputTask):
-        pass
+    def test_share_and_unshare(
+        self, thehive: TheHiveApi, test_task: OutputTask, test_config: TestConfig
+    ):
+
+        thehive.task.share(
+            task_id=test_task["_id"], organisations=[test_config.main_org]
+        )
+
+        # TODO: test `unshare` once a second organisation is allowed by the license
+        # thehive.task.unshare(
+        #     task_id=test_task["_id"], organisations=[test_config.main_org]
+        # )
+
+        # TODO: test `list_shares` better once a second organisation is
+        # allowed by the license
+        assert len(thehive.task.list_shares(task_id=test_task["_id"])) == 0
 
     def test_find_and_count(self, thehive: TheHiveApi, test_tasks: List[OutputTask]):
         filters = Eq("title", test_tasks[0]["title"]) | Eq(
