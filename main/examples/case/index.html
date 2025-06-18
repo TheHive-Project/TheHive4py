@@ -12,7 +12,7 @@
         <link rel="prev" href="../alert/">
       
       
-        <link rel="next" href="../../reference/">
+        <link rel="next" href="../../reference/client/">
       
       
       <link rel="icon" href="../../img/strangebee.png">
@@ -230,17 +230,18 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../reference/" class="md-tabs__link">
-        
-  
-  
     
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/client/" class="md-tabs__link">
+          
+  
   
   Reference
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -730,9 +731,23 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../reference/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -741,7 +756,180 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Endpoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Query
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Session
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1045,7 +1233,7 @@
 <li><code>title</code>: The title of the case.</li>
 <li><code>description</code>: The description of the case.</li>
 </ul>
-<p>Here's an example that demonstrates how to create the most minimalistic case possible using the <a class="autorefs autorefs-internal" title="            create(case)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create">case.create</a> method:</p>
+<p>Here's an example that demonstrates how to create the most minimalistic case possible using the <a class="autorefs autorefs-internal" title="            create(case)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create">case.create</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
@@ -1059,7 +1247,7 @@
 </code></pre></div>
 <h2 id="an-advanced-case">An advanced case</h2>
 <p>The previous example demonstrated how to create the simplest case ever.</p>
-<p>In the next example let's create a more advanced case by using the combination of the <a class="autorefs autorefs-internal" title="            InputCase" href="../../reference/#thehive4py.types.case.InputCase">InputCase</a> type hint and the <a class="autorefs autorefs-internal" title="            create(case)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create">case.create</a> method.</p>
+<p>In the next example let's create a more advanced case by using the combination of the <a class="autorefs autorefs-internal" title="            InputCase" href="../../reference/types/#thehive4py.types.case.InputCase">InputCase</a> type hint and the <a class="autorefs autorefs-internal" title="            create(case)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create">case.create</a> method.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.case</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputCase</span>
 
@@ -1086,7 +1274,7 @@ Should you be interested of what the Case API offers please check out the <a hre
 <h2 id="get-and-find">Get and find</h2>
 <p>There are multiple ways to retrieve already existing cases:</p>
 <h3 id="get-a-single-case">Get a single case</h3>
-<p>To get a single case one can use the <a class="autorefs autorefs-internal" title="            get(case_id)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.get">case.get</a> method with the case's id as follows:</p>
+<p>To get a single case one can use the <a class="autorefs autorefs-internal" title="            get(case_id)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.get">case.get</a> method with the case's id as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
@@ -1102,7 +1290,7 @@ Should you be interested of what the Case API offers please check out the <a hre
 <span class="n">fetched_case</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">case_id</span><span class="o">=</span><span class="n">case_to_get</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
 </code></pre></div>
 <h3 id="find-multiple-cases">Find multiple cases</h3>
-<p>To fetch multiple cases based on arbitrary conditions one can use the <a class="autorefs autorefs-internal" title="            find(filters=None, sortby=None, paginate=None)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.find">case.find</a> method which is an abstraction on top of TheHive's Query API.</p>
+<p>To fetch multiple cases based on arbitrary conditions one can use the <a class="autorefs autorefs-internal" title="            find(filters=None, sortby=None, paginate=None)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.find">case.find</a> method which is an abstraction on top of TheHive's Query API.</p>
 <p>In the next example we will create two cases with different tags. The first case will get the <code>antivirus</code> tag while the second one will get the <code>phishing</code> tag.</p>
 <p>Then we will construct a query filter that will look for cases with these tags on them:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
@@ -1138,11 +1326,11 @@ Should you be interested of what the Case API offers please check out the <a hre
 <li><code>|</code>: Used for the Query API's <code>_or</code> construct.</li>
 <li><code>~</code>: Used for the Query API's <code>_not</code> construct.</li>
 </ul>
-<p>The full list of the filter builders can be found in the <a class="autorefs autorefs-internal" title="            filters" href="../../reference/#thehive4py.query.filters">query.filters</a> module.</p>
+<p>The full list of the filter builders can be found in the <a class="autorefs autorefs-internal" title="            filters" href="../../reference/query/#thehive4py.query.filters">query.filters</a> module.</p>
 <h2 id="update-single-and-bulk">Update single and bulk</h2>
 <p>Sometimes an existing case needs to be updated. TheHive offers multiple ways to accomplish this task either with a single case or multiple ones.</p>
 <h3 id="update-single">Update single</h3>
-<p>A single case can be updated using <a class="autorefs autorefs-internal" title="            update(case_id, fields={}, **kwargs)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.update">case.update</a> method. The method requires the <code>case_id</code> of the case to be updated and the <code>fields</code> to update.</p>
+<p>A single case can be updated using <a class="autorefs autorefs-internal" title="            update(case_id, fields={}, **kwargs)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.update">case.update</a> method. The method requires the <code>case_id</code> of the case to be updated and the <code>fields</code> to update.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
@@ -1167,14 +1355,14 @@ Should you be interested of what the Case API offers please check out the <a hre
 </code></pre></div>
 <p>In the above example we've updated the <code>title</code> and the <code>tags</code> fields.</p>
 <p>Be mindful though, <code>thehive4py</code> is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the original <code>original_case</code> won't reflect the changes of the update.</p>
-<p>To work with the updated case we fetched the latest version using the <a class="autorefs autorefs-internal" title="            get(case_id)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.get">case.get</a> method and stored it in the <code>updated_case</code> variable.</p>
+<p>To work with the updated case we fetched the latest version using the <a class="autorefs autorefs-internal" title="            get(case_id)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.get">case.get</a> method and stored it in the <code>updated_case</code> variable.</p>
 <p>Now the content of <code>updated_case</code> should reflect the changes we made with our update request.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To see the full list of supported update fields please consult the <a href="https://docs.strangebee.com/thehive/api-docs/#tag/Case/operation/Update%20case">official docs</a>.</p>
 </div>
 <h3 id="update-bulk">Update bulk</h3>
-<p>To update the <strong>same fields</strong> with the <strong>same values</strong> on multiple cases at the same time, one can use <a class="autorefs autorefs-internal" title="            bulk_update(fields)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.bulk_update">case.bulk_update</a> method. 
+<p>To update the <strong>same fields</strong> with the <strong>same values</strong> on multiple cases at the same time, one can use <a class="autorefs autorefs-internal" title="            bulk_update(fields)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.bulk_update">case.bulk_update</a> method. 
 The method accepts the same <code>fields</code> dictionary with an additional <code>ids</code> field on it, which should contain the list of ids of the cases to be bulk updated.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
@@ -1203,7 +1391,7 @@ The method accepts the same <code>fields</code> dictionary with an additional <c
 <p>In the example we prepare two cases for the bulk update, and collect their ids in the <code>original_case_ids</code> list.
 Then we update the fields <code>title</code> and <code>tags</code> on both cases using the bulk update method.</p>
 <h2 id="merge-cases">Merge cases</h2>
-<p>Many times during case triaging it occurs that individual cases turn out to be closely related. For this use case TheHive provides an option to merge individual cases using the <a class="autorefs autorefs-internal" title="            merge(case_ids)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.merge">case.merge</a> method.</p>
+<p>Many times during case triaging it occurs that individual cases turn out to be closely related. For this use case TheHive provides an option to merge individual cases using the <a class="autorefs autorefs-internal" title="            merge(case_ids)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.merge">case.merge</a> method.</p>
 <p>In the following example we will create two cases and will merge them into one new case:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
@@ -1232,7 +1420,7 @@ Then we update the fields <code>title</code> and <code>tags</code> on both cases
 <p>In the example we merged two cases, but it's worth to mention that the merge endpoint lets us merge as many cases as we need into one final case.</p>
 </div>
 <h2 id="delete">Delete</h2>
-<p>It's possible to delete a case using the <a class="autorefs autorefs-internal" title="            delete(case_id)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.delete">case.delete</a> method.
+<p>It's possible to delete a case using the <a class="autorefs autorefs-internal" title="            delete(case_id)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.delete">case.delete</a> method.
 Here's a simple example to demonstrate: </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
@@ -1256,7 +1444,7 @@ Here's a simple example to demonstrate: </p>
 <p>TheHive API provides multiple ways to add observables to cases, let them be textual or file based observables.</p>
 <h3 id="add-observables-to-an-existing-case">Add observables to an existing case</h3>
 <p>Unlike the Alert API, the Case API doesn't support adding observables to cases during their creation, this means that we can only add case observables retroactively.</p>
-<p>In the next example we're gonna create a case to add two observables to it using the <a class="autorefs autorefs-internal" title="            create_observable(case_id, observable, observable_path=None)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create_observable">case.create_observable</a> method:</p>
+<p>In the next example we're gonna create a case to add two observables to it using the <a class="autorefs autorefs-internal" title="            create_observable(case_id, observable, observable_path=None)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_observable">case.create_observable</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.observable</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputObservable</span>
 
@@ -1339,7 +1527,7 @@ Here's a simple example to demonstrate: </p>
 <p>This snippet will create a case with the required tasks in one go.</p>
 <h3 id="add-tasks-to-an-existing-case">Add tasks to an existing case</h3>
 <p>In the previous section we could see that it's possible to specify tasks during case creation, however sometimes we want to add tasks after a case has been created.</p>
-<p>For this purpose we can use the <a class="autorefs autorefs-internal" title="            create_task(case_id, task)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create_task">case.create_task</a> method.</p>
+<p>For this purpose we can use the <a class="autorefs autorefs-internal" title="            create_task(case_id, task)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_task">case.create_task</a> method.</p>
 <p>Now let's do an example by adding tasks retroactively to a case:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.task</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputTask</span>
@@ -1402,7 +1590,7 @@ Here's a simple example to demonstrate: </p>
 <p>On the other hand each of these fields are freetext fields so we have the freedom to specify any value for them.</p>
 <h3 id="add-pages-to-an-existing-case">Add pages to an existing case</h3>
 <p>In the previous section we could see that it's possible to add pages during case creation, however sometimes we want to add pages after a case has been created.</p>
-<p>For this purpose we can use the <a class="autorefs autorefs-internal" title="            create_page(case_id, page)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create_page">case.create_page</a> method.</p>
+<p>For this purpose we can use the <a class="autorefs autorefs-internal" title="            create_page(case_id, page)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_page">case.create_page</a> method.</p>
 <p>Now let's do an example by adding pages retroactively to a case:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.page</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputCasePage</span>
@@ -1440,7 +1628,7 @@ Here's a simple example to demonstrate: </p>
 <p>TheHive considers the <a href="https://attack.mitre.org/">MITRE ATT&amp;CK</a> framework as a first class citizen and fully supports its tactics, techniques and procedures (TTPs for short), therefore it's possible to enrich cases with procedures from their catalog.</p>
 <p>TheHive simply refers to the MITRE ATT&amp;CK TTPs as procedures, and next we will see how can these procedures be applied to cases.</p>
 <h3 id="add-procedures-to-an-existing-case">Add procedures to an existing case</h3>
-<p>In this example we will create an empty case and using the <a class="autorefs autorefs-internal" title="            create_task(case_id, task)" href="../../reference/#thehive4py.endpoints.case.CaseEndpoint.create_task">case.create_task</a> method we will enrich it with the technique of <a href="https://attack.mitre.org/techniques/T1566/">[T1566] Phishing</a> and the subtechnique of <a href="https://attack.mitre.org/techniques/T1566/001/">[T1566.001] Phishing - Spearphishing Attachment</a>:</p>
+<p>In this example we will create an empty case and using the <a class="autorefs autorefs-internal" title="            create_task(case_id, task)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_task">case.create_task</a> method we will enrich it with the technique of <a href="https://attack.mitre.org/techniques/T1566/">[T1566] Phishing</a> and the subtechnique of <a href="https://attack.mitre.org/techniques/T1566/001/">[T1566.001] Phishing - Spearphishing Attachment</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">now_to_ts</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.procedure</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputProcedure</span>
@@ -1474,7 +1662,7 @@ Here's a simple example to demonstrate: </p>
     <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_procedure</span><span class="p">(</span><span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">procedure</span><span class="o">=</span><span class="n">procedure</span><span class="p">)</span>
 </code></pre></div>
 <p>The procedure entity requires <code>occurDate</code> and <code>patternId</code> as they are mandatory fields while <code>tactic</code> and <code>description</code> are optional.</p>
-<p>To simplify the example we also used the <a class="autorefs autorefs-internal" title="            now_to_ts()" href="../../reference/#thehive4py.helpers.now_to_ts">helpers.now_to_ts</a> function to generate a dummy timestamp for the procedures.</p>
+<p>To simplify the example we also used the <a class="autorefs autorefs-internal" title="            now_to_ts()" href="../../reference/helpers/#thehive4py.helpers.now_to_ts">helpers.now_to_ts</a> function to generate a dummy timestamp for the procedures.</p>
 
 
 
@@ -1521,13 +1709,13 @@ Here's a simple example to demonstrate: </p>
         
         
           
-          <a href="../../reference/" class="md-footer__link md-footer__link--next" aria-label="Next: Reference">
+          <a href="../../reference/client/" class="md-footer__link md-footer__link--next" aria-label="Next: Client">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Reference
+                Client
               </div>
             </div>
             <div class="md-footer__button md-icon">
