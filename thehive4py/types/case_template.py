@@ -1,5 +1,7 @@
 from typing import List, Literal, TypedDict, Union
 
+from typing_extensions import Required
+
 from .custom_field import InputCustomFieldValue
 from .task import InputTask, OutputTask
 
@@ -8,11 +10,8 @@ TlpValue = Literal[0, 1, 2, 3, 4]
 PapValue = Literal[0, 1, 2, 3]
 
 
-class InputCaseTemplateRequired(TypedDict):
-    name: str
-
-
-class InputCaseTemplate(InputCaseTemplateRequired, total=False):
+class InputCaseTemplate(TypedDict, total=False):
+    name: Required[str]
     displayName: str
     titlePrefix: str
     description: str
@@ -27,26 +26,26 @@ class InputCaseTemplate(InputCaseTemplateRequired, total=False):
     customFields: Union[dict, List[InputCustomFieldValue]]
 
 
-class OutputCaseTemplateRequired(TypedDict):
-    _id: str
-    _type: str
-    _createdBy: str
-    _createdAt: int
-    name: str
-
-
-class OutputCaseTemplate(OutputCaseTemplateRequired, total=False):
+class OutputCaseTemplate(TypedDict, total=False):
+    _id: Required[str]
+    _type: Required[str]
+    _createdBy: Required[str]
     _updatedBy: str
+    _createdAt: Required[int]
     _updatedAt: int
-    displayName: str
+    name: Required[str]
+    displayName: Required[str]
     titlePrefix: str
     description: str
     severity: SeverityValue
+    severityLabel: str
     tags: List[str]
-    flag: bool
+    flag: Required[bool]
     tlp: TlpValue
+    tlpLabel: str
     pap: PapValue
+    papLabel: str
     summary: str
-    tasks: List[OutputTask]
-    pageTemplateIds: List[str]
     customFields: Union[dict, List[InputCustomFieldValue]]
+    tasks: List[OutputTask]
+    extraData: Required[dict]
