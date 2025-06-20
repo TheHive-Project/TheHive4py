@@ -13,6 +13,7 @@ from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.observable_type import OutputObservableType
 from thehive4py.types.page import OutputCasePage
+from thehive4py.types.page_template import InputPageTemplate, OutputPageTemplate
 from thehive4py.types.procedure import OutputProcedure
 from thehive4py.types.profile import OutputProfile
 from thehive4py.types.task import InputTask, OutputTask
@@ -143,6 +144,37 @@ def test_case_templates(thehive: TheHiveApi) -> List[OutputCaseTemplate]:
     return [
         thehive.case_template.create(case_template=case_template)
         for case_template in case_templates
+    ]
+
+
+@pytest.fixture
+def test_page_template(thehive: TheHiveApi) -> OutputPageTemplate:
+    return thehive.page_template.create(
+        page_template={
+            "title": "my first page template",
+            "category": "testing",
+            "content": "...",
+        }
+    )
+
+
+@pytest.fixture
+def test_page_templates(thehive: TheHiveApi) -> List[OutputPageTemplate]:
+    page_templates: List[InputPageTemplate] = [
+        {
+            "title": "my first page template",
+            "category": "testing",
+            "content": "...",
+        },
+        {
+            "title": "my second case template",
+            "category": "testing",
+            "content": "...",
+        },
+    ]
+    return [
+        thehive.page_template.create(page_template=page_template)
+        for page_template in page_templates
     ]
 
 
