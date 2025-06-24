@@ -98,6 +98,7 @@ def _reset_hive_org(hive_url: str, test_config: TestConfig, organisation: str) -
     attachments = client.organisation.find_attachments(org_id=organisation)
     cases = client.case.find()
     case_templates = client.case_template.find()
+    page_templates = client.page_template.find()
 
     with ThreadPoolExecutor() as executor:
         executor.map(client.alert.delete, [alert["_id"] for alert in alerts])
@@ -109,6 +110,10 @@ def _reset_hive_org(hive_url: str, test_config: TestConfig, organisation: str) -
         executor.map(
             client.case_template.delete,
             [case_template["_id"] for case_template in case_templates],
+        )
+        executor.map(
+            client.page_template.delete,
+            [page_template["_id"] for page_template in page_templates],
         )
 
 

@@ -1,6 +1,7 @@
 from typing import List
 
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.types.case_template import InputCaseTemplate, OutputCaseTemplate
@@ -38,6 +39,31 @@ class TestCaseTemplateEndpoint:
         thehive.case_template.delete(case_template_id=case_template_id)
         with pytest.raises(TheHiveError):
             thehive.case_template.get(case_template_id=case_template_id)
+
+    def test_link_and_find_page_templates(
+        self,
+        thehive: TheHiveApi,
+        test_case_template: OutputCaseTemplate,
+        test_page_templates: List[dict],
+    ):
+        case_template_id = test_case_template["_id"]
+        page_template_ids = [
+            page_template["_id"] for page_template in test_page_templates
+        ]
+
+        thehive.case_template.link_page_templates(
+            case_template_id=case_template_id,
+            page_template_ids=page_template_ids,
+        )
+
+        linked_page_templates = thehive.case_template.find_page_templates(
+            case_template_id=case_template_id
+        )
+
+        linked_page_template_ids = [
+            page_template["_id"] for page_template in linked_page_templates
+        ]
+        assert sorted(linked_page_template_ids) == sorted(page_template_ids)
 
     def test_find(
         self,
