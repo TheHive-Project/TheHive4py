@@ -6,6 +6,34 @@
   }
 </style>
 
+## 2.0.0b12 (2025-05-31)
+### Added
+* [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add `user.change_password` method by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
+* [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add `user.InputUserType` and `user.OrganisationLink` types by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
+* [#437](https://github.com/TheHive-Project/TheHive4py/issues/437) - Implement `task.list_shares`, `task.share` and `task.unshare` methods by [@Kamforka](https://github.com/Kamforka) in [#460](https://github.com/TheHive-Project/TheHive4py/pull/460)
+* [#442](https://github.com/TheHive-Project/TheHive4py/issues/442) - Add `attachment.InputAttachment` type by [@Kamforka](https://github.com/Kamforka) in [#456](https://github.com/TheHive-Project/TheHive4py/pull/456) 
+* [#440](https://github.com/TheHive-Project/TheHive4py/issues/440) - Add `case_template.link_page_templates` and `case_template.find_page_templates` methods by [@Kamforka](https://github.com/Kamforka)  in [#462](https://github.com/TheHive-Project/TheHive4py/pull/462)
+* [#440](https://github.com/TheHive-Project/TheHive4py/issues/440) - Introduce `page_template` endpoints and types by [@Kamforka](https://github.com/Kamforka) in [#462](https://github.com/TheHive-Project/TheHive4py/pull/462)
+* [#440](https://github.com/TheHive-Project/TheHive4py/issues/440) - Introduce new project dependency of `typing_extensions` to be able to support the new `Required`/`NotRequired` type annotations by [@Kamforka](https://github.com/Kamforka) in [#462](https://github.com/TheHive-Project/TheHive4py/pull/462)
+
+### Changed
+* [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Update `user.InputUser`, `user.OutputOrganisationProfile` and `user.InputUpdateUser` types by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
+* [#442](https://github.com/TheHive-Project/TheHive4py/issues/442) - Update `attachment.OutputAttachment`, `observable.InputObservable` and `observable. InputUpdateObservable` types by [@Kamforka](https://github.com/Kamforka) in [#456](https://github.com/TheHive-Project/TheHive4py/pull/456) 
+* [#457](https://github.com/TheHive-Project/TheHive4py/issues/457) - Organize API reference better by [@Kamforka](https://github.com/Kamforka) in [#461](https://github.com/TheHive-Project/TheHive4py/pull/461) 
+* [#440](https://github.com/TheHive-Project/TheHive4py/issues/440) - Change `case_template.InputCaseTemplate` and `case_template.OutputCaseTemplate` types by [@Kamforka](https://github.com/Kamforka) in [#462](https://github.com/TheHive-Project/TheHive4py/pull/462)
+
+### Deprecated
+* [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Deprecate `user.lock` and `user.unlock` methods in favour of `user.update` by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
+
+### Other
+* [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add docstrings to `user` endpoints by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
+* [#437](https://github.com/TheHive-Project/TheHive4py/issues/437) - Add docstrings  `task` endpoints by [@Kamforka](https://github.com/Kamforka) in [#460](https://github.com/TheHive-Project/TheHive4py/pull/460)
+* [#442](https://github.com/TheHive-Project/TheHive4py/issues/442) - Add docstrings to `observable` endpoints by [@Kamforka](https://github.com/Kamforka) in [#456](https://github.com/TheHive-Project/TheHive4py/pull/456)
+* [#458](https://github.com/TheHive-Project/TheHive4py/issues/458) - Use TheHive v5.5.3 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#459](https://github.com/TheHive-Project/TheHive4py/pull/459)
+* [#440](https://github.com/TheHive-Project/TheHive4py/issues/440)- Add docstrings to `case_template` endpoints by [@Kamforka](https://github.com/Kamforka) in [#462](https://github.com/TheHive-Project/TheHive4py/pull/462)
+
+**Full Changelog**: [2.0.0b11...2.0.0b12](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b11...2.0.0b12)
+
 ## 2.0.0b11 (2025-05-31)
 ### Added
 * [#302](https://github.com/TheHive-Project/TheHive4py/issues/302) - Add `organisation.add_attachment`, `organisation.delete_attachment`, `organisation.download_attachment` and `organisation.find_attachments` methods by [@Kamforka](https://github.com/Kamforka) in [#432](https://github.com/TheHive-Project/TheHive4py/pull/432)
