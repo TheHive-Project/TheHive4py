@@ -6,7 +6,7 @@
   }
 </style>
 
-## 2.0.0b12 (2025-05-31)
+## 2.0.0b12 (2025-06-24)
 ### Added
 * [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add `user.change_password` method by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
 * [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add `user.InputUserType` and `user.OrganisationLink` types by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
