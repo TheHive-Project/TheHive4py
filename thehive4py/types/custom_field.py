@@ -1,13 +1,14 @@
-from typing import Any, TypedDict
+from typing import Any, List, Literal, TypedDict, Union
+
+from typing_extensions import NotRequired
+
+CustomFieldType = Literal["string", "integer", "float", "boolean", "date", "url"]
 
 
-class InputCustomFieldValueRequired(TypedDict):
+class InputCustomFieldValue(TypedDict):
     name: str
-
-
-class InputCustomFieldValue(InputCustomFieldValueRequired, total=False):
     value: Any
-    order: int
+    order: NotRequired[int]
 
 
 class OutputCustomFieldValue(TypedDict):
@@ -18,36 +19,31 @@ class OutputCustomFieldValue(TypedDict):
     order: int
 
 
-class InputCustomFieldRequired(TypedDict):
+class InputCustomField(TypedDict):
     name: str
+    displayName: NotRequired[str]
     group: str
     description: str
-    type: str
+    type: CustomFieldType
+    mandatory: NotRequired[bool]
+    options: NotRequired[List[Any]]
 
 
-class InputCustomField(InputCustomFieldRequired, total=False):
-    displayName: str
-    mandatory: bool
-    options: list
-
-
-class OutputCustomFieldRequired(TypedDict):
+class OutputCustomField(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     name: str
     displayName: str
     group: str
     description: str
-    type: str
+    type: CustomFieldType
+    options: Union[List[int], List[float], List[str]]
     mandatory: bool
-
-
-class OutputCustomField(OutputCustomFieldRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    options: list
+    extraData: dict
 
 
 class InputUpdateCustomField(TypedDict, total=False):
