@@ -1,23 +1,19 @@
 from typing import TypedDict
 
+from typing_extensions import NotRequired
 
-class InputObservableTypeRequired(TypedDict):
+
+class InputObservableType(TypedDict):
     name: str
+    isAttachment: NotRequired[bool]
 
 
-class InputObservableType(InputObservableTypeRequired, total=False):
-    isAttachment: bool
-
-
-class OutputObservableTypeRequired(TypedDict):
+class OutputObservableType(TypedDict):
     _id: str
     _type: str
-    _createdBy: str
+    _updatedAt: NotRequired[int]
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _createdBy: str
     name: str
     isAttachment: bool
-
-
-class OutputObservableType(OutputObservableTypeRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
