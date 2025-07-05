@@ -1769,15 +1769,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;create
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.get" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get
@@ -1790,6 +1781,15 @@
   <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.delete" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;delete
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;create
     </span>
   </a>
   
@@ -4127,15 +4127,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;create
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.get" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;get
@@ -4148,6 +4139,15 @@
   <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.delete" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;delete
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;create
     </span>
   </a>
   
@@ -18152,33 +18152,6 @@ organisations.</p>
 <div class="doc doc-object doc-function">
 
 
-<h5 id="thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">observable_type</span><span class="p">)</span></code>
-
-</h5>
-
-
-    <div class="doc doc-contents ">
-
-
-            <details class="quote">
-              <summary>Source code in <code>thehive4py/endpoints/observable_type.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable_type</span><span class="p">:</span> <span class="n">InputObservableType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputObservableType</span><span class="p">:</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">make_request</span><span class="p">(</span>
-        <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/api/v1/observable/type&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">observable_type</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
 <h5 id="thehive4py.endpoints.observable_type.ObservableTypeEndpoint.get" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">observable_type_id</span><span class="p">)</span></code>
 
@@ -18187,13 +18160,85 @@ organisations.</p>
 
     <div class="doc doc-contents ">
 
+        <p>Get an observable type by id.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>observable_type_id</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The id of the observable type.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            OutputObservableType (thehive4py.types.observable_type.OutputObservableType)" href="../types/#thehive4py.types.observable_type.OutputObservableType">OutputObservableType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The observable type specified by the id.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
 
             <details class="quote">
               <summary>Source code in <code>thehive4py/endpoints/observable_type.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable_type_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputObservableType</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an observable type by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        observable_type_id: The id of the observable type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The observable type specified by the id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">make_request</span><span class="p">(</span>
         <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;/api/v1/observable/type/</span><span class="si">{</span><span class="n">observable_type_id</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="p">)</span>
@@ -18214,15 +18259,186 @@ organisations.</p>
 
     <div class="doc doc-contents ">
 
+        <p>Delete an observable type.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>observable_type_id</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The id of the observable type.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>N/A</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
 
             <details class="quote">
               <summary>Source code in <code>thehive4py/endpoints/observable_type.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable_type_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable_type_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete an observable type.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        observable_type_id: The id of the observable type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        N/A</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">make_request</span><span class="p">(</span>
         <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;/api/v1/observable/type/</span><span class="si">{</span><span class="n">observable_type_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="thehive4py.endpoints.observable_type.ObservableTypeEndpoint.create" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">observable_type</span><span class="p">)</span></code>
+
+</h5>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create an observable type.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>observable_type</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            InputObservableType (thehive4py.types.observable_type.InputObservableType)" href="../types/#thehive4py.types.observable_type.InputObservableType">InputObservableType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The body of the observable type.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            OutputObservableType (thehive4py.types.observable_type.OutputObservableType)" href="../types/#thehive4py.types.observable_type.OutputObservableType">OutputObservableType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The created observable type.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>thehive4py/endpoints/observable_type.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable_type</span><span class="p">:</span> <span class="n">InputObservableType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputObservableType</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an observable type.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        observable_type: The body of the observable type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The created observable type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">make_request</span><span class="p">(</span>
+        <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/api/v1/observable/type&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">observable_type</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -18241,31 +18457,143 @@ organisations.</p>
 
     <div class="doc doc-contents ">
 
+        <p>Find multiple observable types.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>filters</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-internal" title="            FilterExpr = _Union['_FilterBase', dict]
+
+  
+      module-attribute
+   (thehive4py.query.filters.FilterExpr)" href="../query/#thehive4py.query.filters.FilterExpr">FilterExpr</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The filter expressions to apply in the query.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sortby</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-internal" title="            SortExpr (thehive4py.query.sort.SortExpr)" href="../query/#thehive4py.query.sort.SortExpr">SortExpr</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The sort expressions to apply in the query.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>paginate</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-internal" title="              Paginate(start, end, extra_data=[]) (thehive4py.query.page.Paginate)" href="../query/#thehive4py.query.page.Paginate">Paginate</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The pagination expression to apply in the query.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="            OutputObservableType (thehive4py.types.observable_type.OutputObservableType)" href="../types/#thehive4py.types.observable_type.OutputObservableType">OutputObservableType</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The list of observable types matched by the query or an empty list.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
 
             <details class="quote">
               <summary>Source code in <code>thehive4py/endpoints/observable_type.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FilterExpr</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">sortby</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SortExpr</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">paginate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Paginate</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">OutputObservableType</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find multiple observable types.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filters: The filter expressions to apply in the query.</span>
+<span class="sd">        sortby: The sort expressions to apply in the query.</span>
+<span class="sd">        paginate: The pagination expression to apply in the query.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The list of observable types matched by the query or an empty list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">query</span><span class="p">:</span> <span class="n">QueryExpr</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span><span class="s2">&quot;_name&quot;</span><span class="p">:</span> <span class="s2">&quot;listObservableType&quot;</span><span class="p">},</span>
         <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_build_subquery</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">sortby</span><span class="o">=</span><span class="n">sortby</span><span class="p">,</span> <span class="n">paginate</span><span class="o">=</span><span class="n">paginate</span><span class="p">),</span>
