@@ -1,28 +1,26 @@
 from typing import List, TypedDict
 
+from typing_extensions import NotRequired
 
-class InputProfileRequired(TypedDict):
+
+class InputProfile(TypedDict):
     name: str
+    permissions: NotRequired[List[str]]
 
 
-class InputProfile(InputProfileRequired, total=False):
-    permissions: List[str]
-
-
-class OutputProfileRequired(TypedDict):
+class OutputProfile(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     name: str
+    permissions: NotRequired[List[str]]
     editable: bool
-    isAdmin: bool
-
-
-class OutputProfile(OutputProfileRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    permissions: List[str]
+    forAdmin: bool
+    forOrg: bool
+    consumesLicense: bool
 
 
 class InputUpdateProfile(TypedDict, total=False):
