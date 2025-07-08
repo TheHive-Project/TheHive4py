@@ -8,7 +8,6 @@ from thehive4py.types.alert import InputAlert
 hive = TheHiveApi(url="http://localhost:9000", apikey="h1v3b33")
 
 with tempfile.TemporaryDirectory() as tmpdir:
-
     observable_filepath = os.path.join(tmpdir, "my-observable.txt")
     with open(observable_filepath, "w") as observable_file:
         observable_file.write("some observable content")

@@ -33,7 +33,6 @@ class TestProcedureEndpoint:
     def test_bulk_create_in_alert_and_find(
         self, thehive: TheHiveApi, test_alert: OutputAlert
     ):
-
         procedures: list[InputProcedure] = [
             {
                 "occurDate": now_to_ts(),

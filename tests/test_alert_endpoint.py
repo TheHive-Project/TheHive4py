@@ -152,7 +152,6 @@ class TestAlertEndpoint:
     def test_get_similar_observables(
         self, thehive: TheHiveApi, test_alerts: List[OutputAlert]
     ):
-
         similar_observables = thehive.alert.get_similar_observables(
             alert_id=test_alerts[0]["_id"], alert_or_case_id=test_alerts[1]["_id"]
         )

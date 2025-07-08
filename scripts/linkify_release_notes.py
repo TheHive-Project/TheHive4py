@@ -98,7 +98,6 @@ def parse_arguments():
 
 
 def main():
-
     args = parse_arguments()
 
     release_notes_path = "docs/release-notes.md"

@@ -28,7 +28,7 @@ authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 audit = ["bandit", "pip-audit"]
 build = ["build", "twine"]
 docs = ["mkdocs", "mkdocs-material", "mkdocstrings-python", "mike"]
-lint = ["black", "flake8-pyproject", "mypy", "pre-commit"]
+lint = ["mypy", "ruff", "pre-commit"]
 test = ["pytest", "pytest-cov"]
 dev = ["thehive4py[audit, lint, test, build, docs]", "nox"]
 
@@ -41,10 +41,7 @@ thehive4py = ["py.typed"]
 [tool.coverage.run]
 omit = ["tests/*", "thehive4py/types/*"]
 
-[tool.flake8]
-max-line-length = 88
-per-file-ignores = [
-    "thehive4py/__init__.py:F401",
-    "thehive4py/endpoints/__init__.py:F401",
-    "thehive4py/query/__init__.py:F401",
-]
+[tool.ruff.lint.per-file-ignores]
+"thehive4py/__init__.py" = ["F401"]
+"thehive4py/endpoints/__init__.py" = ["F401"]
+"thehive4py/query/__init__.py" = ["F401"]

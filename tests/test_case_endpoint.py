@@ -179,7 +179,6 @@ class TestCaseEndpoint:
         test_case: OutputCase,
         test_case_template: OutputCaseTemplate,
     ):
-
         assert (
             set(test_case_template.get("tags", [])).issubset(
                 set(test_case.get("tags", []))
@@ -212,7 +211,6 @@ class TestCaseEndpoint:
         )
 
     def test_manage_access(self, thehive: TheHiveApi, test_case: OutputCase):
-
         assert test_case["access"]["_kind"] == "OrganisationAccessKind"
         thehive.case.manage_access(
             case_id=test_case["_id"],
@@ -226,7 +224,6 @@ class TestCaseEndpoint:
     def test_get_similar_observables(
         self, thehive: TheHiveApi, test_cases: List[OutputCase]
     ):
-
         similar_observables = thehive.case.get_similar_observables(
             case_id=test_cases[0]["_id"], alert_or_case_id=test_cases[1]["_id"]
         )
@@ -236,7 +233,6 @@ class TestCaseEndpoint:
     def test_link_and_unlink_case_with_case(
         self, thehive: TheHiveApi, test_cases: List[OutputCase]
     ):
-
         case_link: InputCaseLink = {"type": "whatever", "caseId": test_cases[1]["_id"]}
 
         thehive.case.link_case(
@@ -262,7 +258,6 @@ class TestCaseEndpoint:
     def test_link_and_unlink_case_with_url(
         self, thehive: TheHiveApi, test_case: OutputCase
     ):
-
         external_url = "https://example.com"
         url_link: InputURLLink = {"type": "whatever", "url": external_url}
 
@@ -283,7 +278,6 @@ class TestCaseEndpoint:
         assert unlinked_case["extraData"]["links"]["externalLinks"] == []
 
     def test_link_types(self, thehive: TheHiveApi):
-
         assert thehive.case.get_link_types() == []
 
     def test_add_and_download_attachment(
