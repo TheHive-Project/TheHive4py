@@ -10,7 +10,7 @@ requires-python = ">=3.9"
 dependencies = ["requests~=2.27", "typing_extensions==4.*"]
 readme = "README.md"
 keywords = ["thehive5", "api", "client"]
-license = { text = "MIT" }
+license = "MIT"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -21,7 +21,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: MIT License",
 ]
 authors = [{ name = "Szabolcs Antal", email = "antalszabolcs01@gmail.com" }]
 
@@ -31,7 +30,7 @@ build = ["build", "twine"]
 docs = ["mkdocs", "mkdocs-material", "mkdocstrings-python", "mike"]
 lint = ["black", "flake8-pyproject", "mypy", "pre-commit"]
 test = ["pytest", "pytest-cov"]
-dev = ["thehive4py[audit, lint, test, build, docs]"]
+dev = ["thehive4py[audit, lint, test, build, docs]", "nox"]
 
 [tool.setuptools.packages.find]
 include = ["thehive4py*"]

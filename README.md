@@ -307,17 +307,23 @@ To contribute to `thehive4py`, follow these steps:
 
 ## Run CI checks before pushing changes
 
-To ensure the integrity of your changes and maintain code quality, you can run CI checks before pushing your changes to the repository. Use one of the following methods:
+The project is utilizing the [nox] library to define and run automated dev scripts.
+
+To ensure the integrity of your changes and maintain code quality you can use the provided sessions from the local `noxfile.py`.
+For example you can run CI checks before pushing your changes to the repository. Use one of the following methods:
 
 **Method 1: Manual check**
 
-Run the CI checks manually by executing the following command:
+Run the CI checks manually by using the following command:
 
-```
-python scripts/ci.py 
-```
+    nox
 
-This command will trigger the CI checks and provide feedback on any issues that need attention.
+This will trigger all CI checks except tests as the `noxfile.py` is configured to do so by default.
+
+
+To run individual checks one can list all the available sessions with:
+
+    nox --list
 
 **Method 2: Automatic checks with pre-commit hooks [experimental]**
 
@@ -353,15 +359,25 @@ Once TheHive is responsive the suite will initialize the instance with a setup r
 Please note that due to this initial setup the very first test run will idle for some time to make sure everything is up and running. Any other subsequent runs' statup time should be significantly faster.  
 
 ### Testing locally
-To execute the whole test suite locally one can use the `scripts/ci.py` utility script like:
+To execute the whole test suite locally one can use the `test` session provided by the local `noxfile.py` utility script like:
 
-    ./scripts/ci.py --test
+    nox --session=test
 
-Note however that the above will execute the entire test suite which can take several minutes to complete.
-In case one wants to execute only a portion of the test suite then the easiest workaround is to use `pytest` and pass the path to the specific test module. For example to only execute tests for the alert endpoints one can do:
+or
 
-    pytest -v tests/test_alert_endpoint.py
+    nox -s test
+
+for short.
+
+Note however that the above will command execute the entire test suite which can take several minutes to complete.
+In case one wants to execute only a portion of the test suite then the easiest workaround is to pass additional arguments to the session e.g.:
+
+    nox -s test -- tests/test_observable_endpoint.py -v
+
+The nox command will parse additional arguments after the `--` option terminator argument and they will be passed to the underlying `pytest` command.
+
 
 [get-docker]: https://docs.docker.com/get-docker/
 [query-api-docs]: https://docs.strangebee.com/thehive/api-docs/#operation/Query%20API
 [thehive-image]: https://hub.docker.com/r/strangebee/thehive
+[nox]: https://nox.thea.codes/en/stable/

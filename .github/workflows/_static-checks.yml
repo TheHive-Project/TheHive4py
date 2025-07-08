@@ -16,13 +16,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: pip install --no-cache-dir -U pip .['dev']
-      - name: Lint check with flake8
-        run: scripts/ci.py --lint
+      - name: Style check with flake8
+        run: nox --session=style
       - name: Format check with black
-        run: scripts/ci.py --format
+        run: nox --session=format
       - name: Type check with mypy
-        run: scripts/ci.py --type 
+        run: nox --session=type
       - name: CVE check with pip-audit
-        run: scripts/ci.py --cve
+        run: nox --session=cve
       - name: Security check with bandit
-        run: scripts/ci.py --security
+        run: nox --session=security

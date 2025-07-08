@@ -10,14 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compare tag and package version
-        run: |
-          TAG=${GITHUB_REF#refs/*/}
-          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
-          if [ "$TAG" != "$VERSION" ]; then
-            echo "Tag value and package version are different: ${TAG} != ${VERSION}"
-            exit 1
-          fi
       - name: Download built distributions
         uses: actions/download-artifact@v4
         with:
@@ -27,10 +19,10 @@ jobs:
         uses: actions/setup-python@v4
         with: 
           python-version: 3.13
-      - name: Install build dependencies
-        run: pip install --no-cache-dir -U pip .['build']
+      - name: Install dependencies
+        run: pip install --no-cache-dir -U pip .['dev']
       - name: Upload to PyPI
-        run: ./scripts/cd.py --upload
+        run: nox --session=upload
         env:
           TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
           TWINE_USERNAME: __token__

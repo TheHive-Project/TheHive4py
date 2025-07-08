@@ -4,7 +4,7 @@ repos:
   hooks:
     - id: ci-checks 
       name: ci-checks
-      entry: scripts/ci.py
+      entry: nox
       language: system
       pass_filenames: false
       always_run: true

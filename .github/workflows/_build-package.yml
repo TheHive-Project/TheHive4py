@@ -11,10 +11,10 @@ jobs:
         uses: actions/setup-python@v4
         with: 
           python-version: 3.13
-      - name: Install build dependencies
-        run: pip install --no-cache-dir -U pip .['build']
+      - name: Install dependencies
+        run: pip install --no-cache-dir -U pip .['dev']
       - name: Build package
-        run: ./scripts/cd.py --build
+        run: nox --session=build
       - name: Upload built distributions
         uses: actions/upload-artifact@v4
         with:

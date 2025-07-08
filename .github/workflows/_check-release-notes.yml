@@ -11,12 +11,7 @@ jobs:
         uses: actions/setup-python@v4
         with: 
           python-version: 3.13
+      - name: Install dependencies
+        run: pip install --no-cache-dir -U pip .['dev']
       - name: Check release notes
-        run: ./scripts/linkify_release_notes.py --check
-      - name: Lookup version in release notes 
-        run: |
-          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
-          if ! grep -qF "## $VERSION " "docs/release-notes.md"; then
-            echo "No release notes found for version '$VERSION'"
-            exit 1
-          fi
+        run: nox --session=check-release-notes
