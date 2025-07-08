@@ -15,9 +15,9 @@ jobs:
         with:
           python-version: 3.13
       - name: Install dependencies
-        run: pip install --no-cache-dir -U pip .['test']
+        run: pip install --no-cache-dir -U pip .['dev']
       - name: Run integration tests
-        run: scripts/ci.py --test
+        run: nox --session=test
       - name: Upload coverage results
         uses: codecov/codecov-action@v4
         with:
