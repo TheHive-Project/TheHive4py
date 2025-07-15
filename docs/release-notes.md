@@ -6,6 +6,30 @@
   }
 </style>
 
+## 2.0.0b13 (2025-07-15)
+### Added
+* [#441](https://github.com/TheHive-Project/TheHive4py/issues/441) - Add `custom_field.CustomFieldType` type by [@Kamforka](https://github.com/Kamforka) in [#466](https://github.com/TheHive-Project/TheHive4py/pull/466)
+* [#444](https://github.com/TheHive-Project/TheHive4py/issues/444) - Add `procedure.get`, `procedure.bulk_create_in_case` and `procedure.bulk_create_in_alert` methods by [@Kamforka](https://github.com/Kamforka) in [#469](https://github.com/TheHive-Project/TheHive4py/pull/469)
+
+
+### Changed
+* [#441](https://github.com/TheHive-Project/TheHive4py/issues/441) - Update `custom_field.InputCustomFieldValue`, `custom_field.InputCustomField` and `custom_field.OutputCustomField` types by [@Kamforka](https://github.com/Kamforka) in [#466](https://github.com/TheHive-Project/TheHive4py/pull/466)
+* [#443](https://github.com/TheHive-Project/TheHive4py/issues/443) - Update `observable_type.InputObservableType` and  `observable_type.OutputObservableType` types by [@Kamforka](https://github.com/Kamforka) in [#468](https://github.com/TheHive-Project/TheHive4py/pull/468)
+* [#444](https://github.com/TheHive-Project/TheHive4py/issues/444) - Update `procedure.InputProcedure`, `procedure.OutputProcedure` and `procedure.InputUpdateProcedure` types by [@Kamforka](https://github.com/Kamforka) in [#469](https://github.com/TheHive-Project/TheHive4py/pull/469)
+* [#445](https://github.com/TheHive-Project/TheHive4py/issues/445) - Update `profile.InputProfile` and `profile.OutputProfile` types by [@Kamforka](https://github.com/Kamforka) in [#470](https://github.com/TheHive-Project/TheHive4py/pull/470)
+
+### Other
+* [#441](https://github.com/TheHive-Project/TheHive4py/issues/441) - Add docstrings to `custom_field` endpoints by [@Kamforka](https://github.com/Kamforka) in [#466](https://github.com/TheHive-Project/TheHive4py/pull/466)
+* [#443](https://github.com/TheHive-Project/TheHive4py/issues/443) - Add docstrings to `observable_type` endpoints by [@Kamforka](https://github.com/Kamforka) in [#468](https://github.com/TheHive-Project/TheHive4py/pull/468)
+* [#444](https://github.com/TheHive-Project/TheHive4py/issues/444) - Add docstrings to `procedure` endpoints by [@Kamforka](https://github.com/Kamforka) in [#469](https://github.com/TheHive-Project/TheHive4py/pull/469)
+* [#445](https://github.com/TheHive-Project/TheHive4py/issues/445) - Add docstrings to `profile` endpoints by [@Kamforka](https://github.com/Kamforka) in [#470](https://github.com/TheHive-Project/TheHive4py/pull/470)
+* [#446](https://github.com/TheHive-Project/TheHive4py/issues/446) - Add docstrings to `query` endpoints by [@Kamforka](https://github.com/Kamforka) in [#471](https://github.com/TheHive-Project/TheHive4py/pull/471)
+* [#467](https://github.com/TheHive-Project/TheHive4py/issues/467) - Introduce `nox` to manage dev scripts by [@Kamforka](https://github.com/Kamforka) in [#472](https://github.com/TheHive-Project/TheHive4py/pull/472)
+* [#473](https://github.com/TheHive-Project/TheHive4py/issues/473) - Introduce `ruff` to replace `flake8` and `black` by [@Kamforka](https://github.com/Kamforka) in [#474](https://github.com/TheHive-Project/TheHive4py/pull/474)
+* [#477](https://github.com/TheHive-Project/TheHive4py/issues/477) - Use TheHive v5.5.5 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#478](https://github.com/TheHive-Project/TheHive4py/pull/478)
+
+**Full Changelog**: [2.0.0b12...2.0.0b13](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b12...2.0.0b13)
+
 ## 2.0.0b12 (2025-06-24)
 ### Added
 * [#436](https://github.com/TheHive-Project/TheHive4py/issues/436) - Add `user.change_password` method by [@Kamforka](https://github.com/Kamforka) in [#454](https://github.com/TheHive-Project/TheHive4py/pull/454)
