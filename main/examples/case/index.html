@@ -1485,7 +1485,6 @@ Here's a simple example to demonstrate: </p>
 <span class="p">)</span>
 
 <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
-
     <span class="n">observable_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;my-observable.txt&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
         <span class="n">observable_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;some observable content&quot;</span><span class="p">)</span>

@@ -23286,6 +23286,12 @@ with the same name</p>
 
     <div class="doc doc-contents ">
 
+        <p>Run any arbitrary queries using TheHive's Query API.</p>
+<p>This method provides low level access to the Query API to be able to run
+any queries.
+More information on the supported features  can be found
+<a href="https://docs.strangebee.com/thehive/api-docs/#tag/Query-and-Export/operation/Query%20API">here</a>.</p>
+
 
             <details class="quote">
               <summary>Source code in <code>thehive4py/endpoints/query.py</code></summary>
@@ -23296,9 +23302,25 @@ with the same name</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">exclude_fields</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run any arbitrary queries using TheHive&#39;s Query API.</span>
+
+<span class="sd">    This method provides low level access to the Query API to be able to run</span>
+<span class="sd">    any queries.</span>
+<span class="sd">    More information on the supported features  can be found</span>
+<span class="sd">    [here](https://docs.strangebee.com/thehive/api-docs/#tag/Query-and-Export/operation/Query%20API).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">make_request</span><span class="p">(</span>
         <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
         <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/api/v1/query&quot;</span><span class="p">,</span>
