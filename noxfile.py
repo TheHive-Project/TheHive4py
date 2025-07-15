@@ -97,7 +97,7 @@ def deploy_docs(session: nox.Session):
         "latest",
         "--update-aliases",
         "--push",
-        " --allow-empty",
+        "--allow-empty",
     )
 
 
