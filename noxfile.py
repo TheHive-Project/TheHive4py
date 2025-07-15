@@ -90,7 +90,15 @@ def build_docs(session: nox.Session):
 @nox.session(tags=["cd", "docs"], name="deploy-docs")
 def deploy_docs(session: nox.Session):
     """Deploy docs to gh-pages."""
-    session.run("mkdocs", "build", "--clean", "--strict")
+    session.run(
+        "mike",
+        "deploy",
+        "main",
+        "latest",
+        "--update-aliases",
+        "--push",
+        " --allow-empty",
+    )
 
 
 @nox.session(tags=["utils", "docs"], name="serve-docs")
