@@ -10,7 +10,6 @@ from thehive4py.types.user import InputUpdateUser, InputUserOrganisation, Output
 
 
 class TestUserEndpoint:
-
     def test_get_current(self, thehive: TheHiveApi, test_config: TestConfig):
         current_user = thehive.user.get_current()
         assert current_user["login"] == test_config.user
@@ -84,7 +83,6 @@ class TestUserEndpoint:
         assert organisations == user_organisations
 
     def test_set_and_change_password(self, thehive: TheHiveApi, test_user: OutputUser):
-
         assert test_user["hasPassword"] is False
         user_id = test_user["_id"]
 

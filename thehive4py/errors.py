@@ -4,7 +4,6 @@ from requests import Response
 
 
 class TheHiveError(Exception):
-
     def __init__(
         self, message: str, response: Optional[Response] = None, *args, **kwargs
     ):

@@ -27,7 +27,6 @@ class TestTaskLogEndpoint:
     def test_create_with_attachment(
         self, thehive: TheHiveApi, test_task: OutputTask, tmp_path: Path
     ):
-
         attachment_paths = [str(tmp_path / f"attachment-{i}.txt") for i in range(2)]
 
         for path in attachment_paths:

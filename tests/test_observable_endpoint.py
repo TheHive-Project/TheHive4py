@@ -38,7 +38,6 @@ class TestObservableEndpoint:
     def test_create_multiple_in_alert(
         self, thehive: TheHiveApi, test_alert: OutputAlert
     ):
-
         observable_count = 3
         created_observables = thehive.observable.create_in_alert(
             alert_id=test_alert["_id"],
@@ -105,7 +104,6 @@ class TestObservableEndpoint:
         assert created_observable == fetched_observable
 
     def test_create_multiple_in_case(self, thehive: TheHiveApi, test_case: OutputCase):
-
         observable_count = 3
         created_observables = thehive.observable.create_in_case(
             case_id=test_case["_id"],
@@ -199,7 +197,6 @@ class TestObservableEndpoint:
         test_observable: OutputObservable,
         test_config: TestConfig,
     ):
-
         thehive.observable.share(
             observable_id=test_observable["_id"], organisations=[test_config.main_org]
         )

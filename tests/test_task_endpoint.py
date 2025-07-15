@@ -69,7 +69,6 @@ class TestTaskEndpoint:
     def test_share_and_unshare(
         self, thehive: TheHiveApi, test_task: OutputTask, test_config: TestConfig
     ):
-
         thehive.task.share(
             task_id=test_task["_id"], organisations=[test_config.main_org]
         )

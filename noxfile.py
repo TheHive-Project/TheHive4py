@@ -5,6 +5,7 @@ import nox
 PROJECT_DIR = os.path.dirname(__file__)
 THEHIVE4PY_DIR = os.path.join(PROJECT_DIR, "thehive4py/")
 TESTS_DIR = os.path.join(PROJECT_DIR, "tests/")
+EXAMPLES_DIR = os.path.join(PROJECT_DIR, "examples/")
 
 nox.options.default_venv_backend = "none"
 nox.options.tags = ["audit", "lint"]
@@ -12,14 +13,16 @@ nox.options.tags = ["audit", "lint"]
 
 @nox.session(tags=["ci", "lint"])
 def style(session: nox.Session):
-    """Run style checks with flake8."""
-    session.run("flake8", THEHIVE4PY_DIR, TESTS_DIR)
+    """Run style checks with ruff."""
+    session.run("ruff", "check", THEHIVE4PY_DIR, TESTS_DIR, EXAMPLES_DIR, __file__)
 
 
 @nox.session(tags=["ci", "lint"])
 def format(session: nox.Session):
-    """Run format checks with black."""
-    session.run("black", "--check", THEHIVE4PY_DIR, TESTS_DIR)
+    """Run format checks with ruff."""
+    session.run(
+        "ruff", "format", "--check", THEHIVE4PY_DIR, TESTS_DIR, EXAMPLES_DIR, __file__
+    )
 
 
 @nox.session(tags=["ci", "lint"])

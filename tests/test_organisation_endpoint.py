@@ -6,7 +6,6 @@ from thehive4py.query.filters import Eq
 
 
 class TestOrganisationEndpoint:
-
     def test_add_and_download_attachment_to_main_org(
         self, thehive: TheHiveApi, tmp_path: Path
     ):
@@ -57,7 +56,6 @@ class TestOrganisationEndpoint:
     def test_find_organisations(
         self, thehive_admin: TheHiveApi, test_config: TestConfig
     ):
-
         organisations = thehive_admin.organisation.find(
             filters=Eq("name", test_config.main_org)
         )
