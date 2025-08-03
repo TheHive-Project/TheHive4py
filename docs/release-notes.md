@@ -6,6 +6,14 @@
   }
 </style>
 
+## 2.0.0 (2025-08-04)
+### Other
+* [#480](https://github.com/TheHive-Project/TheHive4py/issues/480) - Fix deploy_docs dev script by [@Kamforka](https://github.com/Kamforka) in [#481](https://github.com/TheHive-Project/TheHive4py/pull/481)
+* [#480](https://github.com/TheHive-Project/TheHive4py/issues/480) - Fix deploy_docs flag typo by [@Kamforka](https://github.com/Kamforka) in [#482](https://github.com/TheHive-Project/TheHive4py/pull/482)
+* [#483](https://github.com/TheHive-Project/TheHive4py/issues/483) - Use TheHive v5.5.7 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#484](https://github.com/TheHive-Project/TheHive4py/pull/484)
+
+**Full Changelog**: [2.0.0b13...2.0.0](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0b13...2.0.0)
+
 ## 2.0.0b13 (2025-07-15)
 ### Added
 * [#441](https://github.com/TheHive-Project/TheHive4py/issues/441) - Add `custom_field.CustomFieldType` type by [@Kamforka](https://github.com/Kamforka) in [#466](https://github.com/TheHive-Project/TheHive4py/pull/466)

@@ -38,7 +38,7 @@
 # Introduction
 
 > [!IMPORTANT]
-> thehive4py v1.x is not maintained anymore as TheHive v3 and v4 are end of life. thehive4py v2.x is a complete rewrite and is not compatible with thehive4py v1.x. The library is still in beta phase.
+> thehive4py v1.x is not maintained anymore as TheHive v3 and v4 are end of life. thehive4py v2.x is a complete rewrite and is not compatible with thehive4py v1.x.
 
 **What's New:** This is a rebooted version of `thehive4py` designed specifically for TheHive 5. Stay tuned, as we have more exciting updates in store!
 
@@ -55,11 +55,8 @@ Feel free to explore the library's capabilities and contribute to its developmen
 The `thehive4py` can be installed with pip like:
 
 ```
-pip install "thehive4py>=2.0.0b"
+pip install thehive4py
 ```
-
-> [!WARNING]
-> Since `thehive4py` 2.x is still in beta it is necessary to specify the beta version number during pip install, otherwise the latest version of 1.x would be installed.
 
 ## Create a client
 
@@ -88,7 +85,7 @@ from thehive4py import TheHiveApi
 
 hive = TheHiveApi(
         url="https://thehive.example.com",
-        apikey="c0ff33nc0d3",
+        apikey="h1v3b33",
     )
 ```
 
