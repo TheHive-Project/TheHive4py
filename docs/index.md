@@ -50,7 +50,7 @@ Feel free to explore the library's capabilities and contribute to its developmen
 The `thehive4py` can be installed with pip like:
 
 ```bash
-pip install "thehive4py>=2.0.0b"
+pip install thehive4py
 ```
 
 
