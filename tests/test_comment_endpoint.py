@@ -1,4 +1,7 @@
+from typing import List
+
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.types.alert import OutputAlert
@@ -47,3 +50,13 @@ class TestCommentEndpoint:
 
         for key, value in update_fields.items():
             assert updated_comment.get(key) == value
+
+    def test_find(
+        self,
+        thehive: TheHiveApi,
+        test_comments: List[OutputComment],
+    ):
+        found_comments = thehive.comment.find()
+        original_ids = [comment["_id"] for comment in test_comments]
+        found_ids = [comment["_id"] for comment in found_comments]
+        assert sorted(found_ids) == sorted(original_ids)
