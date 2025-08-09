@@ -8,7 +8,7 @@ from thehive4py.helpers import now_to_ts
 from thehive4py.types.alert import InputAlert, OutputAlert
 from thehive4py.types.case import InputCase, OutputCase
 from thehive4py.types.case_template import InputCaseTemplate, OutputCaseTemplate
-from thehive4py.types.comment import OutputComment
+from thehive4py.types.comment import InputComment, OutputComment
 from thehive4py.types.custom_field import OutputCustomField
 from thehive4py.types.observable import InputObservable, OutputObservable
 from thehive4py.types.observable_type import OutputObservableType
@@ -266,6 +266,18 @@ def test_comment(thehive: TheHiveApi, test_case: OutputCase) -> OutputComment:
         case_id=test_case["_id"],
         comment={"message": "my first comment"},
     )
+
+
+@pytest.fixture
+def test_comments(thehive: TheHiveApi, test_case: OutputCase) -> List[OutputComment]:
+    comments: List[InputComment] = [
+        {"message": "my first comment"},
+        {"message": "my second comment"},
+    ]
+    return [
+        thehive.comment.create_in_case(case_id=test_case["_id"], comment=comment)
+        for comment in comments
+    ]
 
 
 @pytest.fixture

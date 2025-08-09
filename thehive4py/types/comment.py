@@ -1,21 +1,22 @@
 from typing import TypedDict
 
+from typing_extensions import NotRequired
+
 
 class InputComment(TypedDict):
     message: str
 
 
-class OutputCommentRequired(TypedDict):
+class OutputComment(TypedDict):
     _id: str
     _type: str
     createdBy: str
     createdAt: int
+    updatedAt: NotRequired[int]
+    updatedBy: NotRequired[str]
     message: str
     isEdited: bool
-
-
-class OutputComment(OutputCommentRequired, total=False):
-    updatedAt: str
+    extraData: dict
 
 
 class InputUpdateComment(TypedDict):
