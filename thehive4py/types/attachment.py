@@ -1,5 +1,7 @@
 from typing import List, TypedDict
 
+from typing_extensions import NotRequired
+
 
 class InputAttachment(TypedDict):
     name: str
@@ -7,11 +9,13 @@ class InputAttachment(TypedDict):
     id: str
 
 
-class OutputAttachmentRequired(TypedDict):
+class OutputAttachment(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     name: str
     hashes: List[str]
     size: int
@@ -19,8 +23,3 @@ class OutputAttachmentRequired(TypedDict):
     id: str
     path: str
     extraData: dict
-
-
-class OutputAttachment(OutputAttachmentRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int

@@ -1,11 +1,15 @@
 from typing import TypedDict
 
+from typing_extensions import NotRequired
 
-class OutputShareRequired(TypedDict):
+
+class OutputShare(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     caseId: str
     profileName: str
     organisationName: str
@@ -14,17 +18,9 @@ class OutputShareRequired(TypedDict):
     observableRule: str
 
 
-class OutputShare(OutputShareRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-
-
-class InputShareRequired(TypedDict):
+class InputShare(TypedDict):
     organisation: str
-
-
-class InputShare(InputShareRequired, total=False):
-    share: bool
-    profile: str
-    taskRule: str
-    observableRule: str
+    share: NotRequired[bool]
+    profile: NotRequired[str]
+    taskRule: NotRequired[str]
+    observableRule: NotRequired[str]

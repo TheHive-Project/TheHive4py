@@ -1,66 +1,56 @@
 from typing import List, Literal, TypedDict
 
+from typing_extensions import NotRequired
+
 InputUserType = Literal["Normal", "Service"]
 
 
-class InputUserRequired(TypedDict):
+class InputUser(TypedDict):
     login: str
     name: str
+    email: NotRequired[str]
+    password: NotRequired[str]
     profile: str
+    organisation: NotRequired[str]
+    type: NotRequired[InputUserType]
 
 
-class InputUser(InputUserRequired, total=False):
-    email: str
-    password: str
-    organisation: str
-    type: InputUserType
-
-
-class OrganisationLinkRequired(TypedDict):
+class OrganisationLink(TypedDict):
     toOrganisation: str
     linkType: str
     otherLinkType: str
+    avatar: NotRequired[str]
 
 
-class OrganisationLink(OrganisationLinkRequired, total=False):
-    avatar: str
-
-
-class OutputOrganisationProfileRequired(TypedDict):
+class OutputOrganisationProfile(TypedDict):
     organisationId: str
     organisation: str
     profile: str
+    avatar: NotRequired[str]
+    links: NotRequired[List[OrganisationLink]]
 
 
-class OutputOrganisationProfile(OutputOrganisationProfileRequired, total=False):
-    avatar: str
-    links: List[OrganisationLink]
-
-
-class OutputUserRequired(TypedDict):
+class OutputUser(TypedDict):
     _id: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     login: str
     name: str
+    email: NotRequired[str]
     hasKey: bool
     hasPassword: bool
     hasMFA: bool
     locked: bool
     profile: str
+    permissions: NotRequired[List[str]]
     organisation: str
+    avatar: NotRequired[str]
+    organisations: NotRequired[List[OutputOrganisationProfile]]
     type: str
+    defaultOrganisation: NotRequired[str]
     extraData: dict
-
-
-class OutputUser(OutputUserRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    email: str
-    permissions: List[str]
-    avatar: str
-    organisations: List[OutputOrganisationProfile]
-    defaultOrganisation: str
 
 
 class InputUpdateUser(TypedDict, total=False):
@@ -74,13 +64,10 @@ class InputUpdateUser(TypedDict, total=False):
     type: InputUserType
 
 
-class InputUserOrganisationRequired(TypedDict):
+class InputUserOrganisation(TypedDict):
     organisation: str
     profile: str
-
-
-class InputUserOrganisation(InputUserOrganisationRequired, total=False):
-    default: bool
+    default: NotRequired[bool]
 
 
 class OutputUserOrganisation(TypedDict):

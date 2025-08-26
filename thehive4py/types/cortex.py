@@ -1,93 +1,79 @@
 from typing import Any, Dict, List, TypedDict
 
+from typing_extensions import NotRequired
 
-class OutputAnalyzerRequired(TypedDict):
+
+class OutputAnalyzer(TypedDict):
     id: str
     name: str
     version: str
     description: str
+    dataTypeList: NotRequired[List[str]]
+    cortexIds: NotRequired[List[str]]
 
 
-class OutputAnalyzer(OutputAnalyzerRequired, total=False):
-    dataTypeList: List[str]
-    cortexIds: List[str]
-
-
-class OutputResponderRequired(TypedDict):
+class OutputResponder(TypedDict):
     id: str
     name: str
     version: str
     description: str
+    dataTypeList: NotRequired[List[str]]
+    cortexIds: NotRequired[List[str]]
 
 
-class OutputResponder(OutputResponderRequired, total=False):
-    dataTypeList: List[str]
-    cortexIds: List[str]
-
-
-class OutputAnalyzerJobRequired(TypedDict):
+class OutputAnalyzerJob(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: str
+    _updatedAt: NotRequired[str]
     analyzerId: str
     analyzerName: str
     analyzerDefinition: str
     status: str
     startDate: str
+    endDate: NotRequired[str]
+    report: NotRequired[Dict[str, Any]]
     cortexId: str
     cortexJobId: str
     id: str
+    case_artifact: NotRequired[Dict[str, Any]]
     operations: str
 
 
-class OutputAnalyzerJob(OutputAnalyzerJobRequired, total=False):
-    _updatedBy: str
-    _updatedAt: str
-    endDate: str
-    report: Dict[str, Any]
-    case_artifact: Dict[str, Any]
-
-
-class OutputResponderActionRequired(TypedDict):
+class OutputResponderAction(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: str
+    _updatedAt: NotRequired[str]
     responderId: str
+    responderName: NotRequired[str]
+    responderDefinition: NotRequired[str]
+    cortexId: NotRequired[str]
+    cortexJobId: NotRequired[str]
+    objectType: str
+    objectId: str
     status: str
     startDate: str
-    cortexId: str
-    cortexJobId: str
-    id: str
+    endDate: NotRequired[str]
     operations: str
-
-
-class OutputResponderAction(OutputResponderActionRequired, total=False):
-    _updatedBy: str
-    _updatedAt: str
-    endDate: str
     report: Dict[str, Any]
-    responderName: str
-    responderDefinition: str
 
 
-class InputResponderActionRequired(TypedDict):
-    objectId: str
-    objectType: str
+class InputResponderAction(TypedDict):
     responderId: str
+    cortexId: NotRequired[str]
+    objectType: str
+    objectId: str
+    parameters: NotRequired[Dict[str, Any]]
+    tlp: NotRequired[int]
 
 
-class InputResponderAction(InputResponderActionRequired, total=False):
-    parameters: Dict[str, Any]
-    tlp: int
-
-
-class InputAnalyzerJobRequired(TypedDict):
+class InputAnalyzerJob(TypedDict):
     analyzerId: str
     cortexId: str
     artifactId: str
-
-
-class InputAnalyzerJob(InputAnalyzerJobRequired, total=False):
-    parameters: Dict[str, Any]
+    parameters: NotRequired[Dict[str, Any]]
