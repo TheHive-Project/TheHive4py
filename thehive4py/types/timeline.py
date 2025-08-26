@@ -1,46 +1,39 @@
 from typing import List, TypedDict
 
+from typing_extensions import NotRequired
 
-class OutputTimelineEventRequired(TypedDict):
+
+class OutputTimelineEvent(TypedDict):
     date: int
     kind: str
     entity: str
     entityId: str
     details: dict
-
-
-class OutputTimelineEvent(OutputTimelineEventRequired, total=False):
-    endDate: int
+    endDate: NotRequired[int]
 
 
 class OutputTimeline(TypedDict):
     events: List[OutputTimelineEvent]
 
 
-class InputCustomEventRequired(TypedDict):
+class InputCustomEvent(TypedDict):
     date: int
+    endDate: NotRequired[int]
     title: str
+    description: NotRequired[str]
 
 
-class InputCustomEvent(InputCustomEventRequired, total=False):
-    endDate: int
-    description: str
-
-
-class OutputCustomEventRequired(TypedDict):
+class OutputCustomEvent(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     date: int
+    endDate: NotRequired[int]
     title: str
-
-
-class OutputCustomEvent(OutputCustomEventRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    endDate: int
-    description: str
+    description: NotRequired[str]
 
 
 class InputUpdateCustomEvent(TypedDict, total=False):
