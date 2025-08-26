@@ -1,32 +1,27 @@
 from typing import TypedDict
 
+from typing_extensions import NotRequired
 
-class InputCasePageRequired(TypedDict):
+
+class InputCasePage(TypedDict):
     title: str
     content: str
+    order: NotRequired[int]
     category: str
 
 
-class InputCasePage(InputCasePageRequired, total=False):
-    order: int
-
-
-class OutputCasePageRequired(TypedDict):
+class OutputCasePage(TypedDict):
     _id: str
-    id: str
-    createdBy: str
-    createdAt: int
+    _type: str
+    _createdBy: str
+    _updatedBy: NotRequired[str]
+    _createdAt: int
+    _updatedAt: NotRequired[int]
     title: str
     content: str
-    _type: str
-    slug: str
     order: int
     category: str
-
-
-class OutputCasePage(OutputCasePageRequired, total=False):
-    updatedBy: str
-    updatedAt: int
+    extraData: dict
 
 
 class InputUpdateCasePage(TypedDict, total=False):

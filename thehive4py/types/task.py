@@ -1,45 +1,41 @@
 from typing import List, TypedDict
 
+from typing_extensions import NotRequired
 
-class InputTaskRequired(TypedDict):
+
+class InputTask(TypedDict):
     title: str
+    group: NotRequired[str]
+    description: NotRequired[str]
+    status: NotRequired[str]
+    flag: NotRequired[bool]
+    startDate: NotRequired[int]
+    endDate: NotRequired[int]
+    order: NotRequired[int]
+    dueDate: NotRequired[int]
+    assignee: NotRequired[str]
+    mandatory: NotRequired[bool]
 
 
-class InputTask(InputTaskRequired, total=False):
-    group: str
-    description: str
-    status: str
-    flag: bool
-    startDate: int
-    endDate: int
-    order: int
-    dueDate: int
-    assignee: str
-    mandatory: bool
-
-
-class OutputTaskRequired(TypedDict):
+class OutputTask(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     title: str
     group: str
+    description: NotRequired[str]
     status: str
     flag: bool
+    startDate: NotRequired[int]
+    endDate: NotRequired[int]
+    assignee: NotRequired[str]
     order: int
+    dueDate: NotRequired[int]
     mandatory: bool
     extraData: dict
-
-
-class OutputTask(OutputTaskRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    description: str
-    startDate: int
-    endDate: int
-    assignee: str
-    dueDate: int
 
 
 class InputUpdateTask(TypedDict, total=False):

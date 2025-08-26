@@ -1,5 +1,7 @@
 from typing import Any, List, Literal, TypedDict, Union
 
+from typing_extensions import NotRequired
+
 from thehive4py.types.observable import OutputObservable
 from thehive4py.types.page import InputCasePage
 from thehive4py.types.share import InputShare
@@ -37,43 +39,44 @@ class ImpactStatus:
     NoImpact: ImpactStatusValue = "NoImpact"
 
 
-class InputCaseRequired(TypedDict):
+class InputCase(TypedDict):
     title: str
     description: str
+    severity: NotRequired[int]
+    startDate: NotRequired[int]
+    endDate: NotRequired[int]
+    tags: NotRequired[List[str]]
+    flag: NotRequired[bool]
+    tlp: NotRequired[int]
+    pap: NotRequired[int]
+    status: NotRequired[CaseStatusValue]
+    summary: NotRequired[str]
+    assignee: NotRequired[str]
+    access: NotRequired[dict]
+    customFields: NotRequired[Union[List[InputCustomFieldValue], dict]]
+    caseTemplate: NotRequired[str]
+    tasks: NotRequired[List[InputTask]]
+    pages: NotRequired[List[InputCasePage]]
+    sharingParameters: NotRequired[List[InputShare]]
+    taskRule: NotRequired[str]
+    observableRule: NotRequired[str]
 
 
-class InputCase(InputCaseRequired, total=False):
-    severity: int
-    startDate: int
-    endDate: int
-    tags: List[str]
-    flag: bool
-    tlp: int
-    pap: int
-    status: CaseStatusValue
-    summary: str
-    assignee: str
-    access: dict
-    customFields: Union[List[InputCustomFieldValue], dict]
-    caseTemplate: str
-    tasks: List[InputTask]
-    pages: List[InputCasePage]
-    sharingParameters: List[InputShare]
-    taskRule: str
-    observableRule: str
-
-
-class OutputCaseRequired(TypedDict):
+class OutputCase(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     number: int
     title: str
     description: str
     severity: int
     severityLabel: str
     startDate: int
+    endDate: NotRequired[int]
+    tags: NotRequired[List[str]]
     flag: bool
     tlp: int
     tlpLabel: str
@@ -81,33 +84,26 @@ class OutputCaseRequired(TypedDict):
     papLabel: str
     status: CaseStatusValue
     stage: str
+    summary: NotRequired[str]
+    impactStatus: NotRequired[ImpactStatusValue]
+    assignee: NotRequired[str]
     access: dict
+    customFields: NotRequired[List[OutputCustomFieldValue]]
+    userPermissions: NotRequired[List[str]]
     extraData: dict
     newDate: int
+    inProgressDate: NotRequired[int]
+    closedDate: NotRequired[int]
+    alertDate: NotRequired[int]
+    alertNewDate: NotRequired[int]
+    alertInProgressDate: NotRequired[int]
+    alertImportedDate: NotRequired[int]
     timeToDetect: int
-
-
-class OutputCase(OutputCaseRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    endDate: int
-    tags: List[str]
-    summary: str
-    impactStatus: ImpactStatusValue
-    assignee: str
-    customFields: List[OutputCustomFieldValue]
-    userPermissions: List[str]
-    inProgressDate: int
-    closedDate: int
-    alertDate: int
-    alertNewDate: int
-    alertInProgressDate: int
-    alertImportedDate: int
-    timeToTriage: int
-    timeToQualify: int
-    timeToAcknowledge: int
-    timeToResolve: int
-    handlingDuration: int
+    timeToTriage: NotRequired[int]
+    timeToQualify: NotRequired[int]
+    timeToAcknowledge: NotRequired[int]
+    timeToResolve: NotRequired[int]
+    handlingDuration: NotRequired[int]
 
 
 class InputUpdateCase(TypedDict, total=False):
@@ -135,32 +131,26 @@ class InputBulkUpdateCase(InputUpdateCase):
     ids: List[str]
 
 
-class InputImportCaseRequired(TypedDict):
+class InputImportCase(TypedDict):
     password: str
+    sharingParameters: NotRequired[List[InputShare]]
+    taskRule: NotRequired[str]
+    observableRule: NotRequired[str]
 
 
-class InputImportCase(InputImportCaseRequired, total=False):
-    sharingParameters: List[InputShare]
-    taskRule: str
-    observableRule: str
-
-
-class InputApplyCaseTemplateRequired(TypedDict):
+class InputApplyCaseTemplate(TypedDict):
     ids: List[str]
     caseTemplate: str
-
-
-class InputApplyCaseTemplate(InputApplyCaseTemplateRequired, total=False):
-    updateTitlePrefix: bool
-    updateDescription: bool
-    updateTags: bool
-    updateSeverity: bool
-    updateFlag: bool
-    updateTlp: bool
-    updatePap: bool
-    updateCustomFields: bool
-    importTasks: List[str]
-    importPages: List[str]
+    updateTitlePrefix: NotRequired[bool]
+    updateDescription: NotRequired[bool]
+    updateTags: NotRequired[bool]
+    updateSeverity: NotRequired[bool]
+    updateFlag: NotRequired[bool]
+    updateTlp: NotRequired[bool]
+    updatePap: NotRequired[bool]
+    updateCustomFields: NotRequired[bool]
+    importTasks: NotRequired[List[str]]
+    importPages: NotRequired[List[str]]
 
 
 class OutputCaseObservableMerge(TypedDict):
@@ -169,32 +159,23 @@ class OutputCaseObservableMerge(TypedDict):
     deleted: int
 
 
-class OutputCaseLinkRequired(TypedDict):
+class OutputCaseLink(OutputCase):
     linksCount: int
+    linkedWith: NotRequired[List[OutputObservable]]
 
 
-class OutputCaseLink(OutputCase, OutputCaseLinkRequired, total=False):
-    linkedWith: List[OutputObservable]
-
-
-class OutputImportCaseRequired(TypedDict):
+class OutputImportCase(TypedDict):
     case: OutputCase
+    observables: NotRequired[List[OutputObservable]]
+    procedures: NotRequired[List[OutputObservable]]
+    errors: NotRequired[List[Any]]
 
 
-class OutputImportCase(OutputImportCaseRequired, total=False):
-    observables: List[OutputObservable]
-    procedures: List[OutputObservable]
-    errors: List[Any]
-
-
-class InputCaseOwnerOrganisationRequired(TypedDict):
+class InputCaseOwnerOrganisation(TypedDict):
     organisation: str
-
-
-class InputCaseOwnerOrganisation(InputCaseOwnerOrganisationRequired, total=False):
-    keepProfile: str
-    taskRule: str
-    observableRule: str
+    keepProfile: NotRequired[str]
+    taskRule: NotRequired[str]
+    observableRule: NotRequired[str]
 
 
 class InputCaseAccess(TypedDict):

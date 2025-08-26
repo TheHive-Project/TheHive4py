@@ -1,19 +1,18 @@
 from typing import List, TypedDict
 
+from typing_extensions import NotRequired
+
 
 class InputOrganisationLink(TypedDict, total=False):
     linkType: str
     otherLinkType: str
 
 
-class InputBulkOrganisationLinkRequired(TypedDict):
+class InputBulkOrganisationLink(TypedDict):
     toOrganisation: str
+    avatar: NotRequired[str]
     linkType: str
     otherLinkType: str
-
-
-class InputBulkOrganisationLink(InputBulkOrganisationLinkRequired, total=False):
-    avatar: str
 
 
 class OutputSharingProfile(TypedDict):
@@ -26,35 +25,29 @@ class OutputSharingProfile(TypedDict):
     observableRule: str
 
 
-class InputOrganisationRequired(TypedDict):
+class InputOrganisation(TypedDict):
     name: str
     description: str
+    taskRule: NotRequired[str]
+    observableRule: NotRequired[str]
+    locked: NotRequired[bool]
 
 
-class InputOrganisation(InputOrganisationRequired, total=False):
-    taskRule: str
-    observableRule: str
-    locked: bool
-
-
-class OutputOrganisationRequired(TypedDict):
+class OutputOrganisation(TypedDict):
     _id: str
     _type: str
     _createdBy: str
+    _updatedBy: NotRequired[str]
     _createdAt: int
+    _updatedAt: NotRequired[int]
     name: str
     description: str
     taskRule: str
     observableRule: str
+    links: NotRequired[List[InputOrganisationLink]]
+    avatar: NotRequired[str]
     locked: bool
     extraData: dict
-
-
-class OutputOrganisation(OutputOrganisationRequired, total=False):
-    _updatedBy: str
-    _updatedAt: int
-    links: List[InputOrganisationLink]
-    avatar: str
 
 
 class InputUpdateOrganisation(TypedDict, total=False):
