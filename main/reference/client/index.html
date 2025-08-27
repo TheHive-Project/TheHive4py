@@ -725,6 +725,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#thehive4py.client.TheHiveApi.misp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;misp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#thehive4py.client.TheHiveApi.query" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;query
@@ -1126,6 +1135,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#thehive4py.client.TheHiveApi.misp" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;misp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#thehive4py.client.TheHiveApi.query" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;query
@@ -1374,8 +1392,7 @@ or a <code>Retry</code> object.</p>
 
                   <details class="quote">
                     <summary>Source code in <code>thehive4py/client.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
-<span class="normal">27</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
@@ -1437,7 +1454,9 @@ or a <code>Retry</code> object.</p>
 <span class="normal">86</span>
 <span class="normal">87</span>
 <span class="normal">88</span>
-<span class="normal">89</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">apikey</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1498,6 +1517,7 @@ or a <code>Retry</code> object.</p>
 
     <span class="c1"># connector endpoints</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cortex</span> <span class="o">=</span> <span class="n">CortexEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">misp</span> <span class="o">=</span> <span class="n">MISPEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
 
     <span class="c1"># standard endpoints</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">QueryEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
@@ -1840,6 +1860,26 @@ or a <code>Retry</code> object.</p>
 
 <h4 id="thehive4py.client.TheHiveApi.cortex" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">cortex</span> <span class="o">=</span> <span class="n">CortexEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="thehive4py.client.TheHiveApi.misp" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">misp</span> <span class="o">=</span> <span class="n">MISPEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
