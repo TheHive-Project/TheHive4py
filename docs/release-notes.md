@@ -6,6 +6,34 @@
   }
 </style>
 
+## 2.0.1 (2025-08-27)
+### Added
+* [#448](https://github.com/TheHive-Project/TheHive4py/issues/448) - Add `comment.find` method by [@Kamforka](https://github.com/Kamforka) in [#487](https://github.com/TheHive-Project/TheHive4py/pull/487)
+* [#491](https://github.com/TheHive-Project/TheHive4py/issues/491) - Add MISP connector endpoints by [@Kamforka](https://github.com/Kamforka) in [#492](https://github.com/TheHive-Project/TheHive4py/pull/492)
+
+### Changed
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `alert.InputAlert` and `alert.OutputAlert` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `attachment.OutputAttachment` type by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `case.InputCase`, `case.OutputCase`, `case.InputImportCase`, `case.InputApplyCaseTemplate`, `case.OutputCaseLink`, `case.OutputImportCase` and `case.InputCaseOwnerOrganisation` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `cortex.OutputAnalyzer`, `cortex.OutputResponder`, `cortex.OutputAnalyzerJob`, `cortex.OutputResponderAction`, `cortex.InputResponderAction` and  `cortex.InputAnalyzerJob` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `observable.InputObservable` and `observable.OutputObservable` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `organisation.InputBulkOrganisationLink`, `organisation.InputOrganisation` and `organisation.OutputOrganisation` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `page.InputCasePage` and `page.OutputCasePage` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `share.OutputShare` and `share.InputShare` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `task.InputTask` and `task.OutputTask` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `task_log.InputTaskLog` and `task.OutputTaskLog` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#351](https://github.com/TheHive-Project/TheHive4py/issues/351) - Update `user.InputUser`, `user.OrganisationLink`, `user.OutputOrganisationProfile`, `user.OutputUser` and `user.InputUserOrganisation` types by [@Kamforka](https://github.com/Kamforka) in [#490](https://github.com/TheHive-Project/TheHive4py/pull/490)
+* [#447](https://github.com/TheHive-Project/TheHive4py/issues/447) - Update `timeline.OutputTimelineEvent`, `timeline.InputCustomEvent` and `timeline.OutputCustomEvent` types by [@Kamforka](https://github.com/Kamforka) in [#488](https://github.com/TheHive-Project/TheHive4py/pull/488)
+* [#448](https://github.com/TheHive-Project/TheHive4py/issues/448) - Update `comment.OutputComment` type by [@Kamforka](https://github.com/Kamforka) in [#487](https://github.com/TheHive-Project/TheHive4py/pull/487)
+
+### Other
+* [#447](https://github.com/TheHive-Project/TheHive4py/issues/447) - Add docstrings to `timeline` endpoints by [@Kamforka](https://github.com/Kamforka) in [#488](https://github.com/TheHive-Project/TheHive4py/pull/488)
+* [#448](https://github.com/TheHive-Project/TheHive4py/issues/448) - Add docstrings to  `comment` endpoints by [@Kamforka](https://github.com/Kamforka) in [#487](https://github.com/TheHive-Project/TheHive4py/pull/487)
+* [#491](https://github.com/TheHive-Project/TheHive4py/issues/491) - Add docstrings to `cortex` endpoints by [@Kamforka](https://github.com/Kamforka) in [#492](https://github.com/TheHive-Project/TheHive4py/pull/492)
+
+
+**Full Changelog**: [2.0.0...2.0.1](https://github.com/TheHive-Project/TheHive4py/compare/2.0.0...2.0.1)
+
 ## 2.0.0 (2025-08-04)
 ### Other
 * [#480](https://github.com/TheHive-Project/TheHive4py/issues/480) - Fix deploy_docs dev script by [@Kamforka](https://github.com/Kamforka) in [#481](https://github.com/TheHive-Project/TheHive4py/pull/481)
