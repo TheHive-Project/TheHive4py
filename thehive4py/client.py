@@ -16,6 +16,7 @@ from thehive4py.endpoints import (
 )
 from thehive4py.endpoints.cortex import CortexEndpoint
 from thehive4py.endpoints.custom_field import CustomFieldEndpoint
+from thehive4py.endpoints.misp import MISPEndpoint
 from thehive4py.endpoints.observable_type import ObservableTypeEndpoint
 from thehive4py.endpoints.page_template import PageTemplateEndpoint
 from thehive4py.endpoints.query import QueryEndpoint
@@ -84,6 +85,7 @@ class TheHiveApi:
 
         # connector endpoints
         self.cortex = CortexEndpoint(self.session)
+        self.misp = MISPEndpoint(self.session)
 
         # standard endpoints
         self.query = QueryEndpoint(self.session)
