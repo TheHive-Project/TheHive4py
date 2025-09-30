@@ -55,12 +55,19 @@ Let's create an alert with an `ip` and a `domain` observable:
 
 While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.
 
-Fortunately TheHive API supports alert observable creation on already existing alerts. Let's repeat the previous example, but this time add the two observables to an existing alert using the [alert.create_observable][thehive4py.endpoints.alert.AlertEndpoint.create_observable] method:
+Fortunately TheHive API supports alert observable creation on already existing alerts. Let's do something similar to the previous example and experiment with the [alert.create_observable][thehive4py.endpoints.alert.AlertEndpoint.create_observable] method:
 
 
 ```python
 --8<-- "examples/alert/observable_after_alerting.py"
 ```
+
+
+The above example showcases multiple ways to create observables in an already existing alert. Using the `simple_observable` we created a single observable in our alert. 
+
+Then using a `bulk_observable` we can also create many observables via a single call as the [InputObservable][thehive4py.types.observable.InputObservable] type's `data` property supports both `str` and `list[str]` values. 
+
+However, there's a limitation for creating bulk observables: they must all share the same `dataType`. If you'd like to add many observables with different types, you need to iterate through them and call the create method one by one. This workaround is demonstrated by the third option utilizing the `mixed_observables` list.
 
 ### Add file based observables
 

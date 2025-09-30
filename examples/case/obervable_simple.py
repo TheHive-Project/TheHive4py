@@ -12,11 +12,35 @@ case_to_enrich = hive.case.create(
 )
 
 
-observables: list[InputObservable] = [
+simple_observable: InputObservable = {
+    "dataType": "domain",
+    "data": "example.com",
+}
+
+hive.case.create_observable(
+    case_id=case_to_enrich["_id"],
+    observable=simple_observable,
+)
+
+
+bulk_observable: InputObservable = {
+    "dataType": "domain",
+    "data": ["1.example.com", "2.example.com"],
+}
+
+hive.case.create_observable(
+    case_id=case_to_enrich["_id"],
+    observable=bulk_observable,
+)
+
+mixed_observables: list[InputObservable] = [
     {"dataType": "ip", "data": "1.2.3.4"},
     {"dataType": "domain", "data": "example.com"},
 ]
 
 
-for observable in observables:
-    hive.case.create_observable(case_id=case_to_enrich["_id"], observable=observable)
+for observable in mixed_observables:
+    hive.case.create_observable(
+        case_id=case_to_enrich["_id"],
+        observable=observable,
+    )

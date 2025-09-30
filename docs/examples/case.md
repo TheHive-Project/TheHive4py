@@ -140,11 +140,15 @@ TheHive API provides multiple ways to add observables to cases, let them be text
 
 Unlike the Alert API, the Case API doesn't support adding observables to cases during their creation, this means that we can only add case observables retroactively.
 
-In the next example we're gonna create a case to add two observables to it using the [case.create_observable][thehive4py.endpoints.case.CaseEndpoint.create_observable] method:
+In the next example we're gonna create a case to add a simple observable then a bulk observable and finally mixed observables to it using the [case.create_observable][thehive4py.endpoints.case.CaseEndpoint.create_observable] method:
 
 ```python
 --8<-- "examples/case/obervable_simple.py"
 ```
+
+We can create simple or bulk observables via a single call as the [InputObservable][thehive4py.types.observable.InputObservable] type's `data` property supports both `str` and `list[str]` values.
+
+However there's a limitation for creating multiple observables in one go as they have to share the same `dataType` which means if we'd like to add many observables with different types then we need to iterate through them and call the create method one by one. This is demonstrated on the `mixed_observables` list.
 
 ### Add file based observables
 
