@@ -1444,7 +1444,7 @@ Here's a simple example to demonstrate: </p>
 <p>TheHive API provides multiple ways to add observables to cases, let them be textual or file based observables.</p>
 <h3 id="add-observables-to-an-existing-case">Add observables to an existing case</h3>
 <p>Unlike the Alert API, the Case API doesn't support adding observables to cases during their creation, this means that we can only add case observables retroactively.</p>
-<p>In the next example we're gonna create a case to add two observables to it using the <a class="autorefs autorefs-internal" title="            create_observable(case_id, observable, observable_path=None)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_observable">case.create_observable</a> method:</p>
+<p>In the next example we're gonna create a case to add a simple observable then a bulk observable and finally mixed observables to it using the <a class="autorefs autorefs-internal" title="            create_observable(case_id, observable, observable_path=None)" href="../../reference/endpoints/#thehive4py.endpoints.case.CaseEndpoint.create_observable">case.create_observable</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.observable</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputObservable</span>
 
@@ -1459,15 +1459,41 @@ Here's a simple example to demonstrate: </p>
 <span class="p">)</span>
 
 
-<span class="n">observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InputObservable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">simple_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
+    <span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">observable</span><span class="o">=</span><span class="n">simple_observable</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">bulk_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1.example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;2.example.com&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
+    <span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">observable</span><span class="o">=</span><span class="n">bulk_observable</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">mixed_observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InputObservable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3.4&quot;</span><span class="p">},</span>
     <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">},</span>
 <span class="p">]</span>
 
 
-<span class="k">for</span> <span class="n">observable</span> <span class="ow">in</span> <span class="n">observables</span><span class="p">:</span>
-    <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span><span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">observable</span> <span class="ow">in</span> <span class="n">mixed_observables</span><span class="p">:</span>
+    <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
+        <span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+        <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
+<p>We can create simple or bulk observables via a single call as the <a class="autorefs autorefs-internal" title="            InputObservable" href="../../reference/types/#thehive4py.types.observable.InputObservable">InputObservable</a> type's <code>data</code> property supports both <code>str</code> and <code>list[str]</code> values.</p>
+<p>However there's a limitation for creating multiple observables in one go as they have to share the same <code>dataType</code> which means if we'd like to add many observables with different types then we need to iterate through them and call the create method one by one. This is demonstrated on the <code>mixed_observables</code> list.</p>
 <h3 id="add-file-based-observables">Add file based observables</h3>
 <p>In the previous example we've seen how to handle simple observables without attachments. Next we will create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to a case:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>

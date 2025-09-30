@@ -1244,37 +1244,57 @@ In case you want to see the what the Alert API offers please check out the <a hr
 </code></pre></div>
 <h3 id="add-observables-to-an-existing-alert">Add observables to an existing alert</h3>
 <p>While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.</p>
-<p>Fortunately TheHive API supports alert observable creation on already existing alerts. Let's repeat the previous example, but this time add the two observables to an existing alert using the <a class="autorefs autorefs-internal" title="            create_observable(alert_id, observable, observable_path=None)" href="../../reference/endpoints/#thehive4py.endpoints.alert.AlertEndpoint.create_observable">alert.create_observable</a> method:</p>
+<p>Fortunately TheHive API supports alert observable creation on already existing alerts. Let's do something similar to the previous example and experiment with the <a class="autorefs autorefs-internal" title="            create_observable(alert_id, observable, observable_path=None)" href="../../reference/endpoints/#thehive4py.endpoints.alert.AlertEndpoint.create_observable">alert.create_observable</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.alert</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputAlert</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.observable</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputObservable</span>
 
 <span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;thehive.example&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
 
-<span class="n">input_alert</span><span class="p">:</span> <span class="n">InputAlert</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;alert-without-observables&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
+<span class="n">alert_to_enrich</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;alert-without-observables&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">simple_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
 <span class="p">}</span>
+<span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">observable</span><span class="o">=</span><span class="n">simple_observable</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">output_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">alert</span><span class="o">=</span><span class="n">input_alert</span><span class="p">)</span>
+
+<span class="n">bulk_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1.example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;2.example.com&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">observable</span><span class="o">=</span><span class="n">bulk_observable</span><span class="p">,</span>
+<span class="p">)</span>
 
 
-<span class="n">input_observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InputObservable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">mixed_observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InputObservable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3.4&quot;</span><span class="p">},</span>
     <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">},</span>
 <span class="p">]</span>
-
-
-<span class="k">for</span> <span class="n">input_observable</span> <span class="ow">in</span> <span class="n">input_observables</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">observable</span> <span class="ow">in</span> <span class="n">mixed_observables</span><span class="p">:</span>
     <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
-        <span class="n">alert_id</span><span class="o">=</span><span class="n">output_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">observable</span><span class="o">=</span><span class="n">input_observable</span>
+        <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+        <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div>
+<p>The above example showcases multiple ways to create observables in an already existing alert. Using the <code>simple_observable</code> we created a single observable in our alert. </p>
+<p>Then using a <code>bulk_observable</code> we can also create many observables via a single call as the <a class="autorefs autorefs-internal" title="            InputObservable" href="../../reference/types/#thehive4py.types.observable.InputObservable">InputObservable</a> type's <code>data</code> property supports both <code>str</code> and <code>list[str]</code> values. </p>
+<p>However, there's a limitation for creating bulk observables: they must all share the same <code>dataType</code>. If you'd like to add many observables with different types, you need to iterate through them and call the create method one by one. This workaround is demonstrated by the third option utilizing the <code>mixed_observables</code> list.</p>
 <h3 id="add-file-based-observables">Add file based observables</h3>
 <p>In the previous examples we've seen how to handle observables without attachments. However sometimes we also want to add attachments to an observable not only textual data. Fortunately that is supported by TheHive. So in the next example let's create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
