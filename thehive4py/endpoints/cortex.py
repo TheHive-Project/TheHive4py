@@ -1,6 +1,10 @@
 from typing import List, Optional
 
 from thehive4py.endpoints._base import EndpointBase
+from thehive4py.query import QueryExpr
+from thehive4py.query.filters import FilterExpr
+from thehive4py.query.page import Paginate
+from thehive4py.query.sort import SortExpr
 from thehive4py.types.cortex import (
     InputAnalyzerJob,
     InputResponderAction,
@@ -22,6 +26,21 @@ class CortexEndpoint(EndpointBase):
         """
         return self._session.make_request(
             "POST", path="/api/connector/cortex/job", json=job
+        )
+
+    def bulk_create_analyzer_jobs(
+        self, jobs: List[InputAnalyzerJob]
+    ) -> List[OutputAnalyzerJob]:
+        """Create multiple analyzer jobs in bulk.
+
+        Args:
+            jobs: The list of analyzer jobs to create.
+
+        Returns:
+            The list of created analyzer jobs.
+        """
+        return self._session.make_request(
+            "POST", path="/api/v1/connector/cortex/job/_bulk", json={"jobs": jobs}
         )
 
     def create_responder_action(
@@ -85,6 +104,33 @@ class CortexEndpoint(EndpointBase):
         """
         return self._session.make_request(
             "GET", path=f"/api/connector/cortex/job/{job_id}"
+        )
+
+    def find_analyzer_jobs(
+        self,
+        filters: Optional[FilterExpr] = None,
+        sortby: Optional[SortExpr] = None,
+        paginate: Optional[Paginate] = None,
+    ) -> List[OutputAnalyzerJob]:
+        """Find analyzer jobs.
+
+        Args:
+            filters: The filter expressions to apply in the query.
+            sortby: The sort expressions to apply in the query.
+            paginate: The pagination experssion to apply in the query.
+
+        Returns:
+            The list of analyzer jobs matched by the query or an empty list.
+        """
+        query: QueryExpr = [
+            {"_name": "listJob"},
+            *self._build_subquery(filters=filters, sortby=sortby, paginate=paginate),
+        ]
+        return self._session.make_request(
+            "POST",
+            path="/api/v1/query",
+            params={"name": "analyzer-jobs"},
+            json={"query": query},
         )
 
     def list_responders(
