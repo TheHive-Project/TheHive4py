@@ -6,6 +6,18 @@
   }
 </style>
 
+## 2.0.2 (2025-09-30)
+### Added
+* [#496](https://github.com/TheHive-Project/TheHive4py/issues/496) - Add missing `cortex.bulk_create_analyzer_jobs` and `cortex.find_analyzer_jobs` methods by [@Kamforka](https://github.com/Kamforka) in [#502](https://github.com/TheHive-Project/TheHive4py/pull/502)
+### Fixed
+* [#495](https://github.com/TheHive-Project/TheHive4py/issues/495) - Fix incorrectly typed properties (`assignee`, `summary`, `impactStatus`) of `case.InputUpdateCase` by [@Kamforka](https://github.com/Kamforka) in [#501](https://github.com/TheHive-Project/TheHive4py/pull/501)
+* [#499](https://github.com/TheHive-Project/TheHive4py/issues/499) - Fix maltyped date properties (`_createdAt`, `_updatedAt`, `startDate`, `endDate`) in `cortex.OutputAnalyzerJob` and `cortex.OutputResponderAction` types by [@Kamforka](https://github.com/Kamforka) in [#505](https://github.com/TheHive-Project/TheHive4py/pull/505)
+### Other
+* [#497](https://github.com/TheHive-Project/TheHive4py/issues/497) - Use TheHive v5.5.9 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#503](https://github.com/TheHive-Project/TheHive4py/pull/503)
+* [#498](https://github.com/TheHive-Project/TheHive4py/issues/498) - Test and document bulk observable creation in alerts and cases by [@Kamforka](https://github.com/Kamforka) in [#504](https://github.com/TheHive-Project/TheHive4py/pull/504)
+
+**Full Changelog**: [2.0.1...2.0.2](https://github.com/TheHive-Project/TheHive4py/compare/2.0.1...2.0.2)
+
 ## 2.0.1 (2025-08-27)
 ### Added
 * [#448](https://github.com/TheHive-Project/TheHive4py/issues/448) - Add `comment.find` method by [@Kamforka](https://github.com/Kamforka) in [#487](https://github.com/TheHive-Project/TheHive4py/pull/487)
