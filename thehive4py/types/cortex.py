@@ -26,14 +26,14 @@ class OutputAnalyzerJob(TypedDict):
     _type: str
     _createdBy: str
     _updatedBy: NotRequired[str]
-    _createdAt: str
-    _updatedAt: NotRequired[str]
+    _createdAt: int
+    _updatedAt: NotRequired[int]
     analyzerId: str
     analyzerName: str
     analyzerDefinition: str
     status: str
-    startDate: str
-    endDate: NotRequired[str]
+    startDate: int
+    endDate: NotRequired[int]
     report: NotRequired[Dict[str, Any]]
     cortexId: str
     cortexJobId: str
@@ -47,8 +47,8 @@ class OutputResponderAction(TypedDict):
     _type: str
     _createdBy: str
     _updatedBy: NotRequired[str]
-    _createdAt: str
-    _updatedAt: NotRequired[str]
+    _createdAt: int
+    _updatedAt: NotRequired[int]
     responderId: str
     responderName: NotRequired[str]
     responderDefinition: NotRequired[str]
@@ -57,8 +57,8 @@ class OutputResponderAction(TypedDict):
     objectType: str
     objectId: str
     status: str
-    startDate: str
-    endDate: NotRequired[str]
+    startDate: int
+    endDate: NotRequired[int]
     operations: str
     report: Dict[str, Any]
 
