@@ -44,6 +44,9 @@ class TestCaseEndpoint:
         update_fields: InputUpdateCase = {
             "title": "my updated case",
             "description": "my updated description",
+            "summary": None,
+            "assignee": None,
+            "impactStatus": None,
         }
         thehive.case.update(case_id=case_id, fields=update_fields)
         updated_case = thehive.case.get(case_id=case_id)

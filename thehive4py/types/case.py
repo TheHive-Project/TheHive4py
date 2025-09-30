@@ -1,13 +1,12 @@
-from typing import Any, List, Literal, TypedDict, Union
+from typing import Any, List, Literal, Optional, TypedDict, Union
 
 from typing_extensions import NotRequired
 
+from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
 from thehive4py.types.observable import OutputObservable
 from thehive4py.types.page import InputCasePage
 from thehive4py.types.share import InputShare
-
-from .custom_field import InputCustomFieldValue, OutputCustomFieldValue
-from .task import InputTask
+from thehive4py.types.task import InputTask
 
 CaseStatusValue = Literal[
     "New",
@@ -117,9 +116,9 @@ class InputUpdateCase(TypedDict, total=False):
     tlp: int
     pap: int
     status: str
-    summary: str
-    assignee: str
-    impactStatus: str
+    summary: Optional[str]
+    assignee: Optional[str]
+    impactStatus: Optional[str]
     customFields: Union[List[InputCustomFieldValue], dict]
     taskRule: str
     observableRule: str
