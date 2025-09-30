@@ -414,6 +414,21 @@ class TestCaseEndpoint:
         attachment = fetched_observable.get("attachment")
         assert attachment and attachment["name"] in observable_path
 
+    def test_create_bulk_observable(self, thehive: TheHiveApi, test_case: OutputCase):
+        bulk_observable: InputObservable = {
+            "data": ["1.example.com", "2.example.com"],
+            "dataType": "domain",
+        }
+
+        created_observables = thehive.case.create_observable(
+            case_id=test_case["_id"], observable=bulk_observable
+        )
+
+        assert len(created_observables) == len(bulk_observable["data"])
+        for created_observable in created_observables:
+            assert "data" in created_observable
+            assert created_observable["data"] in bulk_observable["data"]
+
     def test_create_and_get_task(self, thehive: TheHiveApi, test_case: OutputCase):
         created_task = thehive.case.create_task(
             case_id=test_case["_id"], task={"title": "my task"}

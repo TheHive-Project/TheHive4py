@@ -191,6 +191,21 @@ class TestAlertEndpoint:
         attachment = fetched_observable.get("attachment")
         assert attachment and attachment["name"] in observable_path
 
+    def test_create_bulk_observable(self, thehive: TheHiveApi, test_alert: OutputAlert):
+        bulk_observable: InputObservable = {
+            "data": ["1.example.com", "2.example.com"],
+            "dataType": "domain",
+        }
+
+        created_observables = thehive.alert.create_observable(
+            alert_id=test_alert["_id"], observable=bulk_observable
+        )
+
+        assert len(created_observables) == len(bulk_observable["data"])
+        for created_observable in created_observables:
+            assert "data" in created_observable
+            assert created_observable["data"] in bulk_observable["data"]
+
     def test_create_alert_with_observables(self, thehive: TheHiveApi):
         created_alert = thehive.alert.create(
             {
