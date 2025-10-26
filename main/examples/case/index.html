@@ -1304,7 +1304,6 @@
 <span class="n">input_case</span><span class="p">:</span> <span class="n">InputCase</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;an advanced case&quot;</span><span class="p">,</span>
     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a bit more advanced case...&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;caseTemplate&quot;</span><span class="p">:</span> <span class="s2">&quot;my-template&quot;</span><span class="p">,</span>
     <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;New&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;advanced&quot;</span><span class="p">,</span> <span class="s2">&quot;example&quot;</span><span class="p">],</span>
@@ -1560,7 +1559,7 @@ Here's a simple example to demonstrate: </p>
 
 <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
     <span class="n">observable_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;my-observable.txt&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
         <span class="n">observable_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;some observable content&quot;</span><span class="p">)</span>
 
     <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
