@@ -709,6 +709,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#case-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case comments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case comments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-comment-to-a-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add comment to a case
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1207,6 +1231,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#case-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case comments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case comments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-comment-to-a-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add comment to a case
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1688,6 +1736,26 @@ Here's a simple example to demonstrate: </p>
 </code></pre></div>
 <p>The procedure entity requires <code>occurDate</code> and <code>patternId</code> as they are mandatory fields while <code>tactic</code> and <code>description</code> are optional.</p>
 <p>To simplify the example we also used the <a class="autorefs autorefs-internal" title="            now_to_ts()" href="../../reference/helpers/#thehive4py.helpers.now_to_ts">helpers.now_to_ts</a> function to generate a dummy timestamp for the procedures.</p>
+<h2 id="case-comments">Case comments</h2>
+<p>Besides case tasks we can also create comments on cases. Comments serve as a lightweight entity to leave feedback or notes on a case for ourselves or other analysts.</p>
+<h3 id="add-comment-to-a-case">Add comment  to a case</h3>
+<p>In the below example we will create a case and after its creation going to add a simple comment to it:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
+
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+
+<span class="n">case</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">case</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;case with a comment&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a case to comment on&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">hive</span><span class="o">.</span><span class="n">comment</span><span class="o">.</span><span class="n">create_in_case</span><span class="p">(</span>
+    <span class="n">case_id</span><span class="o">=</span><span class="n">case</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">comment</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;what an average case to comment on&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div>
 
 
 
