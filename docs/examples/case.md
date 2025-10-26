@@ -255,3 +255,15 @@ The procedure entity requires `occurDate` and `patternId` as they are mandatory 
 
 To simplify the example we also used the [helpers.now_to_ts][thehive4py.helpers.now_to_ts] function to generate a dummy timestamp for the procedures.
 
+
+## Case comments
+
+Besides case tasks we can also create comments on cases. Comments serve as a lightweight entity to leave feedback or notes on a case for ourselves or other analysts.
+
+### Add comment  to a case
+
+In the below example we will create a case and after its creation going to add a simple comment to it:
+
+```python
+--8<-- "examples/case/comment.py"
+```

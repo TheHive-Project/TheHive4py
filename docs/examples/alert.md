@@ -35,55 +35,6 @@ Finally after the creation of the alert we saved the response in the `output_ale
     In case you want to see the what the Alert API offers please check out the [official alert docs](https://docs.strangebee.com/thehive/api-docs/#tag/Alert).
 
 
-## Alert observables
-
-In TheHive an observable is a piece of data or evidence (e.g., an IP address, domain, etc.) associated with a security incident, used to provide context and aid in the investigation and response process.
-
-Let's take a look at different ways of populating alerts with observables, let them be textual or file based observables.
-
-### Add observables during alert creation
-
-We can add observables already during alert creation. This is a great way to combine alert and observable creation in an atomic way:
-
-Let's create an alert with an `ip` and a `domain` observable:
-
-```python
---8<-- "examples/alert/observable_during_alerting.py"
-```
-
-### Add observables to an existing alert
-
-While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.
-
-Fortunately TheHive API supports alert observable creation on already existing alerts. Let's do something similar to the previous example and experiment with the [alert.create_observable][thehive4py.endpoints.alert.AlertEndpoint.create_observable] method:
-
-
-```python
---8<-- "examples/alert/observable_after_alerting.py"
-```
-
-
-The above example showcases multiple ways to create observables in an already existing alert. Using the `simple_observable` we created a single observable in our alert. 
-
-Then using a `bulk_observable` we can also create many observables via a single call as the [InputObservable][thehive4py.types.observable.InputObservable] type's `data` property supports both `str` and `list[str]` values. 
-
-However, there's a limitation for creating bulk observables: they must all share the same `dataType`. If you'd like to add many observables with different types, you need to iterate through them and call the create method one by one. This workaround is demonstrated by the third option utilizing the `mixed_observables` list.
-
-### Add file based observables
-
-In the previous examples we've seen how to handle observables without attachments. However sometimes we also want to add attachments to an observable not only textual data. Fortunately that is supported by TheHive. So in the next example let's create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:
-
-
-```python
---8<-- "examples/alert/observable_from_file.py"
-```
-
-As we can see from the above example a file based observable must specify the `attachment` property with a key that links it to the attachment specified in the `attachment_map` dictionary.
-
-This way TheHive will know which attachment to pair with which observable behind the scenes.
-
-In our example `attachment_key` is used to specify the relationship between the observable and the actual file. In this case its value is a uuid, however it can be any arbitrary value, though it's important that it should uniquely identify the attachment and the observable we would like to pair in TheHive.
-
 ## Update single and bulk 
 
 Creating alerts is fun but sometimes an existing alert also needs to be updated. As expected `thehive4py` offers multiple ways to accomplish this task either on a single alert or multiple ones.
@@ -215,3 +166,66 @@ To delete multiple alerts via a single request one can use the [alert.bulk_delet
 ```
 
 In the above example we created two alerts and saved their ids in the `alert_ids_to_delete` variable just to pass it to the bulk deletion method.
+
+## Alert observables
+
+In TheHive an observable is a piece of data or evidence (e.g., an IP address, domain, etc.) associated with a security incident, used to provide context and aid in the investigation and response process.
+
+Let's take a look at different ways of populating alerts with observables, let them be textual or file based observables.
+
+### Add observables during alert creation
+
+We can add observables already during alert creation. This is a great way to combine alert and observable creation in an atomic way:
+
+Let's create an alert with an `ip` and a `domain` observable:
+
+```python
+--8<-- "examples/alert/observable_during_alerting.py"
+```
+
+### Add observables to an existing alert
+
+While it's probably the most convenient way to combine alert and observable creation in a single call, sometimes we don't have all the observables at hand during alert creation time or we have such a large number of observables that we cannot send them all in one single request.
+
+Fortunately TheHive API supports alert observable creation on already existing alerts. Let's do something similar to the previous example and experiment with the [alert.create_observable][thehive4py.endpoints.alert.AlertEndpoint.create_observable] method:
+
+
+```python
+--8<-- "examples/alert/observable_after_alerting.py"
+```
+
+
+The above example showcases multiple ways to create observables in an already existing alert. Using the `simple_observable` we created a single observable in our alert. 
+
+Then using a `bulk_observable` we can also create many observables via a single call as the [InputObservable][thehive4py.types.observable.InputObservable] type's `data` property supports both `str` and `list[str]` values. 
+
+However, there's a limitation for creating bulk observables: they must all share the same `dataType`. If you'd like to add many observables with different types, you need to iterate through them and call the create method one by one. This workaround is demonstrated by the third option utilizing the `mixed_observables` list.
+
+### Add file based observables
+
+In the previous examples we've seen how to handle observables without attachments. However sometimes we also want to add attachments to an observable not only textual data. Fortunately that is supported by TheHive. So in the next example let's create a temporary directory with a dummy file and some dummy content that will represent our file based observable and add it to an alert:
+
+
+```python
+--8<-- "examples/alert/observable_from_file.py"
+```
+
+As we can see from the above example a file based observable must specify the `attachment` property with a key that links it to the attachment specified in the `attachment_map` dictionary.
+
+This way TheHive will know which attachment to pair with which observable behind the scenes.
+
+In our example `attachment_key` is used to specify the relationship between the observable and the actual file. In this case its value is a uuid, however it can be any arbitrary value, though it's important that it should uniquely identify the attachment and the observable we would like to pair in TheHive.
+
+
+## Alert comments
+
+An alert comment is a lightweight entity to leave feedback or notes on a alert for ourselves or other analysts.
+
+### Add comment to an alert
+
+
+In the below example we will create an alert and after its creation going to add a simple comment to it:
+
+```python
+--8<-- "examples/alert/comment.py"
+```
