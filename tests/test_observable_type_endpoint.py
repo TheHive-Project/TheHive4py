@@ -1,4 +1,5 @@
 import pytest
+
 from thehive4py.client import TheHiveApi
 from thehive4py.errors import TheHiveError
 from thehive4py.query.filters import Eq
@@ -19,18 +20,18 @@ class TestObservableTypeEndpoint:
         assert created_observable_type == test_observable_type
 
     def test_find(
-        self, thehive: TheHiveApi, test_observable_type: OutputObservableType
+        self, thehive_admin: TheHiveApi, test_observable_type: OutputObservableType
     ):
-        found_observable_types = thehive.observable_type.find(
+        found_observable_types = thehive_admin.observable_type.find(
             filters=Eq("name", test_observable_type["name"])
         )
 
         assert found_observable_types == [test_observable_type]
 
     def test_delete(
-        self, thehive: TheHiveApi, test_observable_type: OutputObservableType
+        self, thehive_admin: TheHiveApi, test_observable_type: OutputObservableType
     ):
         observable_type_id = test_observable_type["_id"]
-        thehive.observable_type.delete(observable_type_id)
+        thehive_admin.observable_type.delete(observable_type_id)
         with pytest.raises(TheHiveError):
-            thehive.observable_type.get(observable_type_id)
+            thehive_admin.observable_type.get(observable_type_id)

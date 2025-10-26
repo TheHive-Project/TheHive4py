@@ -14,7 +14,7 @@ case_to_enrich = hive.case.create(
 
 with tempfile.TemporaryDirectory() as tmpdir:
     observable_filepath = os.path.join(tmpdir, "my-observable.txt")
-    with open(observable_filepath) as observable_file:
+    with open(observable_filepath, "w") as observable_file:
         observable_file.write("some observable content")
 
     hive.case.create_observable(

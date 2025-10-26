@@ -35,16 +35,20 @@ def test_config():
     )
 
 
-@pytest.fixture(scope="function", autouse=True)
-def auto_reset_hive_instance(thehive: TheHiveApi, test_config: TestConfig):
-    reset_hive_instance(hive_url=thehive.session.hive_url, test_config=test_config)
-
-
 @pytest.fixture(scope="session")
-def thehive(test_config: TestConfig):
-    hive_url = spawn_hive_container(test_config=test_config)
+def thehive_url(test_config: TestConfig) -> str:
+    return spawn_hive_container(test_config=test_config)
+
+
+@pytest.fixture(scope="function", autouse=True)
+def auto_reset_hive_instance(thehive_url: str, test_config: TestConfig):
+    reset_hive_instance(hive_url=thehive_url, test_config=test_config)
+
+
+@pytest.fixture
+def thehive(thehive_url: str, test_config: TestConfig):
     client = TheHiveApi(
-        url=hive_url,
+        url=thehive_url,
         username=test_config.user,
         password=test_config.password,
         organisation=test_config.main_org,
@@ -53,11 +57,14 @@ def thehive(test_config: TestConfig):
 
 
 @pytest.fixture
-def thehive_admin(test_config: TestConfig, thehive: TheHiveApi):
-    default_organisation = thehive.session_organisation
-    thehive.session_organisation = test_config.admin_org
-    yield thehive
-    thehive.session_organisation = default_organisation
+def thehive_admin(thehive_url: str, test_config: TestConfig):
+    admin_client = TheHiveApi(
+        url=thehive_url,
+        username=test_config.user,
+        password=test_config.password,
+        organisation=test_config.admin_org,
+    )
+    return admin_client
 
 
 @pytest.fixture
