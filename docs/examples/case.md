@@ -165,11 +165,11 @@ Finally the `observable` metadata needs to be defined with its `dataType` as `fi
 
 This way TheHive will pair the observable metadata with the file as its attachment behind the scenes.
 
-## Case tasks
+## Case tasks and logs
 
-For more advanced case handling we can specify tasks which will serve as steps during the evaluation of the case.
+For more advanced case handling we can specify tasks and task logs which will serve as steps and additional actions to take during the evaluation of the case.
 
-Fortunately TheHive API provides different options to add tasks to cases and we will check them out in the next sections.
+Fortunately TheHive API provides different options to add tasks and task logs to cases and we will check them out in the next sections.
 
 ### Add tasks during case creation
 
@@ -198,6 +198,19 @@ Now let's do an example by adding tasks retroactively to a case:
 In the above example we created an empty case as `case_to_enrich`, and then defined a list of two tasks in the `case_tasks` variable.
 
 Finally using a for loop and the `case.create_task` method we added them to our dummy case one by one.
+
+### Add logs to tasks
+
+Tasks can also be enriched with logs which can describe activities that have been carried out during the execution of a task.
+Additionally task logs can store artifacts in the form of attachments to further enrich the task.
+Let's see an example of enriching a case task with a task log containing an attachment.
+
+```python
+--8<-- "examples/case/task_with_task_log.py"
+```
+
+Above we created a case, enriched it with a task, and finally added a task log with a dummy attachemnt to the task.
+
 
 ## Case pages
 
