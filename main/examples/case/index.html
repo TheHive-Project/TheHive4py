@@ -620,13 +620,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#case-tasks" class="md-nav__link">
+  <a href="#case-tasks-and-logs" class="md-nav__link">
     <span class="md-ellipsis">
-      Case tasks
+      Case tasks and logs
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Case tasks">
+    <nav class="md-nav" aria-label="Case tasks and logs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -642,6 +642,15 @@
   <a href="#add-tasks-to-an-existing-case" class="md-nav__link">
     <span class="md-ellipsis">
       Add tasks to an existing case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-logs-to-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add logs to tasks
     </span>
   </a>
   
@@ -1142,13 +1151,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#case-tasks" class="md-nav__link">
+  <a href="#case-tasks-and-logs" class="md-nav__link">
     <span class="md-ellipsis">
-      Case tasks
+      Case tasks and logs
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Case tasks">
+    <nav class="md-nav" aria-label="Case tasks and logs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1164,6 +1173,15 @@
   <a href="#add-tasks-to-an-existing-case" class="md-nav__link">
     <span class="md-ellipsis">
       Add tasks to an existing case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-logs-to-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add logs to tasks
     </span>
   </a>
   
@@ -1571,9 +1589,9 @@ Here's a simple example to demonstrate: </p>
 <p>As we can see from the above example a file based observable needs an actual file and its filepath, in our example these are represented by <code>observable_filepath</code> and <code>observable_file</code></p>
 <p>Finally the <code>observable</code> metadata needs to be defined with its <code>dataType</code> as <code>file</code> and then the <code>data</code> field should be omitted. Finally the <code>observable_path</code> argument must be defined with the value of the actual <code>observable_filepath</code>.</p>
 <p>This way TheHive will pair the observable metadata with the file as its attachment behind the scenes.</p>
-<h2 id="case-tasks">Case tasks</h2>
-<p>For more advanced case handling we can specify tasks which will serve as steps during the evaluation of the case.</p>
-<p>Fortunately TheHive API provides different options to add tasks to cases and we will check them out in the next sections.</p>
+<h2 id="case-tasks-and-logs">Case tasks and logs</h2>
+<p>For more advanced case handling we can specify tasks and task logs which will serve as steps and additional actions to take during the evaluation of the case.</p>
+<p>Fortunately TheHive API provides different options to add tasks and task logs to cases and we will check them out in the next sections.</p>
 <h3 id="add-tasks-during-case-creation">Add tasks during case creation</h3>
 <p>We can specify tasks already during case creation. This is a great way to combine case and task creation in an atomic way.</p>
 <p>Let's do an example to create a case with a <code>Triage</code> and <code>Respond</code> tasks:</p>
@@ -1625,6 +1643,43 @@ Here's a simple example to demonstrate: </p>
 </code></pre></div>
 <p>In the above example we created an empty case as <code>case_to_enrich</code>, and then defined a list of two tasks in the <code>case_tasks</code> variable.</p>
 <p>Finally using a for loop and the <code>case.create_task</code> method we added them to our dummy case one by one.</p>
+<h3 id="add-logs-to-tasks">Add logs to tasks</h3>
+<p>Tasks can also be enriched with logs which can describe activities that have been carried out during the execution of a task.
+Additionally task logs can store artifacts in the form of attachments to further enrich the task.
+Let's see an example of enriching a case task with a task log containing an attachment.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
+
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+
+<span class="n">case_to_enrich</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">case</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;case to enrich&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a case to enrich with task and task log&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">case_task_to_enrich</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">case_id</span><span class="o">=</span><span class="n">case_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">task</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;a task to enrich with a task log and attachment&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
+    <span class="n">task_log_attachment_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;task_log_attachment.txt&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">task_log_attachment_filepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">attachment_file</span><span class="p">:</span>
+        <span class="n">attachment_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;attachment content&quot;</span><span class="p">)</span>
+
+    <span class="n">case_task_log</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">task_log</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="n">case_task_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+        <span class="n">task_log</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;a task log with an attachment&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attachments&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">task_log_attachment_filepath</span><span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>Above we created a case, enriched it with a task, and finally added a task log with a dummy attachemnt to the task.</p>
 <h2 id="case-pages">Case pages</h2>
 <p>In order to give more context to a case we can add pages to it, which could serve as additional notes or documentation during investigation.</p>
 <p>Like usual TheHive API provides different possibilities to add such pages to cases that we will see in the next sections.</p>
