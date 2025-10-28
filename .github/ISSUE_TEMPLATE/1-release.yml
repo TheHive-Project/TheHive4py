@@ -1,35 +1,21 @@
 name: "Release Issue"
-description: "Template for tracking a new project release"
-title: "Release {{version}}"
+description: "Release Issue Template"
+title: "Release 2.x.y"
 labels:
   - "category:release"
-  - "2.0"
+  - "2.x"
 body:
-  - type: input
-    id: version
-    attributes:
-      label: Release version
-      description: Enter the release version (e.g., 2.0.3)
-      placeholder: "2.0.x"
-    validations:
-      required: true
 
   - type: textarea
     id: todos
     attributes:
-      label: Release tasks
+      label: Release todos
       description: Checklist of things to do for this release
       value: |
-        - [ ] bump version to {{version}}
+        ## Release todos:
+        - [ ] bump version to 2.x.y
         - [ ] generate release notes and paste them in `docs/release-notes.md`, then run the linkification script
-        - [ ] tag `main` with {{version}} (`git checkout main && git pull && git tag {{version}} && git push origin tag {{version}}`)
+        - [ ] tag `main` with 2.x.y (`git checkout main && git pull && git tag 2.x.y && git push origin tag 2.x.y`)
         - [ ] publish release notes after PyPI upload
     validations:
       required: true
-
-  - type: input
-    id: milestone
-    attributes:
-      label: Milestone
-      description: The milestone associated with this release
-      placeholder: "{{version}}"
