@@ -8,7 +8,7 @@ TESTS_DIR = os.path.join(PROJECT_DIR, "tests/")
 EXAMPLES_DIR = os.path.join(PROJECT_DIR, "examples/")
 
 nox.options.default_venv_backend = "none"
-nox.options.tags = ["audit", "lint"]
+nox.options.keywords = "ci and not test"
 
 
 @nox.session(tags=["ci", "lint"])
