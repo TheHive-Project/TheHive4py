@@ -6,6 +6,19 @@
   }
 </style>
 
+## 2.0.3 (2025-10-29)
+
+### Deprecated
+* [#515](https://github.com/TheHive-Project/TheHive4py/issues/515) - Deprecate python 3.9 by [@Kamforka](https://github.com/Kamforka) in [#517](https://github.com/TheHive-Project/TheHive4py/pull/517)
+### Other
+* [#507](https://github.com/TheHive-Project/TheHive4py/issues/507) - Use TheHive v5.5.10 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#510](https://github.com/TheHive-Project/TheHive4py/pull/510)
+* [#508](https://github.com/TheHive-Project/TheHive4py/issues/508) - Document case and alert comment usage by [@Kamforka](https://github.com/Kamforka) in [#512](https://github.com/TheHive-Project/TheHive4py/pull/512)
+* [#358](https://github.com/TheHive-Project/TheHive4py/issues/358) - Integrate examples into the test suite by [@Kamforka](https://github.com/Kamforka) in [#513](https://github.com/TheHive-Project/TheHive4py/pull/513)
+* [#509](https://github.com/TheHive-Project/TheHive4py/issues/509) - Document usage of task logs by [@Kamforka](https://github.com/Kamforka) in [#511](https://github.com/TheHive-Project/TheHive4py/pull/511)
+* [#514](https://github.com/TheHive-Project/TheHive4py/issues/514) - Add python 3.14 support by [@Kamforka](https://github.com/Kamforka) in [#516](https://github.com/TheHive-Project/TheHive4py/pull/516)
+
+**Full Changelog**: [2.0.2...2.0.3](https://github.com/TheHive-Project/TheHive4py/compare/2.0.2...2.0.3)
+
 ## 2.0.2 (2025-09-30)
 ### Added
 * [#496](https://github.com/TheHive-Project/TheHive4py/issues/496) - Add missing `cortex.bulk_create_analyzer_jobs` and `cortex.find_analyzer_jobs` methods by [@Kamforka](https://github.com/Kamforka) in [#502](https://github.com/TheHive-Project/TheHive4py/pull/502)
