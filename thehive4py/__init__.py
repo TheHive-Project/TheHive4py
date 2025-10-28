@@ -1,7 +1,7 @@
 from thehive4py.client import TheHiveApi
 
 
-def _warn_old_py_version(min_py_version=(3, 9)):
+def _warn_old_py_version(min_py_version=(3, 10)):
     import sys
     import warnings
 
