@@ -27,8 +27,5 @@ jobs:
         run: nox --session=type
       - name: CVE check with pip-audit
         run: nox --session=cve
-      - name: Warn bandit bug for Python 3.14
-        if: matrix.python-version == '3.14'
-        run: echo "⚠️ The bandit security check for Python 3.14 is out of order due to the bug tracked in https://github.com/PyCQA/bandit/issues/1314 :trollface:" >> $GITHUB_STEP_SUMMARY
       - name: Security check with bandit
         run: nox --session=security
