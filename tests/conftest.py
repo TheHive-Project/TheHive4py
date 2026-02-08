@@ -25,7 +25,7 @@ from thehive4py.types.user import OutputUser
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="strangebee/thehive:5.5.13",
+        image_name="strangebee/thehive:5.6.0",
         container_name="thehive4py-integration-tester",
         user="admin@thehive.local",
         password="secret",
