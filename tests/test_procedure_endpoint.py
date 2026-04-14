@@ -51,10 +51,12 @@ class TestProcedureEndpoint:
             alert_id=test_alert["_id"], procedures=procedures
         )
 
+        # TODO: changed the query field from `_id` to `occurDate` because since TheHive version 5.7.0
+        # the `procedure._id` does not work within queries
         fetched_procedures = thehive.procedure.find(
             filters=In(
-                field="_id",
-                values=[procedure["_id"] for procedure in created_procedures],
+                field="occurDate",
+                values=[procedure["occurDate"] for procedure in created_procedures],
             )
         )
         assert sorted(
@@ -99,10 +101,12 @@ class TestProcedureEndpoint:
         created_procedures = thehive.procedure.bulk_create_in_case(
             case_id=test_case["_id"], procedures=procedures
         )
+        # TODO: changed the query field from `_id` to `occurDate` because since TheHive version 5.7.0
+        # the `procedure._id` does not work within queries
         fetched_procedures = thehive.procedure.find(
             filters=In(
-                field="_id",
-                values=[procedure["_id"] for procedure in created_procedures],
+                field="occurDate",
+                values=[procedure["occurDate"] for procedure in created_procedures],
             )
         )
         assert sorted(
