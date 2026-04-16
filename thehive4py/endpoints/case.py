@@ -746,7 +746,7 @@ class CaseEndpoint(EndpointBase):
         filters: Optional[FilterExpr] = None,
         sortby: Optional[SortExpr] = None,
         paginate: Optional[Paginate] = None,
-    ) -> List[OutputProcedure]:
+    ) -> List[OutputCasePage]:
         """Find pages related to a case.
 
         Args:
