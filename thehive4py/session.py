@@ -20,7 +20,7 @@ DEFAULT_RETRY = Retry(
 )
 
 
-RetryValue = Union[Retry, int, None]
+RetryValue = Union[Retry, int]
 VerifyValue = Union[bool, str]
 
 
