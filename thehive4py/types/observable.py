@@ -47,6 +47,7 @@ class OutputObservable(TypedDict):
     message: NotRequired[str]
     extraData: dict
     ignoreSimilarity: bool
+    external: bool
 
 
 class InputUpdateObservable(TypedDict, total=False):
