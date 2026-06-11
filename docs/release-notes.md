@@ -5,6 +5,20 @@
     display: none
   }
 </style>
+## 2.1.0 (2026-06-12)
+
+### Changed
+* [#536](https://github.com/TheHive-Project/TheHive4py/issues/536) - Align type hints with recent api changes of 5.6.x and 5.7.x by [@Kamforka](https://github.com/Kamforka) in [#537](https://github.com/TheHive-Project/TheHive4py/pull/537)
+### Removed
+* [#530](https://github.com/TheHive-Project/TheHive4py/issues/530) - Remove support for python 3.9 by [@Kamforka](https://github.com/Kamforka) in [#531](https://github.com/TheHive-Project/TheHive4py/pull/531)
+### Fixed
+* [#532](https://github.com/TheHive-Project/TheHive4py/issues/532) - Fix misaligned return type in case.find_pages by [@Kamforka](https://github.com/Kamforka) in [#533](https://github.com/TheHive-Project/TheHive4py/pull/533)
+### Other
+* [#523](https://github.com/TheHive-Project/TheHive4py/issues/523) - Use TheHive v5.5.13 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#524](https://github.com/TheHive-Project/TheHive4py/pull/524)
+* [#528](https://github.com/TheHive-Project/TheHive4py/issues/528) - Use TheHive 5.7.3 in integration tests by [@Kamforka](https://github.com/Kamforka) in [#535](https://github.com/TheHive-Project/TheHive4py/pull/535)
+
+
+**Full Changelog**: [2.0.3...2.1.0](https://github.com/TheHive-Project/TheHive4py/compare/2.0.3...2.1.0)
 
 ## 2.0.3 (2025-10-29)
 
