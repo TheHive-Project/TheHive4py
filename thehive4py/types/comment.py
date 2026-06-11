@@ -5,6 +5,7 @@ from typing_extensions import NotRequired
 
 class InputComment(TypedDict):
     message: str
+    external: NotRequired[bool]
 
 
 class OutputComment(TypedDict):
@@ -17,6 +18,7 @@ class OutputComment(TypedDict):
     message: str
     isEdited: bool
     extraData: dict
+    external: bool
 
 
 class InputUpdateComment(TypedDict):

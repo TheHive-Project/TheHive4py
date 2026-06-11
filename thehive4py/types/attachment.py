@@ -7,6 +7,7 @@ class InputAttachment(TypedDict):
     name: str
     contentType: str
     id: str
+    external: NotRequired[bool]
 
 
 class OutputAttachment(TypedDict):
@@ -23,3 +24,4 @@ class OutputAttachment(TypedDict):
     id: str
     path: str
     extraData: dict
+    external: bool

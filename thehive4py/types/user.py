@@ -2,7 +2,7 @@ from typing import List, Literal, TypedDict
 
 from typing_extensions import NotRequired
 
-InputUserType = Literal["Normal", "Service"]
+InputUserType = Literal["Normal", "Service", "External"]
 
 
 class InputUser(TypedDict):

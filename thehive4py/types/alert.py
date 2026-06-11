@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import List, TypedDict, Union
 
 from typing_extensions import NotRequired
 
@@ -23,7 +23,7 @@ class InputAlert(TypedDict):
     flag: NotRequired[bool]
     tlp: NotRequired[int]
     pap: NotRequired[int]
-    customFields: NotRequired[List[InputCustomFieldValue]]
+    customFields: NotRequired[Union[List[InputCustomFieldValue], dict]]
     summary: NotRequired[str]
     status: NotRequired[str]
     assignee: NotRequired[str]
@@ -87,7 +87,7 @@ class InputUpdateAlert(TypedDict, total=False):
     tlp: int
     pap: int
     follow: bool
-    customFields: List[InputCustomFieldValue]
+    customFields: Union[List[InputCustomFieldValue], dict]
     status: str
     summary: str
     assignee: str
@@ -112,7 +112,7 @@ class InputPromoteAlert(TypedDict, total=False):
     status: str
     summary: str
     assignee: str
-    customFields: List[InputCustomFieldValue]
+    customFields: Union[List[InputCustomFieldValue], dict]
     caseTemplate: str
     tasks: List[InputTask]
     pages: List[InputCasePage]
