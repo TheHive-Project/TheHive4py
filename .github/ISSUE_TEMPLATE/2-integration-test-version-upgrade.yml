@@ -1,6 +1,6 @@
 name: "Integration Test Version Upgrade"
 description: "Bump the TheHive version used by the integration test suite"
-title: "Use TheHive 5.x.z in integration tests"
+title: "Use TheHive 5.x.y in integration tests"
 labels:
   - "2.x"
   - "category:maintenance"
@@ -30,7 +30,6 @@ body:
         - [ ] bump `THEHIVE_VERSION` in `tests/conftest.py`
         - [ ] run the integration tests against the new version (`nox -s test`)
         - [ ] fix failing tests and align types with API changes
-        - [ ] update release notes
         - [ ] open a PR with the changes (branch `<issue-no>-<slug>`), labeled `2.x` and set to the next in-line milestone
     validations:
       required: true
