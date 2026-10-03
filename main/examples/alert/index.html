@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../img/strangebee.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1387,15 +1387,15 @@
 <p>Here's an example that demonstrates how to create the most simplistic alert possible using the <a class="autorefs autorefs-internal" title="            create(alert, attachment_map=None)" href="../../reference/endpoints/#thehive4py.endpoints.alert.AlertEndpoint.create">alert.create</a> method:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">simple_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="s2">&quot;should-be-unique&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;a simple alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a bit too simple&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"simple"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="s2">"should-be-unique"</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"a simple alert"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a bit too simple"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1407,17 +1407,17 @@ Fortunately we can use <code>thehive4py</code>'s type hints to the rescue and sp
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.alert</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputAlert</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">input_alert</span><span class="p">:</span> <span class="n">InputAlert</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;advanced&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="s2">&quot;should-be-unique&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;an advanced alert&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a bit more advanced&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;advanced&quot;</span><span class="p">,</span> <span class="s2">&quot;example&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;caseTemplate&quot;</span><span class="p">:</span> <span class="s2">&quot;my-template&quot;</span><span class="p">,</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"advanced"</span><span class="p">,</span>
+    <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+    <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="s2">"should-be-unique"</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"an advanced alert"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a bit more advanced"</span><span class="p">,</span>
+    <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"advanced"</span><span class="p">,</span> <span class="s2">"example"</span><span class="p">],</span>
+    <span class="s2">"severity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"caseTemplate"</span><span class="p">:</span> <span class="s2">"my-template"</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">output_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">alert</span><span class="o">=</span><span class="n">input_alert</span><span class="p">)</span>
@@ -1437,28 +1437,28 @@ In case you want to see the what the Alert API offers please check out the <a hr
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">original_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;update-single&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;original alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a single alert to update&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"update-single"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"original alert"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a single alert to update"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-    <span class="n">alert_id</span><span class="o">=</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span>
     <span class="n">fields</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;updated alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;update-single&quot;</span><span class="p">],</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"updated alert"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"update-single"</span><span class="p">],</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
-<span class="n">updated_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+<span class="n">updated_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 </code></pre></div>
 <p>In the above example we've updated the <code>title</code> and the <code>tags</code> fields.</p>
 <p>Be mindful though, <code>thehive4py</code> is a lightweight wrapper around TheHive API and offers no object relationship mapping functionalities, meaning that the <code>original_alert</code> won't reflect the changes of the update.</p>
@@ -1475,28 +1475,28 @@ The method accepts the same <code>fields</code> dictionary as before but with an
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">original_alert_ids</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
     <span class="n">original_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
         <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;update-bulk&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;original alert #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to update in bulk&quot;</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"update-bulk"</span><span class="p">,</span>
+            <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+            <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"original alert #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to update in bulk"</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="n">original_alert_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+    <span class="n">original_alert_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">original_alert</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 
 
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">bulk_update</span><span class="p">(</span>
     <span class="n">fields</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="n">original_alert_ids</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;bulk updated alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;update-bulk&quot;</span><span class="p">],</span>
+        <span class="s2">"ids"</span><span class="p">:</span> <span class="n">original_alert_ids</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"bulk updated alert"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"update-bulk"</span><span class="p">],</span>
     <span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1510,20 +1510,20 @@ Then we update the fields <code>title</code> and <code>tags</code> on both alert
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_to_get</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;get-single&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert to get&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a single alert to fetch&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"get-single"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert to get"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a single alert to fetch"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 
-<span class="n">fetched_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_get</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+<span class="n">fetched_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_get</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 </code></pre></div>
 <h3 id="find-multiple-alerts">Find multiple alerts</h3>
 <p>To fetch multiple alerts based on arbitrary conditions one can use the <a class="autorefs autorefs-internal" title="            find(filters=None, sortby=None, paginate=None)" href="../../reference/endpoints/#thehive4py.endpoints.alert.AlertEndpoint.find">alert.find</a> method which is an abstraction on top of TheHive's Query API.</p>
@@ -1534,40 +1534,40 @@ Then we update the fields <code>title</code> and <code>tags</code> on both alert
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.query.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Eq</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">antivirus_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;find-multiple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert to find&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to find with others&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;antivirus&quot;</span><span class="p">],</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"find-multiple"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert to find"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to find with others"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"antivirus"</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">phishing_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;find-multiple&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert to find&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to find with others&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;phishing&quot;</span><span class="p">],</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"find-multiple"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert to find"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to find with others"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"phishing"</span><span class="p">],</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 
 <span class="n">raw_filters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;_or&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;_eq&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_field&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;_value&quot;</span><span class="p">:</span> <span class="s2">&quot;antivirus&quot;</span><span class="p">}},</span>
-        <span class="p">{</span><span class="s2">&quot;_eq&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_field&quot;</span><span class="p">:</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;_value&quot;</span><span class="p">:</span> <span class="s2">&quot;phishing&quot;</span><span class="p">}},</span>
+    <span class="s2">"_or"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"_eq"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"_field"</span><span class="p">:</span> <span class="s2">"tags"</span><span class="p">,</span> <span class="s2">"_value"</span><span class="p">:</span> <span class="s2">"antivirus"</span><span class="p">}},</span>
+        <span class="p">{</span><span class="s2">"_eq"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"_field"</span><span class="p">:</span> <span class="s2">"tags"</span><span class="p">,</span> <span class="s2">"_value"</span><span class="p">:</span> <span class="s2">"phishing"</span><span class="p">}},</span>
     <span class="p">]</span>
 <span class="p">}</span>
 <span class="n">all_alerts_with_raw_filters</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">raw_filters</span><span class="p">)</span>
 
-<span class="n">class_filters</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;antivirus&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Eq</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;phishing&quot;</span><span class="p">)</span>
+<span class="n">class_filters</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s2">"tags"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">"antivirus"</span><span class="p">)</span> <span class="o">|</span> <span class="n">Eq</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s2">"tags"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">"phishing"</span><span class="p">)</span>
 <span class="n">all_alerts_with_class_filters</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">class_filters</span><span class="p">)</span>
 </code></pre></div>
 <p>The above example demonstrates two ways to construct query filters.</p>
@@ -1590,19 +1590,19 @@ Therefore we can promote an alert into a case or merge new alerts into an existi
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_to_promote</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;promote&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;promote to case&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to promote to case&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"promote"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"promote to case"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to promote to case"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
-<span class="n">case_from_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">promote_to_case</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_promote</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+<span class="n">case_from_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">promote_to_case</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_promote</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1615,25 +1615,25 @@ To see all available options please consult the <a href="https://docs.strangebee
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 
 <span class="n">parent_case</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-    <span class="n">case</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;parent case&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a simple parent case&quot;</span><span class="p">}</span>
+    <span class="n">case</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"parent case"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a simple parent case"</span><span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">new_alert</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;merge-into-case&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert to merge&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;a single alert to merge into a parent case&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"merge-into-case"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert to merge"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"a single alert to merge into a parent case"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">updated_parent_case</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">merge_into_case</span><span class="p">(</span>
-    <span class="n">alert_id</span><span class="o">=</span><span class="n">new_alert</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">case_id</span><span class="o">=</span><span class="n">parent_case</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">new_alert</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span> <span class="n">case_id</span><span class="o">=</span><span class="n">parent_case</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>In the above example we prepared a <code>parent_case</code> to which we merge the <code>new_alert</code> using its id and finally save the updated case in the <code>updated_parent_case</code> variable.</p>
@@ -1653,20 +1653,20 @@ To see all available options please consult the <a href="https://docs.strangebee
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_to_delete</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;delete alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to delete&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"delete"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"delete alert"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to delete"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 
-<span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_delete</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+<span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_delete</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 </code></pre></div>
 <h3 id="delete-in-bulk">Delete in bulk</h3>
 <p>To delete multiple alerts via a single request one can use the <a class="autorefs autorefs-internal" title="            bulk_delete(ids)" href="../../reference/endpoints/#thehive4py.endpoints.alert.AlertEndpoint.bulk_delete">alert.bulk_delete</a> method as follows:</p>
@@ -1674,21 +1674,21 @@ To see all available options please consult the <a href="https://docs.strangebee
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_ids_to_delete</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
     <span class="n">alert_to_delete</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
         <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;delete alert #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to delete&quot;</span><span class="p">,</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"delete"</span><span class="p">,</span>
+            <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+            <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"delete alert #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to delete"</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="n">alert_ids_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alert_to_delete</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+    <span class="n">alert_ids_to_delete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alert_to_delete</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
 
 
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">bulk_delete</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="n">alert_ids_to_delete</span><span class="p">)</span>
@@ -1705,17 +1705,17 @@ To see all available options please consult the <a href="https://docs.strangebee
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.alert</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputAlert</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;thehive.example&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"thehive.example"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">input_alert</span><span class="p">:</span> <span class="n">InputAlert</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;alert-with-observables&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert with observables&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;alert with observables&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;observables&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3.4&quot;</span><span class="p">},</span>
-        <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">},</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"alert-with-observables"</span><span class="p">,</span>
+    <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"example"</span><span class="p">,</span>
+    <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert with observables"</span><span class="p">,</span>
+    <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"alert with observables"</span><span class="p">,</span>
+    <span class="s2">"observables"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"ip"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"1.2.3.4"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"domain"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"example.com"</span><span class="p">},</span>
     <span class="p">],</span>
 <span class="p">}</span>
 
@@ -1729,45 +1729,45 @@ To see all available options please consult the <a href="https://docs.strangebee
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.observable</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputObservable</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;thehive.example&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"thehive.example"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_to_enrich</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;alert-without-observables&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;alert without observables&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"alert-without-observables"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"example"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert without observables"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"alert without observables"</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">simple_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+    <span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"domain"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"example.com"</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
-    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span>
     <span class="n">observable</span><span class="o">=</span><span class="n">simple_observable</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="n">bulk_observable</span><span class="p">:</span> <span class="n">InputObservable</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1.example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;2.example.com&quot;</span><span class="p">],</span>
+    <span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"domain"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"1.example.com"</span><span class="p">,</span> <span class="s2">"2.example.com"</span><span class="p">],</span>
 <span class="p">}</span>
 <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
-    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span>
     <span class="n">observable</span><span class="o">=</span><span class="n">bulk_observable</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="n">mixed_observables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">InputObservable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3.4&quot;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;example.com&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"ip"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"1.2.3.4"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"domain"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"example.com"</span><span class="p">},</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">observable</span> <span class="ow">in</span> <span class="n">mixed_observables</span><span class="p">:</span>
     <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create_observable</span><span class="p">(</span>
-        <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
+        <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_enrich</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span>
         <span class="n">observable</span><span class="o">=</span><span class="n">observable</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div>
@@ -1783,23 +1783,23 @@ To see all available options please consult the <a href="https://docs.strangebee
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py.types.alert</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputAlert</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
-    <span class="n">observable_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;my-observable.txt&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
-        <span class="n">observable_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;some observable content&quot;</span><span class="p">)</span>
+    <span class="n">observable_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">"my-observable.txt"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">observable_filepath</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">observable_file</span><span class="p">:</span>
+        <span class="n">observable_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"some observable content"</span><span class="p">)</span>
 
     <span class="n">attachment_key</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
     <span class="n">attachment_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">attachment_key</span><span class="p">:</span> <span class="n">observable_filepath</span><span class="p">}</span>
     <span class="n">input_alert</span><span class="p">:</span> <span class="n">InputAlert</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;alert-with-file-observable&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert with file observables&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;alert with file observables&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;observables&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span><span class="s2">&quot;dataType&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;attachment&quot;</span><span class="p">:</span> <span class="n">attachment_key</span><span class="p">},</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"alert-with-file-observable"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"example"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert with file observables"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"alert with file observables"</span><span class="p">,</span>
+        <span class="s2">"observables"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"dataType"</span><span class="p">:</span> <span class="s2">"file"</span><span class="p">,</span> <span class="s2">"attachment"</span><span class="p">:</span> <span class="n">attachment_key</span><span class="p">},</span>
         <span class="p">],</span>
     <span class="p">}</span>
 
@@ -1816,21 +1816,21 @@ To see all available options please consult the <a href="https://docs.strangebee
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thehive4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TheHiveApi</span>
 
-<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">&quot;h1v3b33&quot;</span><span class="p">)</span>
+<span class="n">hive</span> <span class="o">=</span> <span class="n">TheHiveApi</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"http://localhost:9000"</span><span class="p">,</span> <span class="n">apikey</span><span class="o">=</span><span class="s2">"h1v3b33"</span><span class="p">)</span>
 
 <span class="n">alert_to_comment</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">alert</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">alert</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;comment-on-alert&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;tutorial&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sourceRef&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;alert with a comment&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;an alert to comment on&quot;</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"comment-on-alert"</span><span class="p">,</span>
+        <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+        <span class="s2">"sourceRef"</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"alert with a comment"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"an alert to comment on"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
 
 <span class="n">hive</span><span class="o">.</span><span class="n">comment</span><span class="o">.</span><span class="n">create_in_alert</span><span class="p">(</span>
-    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_comment</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span>
-    <span class="n">comment</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;what an average alert to comment on&quot;</span><span class="p">},</span>
+    <span class="n">alert_id</span><span class="o">=</span><span class="n">alert_to_comment</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">],</span>
+    <span class="n">comment</span><span class="o">=</span><span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="s2">"what an average alert to comment on"</span><span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -1954,7 +1954,7 @@ To see all available options please consult the <a href="https://docs.strangebee
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
