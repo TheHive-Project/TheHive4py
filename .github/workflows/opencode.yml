@@ -1,0 +1,59 @@
+name: opencode
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: opencode-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  opencode:
+    if: |
+      github.event.issue.pull_request == null &&
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'category:agent-ready') &&
+      (contains(github.event.comment.body, '/oc') || contains(github.event.comment.body, '/opencode')) &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Verify commenter has write access
+        id: permission
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            try {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: context.payload.comment.user.login,
+              });
+              core.info(`${context.payload.comment.user.login} has '${data.permission}' permission`);
+              return ['admin', 'maintain', 'write'].includes(data.permission) ? 'true' : 'false';
+            } catch (error) {
+              core.warning(`Could not determine permissions: ${error.message}`);
+              return 'false';
+            }
+
+      - name: Checkout repository
+        if: steps.permission.outputs.result == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Run OpenCode
+        if: steps.permission.outputs.result == 'true'
+        uses: anomalyco/opencode/github@latest
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.OPENCODE_PAT }}
+        with:
+          model: deepseek/deepseek-flash
+          use_github_token: true
