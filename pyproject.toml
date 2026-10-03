@@ -41,6 +41,9 @@ thehive4py = ["py.typed"]
 [tool.coverage.run]
 omit = ["tests/*", "thehive4py/types/*"]
 
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
 [tool.ruff.lint.per-file-ignores]
 "thehive4py/__init__.py" = ["F401"]
 "thehive4py/endpoints/__init__.py" = ["F401"]
