@@ -21,11 +21,13 @@ from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 from thehive4py.types.timeline import OutputCustomEvent
 from thehive4py.types.user import OutputUser
 
+THEHIVE_VERSION = "5.7.3"
+
 
 @pytest.fixture(scope="session")
 def test_config():
     return TestConfig(
-        image_name="strangebee/thehive:5.7.3",
+        image_name=f"strangebee/thehive:{THEHIVE_VERSION}",
         container_name="thehive4py-integration-tester",
         user="admin@thehive.local",
         password="secret",

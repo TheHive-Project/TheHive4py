@@ -1,0 +1,36 @@
+name: "Integration Test Version Upgrade"
+description: "Bump the TheHive version used by the integration test suite"
+title: "Use TheHive 5.x.z in integration tests"
+labels:
+  - "2.x"
+  - "category:maintenance"
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        Tracks bumping the TheHive version the integration test suite runs against.
+
+  - type: input
+    id: version
+    attributes:
+      label: TheHive version
+      description: Target TheHive version (docker image tag)
+      placeholder: "5.x.y"
+    validations:
+      required: true
+
+  - type: textarea
+    id: todos
+    attributes:
+      label: Upgrade todos
+      description: Checklist of things to do for this upgrade
+      value: |
+        ## Upgrade todos:
+        - [ ] bump `THEHIVE_VERSION` in `tests/conftest.py`
+        - [ ] run the integration tests against the new version (`nox -s test`)
+        - [ ] fix failing tests and align types with API changes
+        - [ ] update release notes
+        - [ ] open a PR with the changes (branch `<issue-no>-<slug>`), labeled `2.x` and set to the next in-line milestone
+    validations:
+      required: true
