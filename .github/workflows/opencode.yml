@@ -48,6 +48,23 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Configure git identity
+        if: steps.permission.outputs.result == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        if: steps.permission.outputs.result == 'true'
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dev dependencies
+        if: steps.permission.outputs.result == 'true'
+        run: pip install --no-cache-dir -U pip -e '.[dev]'
+
       - name: Run OpenCode
         if: steps.permission.outputs.result == 'true'
         uses: anomalyco/opencode/github@latest
