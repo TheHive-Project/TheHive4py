@@ -1,0 +1,35 @@
+name: "Deprecate EoL Python Version"
+description: "Deprecate the end of life Python version"
+title: "Deprecate Python 3.y due to end of life"
+labels:
+  - "2.x"
+  - "category:maintenance"
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        Tracks deprecating a Python version that has reached end of life (see https://endoflife.date/python).
+
+        Deprecation only warns users on the affected version. Removing support (`requires-python`, classifier, CI matrix) is tracked as a separate follow-up issue.
+
+  - type: input
+    id: version
+    attributes:
+      label: Deprecated Python version
+      placeholder: "3.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: todos
+    attributes:
+      label: Deprecation todos
+      description: Checklist of things to do for this deprecation
+      value: |
+        ## Deprecation todos:
+        - [ ] bump `min_py_version` in `thehive4py/__init__.py` to the next supported version
+        - [ ] create a branch following the convention described in the README's Contributing section 
+        - [ ] publish the changes in a PR for review
+    validations:
+      required: true
