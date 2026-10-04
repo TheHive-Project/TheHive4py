@@ -1,6 +1,6 @@
 from typing import Any, List, Literal, Optional, TypedDict, Union
 
-from typing_extensions import NotRequired
+from typing_extensions import NotRequired, deprecated
 
 from thehive4py.types.custom_field import InputCustomFieldValue, OutputCustomFieldValue
 from thehive4py.types.observable import OutputObservable
@@ -8,25 +8,23 @@ from thehive4py.types.page import InputCasePage
 from thehive4py.types.share import InputShare
 from thehive4py.types.task import InputTask
 
-CaseStatusValue = Literal[
-    "New",
-    "InProgress",
-    "Indeterminate",
-    "FalsePositive",
-    "TruePositive",
-    "Other",
-    "Duplicated",
-]
+# Deprecated: use `str` instead. Case statuses are configurable in TheHive, so the
+# default values previously listed here are not an exhaustive set.
+CaseStatusValue = str
 
 
+@deprecated(
+    "CaseStatus is deprecated and will be removed in a future release. "
+    "Use plain strings to represent case statuses instead."
+)
 class CaseStatus:
-    New: CaseStatusValue = "New"
-    InProgress: CaseStatusValue = "InProgress"
-    Indeterminate: CaseStatusValue = "Indeterminate"
-    FalsePositive: CaseStatusValue = "FalsePositive"
-    TruePositive: CaseStatusValue = "TruePositive"
-    Other: CaseStatusValue = "Other"
-    Duplicated: CaseStatusValue = "Duplicated"
+    New: str = "New"
+    InProgress: str = "InProgress"
+    Indeterminate: str = "Indeterminate"
+    FalsePositive: str = "FalsePositive"
+    TruePositive: str = "TruePositive"
+    Other: str = "Other"
+    Duplicated: str = "Duplicated"
 
 
 ImpactStatusValue = Literal["NotApplicable", "WithImpact", "NoImpact"]
@@ -48,7 +46,7 @@ class InputCase(TypedDict):
     flag: NotRequired[bool]
     tlp: NotRequired[int]
     pap: NotRequired[int]
-    status: NotRequired[CaseStatusValue]
+    status: NotRequired[str]
     summary: NotRequired[str]
     assignee: NotRequired[str]
     access: NotRequired[dict]
@@ -81,7 +79,7 @@ class OutputCase(TypedDict):
     tlpLabel: str
     pap: int
     papLabel: str
-    status: CaseStatusValue
+    status: str
     stage: str
     summary: NotRequired[str]
     impactStatus: NotRequired[ImpactStatusValue]
