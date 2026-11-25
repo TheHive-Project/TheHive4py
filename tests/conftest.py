@@ -21,7 +21,7 @@ from thehive4py.types.task_log import InputTaskLog, OutputTaskLog
 from thehive4py.types.timeline import OutputCustomEvent
 from thehive4py.types.user import OutputUser
 
-THEHIVE_VERSION = "5.7.3"
+THEHIVE_VERSION = "5.7.6"
 
 
 @pytest.fixture(scope="session")
