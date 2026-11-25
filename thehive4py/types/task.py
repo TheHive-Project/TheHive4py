@@ -36,6 +36,7 @@ class OutputTask(TypedDict):
     dueDate: NotRequired[int]
     mandatory: bool
     extraData: dict
+    timeToHandle: NotRequired[int]
 
 
 class InputUpdateTask(TypedDict, total=False):

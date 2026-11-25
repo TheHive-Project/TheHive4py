@@ -6,6 +6,7 @@ from typing_extensions import NotRequired
 class InputObservableType(TypedDict):
     name: str
     isAttachment: NotRequired[bool]
+    isCaseSensitive: NotRequired[bool]
 
 
 class OutputObservableType(TypedDict):
@@ -17,3 +18,4 @@ class OutputObservableType(TypedDict):
     _createdBy: str
     name: str
     isAttachment: bool
+    isCaseSensitive: bool
