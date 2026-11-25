@@ -12,7 +12,6 @@ from thehive4py.query.page import Paginate
 from thehive4py.query.sort import Asc
 from thehive4py.types.alert import OutputAlert
 from thehive4py.types.case import (
-    CaseStatus,
     ImpactStatus,
     InputBulkUpdateCase,
     InputCaseLink,
@@ -442,7 +441,7 @@ class TestCaseEndpoint:
     def test_close_and_open(self, thehive: TheHiveApi, test_case: OutputCase):
         case_id = test_case["_id"]
         assert test_case["status"] == "New"
-        close_status = CaseStatus.TruePositive
+        close_status = "TruePositive"
         close_impact = ImpactStatus.WithImpact
         close_summary = "Closed..."
         thehive.case.close(
@@ -456,7 +455,7 @@ class TestCaseEndpoint:
         assert closed_case.get("impactStatus") == close_impact
         assert closed_case.get("summary") == close_summary
 
-        open_status = CaseStatus.InProgress
+        open_status = "InProgress"
         thehive.case.open(case_id, status=open_status)
         reopened_case = thehive.case.get(case_id)
         assert reopened_case["status"] == open_status

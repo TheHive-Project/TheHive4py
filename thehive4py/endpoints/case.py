@@ -10,8 +10,6 @@ from thehive4py.query.page import Paginate
 from thehive4py.query.sort import SortExpr
 from thehive4py.types.attachment import OutputAttachment
 from thehive4py.types.case import (
-    CaseStatus,
-    CaseStatusValue,
     ImpactStatusValue,
     InputApplyCaseTemplate,
     InputBulkUpdateCase,
@@ -834,7 +832,7 @@ class CaseEndpoint(EndpointBase):
     def close(
         self,
         case_id: CaseId,
-        status: CaseStatusValue,
+        status: str,
         summary: str,
         impact_status: ImpactStatusValue = "NotApplicable",
     ) -> None:
@@ -859,9 +857,7 @@ class CaseEndpoint(EndpointBase):
             case,
         )
 
-    def open(
-        self, case_id: CaseId, status: CaseStatusValue = CaseStatus.InProgress
-    ) -> None:
+    def open(self, case_id: CaseId, status: str = "InProgress") -> None:
         """Open a closed case.
 
         Args:
