@@ -60,6 +60,7 @@ class InputUpdateObservable(TypedDict, total=False):
     sighted: bool
     sightedAt: int
     ignoreSimilarity: bool
+    external: bool
     addTags: List[str]
     removeTags: List[str]
 

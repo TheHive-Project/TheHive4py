@@ -23,3 +23,4 @@ class OutputComment(TypedDict):
 
 class InputUpdateComment(TypedDict):
     message: str
+    external: NotRequired[bool]

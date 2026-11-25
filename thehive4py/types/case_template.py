@@ -3,6 +3,7 @@ from typing import List, Literal, TypedDict, Union
 from typing_extensions import Required
 
 from .custom_field import InputCustomFieldValue
+from .page import InputCasePage
 from .task import InputTask, OutputTask
 
 SeverityValue = Literal[1, 2, 3, 4]
@@ -23,6 +24,7 @@ class InputCaseTemplate(TypedDict, total=False):
     summary: str
     tasks: List[InputTask]
     pageTemplateIds: List[str]
+    pageTemplates: List[InputCasePage]
     customFields: Union[dict, List[InputCustomFieldValue]]
 
 
