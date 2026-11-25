@@ -5,6 +5,11 @@
     display: none
   }
 </style>
+## Unreleased
+
+### Deprecated
+* [#559](https://github.com/TheHive-Project/TheHive4py/issues/559) - Deprecate `CaseStatus` and `CaseStatusValue` in favor of plain strings as case statuses are configurable by [@Kamforka](https://github.com/Kamforka). Both names are planned for removal in a future release.
+
 ## 2.1.0 (2026-06-12)
 
 ### Changed
