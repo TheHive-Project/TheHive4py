@@ -10,6 +10,7 @@ nav:
   - Reference: 
     - Client: reference/client.md
     - Endpoints: reference/endpoints.md
+    - Endpoint Scope: reference/endpoint-scope.md
     - Errors: reference/errors.md
     - Query: reference/query.md
     - Session: reference/session.md
